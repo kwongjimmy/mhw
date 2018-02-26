@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { ScrollView, Text, Image, View, FlatList, TouchableOpacity, TouchableHighlight, ActivityIndicator } from 'react-native'
 import SQLite from 'react-native-sqlite-storage'
-import { Container, Header, Tab, Tabs, TabHeading, Icon, Text2 } from 'native-base';
+import { Container, Header, Tab, Tabs, TabHeading, Icon, Text2 } from 'native-base'
+import ItemInfoEquip from './ItemInfoEquip'
+import ItemInfoQuest from './ItemInfoQuest'
+import ItemInfoLoot from './ItemInfoLoot'
 
-// import MonsterInfo from './MonsterInfo'
 import { Images, ElementStatusImages } from '../assets'
 
 // Styles
@@ -15,20 +17,80 @@ export default class ItemInfoScreen extends Component {
     super(props)
     this.state = {
       item: {},
-      itemMapLoot: {},
-      itemMonsterLoot: {},
+      itemEquips: [],
+      itemMapLoot: [],
+      itemMonsterLoot: [],
+      itemQuest: [],
       loading: true,
     };
     let db = SQLite.openDatabase({name: 'mhworld.db', createFromLocation : "~mhworld.db", location: 'Default'});
     db.transaction((tx) => {
-      var item = [];
+      let item = {};
+      let itemEquips = [];
+      let itemMapLoot = [];
+      let itemMonsterLoot = [];
+      let itemQuest = [];
+
       tx.executeSql('SELECT * FROM items WHERE item_id=?', [this.props.item_id], (tx, results) => {
         // Get rows with Web SQL Database spec compliance.
-        let len = results.rows.length;
-        for (let i = 0; i < len; i++) {
-          let row = results.rows.item(i);
-          this.setState({ item: row, loading: false });
-        }
+        item = results.rows.item(0);
+      });
+      tx.executeSql(
+        `SELECT A.name as name, B.* from items as A
+          JOIN (SELECT B.item_id, quantity from items AS A JOIN crafting as B ON A.item_id = B.item_material_id WHERE A.item_id = ?) as B
+          ON A.item_id = B.item_id`
+        , [this.props.item_id], (tx, results) => {
+          // Get rows with Web SQL Database spec compliance.
+          let len = results.rows.length;
+          for (let i = 0; i < len; i++) {
+            let row = results.rows.item(i);
+            itemEquips.push(row);
+          }
+      });
+      tx.executeSql(
+        `SELECT B.map_id, B.item_id, B.area, B.rank, C.name FROM items as A JOIN map_items AS B ON A.item_id = B.item_id JOIN maps as C ON B.map_id = C.map_id WHERE A.item_id = ?`
+        , [this.props.item_id], (tx, results) => {
+          // Get rows with Web SQL Database spec compliance.
+          let len = results.rows.length;
+          for (let i = 0; i < len; i++) {
+            let row = results.rows.item(i);
+            itemMapLoot.push(row);
+          }
+      });
+      tx.executeSql(
+        `SELECT A.monster_id, A.monster_name, B.name, B.quantity, B.item_id from monster as A
+          JOIN (SELECT * from monster_loot as A JOIN monster_loot_categories as B ON A.category_id = B.category_id WHERE A.item_id = ?) as B
+          ON A.monster_id = B.monster_id`
+        , [this.props.item_id], (tx, results) => {
+          // Get rows with Web SQL Database spec compliance.
+          let len = results.rows.length;
+          for (let i = 0; i < len; i++) {
+            let row = results.rows.item(i);
+            itemMonsterLoot.push(row);
+          }
+      });
+      tx.executeSql(
+        `
+        SELECT * FROM
+        (SELECT A.*, B.item_id FROM quests as A JOIN quest_items AS B ON A.quest_id = B.quest_id WHERE B.item_id = 4) as B
+        WHERE B.item_id = ?
+        UNION
+        SELECT *
+        FROM (SELECT D.*, A.item_id FROM monster_loot as A
+        JOIN monster as B ON A.monster_id = B.monster_id
+        JOIN quest_monsters as C ON A.monster_id = C.monster_id
+        JOIN quests as D ON C.quest_id = D.quest_id) AS B
+        WHERE B.item_id = ?
+        `
+        , [this.props.item_id, this.props.item_id], (tx, results) => {
+          // Get rows with Web SQL Database spec compliance.
+          let len = results.rows.length;
+          for (let i = 0; i < len; i++) {
+            let row = results.rows.item(i);
+            itemQuest.push(row);
+          }
+          this.setState({ item, itemEquips, itemMapLoot, itemMonsterLoot, itemQuest, loading: false });
+          console.log(this.state);
       });
     });
   }
@@ -77,27 +139,15 @@ export default class ItemInfoScreen extends Component {
         );
       } else if(screen === 'tab2') {
         return (
-          <View>
-            <Text>
-              2
-            </Text>
-          </View>
+          <ItemInfoLoot navigator={this.props.navigator} mapLoot={this.state.itemMapLoot} monsterLoot={this.state.itemMonsterLoot}/>
         );
       } else if(screen === 'tab3') {
         return (
-          <View>
-            <Text>
-              3
-            </Text>
-          </View>
+          <ItemInfoEquip navigator={this.props.navigator} items={this.state.itemEquips}/>
         );
       }
       return (
-        <View>
-          <Text>
-            4
-          </Text>
-        </View>
+        <ItemInfoQuest navigator={this.props.navigator} items={this.state.itemQuest}/>
       );
     }
   }

@@ -8,6 +8,7 @@ import { MonsterImages } from '../assets'
 // Styles
 import styles from './Styles/ItemScreenStyles'
 
+let top = true;
 export default class ItemScreen extends Component {
   static navigatorStyle = {
     // navBarHideOnScroll: true,
@@ -35,6 +36,34 @@ export default class ItemScreen extends Component {
         db.close();
       });
     });
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  onNavigatorEvent(event) {
+    if (event.id === 'bottomTabSelected') {
+      console.log('Tab selected!');
+    }
+    if (event.id === 'bottomTabReselected') {
+      if(top === false) {
+        this.refs._Flatlist.scrollToOffset({
+          animated: true,
+          offSet: { y: 0, x: 0 }
+        })
+      } else {
+        this.props.navigator.popToRoot({
+          animated: true,
+          animationType: 'fade',
+        })
+      }
+    }
+  }
+
+  handleScroll(event) {
+    if(event.nativeEvent.contentOffset.y !== 0) {
+      top = false;
+    } else {
+      top = true;
+    }
   }
 
   renderListItems = ({ item }) => {
@@ -71,6 +100,8 @@ export default class ItemScreen extends Component {
           data={this.state.items}
           keyExtractor={(item) => item.item_id.toString()}
           renderItem={this.renderListItems}
+          ref={ref='_Flatlist'}
+          onScroll={this.handleScroll.bind(this)}
         />
       )
     }
