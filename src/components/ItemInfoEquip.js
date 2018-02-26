@@ -1,15 +1,11 @@
-import React, { Component } from 'react'
-import { ScrollView, Text, Image, View, FlatList, TouchableOpacity, TouchableHighlight, ActivityIndicator } from 'react-native'
-import SQLite from 'react-native-sqlite-storage'
-import { Container, Header, Tab, Tabs, TabHeading, Icon, Text2 } from 'native-base';
-
-import { Images, ElementStatusImages } from '../assets'
+import React, { Component } from 'react';
+import { Text, View, FlatList } from 'react-native';
+import { Container } from 'native-base';
 
 let top = true;
 export default class ItemInfoEquip extends Component {
-
   constructor(props) {
-    super(props)
+    super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
@@ -18,22 +14,22 @@ export default class ItemInfoEquip extends Component {
       console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
-      if(top === false) {
+      if (top === false) {
         this.refs._Flatlist.scrollToOffset({
           animated: true,
-          offSet: { y: 0, x: 0 }
-        })
+          offSet: { y: 0, x: 0 },
+        });
       } else {
         this.props.navigator.popToRoot({
           animated: true,
           animationType: 'fade',
-        })
+        });
       }
     }
   }
 
   handleScroll(event) {
-    if(event.nativeEvent.contentOffset.y !== 0) {
+    if (event.nativeEvent.contentOffset.y !== 0) {
       top = false;
     } else {
       top = true;

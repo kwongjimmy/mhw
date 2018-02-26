@@ -1,11 +1,6 @@
-import React, { Component } from 'react'
-import { ScrollView, Text, Image, View, FlatList, TouchableOpacity, TouchableHighlight } from 'react-native'
-import SQLite from 'react-native-sqlite-storage'
-import EquipArmorContainer from './EquipArmorContainer'
-import { MonsterImages } from '../assets'
-
-// Styles
-import styles from './Styles/EquipScreenStyles'
+import React, { Component } from 'react';
+import { FlatList } from 'react-native';
+import EquipArmorContainer from './EquipArmorContainer';
 
 export default class EquipArmorList extends Component {
   renderArmorSet = ({ item }) => {

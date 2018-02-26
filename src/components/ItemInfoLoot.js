@@ -1,15 +1,11 @@
-import React, { Component } from 'react'
-import { ScrollView, Text, Image, View, FlatList, TouchableOpacity, TouchableHighlight, ActivityIndicator } from 'react-native'
-import SQLite from 'react-native-sqlite-storage'
-import { Container, Header, Tab, Tabs, TabHeading, Icon, Text2 } from 'native-base';
-
-import { Images, ElementStatusImages } from '../assets'
+import React, { Component } from 'react';
+import { Text, View, FlatList } from 'react-native';
+import { Container } from 'native-base';
 
 let top = true;
 export default class ItemInfoLoot extends Component {
-
   constructor(props) {
-    super(props)
+    super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
@@ -18,22 +14,22 @@ export default class ItemInfoLoot extends Component {
       console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
-      if(top === false) {
+      if (top === false) {
         this.refs._Flatlist.scrollToOffset({
           animated: true,
-          offSet: { y: 0, x: 0 }
-        })
+          offSet: { y: 0, x: 0 },
+        });
       } else {
         this.props.navigator.popToRoot({
           animated: true,
           animationType: 'fade',
-        })
+        });
       }
     }
   }
 
   handleScroll(event) {
-    if(event.nativeEvent.contentOffset.y !== 0) {
+    if (event.nativeEvent.contentOffset.y !== 0) {
       top = false;
     } else {
       top = true;
@@ -49,7 +45,7 @@ export default class ItemInfoLoot extends Component {
   }
 
   renderMapLoot() {
-    if(this.props.mapLoot.length > 0) {
+    if (this.props.mapLoot.length > 0) {
       return (
         <FlatList
           data={this.props.mapLoot}
@@ -58,7 +54,7 @@ export default class ItemInfoLoot extends Component {
           ref={ref='_Flatlist'}
           onScroll={this.handleScroll.bind(this)}
         />
-      )
+      );
     }
     return (
       null
@@ -66,16 +62,16 @@ export default class ItemInfoLoot extends Component {
   }
 
   renderMonsterLoot() {
-    if(this.props.monsterLoot.length > 0) {
+    if (this.props.monsterLoot.length > 0) {
       return (
         <FlatList
           data={this.props.monsterLoot}
-          keyExtractor={(item) => item.name.toString()}
+          keyExtractor={(item) => `${item.name} ${item.rank}`}
           renderItem={this.renderListItems}
           ref={ref='_Flatlist'}
           onScroll={this.handleScroll.bind(this)}
         />
-      )
+      );
     }
     return (
       null

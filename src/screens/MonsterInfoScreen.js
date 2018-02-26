@@ -1,21 +1,18 @@
-import React, { Component } from 'react'
-import { ScrollView, Text, Image, View, FlatList, TouchableOpacity, TouchableHighlight, ActivityIndicator } from 'react-native'
-import SQLite from 'react-native-sqlite-storage'
-import { Container, Header, Tab, Tabs, TabHeading, Icon, Text2, ScrollableTab  } from 'native-base';
-// import MonsterInfo from './MonsterInfo'
-import { Images, ElementStatusImages } from '../assets'
-// import { renderTab1 } from './MonsterInfo'
-import MonsterInfo from '../components/MonsterInfo'
-import MonsterLoot from '../components/MonsterLoot'
-import MonsterEquip from '../components/MonsterEquip'
-import MonsterQuest from '../components/MonsterQuest'
+import React, { Component } from 'react';
+import { View, ActivityIndicator } from 'react-native';
+import SQLite from 'react-native-sqlite-storage';
+import { Container, Tab, Tabs, ScrollableTab } from 'native-base';
 
-// Styles
-import styles from './Styles/MonsterInfoScreenStyles'
+// import { Images, ElementStatusImages } from '../assets'
+
+import MonsterInfo from '../components/MonsterInfo';
+import MonsterLoot from '../components/MonsterLoot';
+import MonsterEquip from '../components/MonsterEquip';
+import MonsterQuest from '../components/MonsterQuest';
 
 export default class MonsterInfoScreen extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       monster_hit: [],
       monster_loot: [],
@@ -25,22 +22,25 @@ export default class MonsterInfoScreen extends Component {
       monster_quest: [],
       loading: true,
     };
-    let db = SQLite.openDatabase({name: 'mhworld.db', location: 'Default'}, this.okCallback, this.errorCallback)
+    const db = SQLite.openDatabase({
+      name: 'mhworld.db', location: 'Default',
+    }, this.okCallback, this.errorCallback);
     db.transaction((tx) => {
-      var monster_hit = [];
-      var monster_loot = [];
-      var monster_loot_high = [];
-      var monster_armor = [];
-      var monster_weapons = [];
-      var monster_quest = [];
+      const monster_hit = [];
+      const monster_loot = [];
+      const monster_loot_high = [];
+      const monster_armor = [];
+      const monster_weapons = [];
+      const monster_quest = [];
       tx.executeSql('SELECT * FROM monster_hit WHERE monster_id = ?', [this.props.monster_id], (tx, results) => {
-        for(let i = 0; i < results.rows.length; i++) {
-          let row = results.rows.item(i);
+        for (let i = 0; i < results.rows.length; i += 1) {
+          const row = results.rows.item(i);
           monster_hit.push(row);
         }
         // this.setState({ monster_hit });
       });
-      tx.executeSql(`SELECT
+      tx.executeSql(
+        `SELECT
         loot.loot_id,
         loot.item_id,
         loot.category_id,
@@ -54,13 +54,14 @@ export default class MonsterInfoScreen extends Component {
         INNER JOIN items as items ON loot.item_id = items.item_id
         WHERE loot.monster_id = ? AND cat.rank = 0`,
         [this.props.monster_id], (tx, results) => {
-        for(let i = 0; i < results.rows.length; i++) {
-          let row = results.rows.item(i);
-          monster_loot.push(row);
-        }
-        // this.setState({ monster_loot });
-      });
-      tx.executeSql(`SELECT
+          for (let i = 0; i < results.rows.length; i += 1) {
+            const row = results.rows.item(i);
+            monster_loot.push(row);
+          }
+        },
+      );
+      tx.executeSql(
+        `SELECT
         loot.loot_id,
         loot.item_id,
         loot.category_id,
@@ -74,99 +75,153 @@ export default class MonsterInfoScreen extends Component {
         INNER JOIN items as items ON loot.item_id = items.item_id
         WHERE loot.monster_id = ? AND cat.rank = 1`,
         [this.props.monster_id], (tx, results) => {
-        for(let i = 0; i < results.rows.length; i++) {
-          let row = results.rows.item(i);
-          monster_loot_high.push(row);
-        }
-        // this.setState({ monster_loot_high });
-      });
-      tx.executeSql(`SELECT C.name, C.item_id FROM monster_loot as A
+          for (let i = 0; i < results.rows.length; i += 1) {
+            const row = results.rows.item(i);
+            monster_loot_high.push(row);
+          }
+        },
+      );
+      tx.executeSql(
+        `SELECT C.name, C.item_id FROM monster_loot as A
         JOIN monster_loot_categories as B on A.category_id = B.category_id
         JOIN items as C ON A.item_id = C.item_id
         WHERE A.monster_id = ? AND B.category_id = 51`,
         [this.props.monster_id], (tx, results) => {
-        for(let i = 0; i < results.rows.length; i++) {
-          let row = results.rows.item(i);
-          monster_armor.push(row);
-        }
-        // this.setState({ monster_armor });
-      });
-      tx.executeSql(`SELECT C.name, C.item_id FROM monster_loot as A
+          for (let i = 0; i < results.rows.length; i += 1) {
+            const row = results.rows.item(i);
+            monster_armor.push(row);
+          }
+        },
+      );
+      tx.executeSql(
+        `SELECT C.name, C.item_id FROM monster_loot as A
         JOIN monster_loot_categories as B on A.category_id = B.category_id
         JOIN items as C ON A.item_id = C.item_id
         WHERE A.monster_id = ? AND B.category_id = 50`,
         [this.props.monster_id], (tx, results) => {
-        for(let i = 0; i < results.rows.length; i++) {
-          let row = results.rows.item(i);
-          monster_weapons.push(row);
-        }
+          for (let i = 0; i < results.rows.length; i += 1) {
+            const row = results.rows.item(i);
+            monster_weapons.push(row);
+          }
         // this.setState({ monster_weapons });
-      });
-      tx.executeSql(`SELECT A.quest_id, B.name as quest_name, B.required_rank, B.type
+        },
+      );
+      tx.executeSql(
+        `SELECT A.quest_id, B.name as quest_name, B.required_rank, B.type
         FROM quest_monsters as A
         JOIN quests as B ON A.quest_id = B.quest_id
         where A.monster_id = ?`,
         [this.props.monster_id], (tx, results) => {
-        for(let i = 0; i < results.rows.length; i++) {
-          let row = results.rows.item(i);
-          monster_quest.push(row);
-        }
-        this.setState({ monster_hit, monster_loot, monster_loot_high, monster_armor, monster_weapons, monster_quest, loading: false });
-        console.log(this.state);
-        db.close();
-      });
+          for (let i = 0; i < results.rows.length; i += 1) {
+            const row = results.rows.item(i);
+            monster_quest.push(row);
+          }
+          this.setState({
+            monster_hit,
+            monster_loot,
+            monster_loot_high,
+            monster_armor,
+            monster_weapons,
+            monster_quest,
+            loading: false,
+          });
+          console.log(this.state);
+          db.close();
+        },
+      );
     });
   }
 
   renderContent(screen) {
-    if(this.state.loading) {
+    if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center', backgroundColor: 'white' }}>
+        <View style={{
+          flex: 1, justifyContent: 'center', alignSelf: 'center', backgroundColor: 'white',
+        }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
         </View>
       );
-    } else {
-      if(screen === 'tab1') {
-        return <MonsterInfo navigator={this.props.navigator} monster_hit={this.state.monster_hit}/>
-      } else if(screen === 'tab2') {
-        return <MonsterLoot navigator={this.props.navigator} monster_loot={this.state.monster_loot}/>
-      } else if(screen === 'tab3') {
-        return <MonsterLoot navigator={this.props.navigator} monster_loot={this.state.monster_loot_high}/>
-      } else if(screen === 'tab4') {
-        return <MonsterEquip navigator={this.props.navigator} data={this.state.monster_armor}/>
-      } else if(screen === 'tab5') {
-        return <MonsterEquip navigator={this.props.navigator} data={this.state.monster_weapons}/>
-     }
-      return (
-        <MonsterQuest navigator={this.props.navigator} monster_quest={this.state.monster_quest}/>
-      );
     }
+    if (screen === 'tab1') {
+      return <MonsterInfo navigator={this.props.navigator} monster_hit={this.state.monster_hit}/>;
+    } else if (screen === 'tab2') {
+      return <MonsterLoot navigator={this.props.navigator} monster_loot={this.state.monster_loot}/>;
+    } else if (screen === 'tab3') {
+      return <MonsterLoot navigator={this.props.navigator} monster_loot={this.state.monster_loot_high}/>;
+    } else if (screen === 'tab4') {
+      return <MonsterEquip navigator={this.props.navigator} data={this.state.monster_armor}/>;
+    } else if (screen === 'tab5') {
+      return <MonsterEquip navigator={this.props.navigator} data={this.state.monster_weapons}/>;
+    }
+    return (
+      <MonsterQuest navigator={this.props.navigator} monster_quest={this.state.monster_quest}/>
+    );
   }
 
   render() {
     return (
       <Container style={{ backgroundColor: 'white' }}>
-         <Tabs tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0} renderTabBar={()=> <ScrollableTab />}>
-           <Tab activeTabStyle={{ backgroundColor: 'white' }} tabStyle={{ backgroundColor: 'white' }} activeTextStyle={{ color: '#191919', fontWeight: '100', }} textStyle={{ color: '#5e5e5e' }} heading="Info">
+         <Tabs
+           tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }}
+           initialPage={0}
+           renderTabBar={() => <ScrollableTab />}
+           >
+           <Tab
+             activeTabStyle={{ backgroundColor: 'white' }}
+             tabStyle={{ backgroundColor: 'white' }}
+             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+             textStyle={{ color: '#5e5e5e' }}
+             heading="Info"
+             >
              {this.renderContent('tab1')}
            </Tab>
-           <Tab activeTabStyle={{ backgroundColor: 'white' }} tabStyle={{ backgroundColor: 'white' }} activeTextStyle={{ color: '#191919', fontWeight: '100', }} textStyle={{ color: '#5e5e5e' }} heading="LR Loot">
+           <Tab
+             activeTabStyle={{ backgroundColor: 'white' }}
+             tabStyle={{ backgroundColor: 'white' }}
+             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+             textStyle={{ color: '#5e5e5e' }}
+             heading="LR Loot"
+             >
              {this.renderContent('tab2')}
            </Tab>
-           <Tab activeTabStyle={{ backgroundColor: 'white' }} tabStyle={{ backgroundColor: 'white' }} activeTextStyle={{ color: '#191919', fontWeight: '100', }} textStyle={{ color: '#5e5e5e' }} heading="HR Loot">
+           <Tab
+             activeTabStyle={{ backgroundColor: 'white' }}
+             tabStyle={{ backgroundColor: 'white' }}
+             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+             textStyle={{ color: '#5e5e5e' }}
+             heading="HR Loot"
+             >
              {this.renderContent('tab3')}
            </Tab>
-           <Tab activeTabStyle={{ backgroundColor: 'white' }} tabStyle={{ backgroundColor: 'white' }} activeTextStyle={{ color: '#191919', fontWeight: '100', }} textStyle={{ color: '#5e5e5e' }} heading="Armor">
+           <Tab
+             activeTabStyle={{ backgroundColor: 'white' }}
+             tabStyle={{ backgroundColor: 'white' }}
+             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+             textStyle={{ color: '#5e5e5e' }}
+             heading="Armor"
+             >
              {this.renderContent('tab4')}
            </Tab>
-           <Tab activeTabStyle={{ backgroundColor: 'white' }} tabStyle={{ backgroundColor: 'white' }} activeTextStyle={{ color: '#191919', fontWeight: '100', }} textStyle={{ color: '#5e5e5e' }} heading="Weapon">
+           <Tab
+             activeTabStyle={{ backgroundColor: 'white' }}
+             tabStyle={{ backgroundColor: 'white' }}
+             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+             textStyle={{ color: '#5e5e5e' }}
+             heading="Weapon"
+             >
              {this.renderContent('tab5')}
            </Tab>
-           <Tab activeTabStyle={{ backgroundColor: 'white' }} tabStyle={{ backgroundColor: 'white' }} activeTextStyle={{ color: '#191919', fontWeight: '100', }} textStyle={{ color: '#5e5e5e' }} heading="Quest">
+           <Tab
+             activeTabStyle={{ backgroundColor: 'white' }}
+             tabStyle={{ backgroundColor: 'white' }}
+             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+             textStyle={{ color: '#5e5e5e' }}
+             heading="Quest"
+             >
              {this.renderContent('tab6')}
            </Tab>
          </Tabs>
       </Container>
-   );
+    );
   }
 }

@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { ScrollView, Text, Image, View, FlatList, TouchableOpacity, TouchableHighlight } from 'react-native'
-import { Container, Header, Tab, Tabs, TabHeading, Icon, Text2 } from 'native-base';
+import React, { Component } from 'react';
+import { Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { Container } from 'native-base';
 
 export default class MiscScreen extends Component {
   static navigatorStyle = {
@@ -10,29 +10,33 @@ export default class MiscScreen extends Component {
   };
 
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       screens: [
         {
           route: 'ItemScreen',
-          title: 'Items'
+          title: 'Items',
         },
         {
           route: 'QuestScreen',
-          title: 'Quests'
+          title: 'Quests',
         },
         {
           route: 'MapScreen',
-          title: 'Maps'
+          title: 'Maps',
         },
-      ]
+      ],
     };
   }
 
   renderListItems = ({ item }) => {
     return (
-      <View style={{ paddingBottom: 7.5, flex: 1, flexDirection: 'row', borderColor: 'red', borderBottomWidth: 0, alignItems: 'center', marginLeft: 7.5, marginRight: 7.5 }}>
-        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', borderWidth: 0}}>
+      <View style={{
+        paddingBottom: 7.5, flex: 1, flexDirection: 'row', borderColor: 'red', borderBottomWidth: 0, alignItems: 'center', marginLeft: 7.5, marginRight: 7.5
+      }}>
+        <View style={{
+          flex: 1, flexDirection: 'row', alignItems: 'center', borderWidth: 0,
+        }}>
           <TouchableOpacity
             onPress={() => this.props.navigator.push({
             screen: item.route,
@@ -40,7 +44,7 @@ export default class MiscScreen extends Component {
 
             },
             animationType: 'fade',
-            title: item.title
+            title: item.title,
           })}>
             <Text style={{ fontSize: 15.5, flex: 1, color: '#191919' }}>{item.title}</Text>
           </TouchableOpacity>

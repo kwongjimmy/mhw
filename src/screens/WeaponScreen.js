@@ -1,12 +1,10 @@
-import React, { Component } from 'react'
-import { ScrollView, Text, Image, View, FlatList, TouchableOpacity, TouchableHighlight, ActivityIndicator } from 'react-native'
-import SQLite from 'react-native-sqlite-storage'
-import { Container, Header, Tab, Tabs, TabHeading, Icon, Text2 } from 'native-base';
+import React, { Component } from 'react';
+import { Text, Image, View, FlatList, TouchableHighlight } from 'react-native';
 
-import { WeaponImages } from '../assets'
+import { WeaponImages } from '../assets';
 
 // Styles
-import styles from '../screens/Styles/MonsterScreenStyles'
+import styles from '../screens/Styles/MonsterScreenStyles';
 
 let top = true;
 export default class WeaponScreen extends Component {
@@ -17,15 +15,15 @@ export default class WeaponScreen extends Component {
   };
 
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       weapons:
       [
-      'Great Sword','Long Sword','Sword and Shield','Dual Blades',
-      'Hammer','Hunting Horn', 'Lance', 'Gunlance', 'Switch Axe',
-      'Charge Blade', 'Insect Glaive', 'Bow', 'Light Bowgun', 'Heavy Bowgun'
-      ]
-    }
+        'Great Sword', 'Long Sword', 'Sword and Shield', 'Dual Blades',
+        'Hammer', 'Hunting Horn', 'Lance', 'Gunlance', 'Switch Axe',
+        'Charge Blade', 'Insect Glaive', 'Bow', 'Light Bowgun', 'Heavy Bowgun',
+      ],
+    };
   }
 
   onNavigatorEvent(event) {
@@ -34,19 +32,18 @@ export default class WeaponScreen extends Component {
     }
     if (event.id === 'bottomTabReselected') {
       console.log(this.refs);
-      if(top === false) {
+      if (top === false) {
         this.refs._Flatlist.scrollToIndex({
           animated: true,
-          index: 0
-        })
-      } else {
+          index: 0,
+        });
       }
     }
   }
 
   handleScroll(event) {
     console.log(event.nativeEvent.contentOffset.y);
-    if(event.nativeEvent.contentOffset.y !== 0) {
+    if (event.nativeEvent.contentOffset.y !== 0) {
       top = false;
     } else {
       top = true;
@@ -64,7 +61,7 @@ export default class WeaponScreen extends Component {
   }
 
   renderListItems = ({ item }) => {
-    let src = WeaponImages[item]
+    const src = WeaponImages[item];
     return (
       <TouchableHighlight activeOpacity={0.5} underlayColor={'white'}
         >
@@ -76,12 +73,12 @@ export default class WeaponScreen extends Component {
               source={src}
             />
           </View>
-          <View style={[styles.monsterTextContainer, { borderWidth: 0, marginTop: 15, marginBottom: 15 }]}>
-            <Text style={[styles.monsterText ]}>{item}</Text>
+          <View style={[styles.monsterTextContainer, { marginTop: 15, marginBottom: 15 }]}>
+            <Text style={[styles.monsterText]}>{item}</Text>
           </View>
         </View>
       </TouchableHighlight>
-    )
+    );
   }
 
   renderSelectList() {
@@ -93,16 +90,16 @@ export default class WeaponScreen extends Component {
         ref={ref='_Flatlist'}
         onScroll={this.handleScroll.bind(this)}
       />
-    )
+    );
   }
 
-  render () {
+  render() {
     return (
       <View>
         <Text>
           {this.props.type}
         </Text>
       </View>
-    )
+    );
   }
 }

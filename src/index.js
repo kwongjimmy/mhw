@@ -5,18 +5,16 @@ import Screen2 from './screens/Screen2';
 import Screen3 from './screens/Screen3';
 import Screen4 from './screens/Screen4';
 
-import MonsterScreen from './screens/MonsterScreen'
-import EquipArmorScreen from './screens/EquipArmorScreen'
-import QuestScreen from './screens/QuestScreen'
-import WeaponSelectScreen from './screens/WeaponSelectScreen'
-import WeaponScreen from './screens/WeaponScreen'
-import MiscScreen from './screens/MiscScreen'
-import ItemScreen from './screens/ItemScreen'
+import MonsterScreen from './screens/MonsterScreen';
+import EquipArmorScreen from './screens/EquipArmorScreen';
+import QuestScreen from './screens/QuestScreen';
+import WeaponSelectScreen from './screens/WeaponSelectScreen';
+import WeaponScreen from './screens/WeaponScreen';
+import MiscScreen from './screens/MiscScreen';
+import ItemScreen from './screens/ItemScreen';
 
-import MonsterInfoScreen from './screens/MonsterInfoScreen'
-import ItemInfoScreen from './screens/ItemInfoScreen'
-
-
+import MonsterInfoScreen from './screens/MonsterInfoScreen';
+import ItemInfoScreen from './screens/ItemInfoScreen';
 
 export default () => {
   Navigation.registerComponent('Screen1', () => Screen1);
@@ -31,12 +29,9 @@ export default () => {
   Navigation.registerComponent('MiscScreen', () => MiscScreen);
   Navigation.registerComponent('ItemScreen', () => ItemScreen);
 
-
   Navigation.registerComponent('WeaponScreen', () => WeaponScreen);
   Navigation.registerComponent('MonsterInfoScreen', () => MonsterInfoScreen);
   Navigation.registerComponent('ItemInfoScreen', () => ItemInfoScreen);
-
-
 
   Navigation.startTabBasedApp({
     tabs: [
@@ -59,35 +54,35 @@ export default () => {
         screen: 'MonsterScreen',
         icon: require('./assets/images/monsters/MHW-Great_Jagras_Icon.png'),
         selectedIcon: require('./assets/images/monsters/MHW-Great_Jagras_Icon.png'),
-        title: 'Monsters'
+        title: 'Monsters',
       },
       {
         label: 'Armor',
         screen: 'EquipArmorScreen',
         icon: require('./assets/images/armor/body.png'),
         selectedIcon: require('./assets/images/armor/body.png'),
-        title: 'Armor'
+        title: 'Armor',
       },
       {
         label: 'Weapons',
         screen: 'WeaponSelectScreen',
         icon: require('./assets/images/weapons/Great_Sword_Icon_White.png'),
         selectedIcon: require('./assets/images/weapons/Great_Sword_Icon_White.png'),
-        title: 'Weapons'
+        title: 'Weapons',
       },
       {
         label: 'Quest',
         screen: 'QuestScreen',
         icon: require('./images/icon2.png'),
         selectedIcon: require('./images/icon2_selected.png'),
-        title: 'Quest'
+        title: 'Quest',
       },
       {
         label: 'Misc',
         screen: 'MiscScreen',
         icon: require('./images/icon2.png'),
         selectedIcon: require('./images/icon2_selected.png'),
-        title: 'Misc'
+        title: 'Misc',
       },
     ],
     appStyle: {

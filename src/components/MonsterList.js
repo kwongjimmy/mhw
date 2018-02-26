@@ -1,16 +1,9 @@
-import React, { Component, PureComponent } from 'react'
-import { ScrollView, Text, Image, View, FlatList, TouchableOpacity, TouchableHighlight } from 'react-native'
-import SQLite from 'react-native-sqlite-storage'
-
-import { MonsterImages } from '../assets'
+import React, { Component, PureComponent } from 'react';
+import { Text, Image, View, FlatList, TouchableHighlight } from 'react-native';
+import { MonsterImages } from '../assets';
 
 // Styles
-import styles from '../screens/Styles/MonsterScreenStyles'
-
-// let SQLite = require('react-native-sqlite-storage')
-// let db = SQLite.openDatabase({name: 'petDB', createFromLocation : "~pet.db"}, this.openCB, this.errorCB);
-// let db = SQLite.openDatabase({name: 'test.db', createFromLocation : "~example.db", location: 'Library'}, this.openCB, this.errorCB);
-// var db = SQLite.openDatabase({name: 'test.db', createFromLocation : '~pet.db'});
+import styles from '../screens/Styles/MonsterScreenStyles';
 
 let top = true;
 export default class MonsterList extends PureComponent {
@@ -25,18 +18,17 @@ export default class MonsterList extends PureComponent {
     }
     if (event.id === 'bottomTabReselected') {
       console.log(this.refs);
-      if(top === false) {
+      if (top === false) {
         this.refs._Flatlist.scrollToIndex({
           animated: true,
-          index: 0
-        })
-      } else {
+          index: 0,
+        });
       }
     }
   }
 
   handleScroll(event) {
-    if(event.nativeEvent.contentOffset.y !== 0) {
+    if (event.nativeEvent.contentOffset.y !== 0) {
       top = false;
     } else {
       top = true;
@@ -46,21 +38,22 @@ export default class MonsterList extends PureComponent {
   renderMonster = ({ item }) => {
     let src = MonsterImages['Unknown'];
     let name = item.monster_name;
-    if(name !== 'Gajalaka' && name !== 'Grimalkyne') {
-      name = name.replace(/["'-]/g, "");
+    if (name !== 'Gajalaka' && name !== 'Grimalkyne') {
+      name = name.replace(/["'-]/g, '');
       name = name.replace(' ', '');
       src = MonsterImages[name];
     }
     return (
-      // <TouchableHighlight style={styles.monsterTouchContainer2} activeOpacity={0.5} underlayColor={'white'} onPress={() => this.props.navigation.navigate('MonsterInfo', { monster_id: item.monster_id, monster_name: item.monster_name })}>
-      <TouchableHighlight style={styles.monsterTouchContainer} activeOpacity={0.5} underlayColor={'white'}
+      <TouchableHighlight
+        style={styles.monsterTouchContainer} activeOpacity={0.5}
+        underlayColor={'white'}
         onPress={() => this.props.navigator.push({
         screen: 'MonsterInfoScreen',
         passProps: {
           monster_id: item.monster_id,
         },
         animationType: 'fade',
-        title: item.monster_name
+        title: item.monster_name,
       })}>
         <View style={styles.monsterContainer}>
           <View style={styles.monsterImageContainer}>
@@ -79,7 +72,7 @@ export default class MonsterList extends PureComponent {
     );
   }
 
-  render () {
+  render() {
     return (
       <FlatList
         contentContainerStyle={styles.monsterFlatListContext}

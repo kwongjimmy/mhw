@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, Image, View, FlatList, TouchableOpacity, TouchableHighlight } from 'react-native'
+import { Text, Image, View, FlatList } from 'react-native'
 
-import styles from './Styles/MonsterInfoScreenStyles'
-import { Images, ElementStatusImages } from '../assets'
+import styles from './Styles/MonsterInfoScreenStyles';
+import { ElementStatusImages } from '../assets';
 
 let top = true;
 export default class MonsterInfo extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
@@ -16,22 +16,22 @@ export default class MonsterInfo extends Component {
       console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
-      if(top === false) {
+      if (top === false) {
         this.refs._Flatlist.scrollToOffset({
           animated: true,
-          offSet: { y: 0, x: 0 }
-        })
+          offSet: { y: 0, x: 0 },
+        });
       } else {
         this.props.navigator.popToRoot({
           animated: true,
           animationType: 'fade',
-        })
+        });
       }
     }
   }
 
   handleScroll(event) {
-    if(event.nativeEvent.contentOffset.y !== 0) {
+    if (event.nativeEvent.contentOffset.y !== 0) {
       top = false;
     } else {
       top = true;
@@ -45,70 +45,70 @@ export default class MonsterInfo extends Component {
         <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
           <Image
             resizeMode="contain"
-            style={{ height: 22.5, width: 22.5}}
+            style={{ height: 22.5, width: 22.5 }}
             source={ElementStatusImages.Sever}
           />
         </View>
         <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
           <Image
             resizeMode="contain"
-            style={{ height: 22.5, width: 22.5}}
+            style={{ height: 22.5, width: 22.5 }}
             source={ElementStatusImages.Blunt}
           />
         </View>
         <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
           <Image
             resizeMode="contain"
-            style={{ height: 22.5, width: 22.5}}
+            style={{ height: 22.5, width: 22.5 }}
             source={ElementStatusImages.Shot}
           />
         </View>
         <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
           <Image
             resizeMode="contain"
-            style={{ height: 22.5, width: 22.5}}
+            style={{ height: 22.5, width: 22.5 }}
             source={ElementStatusImages.Stun}
           />
         </View>
         <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
           <Image
             resizeMode="contain"
-            style={{ height: 22.5, width: 22.5}}
+            style={{ height: 22.5, width: 22.5 }}
             source={ElementStatusImages.Fire}
           />
         </View>
         <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
           <Image
             resizeMode="contain"
-            style={{ height: 22.5, width: 22.5}}
+            style={{ height: 22.5, width: 22.5 }}
             source={ElementStatusImages.Water}
           />
         </View>
         <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
           <Image
             resizeMode="contain"
-            style={{ height: 22.5, width: 22.5}}
+            style={{ height: 22.5, width: 22.5 }}
             source={ElementStatusImages.Ice}
           />
         </View>
         <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
           <Image
             resizeMode="contain"
-            style={{ height: 22.5, width: 22.5}}
+            style={{ height: 22.5, width: 22.5 }}
             source={ElementStatusImages.Thunder}
           />
         </View>
         <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
           <Image
             resizeMode="contain"
-            style={{ height: 22.5, width: 22.5}}
+            style={{ height: 22.5, width: 22.5 }}
             source={ElementStatusImages.Dragon}
           />
         </View>
         <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
           <Image
             resizeMode="contain"
-            style={{ height: 22.5, width: 22.5}}
+            style={{ height: 22.5, width: 22.5 }}
             source={ElementStatusImages.Extract}
           />
         </View>

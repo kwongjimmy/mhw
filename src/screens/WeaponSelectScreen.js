@@ -1,19 +1,12 @@
-import React, { Component } from 'react'
-import { ScrollView, Text, Image, View, FlatList, TouchableOpacity, TouchableHighlight, ActivityIndicator } from 'react-native'
-import SQLite from 'react-native-sqlite-storage'
-import { Container, Header, Tab, Tabs, TabHeading, Icon, Text2 } from 'native-base';
+import React, { Component } from 'react';
+import { Text, Image, View, FlatList, TouchableHighlight } from 'react-native';
+import { Container } from 'native-base';
 
-import { WeaponImages } from '../assets'
+import { WeaponImages } from '../assets';
 
 // Styles
-import styles from '../screens/Styles/MonsterScreenStyles'
+import styles from '../screens/Styles/MonsterScreenStyles';
 
-// let SQLite = require('react-native-sqlite-storage')
-// let db = SQLite.openDatabase({name: 'petDB', createFromLocation : "~pet.db"}, this.openCB, this.errorCB);
-// let db = SQLite.openDatabase({name: 'test.db', createFromLocation : "~example.db", location: 'Library'}, this.openCB, this.errorCB);
-// var db = SQLite.openDatabase({name: 'test.db', createFromLocation : '~pet.db'});
-
-let top = true;
 export default class WeaponSelectScreen extends Component {
   static navigatorStyle = {
     // navBarHideOnScroll: true,
@@ -22,15 +15,15 @@ export default class WeaponSelectScreen extends Component {
   };
 
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       weapons:
       [
-      'Great Sword','Long Sword','Sword and Shield','Dual Blades',
-      'Hammer','Hunting Horn', 'Lance', 'Gunlance', 'Switch Axe',
-      'Charge Blade', 'Insect Glaive', 'Bow', 'Light Bowgun', 'Heavy Bowgun'
-      ]
-    }
+        'Great Sword', 'Long Sword', 'Sword and Shield', 'Dual Blades',
+        'Hammer', 'Hunting Horn', 'Lance', 'Gunlance', 'Switch Axe',
+        'Charge Blade', 'Insect Glaive', 'Bow', 'Light Bowgun', 'Heavy Bowgun',
+      ],
+    };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
@@ -41,8 +34,8 @@ export default class WeaponSelectScreen extends Component {
     if (event.id === 'bottomTabReselected') {
       this.refs._Flatlist.scrollToIndex({
         animated: true,
-        index: 0
-      })
+        index: 0,
+      });
     }
   }
 
@@ -57,7 +50,7 @@ export default class WeaponSelectScreen extends Component {
   }
 
   renderListItems = ({ item }) => {
-    let src = WeaponImages[item]
+    const src = WeaponImages[item];
     return (
       <TouchableHighlight activeOpacity={0.5} underlayColor={'white'}
         onPress={() => this.props.navigator.push({
@@ -66,9 +59,9 @@ export default class WeaponSelectScreen extends Component {
           type: item,
         },
         animationType: 'fade',
-        title: item
+        title: item,
       })}>
-        <View style={[styles.monsterContainer, { borderWidth: 0, justifyContent: 'center' }]}>
+        <View style={[styles.monsterContainer, { justifyContent: 'center' }]}>
           <View style={styles.monsterImageContainer}>
             <Image
               resizeMode="contain"
@@ -76,12 +69,12 @@ export default class WeaponSelectScreen extends Component {
               source={src}
             />
           </View>
-          <View style={[styles.monsterTextContainer, { borderWidth: 0, marginTop: 15, marginBottom: 15 }]}>
-            <Text style={[styles.monsterText ]}>{item}</Text>
+          <View style={[styles.monsterTextContainer, { marginTop: 15, marginBottom: 15 }]}>
+            <Text style={[styles.monsterText]}>{item}</Text>
           </View>
         </View>
       </TouchableHighlight>
-    )
+    );
   }
 
   renderSelectList() {
@@ -92,10 +85,10 @@ export default class WeaponSelectScreen extends Component {
         renderItem={this.renderListItems}
         ref={ref='_Flatlist'}
       />
-    )
+    );
   }
 
-  render () {
+  render() {
     return (
       <Container style={{ backgroundColor: 'white' }}>
         {this.renderSelectList()}

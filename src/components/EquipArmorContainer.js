@@ -1,14 +1,11 @@
-import React, { Component } from 'react'
-import { ScrollView, Text, Image, View, FlatList, TouchableOpacity, TouchableHighlight } from 'react-native'
-import SQLite from 'react-native-sqlite-storage'
-
-import { MonsterImages } from '../assets'
+import React, { Component } from 'react';
+import { Text, View, TouchableOpacity } from 'react-native';
 
 export default class EquipArmorContainer extends Component {
   constructor(props) {
-    super(props)
-    let armor = [];
-    if(this.props.armor_head_item_id !== null) {
+    super(props);
+    const armor = [];
+    if (this.props.armor_head_item_id !== null) {
       armor.push({
         name: this.props.armor.head_name,
         item_id: this.props.armor.head_item_id,
@@ -19,7 +16,7 @@ export default class EquipArmorContainer extends Component {
         slot3: this.props.armor.head_slot3,
       });
     }
-    if(this.props.armor.armor_item_id !== null) {
+    if (this.props.armor.armor_item_id !== null) {
       armor.push({
         name: this.props.armor.armor_name,
         item_id: this.props.armor.armor_item_id,
@@ -30,7 +27,7 @@ export default class EquipArmorContainer extends Component {
         slot3: this.props.armor.armor_slot3,
       });
     }
-    if(this.props.armor.gloves_item_id !== null) {
+    if (this.props.armor.gloves_item_id !== null) {
       armor.push({
         name: this.props.armor.gloves_name,
         item_id: this.props.armor.gloves_item_id,
@@ -41,7 +38,7 @@ export default class EquipArmorContainer extends Component {
         slot3: this.props.armor.gloves_slot3,
       });
     }
-    if(this.props.armor.belt_item_id !== null) {
+    if (this.props.armor.belt_item_id !== null) {
       armor.push({
         name: this.props.armor.belt_name,
         item_id: this.props.armor.belt_item_id,
@@ -52,7 +49,7 @@ export default class EquipArmorContainer extends Component {
         slot3: this.props.armor.belt_slot3,
       });
     }
-    if(this.props.armor.pants_item_id !== null) {
+    if (this.props.armor.pants_item_id !== null) {
       armor.push({
         name: this.props.armor.pants_name,
         item_id: this.props.armor.pants_item_id,
@@ -67,7 +64,7 @@ export default class EquipArmorContainer extends Component {
       setName: this.props.armor.name,
       armor,
       hide: false,
-    }
+    };
   }
 
   renderHeader() {
@@ -79,16 +76,6 @@ export default class EquipArmorContainer extends Component {
       </TouchableOpacity>
     );
   }
-
-  // renderSetItems = ({item}) => {
-  //   return (
-  //     <View style={{ flex: 1, paddingTop: 5, borderLeftWidth: 0.33, borderRightWidth: 0.33, borderColor: '#191919' }}>
-  //       <Text style={{ fontSize: 15.5, color: '#191919' }}>
-  //         {item.name}
-  //       </Text>
-  //     </View>
-  //   );
-  // }
 
   renderBody() {
     if(!this.state.hide) {
@@ -112,14 +99,17 @@ export default class EquipArmorContainer extends Component {
                   </Text>
                 </TouchableOpacity>
               </View>
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                 <Text style={{ flex: 1, fontSize: 15, color: '#191919', textAlign: 'center' }}>{`(${item.slot1}-${item.slot2}-${item.slot3})`}</Text>
               </View>
             </View>
           ))}
         </View>
-      )
+      );
     }
+    return (
+      null
+    );
   }
 
   render() {

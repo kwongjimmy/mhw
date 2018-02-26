@@ -1,33 +1,24 @@
-import React, { Component } from 'react'
-import { ScrollView, Text, Image, View, FlatList, TouchableOpacity, TouchableHighlight, ActivityIndicator } from 'react-native'
-import SQLite from 'react-native-sqlite-storage'
-import { Container, Header, Tab, Tabs, TabHeading, Icon, Text2 } from 'native-base';
-
-import EquipArmorList from '../components/EquipArmorList'
-import { MonsterImages } from '../assets'
-
-// Styles
-import styles from './Styles/EquipScreenStyles'
-
-// let SQLite = require('react-native-sqlite-storage')
-// let db = SQLite.openDatabase({name: 'petDB', createFromLocation : "~pet.db"}, this.openCB, this.errorCB);
-// let db = SQLite.openDatabase({name: 'test.db', createFromLocation : "~example.db", location: 'Library'}, this.openCB, this.errorCB);
-// var db = SQLite.openDatabase({name: 'test.db', createFromLocation : '~pet.db'});
+import React, { Component } from 'react';
+import { View, ActivityIndicator } from 'react-native';
+import SQLite from 'react-native-sqlite-storage';
+import { Container, Tab, Tabs } from 'native-base';
+import EquipArmorList from '../components/EquipArmorList';
 
 export default class EquipArmorScreen extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       highRank: [],
       lowRank: [],
       loading: true,
     };
 
-    let db = SQLite.openDatabase({name: 'mhworld.db', createFromLocation : '~mhworld.db', location: 'Default'}, this.okCallback, this.errorCallback)
+    const db = SQLite.openDatabase({
+      name: 'mhworld.db', createFromLocation: '~mhworld.db', location: 'Default',
+    }, this.okCallback, this.errorCallback);
     db.transaction((tx) => {
-      var lowRank = [];
-      var highRank = [];
-      var all = [];
+      const lowRank = [];
+      const highRank = [];
       tx.executeSql(`SELECT
       X.*,
       I1.name as head_name,
@@ -56,8 +47,8 @@ export default class EquipArmorScreen extends Component {
       LEFT JOIN items as I4 on X.belt_item_id = I4.item_id
       LEFT JOIN items as I5 on X.pants_item_id = I5.item_id
       WHERE X.rank=?`, ['High'], (tx, results) => {
-        for(let i = 0; i < results.rows.length; i++) {
-          let row = results.rows.item(i);
+        for (let i = 0; i < results.rows.length; i += 1) {
+          const row = results.rows.item(i);
           highRank.push(row);
         }
       });
@@ -89,8 +80,8 @@ export default class EquipArmorScreen extends Component {
       LEFT JOIN items as I4 on X.belt_item_id = I4.item_id
       LEFT JOIN items as I5 on X.pants_item_id = I5.item_id
       WHERE X.rank=?`, ['Low'], (tx, results) => {
-        for(let i = 0; i < results.rows.length; i++) {
-          let row = results.rows.item(i);
+        for (let i = 0; i < results.rows.length; i += 1) {
+          const row = results.rows.item(i);
           lowRank.push(row);
         }
         this.setState({ highRank, lowRank, loading: false });
@@ -109,32 +100,43 @@ export default class EquipArmorScreen extends Component {
   }
 
   renderContent(screen) {
-    if(this.state.loading) {
+    if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center'}}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
         </View>
       );
-    } else {
-      if(screen === 'low') {
-        return (
-          <EquipArmorList navigator={this.props.navigator} armor={this.state.lowRank}/>
-        );
-      }
+    }
+    if (screen === 'low') {
       return (
-        <EquipArmorList navigator={this.props.navigator} armor={this.state.highRank}/>
+        <EquipArmorList navigator={this.props.navigator} armor={this.state.lowRank}/>
       );
     }
+    return (
+      <EquipArmorList navigator={this.props.navigator} armor={this.state.highRank}/>
+    );
   }
 
-  render () {
+  render() {
     return (
       <Container style={{ backgroundColor: 'white' }}>
          <Tabs tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
-           <Tab activeTabStyle={{ backgroundColor: 'white' }} tabStyle={{ backgroundColor: 'white' }} activeTextStyle={{ color: '#191919', fontWeight: '100', }} textStyle={{ color: '#5e5e5e' }} heading="Low Rank">
+           <Tab
+             activeTabStyle={{ backgroundColor: 'white' }}
+             tabStyle={{ backgroundColor: 'white' }}
+             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+             textStyle={{ color: '#5e5e5e' }}
+             heading="Low Rank"
+             >
              {this.renderContent('low')}
            </Tab>
-           <Tab activeTabStyle={{ backgroundColor: 'white' }} tabStyle={{ backgroundColor: 'white' }} activeTextStyle={{ color: '#191919', fontWeight: '100', }} textStyle={{ color: '#5e5e5e' }} heading="High Rank">
+           <Tab
+             activeTabStyle={{ backgroundColor: 'white' }}
+             tabStyle={{ backgroundColor: 'white' }}
+             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+             textStyle={{ color: '#5e5e5e' }}
+             heading="High Rank"
+             >
              {this.renderContent('high')}
            </Tab>
          </Tabs>
