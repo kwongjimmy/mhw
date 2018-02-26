@@ -97,5 +97,5 @@ export default StyleSheet.create({
   monsterImage2: {
     height: 60,
     width: 60,
-  }
+  },
 });

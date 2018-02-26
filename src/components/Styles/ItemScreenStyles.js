@@ -6,5 +6,5 @@ export default StyleSheet.create({
     paddingLeft: 7.5,
     // backgroundColor: '#191919'
     backgroundColor: 'white',
-  }
+  },
 });
