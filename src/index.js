@@ -10,6 +10,8 @@ import EquipArmorScreen from './screens/EquipArmorScreen'
 import QuestScreen from './screens/QuestScreen'
 import WeaponSelectScreen from './screens/WeaponSelectScreen'
 import WeaponScreen from './screens/WeaponScreen'
+import MiscScreen from './screens/MiscScreen'
+import ItemScreen from './screens/ItemScreen'
 
 import MonsterInfoScreen from './screens/MonsterInfoScreen'
 import ItemInfoScreen from './screens/ItemInfoScreen'
@@ -26,6 +28,9 @@ export default () => {
   Navigation.registerComponent('EquipArmorScreen', () => EquipArmorScreen);
   Navigation.registerComponent('QuestScreen', () => QuestScreen);
   Navigation.registerComponent('WeaponSelectScreen', () => WeaponSelectScreen);
+  Navigation.registerComponent('MiscScreen', () => MiscScreen);
+  Navigation.registerComponent('ItemScreen', () => ItemScreen);
+
 
   Navigation.registerComponent('WeaponScreen', () => WeaponScreen);
   Navigation.registerComponent('MonsterInfoScreen', () => MonsterInfoScreen);
@@ -78,11 +83,11 @@ export default () => {
         title: 'Quest'
       },
       {
-        label: 'Quest',
-        screen: 'QuestScreen',
+        label: 'Misc',
+        screen: 'MiscScreen',
         icon: require('./images/icon2.png'),
         selectedIcon: require('./images/icon2_selected.png'),
-        title: 'Quest'
+        title: 'Misc'
       },
     ],
     appStyle: {

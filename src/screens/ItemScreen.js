@@ -9,12 +9,11 @@ import { MonsterImages } from '../assets'
 import styles from './Styles/ItemScreenStyles'
 
 export default class ItemScreen extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    header: null,
-    headerMode: 'none',
-    tabBarLabel: 'Items',
-    title: "Items"
-  });
+  static navigatorStyle = {
+    // navBarHideOnScroll: true,
+    topBarBorderColor: 'red',
+    topBarBorderWidth: 15,
+  };
 
   constructor(props) {
     super(props)
@@ -42,7 +41,16 @@ export default class ItemScreen extends Component {
     return (
       <View style={{ paddingBottom: 7.5, flex: 1, flexDirection: 'row', borderColor: 'red', borderBottomWidth: 0, alignItems: 'center', marginLeft: 7.5, marginRight: 7.5 }}>
         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', borderWidth: 0}}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('ItemInfo', { item_id: item.item_id, item_name: item.name, category: item.category })}>
+          <TouchableOpacity
+            onPress={() => this.props.navigator.push({
+            screen: 'ItemInfoScreen',
+            passProps: {
+              item_id: item.item_id,
+              category: item.category
+            },
+            animationType: 'fade',
+            title: item.name
+          })}>
             <Text style={{ fontSize: 15.5, flex: 1, color: '#191919' }}>{item.name}</Text>
           </TouchableOpacity>
         </View>
@@ -61,7 +69,7 @@ export default class ItemScreen extends Component {
       return (
         <FlatList
           data={this.state.items}
-          keyExtractor={(item) => item.item_id}
+          keyExtractor={(item) => item.item_id.toString()}
           renderItem={this.renderListItems}
         />
       )
@@ -70,11 +78,12 @@ export default class ItemScreen extends Component {
   render() {
     return (
       <Container style={{ backgroundColor: 'white' }}>
-         <Tabs tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
+        {this.renderContent()}
+         {/* <Tabs tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
            <Tab activeTabStyle={{ backgroundColor: 'white' }} tabStyle={{ backgroundColor: 'white' }} activeTextStyle={{ color: '#191919', fontWeight: '100', }} textStyle={{ color: '#5e5e5e' }} heading="Items">
              {this.renderContent()}
            </Tab>
-         </Tabs>
+         </Tabs> */}
       </Container>
     );
   }
