@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
-import { Container } from 'native-base';
+import { Container, Header, Content, List, ListItem, Text } from 'native-base';
 
-let top = true;
 export default class ItemScreen extends Component {
   static navigatorStyle = {
     // navBarHideOnScroll: true,
     topBarBorderColor: 'red',
-    topBarBorderWidth: 15,
+    topBarBorderWidth: 20,
   };
 
   constructor(props) {
@@ -44,50 +43,26 @@ export default class ItemScreen extends Component {
       console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
-      if (top === false) {
-        this.refs._Flatlist.scrollToOffset({
-          animated: true,
-          offSet: { y: 0, x: 0 },
-        });
-      } else {
-        this.props.navigator.popToRoot({
-          animated: true,
-          animationType: 'fade',
-        });
-      }
-    }
-  }
-
-  handleScroll(event) {
-    if (event.nativeEvent.contentOffset.y !== 0) {
-      top = false;
-    } else {
-      top = true;
+      this.props.navigator.popToRoot({
+        animated: true,
+        animationType: 'fade',
+      });
     }
   }
 
   renderListItems = ({ item }) => {
     return (
-      <View style={{
-        paddingBottom: 7.5, flex: 1, flexDirection: 'row', borderColor: 'red', borderBottomWidth: 0, alignItems: 'center', marginLeft: 7.5, marginRight: 7.5
-      }}>
-        <View style={{
-          flex: 1, flexDirection: 'row', alignItems: 'center', borderWidth: 0
-        }}>
-          <TouchableOpacity
-            onPress={() => this.props.navigator.push({
-            screen: 'ItemInfoScreen',
-            passProps: {
-              item_id: item.item_id,
-              category: item.category,
-            },
-            animationType: 'fade',
-            title: item.name,
-          })}>
-            <Text style={{ fontSize: 15.5, flex: 1, color: '#191919' }}>{item.name}</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      <ListItem style={{ marginLeft: 0, paddingLeft: 15 }} onPress={() => this.props.navigator.push({
+        screen: 'ItemInfoScreen',
+        passProps: {
+          item_id: item.item_id,
+          category: item.category,
+        },
+        animationType: 'fade',
+        title: item.name,
+      })}>
+        <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+      </ListItem>
     );
   }
 
@@ -104,11 +79,10 @@ export default class ItemScreen extends Component {
         data={this.state.items}
         keyExtractor={(item) => item.item_id.toString()}
         renderItem={this.renderListItems}
-        ref={ref='_Flatlist'}
-        onScroll={this.handleScroll.bind(this)}
       />
     );
   }
+
   render() {
     return (
       <Container style={{ backgroundColor: 'white' }}>

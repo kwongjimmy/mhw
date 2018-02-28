@@ -67,6 +67,14 @@ export default class EquipArmorContainer extends Component {
     };
   }
 
+  renderSlots(item) {
+    let slot1 = (item.slot1 === 0) ? `\u24ea` : (item.slot1 === 1) ? `\u2460` : (item.slot1 === 2) ? `\u2461` : `\u2462`;
+    let slot2 = (item.slot2 === 0) ? `\u24ea` : (item.slot2 === 1) ? `\u2460` : (item.slot2 === 2) ? `\u2461` : `\u2462`;
+    let slot3 = (item.slot3 === 0) ? `\u24ea` : (item.slot3 === 1) ? `\u2460` : (item.slot3 === 2) ? `\u2461` : `\u2462`;
+    return (
+      <Text style={{ flex: 1, fontSize: 15.5, fontWeight: '500', color: '#191919', textAlign: 'center' }}>{`${slot1} ${slot2} ${slot3}`}</Text>
+    );
+  }
   renderHeader() {
     return (
       <TouchableOpacity onPress={() => this.setState({ hide: !this.state.hide })}>
@@ -82,7 +90,7 @@ export default class EquipArmorContainer extends Component {
       return (
         <View style={{ alignItems: 'center', flex: 1, paddingTop: 2.5, borderLeftWidth: 0, borderRightWidth: 0, borderColor: '#191919' }}>
           {this.state.armor.map((item, key) => (
-            <View key={item.item_id} style={{ flex: 1, flexDirection: 'row', paddingLeft: 25, paddingRight: 25 }}>
+            <View key={item.item_id} style={{ flex: 1, flexDirection: 'row', paddingLeft: 15, paddingRight: 15 }}>
               <View style={{ flex: 4 }}>
                 <TouchableOpacity
                   onPress={() => this.props.navigator.push({
@@ -100,7 +108,7 @@ export default class EquipArmorContainer extends Component {
                 </TouchableOpacity>
               </View>
               <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ flex: 1, fontSize: 15, color: '#191919', textAlign: 'center' }}>{`(${item.slot1}-${item.slot2}-${item.slot3})`}</Text>
+                {this.renderSlots(item)}
               </View>
             </View>
           ))}
@@ -114,7 +122,7 @@ export default class EquipArmorContainer extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1, paddingTop: 10, borderBottomWidth: 0, borderColor: '#191919' }}>
+      <View style={{ flex: 1, paddingTop: 10, paddingBottom: 10 }}>
         {this.renderHeader()}
         {this.renderBody()}
       </View>

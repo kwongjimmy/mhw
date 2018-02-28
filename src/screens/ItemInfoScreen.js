@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Text } from 'react-native';
 import ItemInfo from '../components/ItemInfo';
 import EquipArmorInfo from '../components/EquipArmorInfo';
 
-export default class ItemInfoScreen extends Component {
+export default class ItemInfoScreen extends PureComponent {
   renderScreen() {
     if (this.props.category === 'item') {
       return (

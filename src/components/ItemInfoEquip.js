@@ -1,40 +1,20 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Text, View, FlatList } from 'react-native';
 import { Container } from 'native-base';
 
-let top = true;
-export default class ItemInfoEquip extends Component {
+export default class ItemInfoEquip extends PureComponent {
   constructor(props) {
     super(props);
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    // this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
-
-  onNavigatorEvent(event) {
-    if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
-    }
-    if (event.id === 'bottomTabReselected') {
-      if (top === false) {
-        this.refs._Flatlist.scrollToOffset({
-          animated: true,
-          offSet: { y: 0, x: 0 },
-        });
-      } else {
-        this.props.navigator.popToRoot({
-          animated: true,
-          animationType: 'fade',
-        });
-      }
-    }
-  }
-
-  handleScroll(event) {
-    if (event.nativeEvent.contentOffset.y !== 0) {
-      top = false;
-    } else {
-      top = true;
-    }
-  }
+  //
+  // onNavigatorEvent(event) {
+  //   if (event.id === 'bottomTabSelected') {
+  //     console.log('Tab selected!');
+  //   }
+  //   if (event.id === 'bottomTabReselected') {
+  //   }
+  // }
 
   renderListItems = ({ item }) => {
     return (
@@ -51,8 +31,6 @@ export default class ItemInfoEquip extends Component {
           data={this.props.items}
           keyExtractor={(item) => item.item_id.toString()}
           renderItem={this.renderListItems}
-          ref={ref='_Flatlist'}
-          onScroll={this.handleScroll.bind(this)}
         />
       </Container>
     );

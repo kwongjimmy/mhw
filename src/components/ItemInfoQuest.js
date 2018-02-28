@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList } from 'react-native';
-import { Container } from 'native-base';
+import { View, FlatList } from 'react-native';
+import { Container, ListItem, Body, Left, Right, Text } from 'native-base';
 
-let top = true;
 export default class ItemInfoQuest extends Component {
   constructor(props) {
     super(props);
@@ -14,47 +13,37 @@ export default class ItemInfoQuest extends Component {
       console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
-      if (top === false) {
-        this.refs._Flatlist.scrollToOffset({
-          animated: true,
-          offSet: { y: 0, x: 0 },
-        });
-      } else {
-        this.props.navigator.popToRoot({
-          animated: true,
-          animationType: 'fade',
-        });
-      }
-    }
-  }
-
-  handleScroll(event) {
-    if (event.nativeEvent.contentOffset.y !== 0) {
-      top = false;
-    } else {
-      top = true;
+      this.props.navigator.popToRoot({
+        animated: true,
+        animationType: 'fade',
+      });
     }
   }
 
   renderListItems = ({ item }) => {
     return (
       <View>
-        <Text>{item.name}</Text>
+        <ListItem style={{ marginLeft: 0 }}>
+          <Body>
+            <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+          </Body>
+          <Right>
+            <Text style={{ fontSize: 14.5, color: '#5e5e5e' }}>{item.type}</Text>
+            <Text style={{ fontSize: 14.5, color: '#5e5e5e' }}>{`${item.required_rank} \u2605`}</Text>
+          </Right>
+        </ListItem>
       </View>
     );
   }
 
   render() {
     return (
-      <Container style={{ backgroundColor: 'white' }}>
-        <FlatList
-          data={this.props.items}
-          keyExtractor={(item) => item.quest_id.toString()}
-          renderItem={this.renderListItems}
-          ref={ref='_Flatlist'}
-          onScroll={this.handleScroll.bind(this)}
-        />
-      </Container>
+      <FlatList
+        contextContainerStyle={{ paddingTop: 20 }}
+        data={this.props.items}
+        keyExtractor={(item) => item.quest_id.toString()}
+        renderItem={this.renderListItems}
+      />
     );
   }
 }

@@ -53,11 +53,8 @@ export default StyleSheet.create({
     backgroundColor: 'white',
   },
   monsterHitText: {
-    flex: 1,
-    fontSize: 13,
+    fontSize: 14,
     color: '#191919',
-    paddingTop: 5,
-    paddingBottom: 5,
     textAlign: 'center',
   },
   monsterExtractContainer: {

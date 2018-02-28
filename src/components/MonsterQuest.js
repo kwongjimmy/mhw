@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList } from 'react-native';
+import { View, FlatList } from 'react-native';
+import { Text, ListItem, Left, Right, Body } from 'native-base';
 
-let top = true;
 export default class MonsterQuest extends Component {
   constructor(props) {
     super(props);
@@ -13,40 +13,25 @@ export default class MonsterQuest extends Component {
       console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
-      if (top === false) {
-        this.refs._Flatlist.scrollToOffset({
-          animated: true,
-          offSet: { y: 0, x: 0 },
-        });
-      } else {
-        this.props.navigator.popToRoot({
-          animated: true,
-          animationType: 'fade',
-        });
-      }
-    }
-  }
-
-  handleScroll(event) {
-    if (event.nativeEvent.contentOffset.y !== 0) {
-      top = false;
-    } else {
-      top = true;
+      this.props.navigator.popToRoot({
+        animated: true,
+        animationType: 'fade',
+      });
     }
   }
 
   renderListItems = ({ item }) => {
     return (
-      <View style={{ paddingTop: 5, flex: 1, flexDirection: 'row', borderColor: 'red', borderBottomWidth: 0, alignItems: 'center', marginLeft: 7.5, marginRight: 7.5 }}>
-        <View style={{ flex: 4, flexDirection: 'row', alignItems: 'center', borderWidth: 0}}>
-          <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{item.quest_name}</Text>
-        </View>
-        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', borderWidth: 0}}>
-          <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{item.type}</Text>
-        </View>
-        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', borderWidth: 0}}>
-          <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{`${item.required_rank} \u2605`}</Text>
-        </View>
+      <View>
+        <ListItem style={{ marginLeft: 0 }}>
+          <Body>
+            <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.quest_name}</Text>
+          </Body>
+          <Right>
+            <Text style={{ fontSize: 14.5, color: '#5e5e5e' }}>{item.type}</Text>
+            <Text style={{ fontSize: 14.5, color: '#5e5e5e' }}>{`${item.required_rank} \u2605`}</Text>
+          </Right>
+        </ListItem>
       </View>
     );
   }
@@ -54,11 +39,10 @@ export default class MonsterQuest extends Component {
   render() {
     return (
       <FlatList
+        contextContainerStyle={{ paddingTop: 20 }}
         data={this.props.monster_quest}
         keyExtractor={(item) => item.quest_id.toString()}
         renderItem={this.renderListItems}
-        ref={ref='_Flatlist'}
-        onScroll={this.handleScroll.bind(this)}
       />
     );
   }

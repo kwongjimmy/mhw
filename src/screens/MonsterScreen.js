@@ -88,15 +88,15 @@ export default class MonsterScreen extends Component {
     }
     if (screen === 'all') {
       return (
-        <MonsterList navigator={this.props.navigator} monsters={this.state.allMonsters} />
+        <MonsterList navigator={this.props.navigator} monsters={this.state.allMonsters} type={'all'}/>
       );
     } else if (screen === 'large') {
       return (
-        <MonsterList navigator={this.props.navigator} monsters={this.state.largeMonsters} />
+        <MonsterList navigator={this.props.navigator} monsters={this.state.largeMonsters} type={'large'}/>
       );
     }
     return (
-      <MonsterList navigator={this.props.navigator} monsters={this.state.smallMonsters} />
+      <MonsterList navigator={this.props.navigator} monsters={this.state.smallMonsters} type={'small'}/>
     );
   }
 

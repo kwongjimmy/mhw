@@ -54,7 +54,7 @@ export default StyleSheet.create({
     // backgroundColor: 'white'
   },
   monsterFlatListContext: {
-    paddingBottom: 10,
+    paddingBottom: 15,
   },
   monsterContainer: {
     flex: 1,

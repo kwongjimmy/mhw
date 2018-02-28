@@ -1,5 +1,6 @@
 import React, { Component, PureComponent } from 'react';
-import { Text, Image, View, FlatList, TouchableHighlight } from 'react-native';
+import { Image, View, FlatList, TouchableHighlight } from 'react-native';
+import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, ListItem } from 'native-base';
 import { MonsterImages } from '../assets';
 
 // Styles
@@ -12,17 +13,32 @@ export default class MonsterList extends PureComponent {
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
+  componentDidMount() {
+  }
+
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
       console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
-      console.log(this.refs);
       if (top === false) {
-        this.refs._Flatlist.scrollToIndex({
-          animated: true,
-          index: 0,
-        });
+        if (this.props.type === 'all') {
+          this.allFlatListRef.scrollToIndex({
+            animated: true,
+            index: 0,
+          });
+        } else if (this.props.type === 'large') {
+          this.largeFlatListRef.scrollToIndex({
+            animated: true,
+            index: 0,
+          });
+        }
+        else {
+          this.smallFlatListRef.scrollToIndex({
+            animated: true,
+            index: 0,
+          });
+        }
       }
     }
   }
@@ -35,6 +51,12 @@ export default class MonsterList extends PureComponent {
     }
   }
 
+  setRef(ref) {
+    if (this.props.type === 'all') return this.allFlatListRef = ref;
+    else if (this.props.type === 'large') return this.largeFlatListRef = ref;
+    return this.smallFlatListRef = ref;
+  }
+
   renderMonster = ({ item }) => {
     let src = MonsterImages['Unknown'];
     let name = item.monster_name;
@@ -44,9 +66,8 @@ export default class MonsterList extends PureComponent {
       src = MonsterImages[name];
     }
     return (
-      <TouchableHighlight
-        style={styles.monsterTouchContainer} activeOpacity={0.5}
-        underlayColor={'white'}
+      <ListItem
+        style={{ marginLeft: 0, paddingLeft: 15 }}
         onPress={() => this.props.navigator.push({
         screen: 'MonsterInfoScreen',
         passProps: {
@@ -55,34 +76,32 @@ export default class MonsterList extends PureComponent {
         animationType: 'fade',
         title: item.monster_name,
       })}>
-        <View style={styles.monsterContainer}>
-          <View style={styles.monsterImageContainer}>
-            <Image
-              resizeMode="contain"
-              style={styles.monsterImage2}
-              source={src}
-            />
-          </View>
-          <View style={styles.monsterTextContainer}>
-            <Text style={styles.monsterText}>{item.monster_name}</Text>
-            <Text style={styles.monsterTypeText}>{item.type}</Text>
-          </View>
-        </View>
-      </TouchableHighlight>
+      <Left>
+        <Image
+          resizeMode="contain"
+          style={styles.monsterImage2}
+          source={src}
+        />
+      </Left>
+      <Body style={{ flex: 4 }}>
+        <Text style={styles.monsterText}>{item.monster_name}</Text>
+        <Text style={styles.monsterTypeText}>{item.type}</Text>
+      </Body>
+      </ListItem>
     );
   }
 
   render() {
     return (
-      <FlatList
-        contentContainerStyle={styles.monsterFlatListContext}
-        style={styles.monsterFlatList}
-        data={this.props.monsters}
-        keyExtractor={(item) => item.monster_id.toString()}
-        renderItem={this.renderMonster}
-        ref={ref='_Flatlist'}
-        onScroll={this.handleScroll.bind(this)}
-      />
+      <Container style={{ backgroundColor: 'white' }}>
+        <FlatList
+          data={this.props.monsters}
+          keyExtractor={(item) => item.monster_id.toString()}
+          renderItem={this.renderMonster}
+          ref={this.setRef.bind(this)}
+          onScroll={this.handleScroll.bind(this)}
+        />
+      </Container>
     );
   }
 }

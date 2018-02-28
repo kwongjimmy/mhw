@@ -87,7 +87,7 @@ export default class WeaponScreen extends Component {
         data={this.state.weapons}
         keyExtractor={(item) => item}
         renderItem={this.renderListItems}
-        ref={ref='_Flatlist'}
+        ref={ref='_Flatlists'}
         onScroll={this.handleScroll.bind(this)}
       />
     );

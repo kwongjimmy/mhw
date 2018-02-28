@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { View, FlatList } from 'react-native';
+import { Text, ListItem } from 'native-base';
 
-let top = true;
 export default class MonsterEquip extends Component {
   constructor(props) {
     super(props);
@@ -10,6 +10,7 @@ export default class MonsterEquip extends Component {
       data: this.props.data,
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    console.log(this.state.data);
   }
 
   onNavigatorEvent(event) {
@@ -17,34 +18,19 @@ export default class MonsterEquip extends Component {
       console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
-      if (top === false) {
-        this.refs._Flatlist.scrollToOffset({
-          animated: true,
-          offSet: { y: 0, x: 0 },
-        });
-      } else {
-        this.props.navigator.popToRoot({
-          animated: true,
-          animationType: 'fade',
-        });
-      }
-    }
-  }
-
-  handleScroll(event) {
-    if (event.nativeEvent.contentOffset.y !== 0) {
-      top = false;
-    } else {
-      top = true;
+      this.props.navigator.popToRoot({
+        animated: true,
+        animationType: 'fade',
+      });
     }
   }
 
   renderListItems = ({ item }) => {
     return (
-      <View style={{ paddingTop: 5, flex: 1, flexDirection: 'row', borderColor: 'red', borderBottomWidth: 0, alignItems: 'center', marginLeft: 7.5, marginRight: 7.5 }}>
-        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', borderWidth: 0}}>
-          <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{item.name}</Text>
-        </View>
+      <View>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 15 }}>
+          <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+        </ListItem>
       </View>
     );
   }
@@ -55,8 +41,6 @@ export default class MonsterEquip extends Component {
         data={this.state.data}
         keyExtractor={(item) => item.item_id.toString()}
         renderItem={this.renderListItems}
-        ref={ref='_Flatlist'}
-        onScroll={this.handleScroll.bind(this)}
       />
     );
   }

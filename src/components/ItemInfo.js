@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { ScrollView, Text, View, ActivityIndicator } from 'react-native';
+import React, { PureComponent } from 'react';
+import { ScrollView, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
-import { Container, Tab, Tabs } from 'native-base';
+import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, List, ListItem, Tab, Tabs } from 'native-base';
 import ItemInfoEquip from './ItemInfoEquip';
 import ItemInfoQuest from './ItemInfoQuest';
 import ItemInfoLoot from './ItemInfoLoot';
 
-export default class ItemInfoScreen extends Component {
+export default class ItemInfoScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -97,7 +97,44 @@ export default class ItemInfoScreen extends Component {
       );
     });
   }
-
+  renderInfo() {
+    return (
+      <Container>
+        <Content>
+          <List>
+            <ListItem style={{ marginLeft: 0, borderColor: 'red' }}>
+              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={{ fontSize: 16, flex: 1, textAlign: 'center', color: '#191919' }}>Buy</Text>
+              </View>
+              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={{ fontSize: 16, flex: 1, textAlign: 'center', color: '#191919' }}>Sell</Text>
+              </View>
+              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={{ fontSize: 16, flex: 1, textAlign: 'center', color: '#191919' }}>Carry</Text>
+              </View>
+              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={{ fontSize: 16, flex: 1, textAlign: 'center', color: '#191919' }}>Rarity</Text>
+              </View>
+            </ListItem>
+            <ListItem style={{ marginLeft: 0 }}>
+              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{`${this.state.item.buy_price}z`}</Text>
+              </View>
+              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{`${this.state.item.sell_price}z`}</Text>
+              </View>
+              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{this.state.item.carry}</Text>
+              </View>
+              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{this.state.item.rarity}</Text>
+              </View>
+            </ListItem>
+          </List>
+        </Content>
+      </Container>
+    );
+  }
   renderContent(screen) {
     if (this.state.loading) {
       return (
@@ -107,38 +144,7 @@ export default class ItemInfoScreen extends Component {
       );
     }
     if (screen === 'tab1') {
-      return (
-        <ScrollView>
-          <View style={{ paddingTop: 10, paddingBottom: 7.5, flex: 1, flexDirection: 'row', borderColor: 'red', borderBottomWidth: 1, alignItems: 'center', marginLeft: 7.5, marginRight: 7.5 }}>
-            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', borderWidth: 0}}>
-              <Text style={{ fontSize: 16, flex: 1, textAlign: 'center', color: '#191919' }}>Buy</Text>
-            </View>
-            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', borderWidth: 0}}>
-              <Text style={{ fontSize: 16, flex: 1, textAlign: 'center', color: '#191919' }}>Sell</Text>
-            </View>
-            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', borderWidth: 0}}>
-              <Text style={{ fontSize: 16, flex: 1, textAlign: 'center', color: '#191919' }}>Carry</Text>
-            </View>
-            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', borderWidth: 0}}>
-              <Text style={{ fontSize: 16, flex: 1, textAlign: 'center', color: '#191919' }}>Rarity</Text>
-            </View>
-          </View>
-          <View style={{ paddingTop: 7., flex: 1, flexDirection: 'row', alignItems: 'center', marginLeft: 7.5, marginRight: 7.5 }}>
-            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', borderWidth: 0}}>
-              <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{`${this.state.item.buy_price}z`}</Text>
-            </View>
-            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', borderWidth: 0}}>
-              <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{`${this.state.item.sell_price}z`}</Text>
-            </View>
-            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', borderWidth: 0}}>
-              <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{this.state.item.carry}</Text>
-            </View>
-            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', borderWidth: 0}}>
-              <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{this.state.item.rarity}</Text>
-            </View>
-          </View>
-        </ScrollView>
-      );
+      return this.renderInfo();
     } else if (screen === 'tab2') {
       return (
         <ItemInfoLoot

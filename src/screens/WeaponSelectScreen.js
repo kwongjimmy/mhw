@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, Image, View, FlatList, TouchableHighlight } from 'react-native';
-import { Container } from 'native-base';
+import { Container, ListItem, Body, Left } from 'native-base';
 
 import { WeaponImages } from '../assets';
 
@@ -11,7 +11,7 @@ export default class WeaponSelectScreen extends Component {
   static navigatorStyle = {
     // navBarHideOnScroll: true,
     topBarBorderColor: 'red',
-    topBarBorderWidth: 15,
+    topBarBorderWidth: 20,
   };
 
   constructor(props) {
@@ -32,48 +32,28 @@ export default class WeaponSelectScreen extends Component {
       console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
-      this.refs._Flatlist.scrollToIndex({
+      this.weaponSelectList.scrollToIndex({
         animated: true,
         index: 0,
       });
     }
   }
 
-  componentWillMount() {
-  }
-
-  componentDidMount() {
-  }
-
-  componentWillUnmount() {
-    // db.close();
-  }
-
   renderListItems = ({ item }) => {
     const src = WeaponImages[item];
     return (
-      <TouchableHighlight activeOpacity={0.5} underlayColor={'white'}
-        onPress={() => this.props.navigator.push({
-        screen: 'WeaponScreen',
-        passProps: {
-          type: item,
-        },
-        animationType: 'fade',
-        title: item,
-      })}>
-        <View style={[styles.monsterContainer, { justifyContent: 'center' }]}>
-          <View style={styles.monsterImageContainer}>
-            <Image
-              resizeMode="contain"
-              style={styles.monsterImage2}
-              source={src}
-            />
-          </View>
-          <View style={[styles.monsterTextContainer, { marginTop: 15, marginBottom: 15 }]}>
-            <Text style={[styles.monsterText]}>{item}</Text>
-          </View>
-        </View>
-      </TouchableHighlight>
+      <ListItem style={{ marginLeft: 0, paddingLeft: 15 }}>
+      <Left>
+        <Image
+          resizeMode="contain"
+          style={styles.monsterImage2}
+          source={src}
+        />
+      </Left>
+      <Body style={{ flex: 4 }}>
+        <Text style={{ fontSize: 20, color: '#191919'}}>{item}</Text>
+      </Body>
+      </ListItem>
     );
   }
 
@@ -83,7 +63,7 @@ export default class WeaponSelectScreen extends Component {
         data={this.state.weapons}
         keyExtractor={(item) => item}
         renderItem={this.renderListItems}
-        ref={ref='_Flatlist'}
+        ref={(ref) => { this.weaponSelectList = ref; }}
       />
     );
   }
