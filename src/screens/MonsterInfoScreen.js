@@ -164,7 +164,7 @@ export default class MonsterInfoScreen extends Component {
          <Tabs
            tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }}
            initialPage={0}
-           renderTabBar={() => <ScrollableTab />}
+           renderTabBar={() => <ScrollableTab style={{ elevation: 2 }}/>}
            >
            <Tab
              activeTabStyle={{ backgroundColor: 'white' }}

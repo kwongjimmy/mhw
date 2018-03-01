@@ -15,6 +15,8 @@ import ItemScreen from './screens/ItemScreen';
 
 import MonsterInfoScreen from './screens/MonsterInfoScreen';
 import ItemInfoScreen from './screens/ItemInfoScreen';
+import EquipInfoScreen from './screens/EquipInfoScreen';
+
 
 export default () => {
   Navigation.registerComponent('Screen1', () => Screen1);
@@ -32,6 +34,8 @@ export default () => {
   Navigation.registerComponent('WeaponScreen', () => WeaponScreen);
   Navigation.registerComponent('MonsterInfoScreen', () => MonsterInfoScreen);
   Navigation.registerComponent('ItemInfoScreen', () => ItemInfoScreen);
+  Navigation.registerComponent('EquipInfoScreen', () => EquipInfoScreen);
+
 
   Navigation.startTabBasedApp({
     tabs: [
@@ -71,8 +75,8 @@ export default () => {
         title: 'Weapons',
       },
       {
-        label: 'Quest',
-        screen: 'QuestScreen',
+        label: 'Misc',
+        screen: 'MiscScreen',
         icon: require('./images/icon2.png'),
         selectedIcon: require('./images/icon2_selected.png'),
         title: 'Quest',
@@ -95,15 +99,15 @@ export default () => {
       topBarElevationShadowEnabled: false,
       navBarBackgroundColor: 'white',
       tabBarHidden: false, // make the tab bar hidden
-      tabBarButtonColor: '#5e5e5e', // change the color of the tab icons and text (also unselected)
+      tabBarButtonColor: '#8e8e8e', // change the color of the tab icons and text (also unselected)
       tabBarSelectedButtonColor: 'red', // change the color of the selected tab icon and text (only selected)
       tabBarBackgroundColor: 'white', // change the background color of the tab bar
       tabBarTranslucent: false, // change the translucent of the tab bar to false
       // tabBarTextFontFamily: 'Avenir-Medium', //change the tab font family
-      tabBarLabelColor: '#5e5e5e', // iOS only. change the color of tab text
+      tabBarLabelColor: '#8e8e8e', // iOS only. change the color of tab text
       tabBarSelectedLabelColor: 'red', // iOS only. change the color of the selected tab text
       // forceTitlesDisplay: true, // Android only. If true - Show all bottom tab labels. If false - only the selected tab's label is visible.
-      tabBarHideShadow: true, // iOS only. Remove default tab bar top shadow (hairline)
+      tabBarHideShadow: false, // iOS only. Remove default tab bar top shadow (hairline)
     },
     // tabsStyle: { // optional, **iOS Only** add this if you want to style the tab bar beyond the defaults
     //   tabBarHidden: false, // make the tab bar hidden

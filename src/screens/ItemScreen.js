@@ -52,7 +52,7 @@ export default class ItemScreen extends Component {
 
   renderListItems = ({ item }) => {
     return (
-      <ListItem style={{ marginLeft: 0, paddingLeft: 15 }} onPress={() => this.props.navigator.push({
+      <ListItem style={{ marginLeft: 0, paddingLeft: 18 }} onPress={() => this.props.navigator.push({
         screen: 'ItemInfoScreen',
         passProps: {
           item_id: item.item_id,

@@ -12,8 +12,6 @@ export default class EquipArmorList extends Component {
   render() {
     return (
       <FlatList
-        // contentContainerStyle={styles.monsterFlatListContext}
-        // style={styles.monsterFlatList}
         style={{ flex: 1 }}
         data={this.props.armor}
         keyExtractor={(item) => item.armor_set_id.toString()}

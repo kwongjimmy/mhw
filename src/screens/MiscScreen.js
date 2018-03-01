@@ -5,8 +5,9 @@ import { Container } from 'native-base';
 export default class MiscScreen extends Component {
   static navigatorStyle = {
     // navBarHideOnScroll: true,
+    topBarElevationShadowEnabled: true,
     topBarBorderColor: 'red',
-    topBarBorderWidth: 15,
+    topBarBorderWidth: 17,
   };
 
   constructor(props) {

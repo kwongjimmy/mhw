@@ -44,7 +44,7 @@ export default class MonsterInfo extends Component {
 
   renderHeader() {
     return (
-      <ListItem style={{ marginLeft: 0, paddingLeft: 15, borderColor: 'red', paddingRight: 5, backgroundColor: 'white' }}>
+      <ListItem style={{ marginLeft: 0, paddingLeft: 18, borderColor: 'red', paddingRight: 5, backgroundColor: 'white' }}>
         <Text style={[styles.monsterHitText, { flex: 2.5 }]}>{''}</Text>
         <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
           <Image
@@ -125,7 +125,7 @@ export default class MonsterInfo extends Component {
       return this.renderHeader();
     }
     return (
-      <ListItem style={{ marginLeft: 0, paddingLeft: 15, paddingRight: 5 }}>
+      <ListItem style={{ marginLeft: 0, paddingLeft: 18, paddingRight: 5 }}>
         <Text style={[styles.monsterHitText, { flex: 2.5, fontSize: 13, textAlign: 'left' }]}>{item.part_name}</Text>
         <Text style={styles.monsterHitText}>{item.sever}</Text>
         <Text style={styles.monsterHitText}>{item.blunt}</Text>

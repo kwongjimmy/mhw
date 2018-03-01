@@ -10,8 +10,9 @@ import styles from '../screens/Styles/MonsterScreenStyles';
 export default class WeaponSelectScreen extends Component {
   static navigatorStyle = {
     // navBarHideOnScroll: true,
+    topBarElevationShadowEnabled: true,
     topBarBorderColor: 'red',
-    topBarBorderWidth: 20,
+    topBarBorderWidth: 17,
   };
 
   constructor(props) {
@@ -42,7 +43,7 @@ export default class WeaponSelectScreen extends Component {
   renderListItems = ({ item }) => {
     const src = WeaponImages[item];
     return (
-      <ListItem style={{ marginLeft: 0, paddingLeft: 15 }}>
+      <ListItem style={{ marginLeft: 0, paddingLeft: 18 }}>
       <Left>
         <Image
           resizeMode="contain"

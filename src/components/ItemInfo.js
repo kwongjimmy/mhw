@@ -48,7 +48,7 @@ export default class ItemInfoScreen extends PureComponent {
       tx.executeSql(
         `SELECT B.map_id, B.item_id, B.area, B.rank, C.name FROM items as A
           JOIN map_items AS B ON A.item_id = B.item_id
-          JOIN maps as C ON B.map_id = C.map_id WHERE A.item_id = ?`
+          JOIN maps as C ON B.map_id = C.map_id WHERE A.item_id = ? ORDER BY B.map_id, B.rank DESC`
         , [this.props.item_id], (tx, results) => {
           // Get rows with Web SQL Database spec compliance.
           const len = results.rows.length;
@@ -97,6 +97,7 @@ export default class ItemInfoScreen extends PureComponent {
       );
     });
   }
+
   renderInfo() {
     return (
       <Container>

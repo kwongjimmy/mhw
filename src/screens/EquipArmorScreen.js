@@ -12,10 +12,15 @@ export default class EquipArmorScreen extends Component {
       lowRank: [],
       loading: true,
     };
+  }
 
+  componentWillMount() {
+  }
+
+  getData() {
     const db = SQLite.openDatabase({
       name: 'mhworld.db', createFromLocation: '~mhworld.db', location: 'Default',
-    }, this.okCallback, this.errorCallback);
+    });
     db.transaction((tx) => {
       const lowRank = [];
       const highRank = [];
@@ -61,18 +66,18 @@ export default class EquipArmorScreen extends Component {
       I5.name as pants_name
       FROM
       ( SELECT
-      	A.name, A.armor_set_id, B.rank,
-      	B.item_id as head_item_id, b.slot1 as head_slot1, b.slot2 as head_slot2, b.slot3 as head_slot3, b.skill1 as head_skill1, b.skill2 as head_skill2,
-      	C.item_id as armor_item_id, C.slot1 as armor_slot1, C.slot2 as armor_slot2, C.slot3 as armor_slot3, C.skill1 as armor_skill1, C.skill2 as armor_skill2,
-      	D.item_id as gloves_item_id, D.slot1 as gloves_slot1, D.slot2 as gloves_slot2, D.slot3 as gloves_slot3, D.skill1 as gloves_skill1, D.skill2 as gloves_skill2,
-      	E.item_id as belt_item_id, E.slot1 as belt_slot1, E.slot2 as belt_slot2, E.slot3 as belt_slot3, E.skill1 as belt_skill1, E.skill2 as belt_skill2,
-      	F.item_id as pants_item_id, F.slot1 as pants_slot1, F.slot2 as pants_slot2, F.slot3 as pants_slot3, F.skill1 as pants_skill1, F.skill2 as pants_skill2
-      		FROM armor_sets as A
-      		LEFT JOIN armor as B on A.item_1 = B.item_id
-      		LEFT JOIN armor as C on A.item_2 = C.item_id
-      		LEFT JOIN armor as D on A.item_3 = D.item_id
-      		LEFT JOIN armor as E on A.item_4 = E.item_id
-      		LEFT JOIN armor as F on A.item_5 = F.item_id
+        A.name, A.armor_set_id, B.rank,
+        B.item_id as head_item_id, b.slot1 as head_slot1, b.slot2 as head_slot2, b.slot3 as head_slot3, b.skill1 as head_skill1, b.skill2 as head_skill2,
+        C.item_id as armor_item_id, C.slot1 as armor_slot1, C.slot2 as armor_slot2, C.slot3 as armor_slot3, C.skill1 as armor_skill1, C.skill2 as armor_skill2,
+        D.item_id as gloves_item_id, D.slot1 as gloves_slot1, D.slot2 as gloves_slot2, D.slot3 as gloves_slot3, D.skill1 as gloves_skill1, D.skill2 as gloves_skill2,
+        E.item_id as belt_item_id, E.slot1 as belt_slot1, E.slot2 as belt_slot2, E.slot3 as belt_slot3, E.skill1 as belt_skill1, E.skill2 as belt_skill2,
+        F.item_id as pants_item_id, F.slot1 as pants_slot1, F.slot2 as pants_slot2, F.slot3 as pants_slot3, F.skill1 as pants_skill1, F.skill2 as pants_skill2
+          FROM armor_sets as A
+          LEFT JOIN armor as B on A.item_1 = B.item_id
+          LEFT JOIN armor as C on A.item_2 = C.item_id
+          LEFT JOIN armor as D on A.item_3 = D.item_id
+          LEFT JOIN armor as E on A.item_4 = E.item_id
+          LEFT JOIN armor as F on A.item_5 = F.item_id
       ) as X
       LEFT JOIN items as I1 on X.head_item_id = I1.item_id
       LEFT JOIN items as I2 on X.armor_item_id = I2.item_id
@@ -89,10 +94,10 @@ export default class EquipArmorScreen extends Component {
     });
   }
 
-  componentWillMount() {
-  }
-
   componentDidMount() {
+    setTimeout(() => {
+      this.getData();
+    }, 500);
   }
 
   componentWillUnmount() {

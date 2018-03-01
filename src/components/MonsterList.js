@@ -67,7 +67,7 @@ export default class MonsterList extends PureComponent {
     }
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 15 }}
+        style={{ marginLeft: 0, paddingLeft: 18 }}
         onPress={() => this.props.navigator.push({
         screen: 'MonsterInfoScreen',
         passProps: {

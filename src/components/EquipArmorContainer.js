@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
+import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, ListItem } from 'native-base';
 
 export default class EquipArmorContainer extends Component {
   constructor(props) {
@@ -68,51 +69,61 @@ export default class EquipArmorContainer extends Component {
   }
 
   renderSlots(item) {
-    let slot1 = (item.slot1 === 0) ? `\u24ea` : (item.slot1 === 1) ? `\u2460` : (item.slot1 === 2) ? `\u2461` : `\u2462`;
-    let slot2 = (item.slot2 === 0) ? `\u24ea` : (item.slot2 === 1) ? `\u2460` : (item.slot2 === 2) ? `\u2461` : `\u2462`;
-    let slot3 = (item.slot3 === 0) ? `\u24ea` : (item.slot3 === 1) ? `\u2460` : (item.slot3 === 2) ? `\u2461` : `\u2462`;
+    // \u24ea
+    let slot1 = (item.slot1 === 0) ? `-` : (item.slot1 === 1) ? `\u2460` : (item.slot1 === 2) ? `\u2461` : `\u2462`;
+    let slot2 = (item.slot2 === 0) ? `-` : (item.slot2 === 1) ? `\u2460` : (item.slot2 === 2) ? `\u2461` : `\u2462`;
+    let slot3 = (item.slot3 === 0) ? `-` : (item.slot3 === 1) ? `\u2460` : (item.slot3 === 2) ? `\u2461` : `\u2462`;
     return (
-      <Text style={{ flex: 1, fontSize: 15.5, fontWeight: '500', color: '#191919', textAlign: 'center' }}>{`${slot1} ${slot2} ${slot3}`}</Text>
+      <Text style={{ flex: 1, fontSize: 15.5, fontWeight: '500', color: '#8e8e8e', textAlign: 'center' }}>{`${slot1} ${slot2} ${slot3}`}</Text>
     );
   }
+
+  renderHeaderIcon() {
+    if (!this.state.hide) {
+      return (
+        <Icon ios='ios-arrow-down' android="ios-arrow-down" style={{ fontSize: 20, color: 'red' }}/>
+      );
+    }
+    return (
+      <Icon ios='ios-arrow-up' android="ios-arrow-up" style={{ fontSize: 20, color: 'red' }}/>
+    );
+  }
+
   renderHeader() {
     return (
-      <TouchableOpacity onPress={() => this.setState({ hide: !this.state.hide })}>
-        <View style={{ flex: 1, borderWidth: 0, borderColor: '#191919', alignItems: 'center', paddingTop: 2.5, paddingBottom: 2.5 }}>
-            <Text style={{ fontSize: 16, color: '#191919' }}>{this.state.setName}</Text>
-        </View>
-      </TouchableOpacity>
+      <ListItem onPress={() => this.setState({ hide: !this.state.hide })} itemDivider>
+        <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{this.state.setName}</Text>
+        <Right>
+          {this.renderHeaderIcon()}
+        </Right>
+      </ListItem>
     );
   }
 
   renderBody() {
-    if(!this.state.hide) {
+    if (!this.state.hide) {
       return (
-        <View style={{ alignItems: 'center', flex: 1, paddingTop: 2.5, borderLeftWidth: 0, borderRightWidth: 0, borderColor: '#191919' }}>
-          {this.state.armor.map((item, key) => (
-            <View key={item.item_id} style={{ flex: 1, flexDirection: 'row', paddingLeft: 15, paddingRight: 15 }}>
-              <View style={{ flex: 4 }}>
-                <TouchableOpacity
-                  onPress={() => this.props.navigator.push({
-                  screen: 'ItemInfoScreen',
-                  passProps: {
-                    item_id: item.item_id,
-                    category: 'armor'
-                  },
-                  animationType: 'fade',
-                  title: item.name
-                })}>
-                  <Text key={item.item_id} style={{ fontSize: 15.5, color: '#191919' }}>
-                    {item.name}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+        this.state.armor.map((item, key) => {
+          return (
+            <ListItem
+              key={key}
+              style={{ marginLeft: 0, paddingLeft: 18 }}
+              onPress={() => this.props.navigator.push({
+              screen: 'EquipInfoScreen',
+              passProps: {
+                item_id: item.item_id,
+              },
+              animationType: 'fade',
+              title: item.name
+            })}
+            >
+                <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+              <Right>
                 {this.renderSlots(item)}
-              </View>
-            </View>
-          ))}
-        </View>
+              </Right>
+            </ListItem>
+          );
+        })
       );
     }
     return (
@@ -122,7 +133,7 @@ export default class EquipArmorContainer extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1, paddingTop: 10, paddingBottom: 10 }}>
+      <View>
         {this.renderHeader()}
         {this.renderBody()}
       </View>

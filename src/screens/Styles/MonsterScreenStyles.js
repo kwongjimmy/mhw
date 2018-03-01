@@ -76,14 +76,14 @@ export default StyleSheet.create({
     marginBottom: 5,
   },
   monsterText: {
-    flex: 1,
-    fontSize: 20,
+    // flex: 1,
+    fontSize: 18,
     color: '#191919',
   },
   monsterTypeText: {
-    flex: 1,
-    fontSize: 13,
-    color: '#5e5e5e',
+    // flex: 1,
+    fontSize: 15,
+    color: '#8e8e8e',
   },
   monsterImageContainer: {
     flex: 1,

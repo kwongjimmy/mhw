@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, ScrollView } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, List, ListItem, Tab, Tabs } from 'native-base';
 
 export default class ItemInfoLoot extends PureComponent {
@@ -8,8 +8,39 @@ export default class ItemInfoLoot extends PureComponent {
     this.currentMap = '';
     this.currentMonster = '';
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    let result = [];
+    let currentName = '';
+    let currentRank = '';
+    let currentArea = '';
+    for (let i = 0; i < this.props.mapLoot.length; i += 1) {
+      if (i === 0) {
+        currentName = this.props.mapLoot[i].name;
+        currentRank = this.props.mapLoot[i].rank;
+        currentArea = currentArea.concat(this.props.mapLoot[i].area).concat(', ');
+      } else if (this.props.mapLoot[i].name !== currentName
+        || this.props.mapLoot[i].rank !== currentRank) {
+        result.push({
+          name: currentName,
+          rank: currentRank,
+          area: currentArea.slice(0, currentArea.length - 2),
+        });
+        currentArea = '';
+        currentArea = currentArea.concat(this.props.mapLoot[i].area).concat(', ');
+        currentName = this.props.mapLoot[i].name;
+        currentRank = this.props.mapLoot[i].rank;
+      } else if (i === this.props.mapLoot.length - 1) {
+        currentArea = currentArea.concat(this.props.mapLoot[i].area).concat(', ');
+        result.push({
+          name: currentName,
+          rank: currentRank,
+          area: currentArea.slice(0, currentArea.length - 2),
+        });
+      } else {
+        currentArea = currentArea.concat(this.props.mapLoot[i].area).concat(', ');
+      }
+    }
     this.state = {
-      monsterLoot: this.props.monsterLoot,
+      mapLoot: result,
     };
   }
 
@@ -22,12 +53,13 @@ export default class ItemInfoLoot extends PureComponent {
   }
 
   renderMapHeader(item) {
-    if (this.currentMap !== item.name) {
-      this.currentMap = item.name;
+    if (this.currentMap !== `${item.name} ${item.rank}`) {
+      this.currentMap = `${item.name} ${item.rank}`;
       return (
-        <ListItem style={{ marginLeft: 0, paddingLeft: 15 }} itemDivider>
-          <Text style={{ fontSize: 16, fontWeight: '100', color: '#191919' }}>{`${item.name}`}</Text>
-          <Text style={{ fontSize: 16, fontWeight: '100', color: '#5e5e5e' }}>{` ${item.rank} Rank`}</Text>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18 }} itemDivider>
+          <Left>
+            <Text style={{ fontSize: 16, fontWeight: '100', color: '#191919' }}>{`${item.name}`} <Text style={{ fontSize: 16, fontWeight: '100', color: '#5e5e5e' }}>{` ${item.rank} Rank`}</Text> </Text>
+          </Left>
         </ListItem>
       );
     }
@@ -36,25 +68,21 @@ export default class ItemInfoLoot extends PureComponent {
     );
   }
 
-  renderListMapItems = ({ item }) => {
-    return (
-      <View>
-        {this.renderMapHeader(item)}
-        <ListItem style={{ marginLeft: 0, paddingLeft: 15 }}>
-          <Text style={{ fontSize: 15.5, color: '#191919' }}>{`Area ${item.area}`}</Text>
-        </ListItem>
-      </View>
-    );
-  }
-
   renderMapLoot() {
-    if (this.props.mapLoot.length > 0) {
+    if (this.state.mapLoot.length > 0) {
       return (
-        <FlatList
-          data={this.props.mapLoot}
-          keyExtractor={(item) => `${item.map_id.toString()} ${item.area}`}
-          renderItem={this.renderListMapItems}
-        />
+        this.state.mapLoot.map((item, key) => {
+          return (
+            <View key={key}>
+              {this.renderMapHeader(item)}
+              <ListItem style={{ marginLeft: 0, paddingLeft: 18 }}>
+                <Left>
+                  <Text style={{ fontSize: 15.5, color: '#191919' }}>{`Area ${item.area}`}</Text>
+                </Left>
+              </ListItem>
+            </View>
+          );
+        })
       );
     }
     return (
@@ -68,15 +96,23 @@ export default class ItemInfoLoot extends PureComponent {
       if (item.rank) {
         return (
           <ListItem style={{ marginLeft: 0 }} itemDivider>
-            <Text style={{ fontSize: 16, fontWeight: '100', color: '#191919' }}>{`${item.monster_name}`}</Text>
-            <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{` High Rank`}</Text>
+            <Left>
+              <Text style={{ fontSize: 16, fontWeight: '100', color: '#191919' }}>{`${item.monster_name}`}  <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{` High Rank`}</Text></Text>
+            </Left>
+            <Right>
+              <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{` Amount`}</Text>
+            </Right>
           </ListItem>
         );
       }
       return (
         <ListItem style={{ marginLeft: 0 }} itemDivider>
-          <Text style={{ fontSize: 16, fontWeight: '100', color: '#191919' }}>{`${item.monster_name}`}</Text>
-          <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{` Low Rank`}</Text>
+          <Left>
+            <Text style={{ fontSize: 16, fontWeight: '100', color: '#191919' }}>{`${item.monster_name}`}  <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{` Low Rank`}</Text></Text>
+          </Left>
+          <Right>
+            <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{` Amount`}</Text>
+          </Right>
         </ListItem>
       );
     }
@@ -85,25 +121,24 @@ export default class ItemInfoLoot extends PureComponent {
     );
   }
 
-  renderListMonsterItems = ({ item }) => {
-    return (
-      <View>
-        {this.renderMonsterHeader(item)}
-        <ListItem>
-          <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.name} x${item.quantity}`}</Text>
-        </ListItem>
-      </View>
-    );
-  }
-
   renderMonsterLoot() {
     if (this.props.monsterLoot.length > 0) {
       return (
-        <FlatList
-          data={this.state.monsterLoot}
-          keyExtractor={(item) => `${item.monster_name} ${item.rank.toString()} ${item.name}`}
-          renderItem={this.renderListMonsterItems.bind(this)}
-        />
+        this.props.monsterLoot.map((item, key) => {
+          return (
+            <View key={key}>
+              {this.renderMonsterHeader(item)}
+              <ListItem style={{ marginLeft: 0, paddingLeft: 18 }}>
+                <Left>
+                  <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.name}`}</Text>
+                </Left>
+                <Right>
+                  <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.quantity}`}</Text>
+                </Right>
+              </ListItem>
+            </View>
+          );
+        })
       );
     }
     return (
@@ -114,8 +149,10 @@ export default class ItemInfoLoot extends PureComponent {
   render() {
     return (
       <Container style={{ backgroundColor: 'white' }}>
-        {this.renderMapLoot()}
-        {this.renderMonsterLoot()}
+        <ScrollView>
+          {this.renderMonsterLoot()}
+          {this.renderMapLoot()}
+        </ScrollView>
       </Container>
     );
   }
