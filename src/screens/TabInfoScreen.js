@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import { View, Text } from 'react-native';
 import ItemInfo from '../components/ItemInfo';
 import SkillInfo from '../components/SkillInfo';
 

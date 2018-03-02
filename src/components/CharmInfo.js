@@ -11,16 +11,6 @@ export default class CharmInfo extends Component {
       loading: true,
       info: {},
       materials: [],
-      skills: [
-        {
-          name: 'Test 1',
-          amount: 1,
-        },
-        {
-          name: 'Test 2',
-          amount: 2,
-        }
-      ],
     };
     const db = SQLite.openDatabase({
       name: 'mhworld.db', location: 'Default',
@@ -56,10 +46,22 @@ export default class CharmInfo extends Component {
             materials.push(results.rows.item(i));
           }
           this.setState({ info, materials, loading: false });
-          console.log(this.state);
         }
       );
     });
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  onNavigatorEvent(event) {
+    if (event.id === 'bottomTabSelected') {
+      console.log('Tab selected!');
+    }
+    if (event.id === 'bottomTabReselected') {
+      this.props.navigator.popToRoot({
+        animated: true,
+        animationType: 'fade',
+      });
+    }
   }
 
   renderInfo() {
@@ -144,7 +146,7 @@ export default class CharmInfo extends Component {
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`${this.state.info.skill1_name}`}</Text>
           </Left>
           <Right>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`${this.state.info.skill1_level}`}</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`+${this.state.info.skill1_level}`}</Text>
           </Right>
         </ListItem>
       );
@@ -162,7 +164,7 @@ export default class CharmInfo extends Component {
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>Skill</Text>
           </Left>
           <Right>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#8e8e8e' }}>Quantity</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#8e8e8e' }}></Text>
           </Right>
         </ListItem>
         {this.renderSkillBody()}

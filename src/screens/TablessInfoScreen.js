@@ -15,8 +15,7 @@ export default class TablessInfoScreen extends PureComponent {
       return (
         <CharmInfo navigator={this.props.navigator} item_id={this.props.item_id}/>
       );
-    }
-    else if (this.props.type === 'maps') {
+    } else if (this.props.type === 'maps') {
       return (
         <MapInfo navigator={this.props.navigator} map_id={this.props.item_id}/>
       );

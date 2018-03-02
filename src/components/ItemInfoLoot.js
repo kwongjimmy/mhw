@@ -7,7 +7,6 @@ export default class ItemInfoLoot extends PureComponent {
     super(props);
     this.currentMap = '';
     this.currentMonster = '';
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     let result = [];
     let currentName = '';
     let currentRank = '';
@@ -42,6 +41,7 @@ export default class ItemInfoLoot extends PureComponent {
     this.state = {
       mapLoot: result,
     };
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   onNavigatorEvent(event) {
@@ -49,6 +49,10 @@ export default class ItemInfoLoot extends PureComponent {
       console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
+      this.props.navigator.popToRoot({
+        animated: true,
+        animationType: 'fade',
+      });
     }
   }
 

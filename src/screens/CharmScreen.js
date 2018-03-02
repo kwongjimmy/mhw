@@ -14,16 +14,6 @@ export default class CharmScreen extends Component {
     super(props);
     this.state = {
       items: [],
-      skills: [
-        {
-          name: 'Test skill',
-          amount: '2'
-        },
-        {
-          name: 'Test skill',
-          amount: '1'
-        },
-      ]
     };
     // console.log(this.props)
     const db = SQLite.openDatabase({

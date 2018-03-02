@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { View, ScrollView } from 'react-native';
-import { Container, Content, Text, Left, Body, Right, List, ListItem } from 'native-base';
+import { Container, Text, Left, Body, Right, ListItem } from 'native-base';
 
 export default class ItemInfoEquip extends PureComponent {
   constructor(props) {
@@ -13,6 +13,10 @@ export default class ItemInfoEquip extends PureComponent {
       console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
+      this.props.navigator.popToRoot({
+        animated: true,
+        animationType: 'fade',
+      });
     }
   }
 
@@ -23,7 +27,7 @@ export default class ItemInfoEquip extends PureComponent {
           <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>Weapons</Text>
         </Left>
         <Right>
-          <Text style={{ fontSize: 15.5, color: '#5e5e5e' }}>Amount</Text>
+          <Text style={{ fontSize: 15.5, color: '#5e5e5e' }}>Cost</Text>
         </Right>
       </ListItem>
     );
@@ -69,7 +73,7 @@ export default class ItemInfoEquip extends PureComponent {
           <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>Armor</Text>
         </Left>
         <Right>
-          <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>Amount</Text>
+          <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>Cost</Text>
         </Right>
       </ListItem>
     );

@@ -146,10 +146,10 @@ export default class EquipArmorContainer extends Component {
               title: item.name
             })}
             >
-              <Left>
+              <Left style={{ flex: 2 }}>
                 <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
               </Left>
-              <Body>
+              <Body style={{ flex: 1.5 }}>
                 {this.renderSkills(item)}
               </Body>
               <Right>

@@ -116,6 +116,19 @@ export default class ItemInfo extends PureComponent {
         },
       );
     });
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  onNavigatorEvent(event) {
+    if (event.id === 'bottomTabSelected') {
+      console.log('Tab selected!');
+    }
+    if (event.id === 'bottomTabReselected') {
+      this.props.navigator.popToRoot({
+        animated: true,
+        animationType: 'fade',
+      });
+    }
   }
 
   renderInfo() {
@@ -156,6 +169,7 @@ export default class ItemInfo extends PureComponent {
       </Container>
     );
   }
+
   renderContent(screen) {
     if (this.state.loading) {
       return (
@@ -183,6 +197,7 @@ export default class ItemInfo extends PureComponent {
       <ItemInfoQuest navigator={this.props.navigator} items={this.state.itemQuest}/>
     );
   }
+  
   render() {
     return (
       <Container style={{ backgroundColor: 'white' }}>

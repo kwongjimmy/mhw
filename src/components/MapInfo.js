@@ -36,8 +36,20 @@ export default class MapInfo extends Component {
       );
     });
     this.currentArea = '';
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
+  onNavigatorEvent(event) {
+    if (event.id === 'bottomTabSelected') {
+      console.log('Tab selected!');
+    }
+    if (event.id === 'bottomTabReselected') {
+      this.props.navigator.popToRoot({
+        animated: true,
+        animationType: 'fade',
+      });
+    }
+  }
 
   renderHeader(item) {
     if (this.currentArea !== item.area) {

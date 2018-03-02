@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ScrollView, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Tabs, ListItem, Text, Left, Body } from 'native-base';
+import SkillEquip from './SkillEquip';
 
 export default class SkillInfo extends Component {
   constructor(props) {
@@ -48,6 +49,19 @@ export default class SkillInfo extends Component {
         },
       );
     });
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  onNavigatorEvent(event) {
+    if (event.id === 'bottomTabSelected') {
+      console.log('Tab selected!');
+    }
+    if (event.id === 'bottomTabReselected') {
+      this.props.navigator.popToRoot({
+        animated: true,
+        animationType: 'fade',
+      });
+    }
   }
 
   renderLevels() {
@@ -99,9 +113,7 @@ export default class SkillInfo extends Component {
       );
     }
     return (
-      <View>
-        <Text>Hi2</Text>
-      </View>
+      <SkillEquip navigator={this.props.navigator} armor_skill_id={this.props.armor_skill_id}/>
     );
   }
 

@@ -105,7 +105,7 @@ export default class EquipArmorInfo extends Component {
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{this.state.skills[0].skill2_name}</Text>
           </Left>
           <Right>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#8e8e8e' }}>{this.state.skills[0].skill2_level}</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{this.state.skills[0].skill2_level}</Text>
           </Right>
         </ListItem>
       );
@@ -133,7 +133,7 @@ export default class EquipArmorInfo extends Component {
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{this.state.skills[0].skill1_name}</Text>
         </Left>
         <Right>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#8e8e8e' }}>{this.state.skills[0].skill1_level}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`+${this.state.skills[0].skill1_level}`}</Text>
         </Right>
       </ListItem>
     );
@@ -148,7 +148,7 @@ export default class EquipArmorInfo extends Component {
               <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>Skill</Text>
             </Left>
             <Right>
-              <Text style={{ flex: 1, fontSize: 15.5, color: '#8e8e8e' }}>Quantity</Text>
+              <Text style={{ flex: 1, fontSize: 15.5, color: '#8e8e8e' }}></Text>
             </Right>
           </ListItem>
           {this.renderSkill1()}
