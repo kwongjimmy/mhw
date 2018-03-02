@@ -30,7 +30,7 @@ export default class MonsterLoot extends Component {
       this.currentCondition = item.name;
       return (
         <ListItem style={{ marginLeft: 0, paddingLeft: 18 }} itemDivider>
-          <Text style={{ fontSize: 16, fontWeight: '300', color: '#191919' }}>{item.name}</Text>
+          <Text style={{ fontSize: 15.5, fontWeight: '300', color: '#191919' }}>{item.name}</Text>
         </ListItem>
       );
     }
@@ -45,10 +45,10 @@ export default class MonsterLoot extends Component {
         {this.renderListHeader(item)}
         <ListItem style={{ marginLeft: 0, paddingLeft: 18 }}
           onPress={() => this.props.navigator.push({
-            screen: 'ItemInfoScreen',
+            screen: 'TabInfoScreen',
             passProps: {
               item_id: item.item_id,
-              category: 'item',
+              type: 'item',
             },
             animationType: 'fade',
             title: item.item_name,

@@ -47,11 +47,11 @@ export default class WeaponSelectScreen extends Component {
       <Left>
         <Image
           resizeMode="contain"
-          style={styles.monsterImage2}
+          style={{ width: 35, height: 35 }}
           source={src}
         />
       </Left>
-      <Body style={{ flex: 4 }}>
+      <Body style={{ flex: 5 }}>
         <Text style={{ fontSize: 20, color: '#191919'}}>{item}</Text>
       </Body>
       </ListItem>

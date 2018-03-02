@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList, TouchableOpacity } from 'react-native';
-import { Container } from 'native-base';
+import { FlatList } from 'react-native';
+import { Container, ListItem, Text, Left } from 'native-base';
 
 export default class MiscScreen extends Component {
   static navigatorStyle = {
@@ -23,6 +23,18 @@ export default class MiscScreen extends Component {
           title: 'Quests',
         },
         {
+          route: 'CharmScreen',
+          title: 'Charms'
+        },
+        {
+          route: 'DecorationScreen',
+          title: 'Decorations'
+        },
+        {
+          route: 'SkillScreen',
+          title: 'Skills'
+        },
+        {
           route: 'MapScreen',
           title: 'Maps',
         },
@@ -32,25 +44,20 @@ export default class MiscScreen extends Component {
 
   renderListItems = ({ item }) => {
     return (
-      <View style={{
-        paddingBottom: 7.5, flex: 1, flexDirection: 'row', borderColor: 'red', borderBottomWidth: 0, alignItems: 'center', marginLeft: 7.5, marginRight: 7.5
-      }}>
-        <View style={{
-          flex: 1, flexDirection: 'row', alignItems: 'center', borderWidth: 0,
-        }}>
-          <TouchableOpacity
-            onPress={() => this.props.navigator.push({
-            screen: item.route,
-            passProps: {
+      <ListItem
+        style={{ marginLeft: 0, paddingLeft: 8 }}
+        onPress={() => this.props.navigator.push({
+        screen: item.route,
+        passProps: {
 
-            },
-            animationType: 'fade',
-            title: item.title,
-          })}>
-            <Text style={{ fontSize: 15.5, flex: 1, color: '#191919' }}>{item.title}</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+        },
+        animationType: 'fade',
+        title: item.title,
+        })}>
+        <Left>
+          <Text>{item.title}</Text>
+        </Left>
+      </ListItem>
     );
   }
 

@@ -12,11 +12,14 @@ import WeaponSelectScreen from './screens/WeaponSelectScreen';
 import WeaponScreen from './screens/WeaponScreen';
 import MiscScreen from './screens/MiscScreen';
 import ItemScreen from './screens/ItemScreen';
+import SearchScreen from './screens/SearchScreen';
+import CharmScreen from './screens/CharmScreen';
+import SkillScreen from './screens/SkillScreen';
+import MapScreen from './screens/MapScreen';
 
 import MonsterInfoScreen from './screens/MonsterInfoScreen';
-import ItemInfoScreen from './screens/ItemInfoScreen';
-import EquipInfoScreen from './screens/EquipInfoScreen';
-
+import TabInfoScreen from './screens/TabInfoScreen';
+import TablessInfoScreen from './screens/TablessInfoScreen';
 
 export default () => {
   Navigation.registerComponent('Screen1', () => Screen1);
@@ -30,12 +33,16 @@ export default () => {
   Navigation.registerComponent('WeaponSelectScreen', () => WeaponSelectScreen);
   Navigation.registerComponent('MiscScreen', () => MiscScreen);
   Navigation.registerComponent('ItemScreen', () => ItemScreen);
+  Navigation.registerComponent('SearchScreen', () => SearchScreen);
+  Navigation.registerComponent('CharmScreen', () => CharmScreen);
+  Navigation.registerComponent('SkillScreen', () => SkillScreen);
+  Navigation.registerComponent('MapScreen', () => MapScreen);
+
 
   Navigation.registerComponent('WeaponScreen', () => WeaponScreen);
   Navigation.registerComponent('MonsterInfoScreen', () => MonsterInfoScreen);
-  Navigation.registerComponent('ItemInfoScreen', () => ItemInfoScreen);
-  Navigation.registerComponent('EquipInfoScreen', () => EquipInfoScreen);
-
+  Navigation.registerComponent('TabInfoScreen', () => TabInfoScreen);
+  Navigation.registerComponent('TablessInfoScreen', () => TablessInfoScreen);
 
   Navigation.startTabBasedApp({
     tabs: [
@@ -75,11 +82,11 @@ export default () => {
         title: 'Weapons',
       },
       {
-        label: 'Misc',
-        screen: 'MiscScreen',
+        label: 'SearchScreen',
+        screen: 'SearchScreen',
         icon: require('./images/icon2.png'),
         selectedIcon: require('./images/icon2_selected.png'),
-        title: 'Quest',
+        title: 'Search',
       },
       {
         label: 'Misc',

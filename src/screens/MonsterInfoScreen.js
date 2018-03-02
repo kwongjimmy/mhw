@@ -82,10 +82,20 @@ export default class MonsterInfoScreen extends Component {
         },
       );
       tx.executeSql(
-        `SELECT C.name, C.item_id FROM monster_loot as A
-        JOIN monster_loot_categories as B on A.category_id = B.category_id
-        JOIN items as C ON A.item_id = C.item_id
-        WHERE A.monster_id = ? AND B.category_id = 51`,
+        `SELECT
+          C.name, C.item_id,
+          D.slot1, D.slot2, D.slot3,
+          E1.level as skill1_level, E1S.name as skill1_name,
+          E2.level as skill2_level, E2S.name as skill2_name
+          FROM monster_loot as A
+          JOIN monster_loot_categories as B on A.category_id = B.category_id
+          JOIN items as C ON A.item_id = C.item_id
+      	  JOIN armor as D ON A.item_id = D.item_id
+      	  LEFT JOIN armor_skills_levels as E1 ON D.skill1 = E1.armor_skill_level_id
+      		LEFT JOIN armor_skills_levels as E2 ON D.skill2 = E2.armor_skill_level_id
+      		LEFT JOIN armor_skills as E1S ON E1S.armor_skill_id = E1.armor_skill_id
+      		LEFT JOIN armor_skills as E2S ON E2S.armor_skill_id = E2.armor_skill_id
+      		WHERE A.monster_id = ? AND B.category_id = 56`,
         [this.props.monster_id], (tx, results) => {
           for (let i = 0; i < results.rows.length; i += 1) {
             const row = results.rows.item(i);
@@ -97,7 +107,7 @@ export default class MonsterInfoScreen extends Component {
         `SELECT C.name, C.item_id FROM monster_loot as A
         JOIN monster_loot_categories as B on A.category_id = B.category_id
         JOIN items as C ON A.item_id = C.item_id
-        WHERE A.monster_id = ? AND B.category_id = 50`,
+        WHERE A.monster_id = ? AND B.category_id = 55`,
         [this.props.monster_id], (tx, results) => {
           for (let i = 0; i < results.rows.length; i += 1) {
             const row = results.rows.item(i);
@@ -149,9 +159,9 @@ export default class MonsterInfoScreen extends Component {
     } else if (screen === 'tab3') {
       return <MonsterLoot navigator={this.props.navigator} monster_loot={this.state.monster_loot_high}/>;
     } else if (screen === 'tab4') {
-      return <MonsterEquip navigator={this.props.navigator} data={this.state.monster_armor}/>;
+      return <MonsterEquip navigator={this.props.navigator} data={this.state.monster_armor} type={'armor'}/>;
     } else if (screen === 'tab5') {
-      return <MonsterEquip navigator={this.props.navigator} data={this.state.monster_weapons}/>;
+      return <MonsterEquip navigator={this.props.navigator} data={this.state.monster_weapons} type={'weapon'}/>;
     }
     return (
       <MonsterQuest navigator={this.props.navigator} monster_quest={this.state.monster_quest}/>

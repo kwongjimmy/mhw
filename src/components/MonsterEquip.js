@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, FlatList } from 'react-native';
-import { Text, ListItem, Right } from 'native-base';
+import { Text, ListItem, Right, Left, Body } from 'native-base';
 
 export default class MonsterEquip extends Component {
   constructor(props) {
@@ -25,6 +25,22 @@ export default class MonsterEquip extends Component {
     }
   }
 
+
+  renderWeaponListItems = ({ item }) => {
+    return (
+      <ListItem
+        style={{ marginLeft: 0, paddingLeft: 8 }}
+      >
+        <Left>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+        </Left>
+        <Body>
+        </Body>
+        <Right>
+        </Right>
+      </ListItem>
+    );
+  }
   renderSlots(item) {
     // \u24ea
     let slot1 = (item.slot1 === 0) ? `-` : (item.slot1 === 1) ? `\u2460` : (item.slot1 === 2) ? `\u2461` : `\u2462`;
@@ -32,6 +48,25 @@ export default class MonsterEquip extends Component {
     let slot3 = (item.slot3 === 0) ? `-` : (item.slot3 === 1) ? `\u2460` : (item.slot3 === 2) ? `\u2461` : `\u2462`;
     return (
       <Text style={{ flex: 1, fontSize: 15.5, fontWeight: '500', color: '#8e8e8e', textAlign: 'center' }}>{`${slot1} ${slot2} ${slot3}`}</Text>
+    );
+  }
+
+
+  renderSkills(item) {
+    if (item.skill1_name !== null && item.skill2_name !== null) {
+      return (
+        <View>
+          <Text style={{ flex: 1, fontSize: 11, color: '#8e8e8e' }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
+          <Text style={{ flex: 1, fontSize: 11, color: '#8e8e8e' }}>{`${item.skill2_name} +${item.skill2_level}`}</Text>
+        </View>
+      );
+    } else if (item.skill1_name !== null && item.skill2_name === null) {
+      return (
+        <Text style={{ flex: 1, fontSize: 11, color: '#8e8e8e' }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
+      );
+    }
+    return (
+      null
     );
   }
 
@@ -43,17 +78,23 @@ export default class MonsterEquip extends Component {
       //   </ListItem>
       // </View>
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 18 }}
+        style={{ marginLeft: 0, paddingLeft: 8 }}
         onPress={() => this.props.navigator.push({
-        screen: 'EquipInfoScreen',
+        screen: 'TablessInfoScreen',
         passProps: {
           item_id: item.item_id,
+          type: 'armor'
         },
         animationType: 'fade',
         title: item.name
       })}
       >
+        <Left>
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+        </Left>
+        <Body>
+          {this.renderSkills(item)}
+        </Body>
         <Right>
           {this.renderSlots(item)}
         </Right>
@@ -62,11 +103,20 @@ export default class MonsterEquip extends Component {
   }
 
   render() {
+    if (this.props.type === 'armor') {
+      return (
+        <FlatList
+          data={this.state.data}
+          keyExtractor={(item) => item.item_id.toString()}
+          renderItem={this.renderListItems}
+        />
+      );
+    }
     return (
       <FlatList
         data={this.state.data}
         keyExtractor={(item) => item.item_id.toString()}
-        renderItem={this.renderListItems}
+        renderItem={this.renderWeaponListItems}
       />
     );
   }

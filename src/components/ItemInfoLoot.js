@@ -56,9 +56,9 @@ export default class ItemInfoLoot extends PureComponent {
     if (this.currentMap !== `${item.name} ${item.rank}`) {
       this.currentMap = `${item.name} ${item.rank}`;
       return (
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18 }} itemDivider>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
           <Left>
-            <Text style={{ fontSize: 16, fontWeight: '100', color: '#191919' }}>{`${item.name}`} <Text style={{ fontSize: 16, fontWeight: '100', color: '#5e5e5e' }}>{` ${item.rank} Rank`}</Text> </Text>
+            <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>{`${item.name}`} <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{` ${item.rank} Rank`}</Text> </Text>
           </Left>
         </ListItem>
       );
@@ -75,7 +75,7 @@ export default class ItemInfoLoot extends PureComponent {
           return (
             <View key={key}>
               {this.renderMapHeader(item)}
-              <ListItem style={{ marginLeft: 0, paddingLeft: 18 }}>
+              <ListItem style={{ marginLeft: 0, paddingLeft: 8 }}>
                 <Left>
                   <Text style={{ fontSize: 15.5, color: '#191919' }}>{`Area ${item.area}`}</Text>
                 </Left>
@@ -95,9 +95,9 @@ export default class ItemInfoLoot extends PureComponent {
       this.currentMonster = `${item.monster_name} ${item.rank}`;
       if (item.rank) {
         return (
-          <ListItem style={{ marginLeft: 0 }} itemDivider>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
             <Left>
-              <Text style={{ fontSize: 16, fontWeight: '100', color: '#191919' }}>{`${item.monster_name}`}  <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{` High Rank`}</Text></Text>
+              <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>{`${item.monster_name}`}  <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{` High Rank`}</Text></Text>
             </Left>
             <Right>
               <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{` Amount`}</Text>
@@ -106,9 +106,9 @@ export default class ItemInfoLoot extends PureComponent {
         );
       }
       return (
-        <ListItem style={{ marginLeft: 0 }} itemDivider>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
           <Left>
-            <Text style={{ fontSize: 16, fontWeight: '100', color: '#191919' }}>{`${item.monster_name}`}  <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{` Low Rank`}</Text></Text>
+            <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>{`${item.monster_name}`}  <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{` Low Rank`}</Text></Text>
           </Left>
           <Right>
             <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{` Amount`}</Text>
@@ -128,12 +128,12 @@ export default class ItemInfoLoot extends PureComponent {
           return (
             <View key={key}>
               {this.renderMonsterHeader(item)}
-              <ListItem style={{ marginLeft: 0, paddingLeft: 18 }}>
+              <ListItem style={{ marginLeft: 0, paddingLeft: 8 }}>
                 <Left>
-                  <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.name}`}</Text>
+                  <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
                 </Left>
                 <Right>
-                  <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.quantity}`}</Text>
+                  <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.quantity}</Text>
                 </Right>
               </ListItem>
             </View>

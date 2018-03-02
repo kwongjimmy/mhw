@@ -1,17 +1,18 @@
 import React, { PureComponent } from 'react';
 import { ScrollView, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, List, ListItem, Tab, Tabs } from 'native-base';
+import { Container, Content, Text, Left, Body, Right, List, ListItem, Tab, Tabs } from 'native-base';
 import ItemInfoEquip from './ItemInfoEquip';
 import ItemInfoQuest from './ItemInfoQuest';
 import ItemInfoLoot from './ItemInfoLoot';
 
-export default class ItemInfoScreen extends PureComponent {
+export default class ItemInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       item: {},
-      itemEquips: [],
+      itemArmor: [],
+      itemWeapons: [],
       itemMapLoot: [],
       itemMonsterLoot: [],
       itemQuest: [],
@@ -24,6 +25,8 @@ export default class ItemInfoScreen extends PureComponent {
     db.transaction((tx) => {
       let item = {};
       const itemEquips = [];
+      const itemArmor = [];
+      const itemWeapons = [];
       const itemMapLoot = [];
       const itemMonsterLoot = [];
       const itemQuest = [];
@@ -35,13 +38,30 @@ export default class ItemInfoScreen extends PureComponent {
       tx.executeSql(
         `SELECT A.name as name, B.* from items as A
           JOIN (SELECT B.item_id, quantity from items AS A JOIN crafting as B ON A.item_id = B.item_material_id WHERE A.item_id = ?) as B
-          ON A.item_id = B.item_id`
+          ON A.item_id = B.item_id
+          WHERE A.category = 'armor'
+        `
         , [this.props.item_id], (tx, results) => {
           // Get rows with Web SQL Database spec compliance.
           const len = results.rows.length;
           for (let i = 0; i < len; i += 1) {
             const row = results.rows.item(i);
-            itemEquips.push(row);
+            itemArmor.push(row);
+          }
+        },
+      );
+      tx.executeSql(
+        `SELECT A.name as name, B.* from items as A
+          JOIN (SELECT B.item_id, quantity from items AS A JOIN crafting as B ON A.item_id = B.item_material_id WHERE A.item_id = ?) as B
+          ON A.item_id = B.item_id
+          WHERE A.category = 'weapon'
+        `
+        , [this.props.item_id], (tx, results) => {
+          // Get rows with Web SQL Database spec compliance.
+          const len = results.rows.length;
+          for (let i = 0; i < len; i += 1) {
+            const row = results.rows.item(i);
+            itemWeapons.push(row);
           }
         },
       );
@@ -59,7 +79,7 @@ export default class ItemInfoScreen extends PureComponent {
         },
       );
       tx.executeSql(
-        `SELECT A.monster_id, A.monster_name, B.name, B.quantity, B.item_id, B.rank from monster as A
+        `SELECT A.monster_id as monster_id, A.monster_name as monster_name, B.name as name, B.quantity as quantity, B.item_id as item_id, B.rank as rank from monster as A
           JOIN (SELECT * from monster_loot as A JOIN monster_loot_categories as B ON A.category_id = B.category_id WHERE A.item_id = ?) as B
           ON A.monster_id = B.monster_id`
         , [this.props.item_id], (tx, results) => {
@@ -90,7 +110,7 @@ export default class ItemInfoScreen extends PureComponent {
             itemQuest.push(row);
           }
           this.setState({
-            item, itemEquips, itemMapLoot, itemMonsterLoot, itemQuest, loading: false,
+            item, itemArmor, itemWeapons, itemMapLoot, itemMonsterLoot, itemQuest, loading: false,
           });
           console.log(this.state);
         },
@@ -103,21 +123,21 @@ export default class ItemInfoScreen extends PureComponent {
       <Container>
         <Content>
           <List>
-            <ListItem style={{ marginLeft: 0, borderColor: 'red' }}>
+            <ListItem style={{ marginLeft: 0, borderBottomWidth: 0.0, borderColor: 'red' }} itemDivider>
               <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 16, flex: 1, textAlign: 'center', color: '#191919' }}>Buy</Text>
+                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Buy</Text>
               </View>
               <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 16, flex: 1, textAlign: 'center', color: '#191919' }}>Sell</Text>
+                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Sell</Text>
               </View>
               <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 16, flex: 1, textAlign: 'center', color: '#191919' }}>Carry</Text>
+                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Carry</Text>
               </View>
               <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 16, flex: 1, textAlign: 'center', color: '#191919' }}>Rarity</Text>
+                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Rarity</Text>
               </View>
             </ListItem>
-            <ListItem style={{ marginLeft: 0 }}>
+            <ListItem style={{ marginLeft: 0, backgroundColor: 'white' }} itemDivider>
               <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                 <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{`${this.state.item.buy_price}z`}</Text>
               </View>
@@ -156,7 +176,7 @@ export default class ItemInfoScreen extends PureComponent {
       );
     } else if (screen === 'tab3') {
       return (
-        <ItemInfoEquip navigator={this.props.navigator} items={this.state.itemEquips}/>
+        <ItemInfoEquip navigator={this.props.navigator} armor={this.state.itemArmor} weapons={this.state.itemWeapons}/>
       );
     }
     return (
