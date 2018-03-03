@@ -255,8 +255,6 @@ export default () => {
       tabBarSelectedLabelColor: 'red', // iOS only. change the color of the selected tab text
       // forceTitlesDisplay: true, // Android only. If true - Show all bottom tab labels. If false - only the selected tab's label is visible.
       tabBarHideShadow: false, // iOS only. Remove default tab bar top shadow (hairline)
-      navBarHeight: 10,
-
     }
   });
 };

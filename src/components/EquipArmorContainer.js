@@ -74,7 +74,7 @@ export default class EquipArmorContainer extends Component {
     this.state = {
       setName: this.props.armor.name,
       armor,
-      hide: false,
+      hide: true,
     };
   }
 
@@ -102,7 +102,7 @@ export default class EquipArmorContainer extends Component {
     let slot2 = (item.slot2 === 0) ? `-` : (item.slot2 === 1) ? `\u2460` : (item.slot2 === 2) ? `\u2461` : `\u2462`;
     let slot3 = (item.slot3 === 0) ? `-` : (item.slot3 === 1) ? `\u2460` : (item.slot3 === 2) ? `\u2461` : `\u2462`;
     return (
-      <Text style={{ flex: 1, fontSize: 15.5, fontWeight: '500', color: '#8e8e8e', textAlign: 'center' }}>{`${slot1} ${slot2} ${slot3}`}</Text>
+      <Text style={{ flex: 1, fontSize: 14, fontWeight: '500', color: '#8e8e8e', textAlign: 'center' }}>{`${slot1} ${slot2} ${slot3}`}</Text>
     );
   }
 
@@ -119,7 +119,7 @@ export default class EquipArmorContainer extends Component {
 
   renderHeader() {
     return (
-      <ListItem onPress={() => this.setState({ hide: !this.state.hide })} itemDivider>
+      <ListItem style={{ borderBottomWidth: 0.5, borderColor: '#9e9e9e' }} onPress={() => this.setState({ hide: !this.state.hide })} itemDivider>
         <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{this.state.setName}</Text>
         <Right>
           {this.renderHeaderIcon()}
@@ -146,13 +146,13 @@ export default class EquipArmorContainer extends Component {
               title: item.name
             })}
             >
-              <Left style={{ flex: 2 }}>
+              <Left style={{ flex: 1.5 }}>
                 <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
               </Left>
               <Body style={{ flex: 1.5 }}>
                 {this.renderSkills(item)}
               </Body>
-              <Right>
+              <Right style={{ flex: 0.75 }}>
                 {this.renderSlots(item)}
               </Right>
             </ListItem>
