@@ -21,6 +21,7 @@ export default class SearchScreen extends Component {
       smallMonsters: [],
       largeMonsters: [],
       items: [],
+      skills: [],
       loading: true,
       data: [],
       skeletonData,
@@ -39,6 +40,7 @@ export default class SearchScreen extends Component {
         const smallMonsters = [];
         const largeMonsters = [];
         const items = [];
+        const skills = [];
         tx.executeSql("SELECT * FROM monster WHERE LOWER(monster_name) LIKE ?" , [keyW+'%'], (tx, results) => {
           // Get rows with Web SQL Database spec compliance.
           const len = results.rows.length;
@@ -108,7 +110,20 @@ export default class SearchScreen extends Component {
               const row = results.rows.item(i);
               items.push(row);
             }
+            this.renderContent('item');
           });
+          tx.executeSql(
+            'SELECT * FROM armor_skills WHERE LOWER(name) LIKE ? ORDER BY name LIMIT 100',
+            [keyW+'%'], (tx, results) => {
+            // Get rows with Web SQL Database spec compliance.
+              const len = results.rows.length;
+              for (let i = 0; i < len; i += 1) {
+                const row = results.rows.item(i);
+                skills.push(row);
+              }
+              this.renderContent('skill');
+            },
+          );
         tx.executeSql('SELECT * FROM monster WHERE size=?', ['Large'], (tx, results) => {
           // Get rows with Web SQL Database spec compliance.
           const len = results.rows.length;
@@ -117,8 +132,9 @@ export default class SearchScreen extends Component {
             largeMonsters.push(row);
           }
           this.setState({
-            data: allMonsters, allMonsters, smallMonsters, largeMonsters, lowRank, items, loading: false,
+            data: allMonsters, allMonsters, smallMonsters, largeMonsters, lowRank, items,skills,loading: false,
           });
+          db.close();
         });
 
       });
@@ -137,6 +153,29 @@ export default class SearchScreen extends Component {
         title: item.name,
       })}>
         <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+      </ListItem>
+    );
+  }
+  renderListSkills = ({ item }) => {
+    return (
+      <ListItem
+        style={{ marginLeft: 0, paddingLeft: 8 }}
+        onPress={() => this.props.navigator.push({
+        screen: 'TabInfoScreen',
+        passProps: {
+          armor_skill_id: SearchList.armor_skill_id,
+          type: 'skill',
+        },
+        animationType: 'fade',
+        title: item.name,
+      })}
+      >
+      <Left>
+        <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+      </Left>
+      <Body>
+        <Text style={{ fontSize: 13, color: '#8e8e8e' }}>{item.description}</Text>
+      </Body>
       </ListItem>
     );
   }
@@ -185,6 +224,14 @@ export default class SearchScreen extends Component {
           data={this.state.items}
           keyExtractor={(item) => item.item_id.toString()}
           renderItem={this.renderListItems}
+        />
+      );
+    } else if (screen === 'skill') {
+      return (
+        <FlatList
+          data={this.state.skills}
+          keyExtractor={(item) => item.armor_skill_id.toString()}
+          renderItem={this.renderListSkills}
         />
       );
     }
@@ -253,7 +300,7 @@ export default class SearchScreen extends Component {
            textStyle={{ color: '#5e5e5e' }}
            heading="Skill"
            >
-           {this.renderContent('small')}
+           {this.renderContent('skill')}
          </Tab>
        </Tabs>
       </Container>
