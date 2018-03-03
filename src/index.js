@@ -21,6 +21,7 @@ import MapScreen from './screens/MapScreen';
 import MonsterInfoScreen from './screens/MonsterInfoScreen';
 import TabInfoScreen from './screens/TabInfoScreen';
 import TablessInfoScreen from './screens/TablessInfoScreen';
+import QuestInfoScreen from './screens/QuestInfoScreen';
 
 // async function prepareIcons() {
 //   const icons = await Promise.all([
@@ -173,6 +174,7 @@ export default () => {
   Navigation.registerComponent('MonsterInfoScreen', () => MonsterInfoScreen);
   Navigation.registerComponent('TabInfoScreen', () => TabInfoScreen);
   Navigation.registerComponent('TablessInfoScreen', () => TablessInfoScreen);
+	Navigation.registerComponent('QuestInfoScreen', () => QuestInfoScreen);
 
   Navigation.startTabBasedApp({
     tabs: [
