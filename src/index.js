@@ -212,7 +212,7 @@ export default () => {
         title: 'Weapons',
       },
       {
-        label: 'SearchScreen',
+        label: 'Search',
         screen: 'SearchScreen',
         icon: require('./images/icon2.png'),
         selectedIcon: require('./images/icon2_selected.png'),

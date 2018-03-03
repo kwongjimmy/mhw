@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, Image, FlatList, Platform } from 'react-native';
-import { Container, ListItem, Body, Left } from 'native-base';
+import { ScrollView, Image, FlatList, Platform } from 'react-native';
+import { Text, ListItem, Body, Left, Right } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
 
 export default class WeaponSelectedScreen extends Component {
@@ -15,47 +15,29 @@ export default class WeaponSelectedScreen extends Component {
     super(props);
     this.state = {
       weapons: [],
-      weaponTypes: [{
-        'Great Sword': 'great_sword',
-        'Long Sword': 'long_sword',
-        'Sword and Shield': 'sword_and_shield',
-        'Hammer': 'hammer',
-        'Lance': 'lance',
-        'Gunlance:': 'gunlance',
-        'Charge Blade': 'charge_blade',
-        'Dual Blades': 'dual_blade',
-        'Hunting Horn': 'hunting_horn',
-        'Insect Glaive': 'insect_glaive',
-        'Switch Axe': 'switch_axe',
-        'Bow': 'bow',
-        'Light Bowgun': 'light_bowgun',
-        'Heavy Bowgun': 'heavy_bowgun',
-        //CREATE OBJECTS WITH query name
-      }],
+      loading: true,
     };
-
+    const query = `SELECT A.*, B.name as name, B.rarity
+    FROM ${this.props.table} as A
+    JOIN items AS B ON A.item_id = B.item_id
+    WHERE A.type = ?`;
     const db = SQLite.openDatabase({
       name: 'mhworld.db', location: 'Default',
-    }, this.okCallback, this.errorCallback);
+    });
     db.transaction((tx) => {
       const weapons = [];
-      if (this.props.type === 'Dual Blades') {
-        tx.executeSql(
-          `SELECT D.item_id, D.name, C.quantity
-          FROM armor as A
-          JOIN items AS B ON A.item_id = B.item_id
-          JOIN crafting AS C ON A.item_id = C.item_id
-          JOIN items as D ON C.item_material_id = D.item_id WHERE A.item_id = ?`
-          , [this.props.item_id], (tx, results) => {
-            const len = results.rows.length;
-            for (let i = 0; i < len; i += 1) {
-              weapons.push(results.rows.item(i));
-            }
-          },
-        );
-      } else if (this.props.type === 'Charge Blade') {
-
-      }
+      tx.executeSql(query, [this.props.type], (tx, results) => {
+        const len = results.rows.length;
+        for (let i = 0; i < len; i += 1) {
+          weapons.push(results.rows.item(i));
+        }
+        console.log(weapons);
+        this.setState({
+          loading: false,
+          weapons,
+        });
+        console.log(this.state);
+      });
     });
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
@@ -65,21 +47,35 @@ export default class WeaponSelectedScreen extends Component {
       console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
-      this.weaponSelectList.scrollToIndex({
+      this.props.navigator.popToRoot({
         animated: true,
-        index: 0,
+        animationType: 'fade',
       });
     }
   }
 
   renderListItems = ({ item }) => {
     return (
-      <ListItem style={{ marginLeft: 0, paddingLeft: 18 }}>
+      <ListItem
+        style={{ marginLeft: 0, paddingLeft: 8 }}
+        onPress={() => this.props.navigator.push({
+          screen: 'TablessInfoScreen',
+          passProps: {
+            item_id: item.item_id,
+            type: 'weapons',
+            table: this.props.table,
+            tableType: this.props.type,
+            item,
+          },
+          animationType: 'fade',
+          title: item.name,
+        })}
+        >
       <Left>
+        <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
       </Left>
-      <Body style={{ flex: 5 }}>
-        <Text style={{ fontSize: 20, color: '#191919'}}>{item.name}</Text>
-      </Body>
+      <Right>
+      </Right>
       </ListItem>
     );
   }
@@ -88,18 +84,17 @@ export default class WeaponSelectedScreen extends Component {
     return (
       <FlatList
         data={this.state.weapons}
-        keyExtractor={(item) => item}
+        keyExtractor={item => item.item_id.toString()}
         renderItem={this.renderListItems}
-        ref={(ref) => { this.weaponSelectList = ref; }}
       />
     );
   }
 
   render() {
     return (
-      <Container style={{ backgroundColor: 'white' }}>
+      <ScrollView style={{ backgroundColor: 'white' }}>
         {this.renderSelectList()}
-      </Container>
+      </ScrollView>
     );
   }
 }

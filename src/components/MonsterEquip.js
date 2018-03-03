@@ -10,7 +10,6 @@ export default class MonsterEquip extends Component {
       data: this.props.data,
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-    console.log(this.state.data);
   }
 
   onNavigatorEvent(event) {
@@ -24,7 +23,6 @@ export default class MonsterEquip extends Component {
       });
     }
   }
-
 
   renderWeaponListItems = ({ item }) => {
     return (
@@ -41,6 +39,7 @@ export default class MonsterEquip extends Component {
       </ListItem>
     );
   }
+
   renderSlots(item) {
     // \u24ea
     let slot1 = (item.slot1 === 0) ? `-` : (item.slot1 === 1) ? `\u2460` : (item.slot1 === 2) ? `\u2461` : `\u2462`;
@@ -50,7 +49,6 @@ export default class MonsterEquip extends Component {
       <Text style={{ flex: 1, fontSize: 15.5, fontWeight: '500', color: '#8e8e8e', textAlign: 'center' }}>{`${slot1} ${slot2} ${slot3}`}</Text>
     );
   }
-
 
   renderSkills(item) {
     if (item.skill1_name !== null && item.skill2_name !== null) {
