@@ -12,7 +12,7 @@ import WeaponSelectScreen from './screens/WeaponSelectScreen';
 import WeaponScreen from './screens/WeaponScreen';
 import MiscScreen from './screens/MiscScreen';
 import ItemScreen from './screens/ItemScreen';
-
+import SearchScreen from './screens/SearchScreen';
 import MonsterInfoScreen from './screens/MonsterInfoScreen';
 import ItemInfoScreen from './screens/ItemInfoScreen';
 import EquipInfoScreen from './screens/EquipInfoScreen';
@@ -30,7 +30,7 @@ export default () => {
   Navigation.registerComponent('WeaponSelectScreen', () => WeaponSelectScreen);
   Navigation.registerComponent('MiscScreen', () => MiscScreen);
   Navigation.registerComponent('ItemScreen', () => ItemScreen);
-
+  Navigation.registerComponent('SearchScreen', () => SearchScreen);
   Navigation.registerComponent('WeaponScreen', () => WeaponScreen);
   Navigation.registerComponent('MonsterInfoScreen', () => MonsterInfoScreen);
   Navigation.registerComponent('ItemInfoScreen', () => ItemInfoScreen);
@@ -83,7 +83,7 @@ export default () => {
       },
       {
         label: 'Misc',
-        screen: 'MiscScreen',
+        screen: 'SearchScreen',
         icon: require('./images/icon2.png'),
         selectedIcon: require('./images/icon2_selected.png'),
         title: 'Misc',
