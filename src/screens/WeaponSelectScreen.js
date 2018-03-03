@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, Image, View, FlatList, TouchableHighlight } from 'react-native';
+import { Text, Image, View, FlatList, TouchableHighlight, Platform } from 'react-native';
 import { Container, ListItem, Body, Left } from 'native-base';
 
 import { WeaponImages } from '../assets';
@@ -10,7 +10,7 @@ import styles from '../screens/Styles/MonsterScreenStyles';
 export default class WeaponSelectScreen extends Component {
   static navigatorStyle = {
     // navBarHideOnScroll: true,
-    topBarElevationShadowEnabled: true,
+    topBarElevationShadowEnabled: Platform.OS !== 'ios',
     topBarBorderColor: 'red',
     topBarBorderWidth: 17,
   };

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, Platform } from 'react-native';
 import { Container, ListItem, Text, Left } from 'native-base';
 
 export default class MiscScreen extends Component {
   static navigatorStyle = {
     // navBarHideOnScroll: true,
-    topBarElevationShadowEnabled: true,
+    topBarElevationShadowEnabled: Platform.OS !== 'ios',
     topBarBorderColor: 'red',
     topBarBorderWidth: 17,
   };
