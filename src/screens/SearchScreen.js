@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
 import { FlatList, View, ActivityIndicator, Platform, Image } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab,Header,Button, Icon, Tabs, Title,Right,Item,Input, ListItem, Text, Left, Body } from 'native-base';
@@ -52,48 +51,9 @@ export default class SearchScreen extends Component {
     }
   }
 
+
+
   
-
-  componentDidMount() {
-
-=======
-import { Text, View, FlatList, ActivityIndicator } from 'react-native';
-import SQLite from 'react-native-sqlite-storage';
-import { Container, Tab, Tabs } from 'native-base';
-
-export default class SearchScreen extends Component {
-  static navigatorStyle = {
-    topBarBorderColor: 'red',
-    topBarBorderWidth: 20,
-  };
-
-  componentWillMount() {
-  }
-
-  componentDidMount() {
->>>>>>> 7b6fcaf551db8de5075a13cdf55ec60257d842bd
-  }
-
-  componentWillUnmount() {
-    // db.close();
-  }
-
-<<<<<<< HEAD
-  componentWillMount() {
-    if (Platform.OS === 'ios') {
-      // DELETE FROM IOS
-      SQLite.deleteDatabase(
-        { name: 'mhworld.db', location: 'Default' },
-        this.okCallback.bind(this), this.errorCallback.bind(this),
-      );
-    } else {
-      // DELETE FROM ANDROID
-      SQLite.deleteDatabase(
-        { name: 'mhworld.db', location: '~mhworld.db' },
-        this.okCallback.bind(this), this.errorCallback.bind(this),
-      );
-    }
-  }
 
 
 
@@ -189,11 +149,6 @@ export default class SearchScreen extends Component {
          </Tab>
        </Tabs>
       </Container>
-=======
-  render() {
-    return (
-      <Text>Hey</Text>
->>>>>>> 7b6fcaf551db8de5075a13cdf55ec60257d842bd
     );
   }
 }
