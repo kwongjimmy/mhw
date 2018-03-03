@@ -53,10 +53,10 @@ export default class ItemScreen extends Component {
   renderListItems = ({ item }) => {
     return (
       <ListItem style={{ marginLeft: 0, paddingLeft: 18 }} onPress={() => this.props.navigator.push({
-        screen: 'ItemInfoScreen',
+        screen: 'TabInfoScreen',
         passProps: {
           item_id: item.item_id,
-          category: item.category,
+          type: 'item',
         },
         animationType: 'fade',
         title: item.name,

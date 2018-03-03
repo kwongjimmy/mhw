@@ -15,6 +15,8 @@ export default class EquipArmorContainer extends Component {
         slot1: this.props.armor.head_slot1,
         slot2: this.props.armor.head_slot2,
         slot3: this.props.armor.head_slot3,
+        skill1_level: this.props.armor.head_skill1_level,
+        skill2_level: this.props.armor.head_skill2_level,
       });
     }
     if (this.props.armor.armor_item_id !== null) {
@@ -26,6 +28,8 @@ export default class EquipArmorContainer extends Component {
         slot1: this.props.armor.armor_slot1,
         slot2: this.props.armor.armor_slot2,
         slot3: this.props.armor.armor_slot3,
+        skill1_level: this.props.armor.armor_skill1_level,
+        skill2_level: this.props.armor.armor_skill2_level,
       });
     }
     if (this.props.armor.gloves_item_id !== null) {
@@ -37,6 +41,8 @@ export default class EquipArmorContainer extends Component {
         slot1: this.props.armor.gloves_slot1,
         slot2: this.props.armor.gloves_slot2,
         slot3: this.props.armor.gloves_slot3,
+        skill1_level: this.props.armor.gloves_skill1_level,
+        skill2_level: this.props.armor.gloves_skill2_level,
       });
     }
     if (this.props.armor.belt_item_id !== null) {
@@ -48,6 +54,8 @@ export default class EquipArmorContainer extends Component {
         slot1: this.props.armor.belt_slot1,
         slot2: this.props.armor.belt_slot2,
         slot3: this.props.armor.belt_slot3,
+        skill1_level: this.props.armor.belt_skill1_level,
+        skill2_level: this.props.armor.belt_skill2_level,
       });
     }
     if (this.props.armor.pants_item_id !== null) {
@@ -59,6 +67,8 @@ export default class EquipArmorContainer extends Component {
         slot1: this.props.armor.pants_slot1,
         slot2: this.props.armor.pants_slot2,
         slot3: this.props.armor.pants_slot3,
+        skill1_level: this.props.armor.pants_skill1_level,
+        skill2_level: this.props.armor.pants_skill2_level,
       });
     }
     this.state = {
@@ -66,6 +76,24 @@ export default class EquipArmorContainer extends Component {
       armor,
       hide: false,
     };
+  }
+
+  renderSkills(item) {
+    if (item.skill1 !== null && item.skill2 !== null) {
+      return (
+        <View>
+          <Text style={{ flex: 1, fontSize: 11, color: '#8e8e8e' }}>{`${item.skill1} +${item.skill1_level}`}</Text>
+          <Text style={{ flex: 1, fontSize: 11, color: '#8e8e8e' }}>{`${item.skill2} +${item.skill2_level}`}</Text>
+        </View>
+      );
+    } else if (item.skill1 !== null && item.skill2 === null) {
+      return (
+        <Text style={{ flex: 1, fontSize: 11, color: '#8e8e8e' }}>{`${item.skill1} +${item.skill1_level}`}</Text>
+      );
+    }
+    return (
+      null
+    );
   }
 
   renderSlots(item) {
@@ -107,17 +135,23 @@ export default class EquipArmorContainer extends Component {
           return (
             <ListItem
               key={key}
-              style={{ marginLeft: 0, paddingLeft: 18 }}
+              style={{ marginLeft: 0, paddingLeft: 8 }}
               onPress={() => this.props.navigator.push({
-              screen: 'EquipInfoScreen',
+              screen: 'TablessInfoScreen',
               passProps: {
                 item_id: item.item_id,
+                type: 'armor',
               },
               animationType: 'fade',
               title: item.name
             })}
             >
+              <Left style={{ flex: 2 }}>
                 <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+              </Left>
+              <Body style={{ flex: 1.5 }}>
+                {this.renderSkills(item)}
+              </Body>
               <Right>
                 {this.renderSlots(item)}
               </Right>

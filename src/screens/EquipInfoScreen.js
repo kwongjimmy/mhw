@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { Text } from 'react-native';
 import EquipArmorInfo from '../components/EquipArmorInfo';
 
-export default class ItemInfoScreen extends PureComponent {
+export default class EquipInfoScreen extends PureComponent {
   static navigatorStyle = {
     // navBarHideOnScroll: true,
     topBarBorderColor: 'red',

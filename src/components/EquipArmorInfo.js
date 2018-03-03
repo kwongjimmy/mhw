@@ -11,6 +11,7 @@ export default class EquipArmorInfo extends Component {
       loading: true,
       info: {},
       materials: [],
+      skills: [],
     };
     const db = SQLite.openDatabase({
       name: 'mhworld.db', location: 'Default',
@@ -18,6 +19,7 @@ export default class EquipArmorInfo extends Component {
     db.transaction((tx) => {
       let materials = [];
       let info = {};
+      let skills = [];
       tx.executeSql('SELECT * FROM armor as A JOIN items AS B ON A.item_id = B.item_id WHERE A.item_id = ?', [this.props.item_id], (tx, results) => {
         info = results.rows.item(0);
       });
@@ -32,7 +34,27 @@ export default class EquipArmorInfo extends Component {
           for (let i = 0; i < len; i += 1) {
             materials.push(results.rows.item(i));
           }
-          this.setState({ info, materials, loading: false });
+        }
+      );
+      tx.executeSql(
+        `SELECT
+          B.armor_skill_id as skill1_id, B.level as skill1_level, B1.name as skill1_name,
+          C.armor_skill_id as skill2_id, C.level as skill2_level, C1.name as skill2_name
+          FROM armor as A
+          LEFT JOIN armor_skills_levels AS B ON A.skill1 = B.armor_skill_level_id
+          LEFT JOIN armor_skills_levels AS C ON A.skill2 = C.armor_skill_level_id
+          LEFT JOIN armor_skills AS B1 ON B.armor_skill_id = B1.armor_skill_id
+          LEFT JOIN armor_skills AS C1 ON C.armor_skill_id = C1.armor_skill_id
+          WHERE A.item_id = ?`
+        , [this.props.item_id], (tx, results) => {
+          const len = results.rows.length;
+          for (let i = 0; i < len; i += 1) {
+            skills.push(results.rows.item(i));
+          }
+          this.setState({
+            info, materials, skills, loading: false
+          });
+          console.log(this.props);
           console.log(this.state);
         }
       );
@@ -48,7 +70,7 @@ export default class EquipArmorInfo extends Component {
     let slotThree = (slot3 === 0) ? `-` : (slot3 === 1) ? `\u2460` : (slot3 === 2) ? `\u2461` : `\u2462`;
     return (
       <View>
-        <ListItem style={{ marginLeft: 0 }} itemDivider>
+        <ListItem style={{ marginLeft: 0, borderBottomWidth: 0.0, borderColor: 'red' }} itemDivider>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Defense</Text>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Slots</Text>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Price</Text>
@@ -64,21 +86,88 @@ export default class EquipArmorInfo extends Component {
     );
   }
 
-  renderSkills() {
-    return (
-      <View>
-        <ListItem style={{ marginLeft: 0 }} itemDivider>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>Skill</Text>
+  renderSkill2() {
+    if (this.state.skills[0].skill2_name !== null) {
+      return (
+        <ListItem
+          style={{ marginLeft: 0, paddingLeft: 8 }}
+          onPress={() => this.props.navigator.push({
+            screen: 'TabInfoScreen',
+            passProps: {
+              armor_skill_id: this.state.skills[0].skill2_id,
+              type: 'skill',
+            },
+            animationType: 'fade',
+            title: this.state.skills[0].skill2_name,
+          })}
+          >
+          <Left>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{this.state.skills[0].skill2_name}</Text>
+          </Left>
+          <Right>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{this.state.skills[0].skill2_level}</Text>
+          </Right>
         </ListItem>
-      </View>
+      );
+    }
+    return (
+      null
+    );
+  }
+
+  renderSkill1() {
+    return (
+      <ListItem
+        style={{ marginLeft: 0, paddingLeft: 8 }}
+        onPress={() => this.props.navigator.push({
+          screen: 'TabInfoScreen',
+          passProps: {
+            armor_skill_id: this.state.skills[0].skill1_id,
+            type: 'skill',
+          },
+          animationType: 'fade',
+          title: this.state.skills[0].skill1_name,
+        })}
+        >
+        <Left>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{this.state.skills[0].skill1_name}</Text>
+        </Left>
+        <Right>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`+${this.state.skills[0].skill1_level}`}</Text>
+        </Right>
+      </ListItem>
+    );
+  }
+
+  renderSkills() {
+    if (this.state.skills[0].skill1_name !== null) {
+      return (
+        <View>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
+            <Left>
+              <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>Skill</Text>
+            </Left>
+            <Right>
+              <Text style={{ flex: 1, fontSize: 15.5, color: '#8e8e8e' }}></Text>
+            </Right>
+          </ListItem>
+          {this.renderSkill1()}
+          {this.renderSkill2()}
+        </View>
+      );
+    }
+    return (
+      null
     );
   }
 
   renderCrafting() {
     return (
       <View>
-        <ListItem style={{ marginLeft: 0 }} itemDivider>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>Material</Text>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
+          <Left>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>Material</Text>
+          </Left>
           <Right>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#8e8e8e' }}>Quantity</Text>
           </Right>
@@ -86,18 +175,20 @@ export default class EquipArmorInfo extends Component {
         {this.state.materials.map((item, key) => {
           return (
             <View key={key}>
-              <ListItem style={{ marginLeft: 0, backgroundColor: 'white', paddingLeft: 18 }}
+              <ListItem style={{ marginLeft: 0, backgroundColor: 'white', paddingLeft: 8 }}
                 onPress={() => this.props.navigator.push({
-                  screen: 'ItemInfoScreen',
+                  screen: 'TabInfoScreen',
                   passProps: {
                     item_id: item.item_id,
-                    category: 'item',
+                    type: 'item',
                   },
                   animationType: 'fade',
                   title: item.name,
                 })}
                 >
-                <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+                <Left>
+                  <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+                </Left>
                 <Right>
                   <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.quantity}</Text>
                 </Right>
@@ -121,8 +212,8 @@ export default class EquipArmorInfo extends Component {
     return (
     <View>
       {this.renderInfo()}
-      {this.renderCrafting()}
       {this.renderSkills()}
+      {this.renderCrafting()}
     </View>
     );
   }

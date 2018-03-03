@@ -26,50 +26,52 @@ export default class MonsterScreen extends Component {
     };
   }
 
-
-  initializeDB() {
-    const db = SQLite.openDatabase({
-      name: 'mhworld.db', createFromLocation: '~mhworld.db', location: 'Default',
-    }, this.okCallback, this.errorCallback);
-    db.transaction((tx) => {
-      const allMonsters = [];
-      const smallMonsters = [];
-      const largeMonsters = [];
-      tx.executeSql('SELECT * FROM monster', [], (tx, results) => {
-        // Get rows with Web SQL Database spec compliance.
-        const len = results.rows.length;
-        for (let i = 0; i < len; i += 1) {
-          const row = results.rows.item(i);
-          allMonsters.push(row);
-          // this.setState({record: row});
-        }
-        // this.setState({ allMonsters });
-        // db.close();
+  okCallback(msg) {
+    console.log(`okCallback: ${msg}`);
+    setTimeout(() => {
+      const db = SQLite.openDatabase({
+        name: 'mhworld.db', createFromLocation: '~mhworld.db', location: 'Default',
       });
-      tx.executeSql('SELECT * FROM monster WHERE size=?', ['Small'], (tx, results) => {
-        // Get rows with Web SQL Database spec compliance.
-        const len = results.rows.length;
-        for (let i = 0; i < len; i += 1) {
-          const row = results.rows.item(i);
-          smallMonsters.push(row);
-        }
-      });
-      tx.executeSql('SELECT * FROM monster WHERE size=?', ['Large'], (tx, results) => {
-        // Get rows with Web SQL Database spec compliance.
-        const len = results.rows.length;
-        for (let i = 0; i < len; i += 1) {
-          const row = results.rows.item(i);
-          largeMonsters.push(row);
-        }
-        this.setState({
-          data: allMonsters, allMonsters, smallMonsters, largeMonsters, loading: false,
+      db.transaction((tx) => {
+        const allMonsters = [];
+        const smallMonsters = [];
+        const largeMonsters = [];
+        tx.executeSql('SELECT * FROM monster', [], (tx, results) => {
+          // Get rows with Web SQL Database spec compliance.
+          const len = results.rows.length;
+          for (let i = 0; i < len; i += 1) {
+            const row = results.rows.item(i);
+            allMonsters.push(row);
+            // this.setState({record: row});
+          }
+          // this.setState({ allMonsters });
+          // db.close();
         });
-        // db.close();
+        tx.executeSql('SELECT * FROM monster WHERE size=?', ['Small'], (tx, results) => {
+          // Get rows with Web SQL Database spec compliance.
+          const len = results.rows.length;
+          for (let i = 0; i < len; i += 1) {
+            const row = results.rows.item(i);
+            smallMonsters.push(row);
+          }
+        });
+        tx.executeSql('SELECT * FROM monster WHERE size=?', ['Large'], (tx, results) => {
+          // Get rows with Web SQL Database spec compliance.
+          const len = results.rows.length;
+          for (let i = 0; i < len; i += 1) {
+            const row = results.rows.item(i);
+            largeMonsters.push(row);
+          }
+          this.setState({
+            data: allMonsters, allMonsters, smallMonsters, largeMonsters, loading: false,
+          });
+          console.log(this.state);
+        });
       });
-    });
+    }, 500);
   }
 
-  okCallback(msg) {
+  errorCallback(msg) {
     console.log(`okCallback: ${msg}`);
     setTimeout(() => {
       const db = SQLite.openDatabase({
@@ -114,55 +116,19 @@ export default class MonsterScreen extends Component {
     }, 250);
   }
 
-  errorCallback(msg) {
-    console.log(`errorCallback: ${msg}`);
-    const db = SQLite.openDatabase({
-      name: 'mhworld.db', createFromLocation: '~mhworld.db', location: 'Default',
-    });
-    db.transaction((tx) => {
-      const allMonsters = [];
-      const smallMonsters = [];
-      const largeMonsters = [];
-      tx.executeSql('SELECT * FROM monster', [], (tx, results) => {
-        // Get rows with Web SQL Database spec compliance.
-        const len = results.rows.length;
-        for (let i = 0; i < len; i += 1) {
-          const row = results.rows.item(i);
-          allMonsters.push(row);
-          // this.setState({record: row});
-        }
-        // this.setState({ allMonsters });
-        // db.close();
-      });
-      tx.executeSql('SELECT * FROM monster WHERE size=?', ['Small'], (tx, results) => {
-        // Get rows with Web SQL Database spec compliance.
-        const len = results.rows.length;
-        for (let i = 0; i < len; i += 1) {
-          const row = results.rows.item(i);
-          smallMonsters.push(row);
-        }
-      });
-      tx.executeSql('SELECT * FROM monster WHERE size=?', ['Large'], (tx, results) => {
-        // Get rows with Web SQL Database spec compliance.
-        const len = results.rows.length;
-        for (let i = 0; i < len; i += 1) {
-          const row = results.rows.item(i);
-          largeMonsters.push(row);
-        }
-        this.setState({
-          data: allMonsters, allMonsters, smallMonsters, largeMonsters, loading: false,
-        });
-        // db.close();
-      });
-    });
-  }
-
   componentDidMount() {
 
   }
 
   componentWillUnmount() {
     // db.close();
+  }
+
+  okCallback2(msg) {
+    console.log(msg);
+  }
+  errorCallback2(msg) {
+    console.log(msg);
   }
 
   componentWillMount() {
@@ -184,31 +150,31 @@ export default class MonsterScreen extends Component {
   renderContent(screen) {
     if (this.state.loading) {
       return (
-        // <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
-        //   <ActivityIndicator size="large" color="#5e5e5e"/>
-        // </View>
-        <FlatList
-          data={this.state.skeletonData}
-          keyExtractor={(item) => item.monster_id.toString()}
-          renderItem={({ item }) => {
-            return (
-              <ListItem style={{ marginLeft: 0, paddingLeft: 18 }}>
-              <Left>
-                {/* <Image
-                  resizeMode="contain"
-                  style={styles.monsterImage2}
-                  source={src}
-                /> */}
-                <View style={{ height: 60, width: 60, backgroundColor: '#f0f0f0' }}/>
-              </Left>
-              <Body style={{ flex: 4 }}>
-                <View style= {{ height: 12, width: 180, backgroundColor: '#e6e6e6', marginBottom: 6, marginLeft: 12 }}/>
-                <View style= {{ height: 11, width: 90, backgroundColor: '#f0f0f0', marginTop: 6, marginLeft: 12 }}/>
-              </Body>
-              </ListItem>
-            );
-          }}
-        />
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+          <ActivityIndicator size="large" color="#5e5e5e"/>
+        </View>
+        // <FlatList
+        //   data={this.state.skeletonData}
+        //   keyExtractor={(item) => item.monster_id.toString()}
+        //   renderItem={({ item }) => {
+        //     return (
+        //       <ListItem style={{ marginLeft: 0, paddingLeft: 18 }}>
+        //       <Left>
+        //         {/* <Image
+        //           resizeMode="contain"
+        //           style={styles.monsterImage2}
+        //           source={src}
+        //         /> */}
+        //         <View style={{ height: 60, width: 60, backgroundColor: '#f0f0f0' }}/>
+        //       </Left>
+        //       <Body style={{ flex: 4 }}>
+        //         <View style= {{ height: 12, width: 180, backgroundColor: '#e6e6e6', marginBottom: 6, marginLeft: 12 }}/>
+        //         <View style= {{ height: 11, width: 90, backgroundColor: '#f0f0f0', marginTop: 6, marginLeft: 12 }}/>
+        //       </Body>
+        //       </ListItem>
+        //     );
+        //   }}
+        // />
       );
     }
     if (screen === 'all') {
