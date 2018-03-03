@@ -9,6 +9,7 @@ import MonsterScreen from './screens/MonsterScreen';
 import EquipArmorScreen from './screens/EquipArmorScreen';
 import QuestScreen from './screens/QuestScreen';
 import WeaponSelectScreen from './screens/WeaponSelectScreen';
+import WeaponSelectedScreen from './screens/WeaponSelectedScreen';
 import WeaponScreen from './screens/WeaponScreen';
 import MiscScreen from './screens/MiscScreen';
 import ItemScreen from './screens/ItemScreen';
@@ -168,6 +169,7 @@ export default () => {
 
 
   Navigation.registerComponent('WeaponScreen', () => WeaponScreen);
+  Navigation.registerComponent('WeaponSelectedScreen', () => WeaponSelectedScreen);
   Navigation.registerComponent('MonsterInfoScreen', () => MonsterInfoScreen);
   Navigation.registerComponent('TabInfoScreen', () => TabInfoScreen);
   Navigation.registerComponent('TablessInfoScreen', () => TablessInfoScreen);

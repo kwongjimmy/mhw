@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, Image, View, FlatList, TouchableHighlight, Platform } from 'react-native';
-import { Container, ListItem, Body, Left } from 'native-base';
+import { Container, ListItem, Body, Left, Right } from 'native-base';
 
 import { WeaponImages } from '../assets';
 
@@ -43,7 +43,16 @@ export default class WeaponSelectScreen extends Component {
   renderListItems = ({ item }) => {
     const src = WeaponImages[item];
     return (
-      <ListItem style={{ marginLeft: 0, paddingLeft: 18 }}>
+      <ListItem
+        style={{ marginLeft: 0, paddingLeft: 18 }}
+        onPress={() => this.props.navigator.push({
+        screen: 'WeaponSelectedScreen',
+        passProps: {
+          type: item,
+        },
+        animationType: 'fade',
+        title: item
+        })}>
       <Left>
         <Image
           resizeMode="contain"
@@ -54,6 +63,8 @@ export default class WeaponSelectScreen extends Component {
       <Body style={{ flex: 5 }}>
         <Text style={{ fontSize: 20, color: '#191919'}}>{item}</Text>
       </Body>
+      <Right>
+      </Right>
       </ListItem>
     );
   }
