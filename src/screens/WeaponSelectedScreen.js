@@ -36,6 +36,7 @@ export default class WeaponSelectedScreen extends Component {
           loading: false,
           weapons,
         });
+        console.log(this.props);
         console.log(this.state);
       });
     });

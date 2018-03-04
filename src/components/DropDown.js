@@ -34,7 +34,7 @@ export default class DropDown extends Component {
 
   render() {
     return (
-      <Container>
+      <View>
         <ListItem
           style={{ marginLeft: 0, paddingLeft: 8 }}
           itemDivider
@@ -49,7 +49,7 @@ export default class DropDown extends Component {
           </Right>
         </ListItem>
         {this.renderContent()}
-      </Container>
+      </View>
     );
   }
 }

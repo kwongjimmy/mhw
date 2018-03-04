@@ -54,25 +54,24 @@ export default class WeaponInfo extends Component {
 
   renderInfo(info) {
     const {
-      damage, true_damage, element_amount, element_type, defense, rarity, slot1, slot2, slot3, red, orange, yellow, green, blue, white, black
+      damage, true_damage, req_armor_skill, element_amount, element_type, defense, affinity, rarity, slot1, slot2, slot3, red, orange, yellow, green, blue, white, black
     } = info;
-    let slotOne = (slot1 === 0) ? `-` : (slot1 === 1) ? `\u2460` : (slot1 === 2) ? `\u2461` : `\u2462`;
-    let slotTwo = (slot2 === 0) ? `-` : (slot2 === 1) ? `\u2460` : (slot2 === 2) ? `\u2461` : `\u2462`;
-    let slotThree = (slot3 === 0) ? `-` : (slot3 === 1) ? `\u2460` : (slot3 === 2) ? `\u2461` : `\u2462`;
+    const slotOne = (slot1 === 0) ? `-` : (slot1 === 1) ? `\u2460` : (slot1 === 2) ? `\u2461` : `\u2462`;
+    const slotTwo = (slot2 === 0) ? `-` : (slot2 === 1) ? `\u2460` : (slot2 === 2) ? `\u2461` : `\u2462`;
+    const slotThree = (slot3 === 0) ? `-` : (slot3 === 1) ? `\u2460` : (slot3 === 2) ? `\u2461` : `\u2462`;
+
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, borderBottomWidth: 0.0, borderColor: 'red' }} itemDivider>
-            <Text style={{ flex: 0.5, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Attack</Text>
-            <Text style={{ flex: 0.5, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Slots</Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Element</Text>
+        <ListItem style={{ marginLeft: 0, borderBottomWidth: 0.0 }} itemDivider>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Attack</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Slots</Text>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Sharpness</Text>
-            <Text style={{ flex: 0.5, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Rarity</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Rarity</Text>
         </ListItem>
         <ListItem style={{ marginLeft: 0, backgroundColor: 'white' }} itemDivider>
-          <Text style={{ flex: 0.5, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${damage}`} </Text>
-          <Text style={{ flex: 0.5, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${slotOne} ${slotTwo} ${slotThree}`}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${element_amount}`}<Text style={{ flex: 1, fontSize: 10, color: '#8e8e8e', textAlign: 'center' }}>{` ${element_type}`}</Text></Text>
-          <View style={{ flex: 1, flexDirection: 'row', borderWidth: 1, borderColor: 'purple' }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${damage}`} </Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${slotOne} ${slotTwo} ${slotThree}`}</Text>
+          <View style={{ flex: 1, flexDirection: 'row' }}>
             <View style={{ flex: red, height: 10, backgroundColor: 'red' }}/>
             <View style={{ flex: orange, height: 10, backgroundColor: 'orange' }}/>
             <View style={{ flex: yellow, height: 10, backgroundColor: 'yellow' }}/>
@@ -81,7 +80,7 @@ export default class WeaponInfo extends Component {
             <View style={{ flex: white, height: 10, backgroundColor: 'white' }}/>
             <View style={{ flex: black, height: 10, backgroundColor: 'black' }}/>
           </View>
-          <Text style={{ flex: 0.5, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{rarity}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{rarity}</Text>
         </ListItem>
       </View>
     );

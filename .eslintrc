@@ -24,5 +24,6 @@
     "max-len": ["error", { "ignoreUrls": true, "ignoreComments": true, "ignoreTemplateLiterals": true, "code": 100 }],
     "react/prop-types": "off",
     "no-tabs": "off",
+    "linebreak-style": "off",
   }
 }

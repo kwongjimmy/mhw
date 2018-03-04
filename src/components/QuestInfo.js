@@ -26,7 +26,7 @@ export default class QuestInfo extends Component {
 					FROM quests AS A
 					JOIN quest_items AS B ON A.quest_id = B.quest_id
 					JOIN items as C ON B.item_id = C.item_id
-					WHERE A.quest_id=?`,
+					WHERE A.quest_id=? AND B.condition = '1'`,
         [this.props.quest_id], (tx, results) => {
           const len = results.rows.length;
           for (let i = 0; i < len; i += 1) {
@@ -64,7 +64,7 @@ export default class QuestInfo extends Component {
       );
     }
     return (
-			<View>
+			<View style={{ flex: 1 }}>
 				<DropDown
 					headerName={'Items'}
 					content={this.state.rewards.map((item, key) => {
@@ -98,6 +98,6 @@ export default class QuestInfo extends Component {
 			<ScrollView>
 				{this.renderContent()}
 			</ScrollView>
-		)
+		);
   }
 }
