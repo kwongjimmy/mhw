@@ -3,6 +3,7 @@ import CharmInfo from '../components/CharmInfo';
 import EquipArmorInfo from '../components/EquipArmorInfo';
 import MapInfo from '../components/MapInfo';
 import WeaponInfo from '../components/WeaponInfo';
+import QuestInfo from '../components/QuestInfo';
 
 export default class TablessInfoScreen extends PureComponent {
   static navigatorStyle = {
@@ -29,6 +30,10 @@ export default class TablessInfoScreen extends PureComponent {
           tableType={this.props.type}
           item={this.props.item}
         />
+      );
+    } else if (this.props.type === 'quests') {
+      return (
+        <QuestInfo navigator={this.props.navigator} quest_id={this.props.quest_id}/>
       );
     }
     return (

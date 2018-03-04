@@ -75,9 +75,10 @@ export default class QuestScreen extends Component {
       <ListItem
         style={{ marginLeft: 0, paddingLeft: 8 }}
         onPress={() => this.props.navigator.push({
-        screen: 'QuestInfoScreen',
+        screen: 'TablessInfoScreen',
 				passProps: {
-						quest_id: item.quest_id,
+          type: 'quests',
+					quest_id: item.quest_id,
 				},
         animationType: 'fade',
         title: item.name,
