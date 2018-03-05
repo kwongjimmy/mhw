@@ -121,7 +121,7 @@ export default class EquipArmorScreen extends Component {
   componentDidMount() {
     setTimeout(() => {
       this.getData();
-    }, 500);
+    }, 250);
   }
 
   componentWillUnmount() {

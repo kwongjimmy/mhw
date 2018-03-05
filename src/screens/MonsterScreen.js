@@ -68,7 +68,7 @@ export default class MonsterScreen extends Component {
           console.log(this.state);
         });
       });
-    }, 500);
+    }, 100);
   }
 
   errorCallback(msg) {

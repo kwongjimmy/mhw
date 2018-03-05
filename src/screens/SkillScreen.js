@@ -7,23 +7,13 @@ export default class SkillScreen extends Component {
   static navigatorStyle = {
     // navBarHideOnScroll: true,
     topBarBorderColor: 'red',
-    topBarBorderWidth: 20,
+    topBarBorderWidth: 17,
   };
 
   constructor(props) {
     super(props);
     this.state = {
       items: [],
-      skills: [
-        {
-          name: 'Test skill',
-          amount: '2'
-        },
-        {
-          name: 'Test skill',
-          amount: '1'
-        },
-      ]
     };
     // console.log(this.props)
     const db = SQLite.openDatabase({

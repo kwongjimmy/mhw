@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, FlatList, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
-import { Container, Tab, Tabs } from 'native-base';
+import { Container, Tab, Tabs, ListItem, Left, Right, Body  } from 'native-base';
 
 export default class QuestScreen extends Component {
   static navigatorStyle = {
@@ -72,9 +72,22 @@ export default class QuestScreen extends Component {
 
   renderListItems = ({ item }) => {
     return (
-      <View style={{ flex: 1 }}>
-        <Text>{item.name}</Text>
-      </View>
+      <ListItem
+        style={{ marginLeft: 0, paddingLeft: 8 }}
+        onPress={() => this.props.navigator.push({
+        screen: 'TablessInfoScreen',
+				passProps: {
+          type: 'quests',
+					quest_id: item.quest_id,
+				},
+        animationType: 'fade',
+        title: item.name,
+      })}
+      >
+      <Left>
+        <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+      </Left>
+      </ListItem>
     );
   }
 

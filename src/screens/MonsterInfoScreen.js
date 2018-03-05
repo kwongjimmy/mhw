@@ -95,7 +95,7 @@ export default class MonsterInfoScreen extends Component {
       		LEFT JOIN armor_skills_levels as E2 ON D.skill2 = E2.armor_skill_level_id
       		LEFT JOIN armor_skills as E1S ON E1S.armor_skill_id = E1.armor_skill_id
       		LEFT JOIN armor_skills as E2S ON E2S.armor_skill_id = E2.armor_skill_id
-      		WHERE A.monster_id = ? AND B.category_id = 56`,
+      		WHERE A.monster_id = ? AND B.name = 'Armor'`,
         [this.props.monster_id], (tx, results) => {
           for (let i = 0; i < results.rows.length; i += 1) {
             const row = results.rows.item(i);
@@ -107,7 +107,7 @@ export default class MonsterInfoScreen extends Component {
         `SELECT C.name, C.item_id FROM monster_loot as A
         JOIN monster_loot_categories as B on A.category_id = B.category_id
         JOIN items as C ON A.item_id = C.item_id
-        WHERE A.monster_id = ? AND B.category_id = 55`,
+        WHERE A.monster_id = ? AND B.name = 'Weapon'`,
         [this.props.monster_id], (tx, results) => {
           for (let i = 0; i < results.rows.length; i += 1) {
             const row = results.rows.item(i);

@@ -9,6 +9,7 @@ import MonsterScreen from './screens/MonsterScreen';
 import EquipArmorScreen from './screens/EquipArmorScreen';
 import QuestScreen from './screens/QuestScreen';
 import WeaponSelectScreen from './screens/WeaponSelectScreen';
+import WeaponSelectedScreen from './screens/WeaponSelectedScreen';
 import WeaponScreen from './screens/WeaponScreen';
 import MiscScreen from './screens/MiscScreen';
 import ItemScreen from './screens/ItemScreen';
@@ -16,6 +17,7 @@ import SearchScreen from './screens/SearchScreen';
 import CharmScreen from './screens/CharmScreen';
 import SkillScreen from './screens/SkillScreen';
 import MapScreen from './screens/MapScreen';
+import DecorationScreen from './screens/DecorationScreen';
 
 import MonsterInfoScreen from './screens/MonsterInfoScreen';
 import TabInfoScreen from './screens/TabInfoScreen';
@@ -165,9 +167,11 @@ export default () => {
   Navigation.registerComponent('CharmScreen', () => CharmScreen);
   Navigation.registerComponent('SkillScreen', () => SkillScreen);
   Navigation.registerComponent('MapScreen', () => MapScreen);
+  Navigation.registerComponent('DecorationScreen', () => DecorationScreen);
 
 
   Navigation.registerComponent('WeaponScreen', () => WeaponScreen);
+  Navigation.registerComponent('WeaponSelectedScreen', () => WeaponSelectedScreen);
   Navigation.registerComponent('MonsterInfoScreen', () => MonsterInfoScreen);
   Navigation.registerComponent('TabInfoScreen', () => TabInfoScreen);
   Navigation.registerComponent('TablessInfoScreen', () => TablessInfoScreen);
@@ -210,7 +214,7 @@ export default () => {
         title: 'Weapons',
       },
       {
-        label: 'SearchScreen',
+        label: 'Search',
         screen: 'SearchScreen',
         icon: require('./images/icon2.png'),
         selectedIcon: require('./images/icon2_selected.png'),

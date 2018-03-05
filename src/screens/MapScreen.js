@@ -7,7 +7,7 @@ export default class MapScreen extends Component {
   static navigatorStyle = {
     // navBarHideOnScroll: true,
     topBarBorderColor: 'red',
-    topBarBorderWidth: 20,
+    topBarBorderWidth: 17,
   };
 
   constructor(props) {
