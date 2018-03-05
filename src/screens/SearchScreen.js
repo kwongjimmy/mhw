@@ -163,7 +163,7 @@ export default class SearchScreen extends Component {
         onPress={() => this.props.navigator.push({
         screen: 'TabInfoScreen',
         passProps: {
-          armor_skill_id: SearchList.armor_skill_id,
+          armor_skill_id: item.armor_skill_id,
           type: 'skill',
         },
         animationType: 'fade',
