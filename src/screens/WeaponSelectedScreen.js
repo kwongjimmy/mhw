@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { ScrollView, Image, FlatList, Platform } from 'react-native';
+import { FlatList, Platform, ActivityIndicator, View } from 'react-native';
 import { Text, ListItem, Body, Left, Right } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
+import WeaponListItem from '../components/WeaponListItem'
 
 export default class WeaponSelectedScreen extends Component {
   static navigatorStyle = {
-    // navBarHideOnScroll: true,
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
     topBarBorderColor: 'red',
     topBarBorderWidth: 17,
@@ -31,13 +31,10 @@ export default class WeaponSelectedScreen extends Component {
         for (let i = 0; i < len; i += 1) {
           weapons.push(results.rows.item(i));
         }
-        console.log(weapons);
         this.setState({
           loading: false,
           weapons,
         });
-        console.log(this.props);
-        console.log(this.state);
       });
     });
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -64,24 +61,30 @@ export default class WeaponSelectedScreen extends Component {
           passProps: {
             item_id: item.item_id,
             type: 'weapons',
-            table: this.props.table,
-            tableType: this.props.type,
             item,
           },
           animationType: 'fade',
           title: item.name,
         })}
         >
-      <Left>
-        <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
-      </Left>
-      <Right>
-      </Right>
+        <Left>
+          <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+        </Left>
+        <Right>
+        </Right>
       </ListItem>
+      // <WeaponListItem navigator={this.props.navigator} table={this.props.table} tableType={this.props.type} item={item} />
     );
   }
 
   renderSelectList() {
+    if (this.state.loading) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+          <ActivityIndicator size="large" color="#5e5e5e"/>
+        </View>
+      );
+    }
     return (
       <FlatList
         data={this.state.weapons}
@@ -92,10 +95,6 @@ export default class WeaponSelectedScreen extends Component {
   }
 
   render() {
-    return (
-      <ScrollView style={{ backgroundColor: 'white' }}>
-        {this.renderSelectList()}
-      </ScrollView>
-    );
+    return this.renderSelectList();
   }
 }

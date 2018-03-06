@@ -8,7 +8,7 @@ export default class DropDown extends Component {
 		this.state = {
       headerName: this.props.headerName,
       content: this.props.content,
-      hide: true,
+      hide: false,
 		};
   }
 

@@ -24,6 +24,7 @@ export default class WeaponScreen extends Component {
         'Charge Blade', 'Insect Glaive', 'Bow', 'Light Bowgun', 'Heavy Bowgun',
       ],
     };
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   onNavigatorEvent(event) {
@@ -31,22 +32,10 @@ export default class WeaponScreen extends Component {
       console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
-      console.log(this.refs);
-      if (top === false) {
-        this.refs._Flatlist.scrollToIndex({
-          animated: true,
-          index: 0,
-        });
-      }
-    }
-  }
-
-  handleScroll(event) {
-    console.log(event.nativeEvent.contentOffset.y);
-    if (event.nativeEvent.contentOffset.y !== 0) {
-      top = false;
-    } else {
-      top = true;
+      this.props.navigator.popToRoot({
+        animated: true,
+        animationType: 'fade',
+      });
     }
   }
 
@@ -87,8 +76,6 @@ export default class WeaponScreen extends Component {
         data={this.state.weapons}
         keyExtractor={(item) => item}
         renderItem={this.renderListItems}
-        ref={ref='_Flatlists'}
-        onScroll={this.handleScroll.bind(this)}
       />
     );
   }

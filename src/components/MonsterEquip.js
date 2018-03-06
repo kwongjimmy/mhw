@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, FlatList } from 'react-native';
 import { Text, ListItem, Right, Left, Body } from 'native-base';
+import WeaponListItem from './WeaponListItem'
 
 export default class MonsterEquip extends Component {
   constructor(props) {
@@ -26,17 +27,18 @@ export default class MonsterEquip extends Component {
 
   renderWeaponListItems = ({ item }) => {
     return (
-      <ListItem
-        style={{ marginLeft: 0, paddingLeft: 8 }}
-      >
-        <Left>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
-        </Left>
-        <Body>
-        </Body>
-        <Right>
-        </Right>
-      </ListItem>
+      // <ListItem
+      //   style={{ marginLeft: 0, paddingLeft: 8 }}
+      // >
+      //   <Left>
+      //     <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+      //   </Left>
+      //   <Body>
+      //   </Body>
+      //   <Right>
+      //   </Right>
+      // </ListItem>
+      <WeaponListItem navigator={this.props.navigator} item={item} />
     );
   }
 
@@ -106,7 +108,7 @@ export default class MonsterEquip extends Component {
         <FlatList
           data={this.state.data}
           keyExtractor={(item) => item.item_id.toString()}
-          renderItem={this.renderListItems}
+          renderItem={this.renderListItems.bind(this)}
         />
       );
     }
@@ -114,7 +116,7 @@ export default class MonsterEquip extends Component {
       <FlatList
         data={this.state.data}
         keyExtractor={(item) => item.item_id.toString()}
-        renderItem={this.renderWeaponListItems}
+        renderItem={this.renderWeaponListItems.bind(this)}
       />
     );
   }

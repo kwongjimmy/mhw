@@ -32,13 +32,13 @@ export default class QuestInfo extends Component {
           for (let i = 0; i < len; i += 1) {
             rewards.push(results.rows.item(i));
           }
-					this.setState({
-						loading: false,
-						rewards
-					});
-					console.log(this.state);
+          this.setState({
+            loading: false,
+            rewards,
+          });
+          console.log(this.state);
         }
-			);
+      );
     });
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
@@ -66,7 +66,7 @@ export default class QuestInfo extends Component {
     return (
 			<View style={{ flex: 1 }}>
 				<DropDown
-					headerName={'Items'}
+					headerName={'Rewards'}
 					content={this.state.rewards.map((item, key) => {
 					return (
 						<ListItem
@@ -84,7 +84,9 @@ export default class QuestInfo extends Component {
 							<Left>
 								<Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
 							</Left>
-							<Right />
+							<Right>
+                <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.chance}%`}</Text>
+              </Right>
 						</ListItem>
 					);
 				})}

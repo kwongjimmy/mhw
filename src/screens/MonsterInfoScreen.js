@@ -44,6 +44,7 @@ export default class MonsterInfoScreen extends Component {
         loot.loot_id,
         loot.item_id,
         loot.category_id,
+        loot.chance,
         cat.rank,
         cat.name,
         items.name as item_name,
@@ -65,6 +66,7 @@ export default class MonsterInfoScreen extends Component {
         loot.loot_id,
         loot.item_id,
         loot.category_id,
+        loot.chance,
         cat.rank,
         cat.name,
         items.name as item_name,
@@ -136,7 +138,7 @@ export default class MonsterInfoScreen extends Component {
             loading: false,
           });
           console.log(this.state);
-          db.close();
+          // db.close();
         },
       );
     });

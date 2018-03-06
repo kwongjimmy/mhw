@@ -14,6 +14,6 @@ const WeaponImages = {
   'Bow': require('./images/weapons/Bow_Icon_White.png'),
   'Light Bowgun': require('./images/weapons/Light_Bowgun_Icon_White.png'),
   'Heavy Bowgun': require('./images/weapons/Heavy_Bowgun_Icon_White.png'),
-}
+};
 
-export default WeaponImages
+export default WeaponImages;

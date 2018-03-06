@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, FlatList } from 'react-native';
-import { Text, ListItem } from 'native-base';
+import { Text, ListItem, Left, Right } from 'native-base';
 
 export default class MonsterLoot extends Component {
   constructor(props) {
@@ -29,8 +29,11 @@ export default class MonsterLoot extends Component {
     if (this.currentCondition !== item.name) {
       this.currentCondition = item.name;
       return (
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18 }} itemDivider>
-          <Text style={{ fontSize: 15.5, fontWeight: '300', color: '#191919' }}>{item.name}</Text>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
+          <Left>
+            <Text style={{ fontSize: 15.5, fontWeight: '300', color: '#191919' }}>{item.name}</Text>
+          </Left>
+          <Right />
         </ListItem>
       );
     }
@@ -43,7 +46,7 @@ export default class MonsterLoot extends Component {
     return (
       <View>
         {this.renderListHeader(item)}
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18 }}
+        <ListItem style={{ marginLeft: 0, paddingLeft: 8 }}
           onPress={() => this.props.navigator.push({
             screen: 'TabInfoScreen',
             passProps: {
@@ -53,10 +56,14 @@ export default class MonsterLoot extends Component {
             animationType: 'fade',
             title: item.item_name,
           })}>
-          <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.item_name}</Text>
+          <Left>
+            <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.item_name}</Text>
+          </Left>
+          <Right>
+            <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.chance}%`}</Text>
+          </Right>
         </ListItem>
       </View>
-
     );
   }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, FlatList, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
-import { Container, Tab, Tabs, ListItem, Left, Right, Body  } from 'native-base';
+import { Container, Tab, Tabs, ListItem, Left, Right, Body } from 'native-base';
 
 export default class QuestScreen extends Component {
   static navigatorStyle = {
@@ -21,6 +21,19 @@ export default class QuestScreen extends Component {
       optional: [],
       arena: [],
     };
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  onNavigatorEvent(event) {
+    if (event.id === 'bottomTabSelected') {
+      console.log('Tab selected!');
+    }
+    if (event.id === 'bottomTabReselected') {
+      this.props.navigator.popToRoot({
+        animated: true,
+        animationType: 'fade',
+      });
+    }
   }
 
   componentWillMount() {
@@ -73,7 +86,7 @@ export default class QuestScreen extends Component {
   renderListItems = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 8 }}
+        style={{ marginLeft: 0, paddingLeft: 18 }}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
 				passProps: {
@@ -84,9 +97,12 @@ export default class QuestScreen extends Component {
         title: item.name,
       })}
       >
-      <Left>
-        <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
-      </Left>
+        <Left>
+          <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+        </Left>
+        <Right>
+          <Text style={{ fontSize: 14.5, color: '#5e5e5e' }}>{`${item.required_rank} \u2605`}</Text>
+        </Right>
       </ListItem>
     );
   }

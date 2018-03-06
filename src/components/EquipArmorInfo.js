@@ -105,7 +105,7 @@ export default class EquipArmorInfo extends Component {
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{this.state.skills[0].skill2_name}</Text>
           </Left>
           <Right>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{this.state.skills[0].skill2_level}</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`+${this.state.skills[0].skill2_level}`}</Text>
           </Right>
         </ListItem>
       );

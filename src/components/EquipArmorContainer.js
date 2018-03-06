@@ -119,7 +119,7 @@ export default class EquipArmorContainer extends Component {
 
   renderHeader() {
     return (
-      <ListItem style={{ borderBottomWidth: 0.5, borderColor: '#9e9e9e' }} onPress={() => this.setState({ hide: !this.state.hide })} itemDivider>
+      <ListItem style={{ borderBottomWidth: 0.5, borderColor: '#d1d1d1' }} onPress={() => this.setState({ hide: !this.state.hide })} itemDivider>
         <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{this.state.setName}</Text>
         <Right>
           {this.renderHeaderIcon()}
