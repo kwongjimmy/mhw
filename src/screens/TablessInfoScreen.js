@@ -4,6 +4,7 @@ import EquipArmorInfo from '../components/EquipArmorInfo';
 import MapInfo from '../components/MapInfo';
 import WeaponInfo from '../components/WeaponInfo';
 import QuestInfo from '../components/QuestInfo';
+import DecorationInfo from '../components/DecorationInfo'
 
 export default class TablessInfoScreen extends PureComponent {
   static navigatorStyle = {
@@ -49,7 +50,12 @@ export default class TablessInfoScreen extends PureComponent {
       return (
         <QuestInfo navigator={this.props.navigator} quest_id={this.props.quest_id}/>
       );
+    } else if (this.props.type === 'decorations') {
+      return (
+        <DecorationInfo navigator={this.props.navigator} item_id={this.props.item_id}/>
+      );
     }
+
     return (
       <EquipArmorInfo navigator={this.props.navigator} item_id={this.props.item_id}/>
     );
