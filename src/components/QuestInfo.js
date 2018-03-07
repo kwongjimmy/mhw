@@ -66,6 +66,7 @@ export default class QuestInfo extends Component {
 			<View style={{ flex: 1 }}>
 				<DropDown
 					headerName={'Rewards'}
+          hide={false}
 					content={this.state.rewards.map((item, key) => {
 					return (
 						<ListItem
