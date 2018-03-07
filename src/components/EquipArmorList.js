@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { FlatList } from 'react-native';
 import EquipArmorContainer from './EquipArmorContainer';
 
-export default class EquipArmorList extends Component {
+export default class EquipArmorList extends PureComponent {
   renderArmorSet = ({ item }) => {
     return (
       <EquipArmorContainer navigator={this.props.navigator} armor={item}/>
@@ -12,7 +12,7 @@ export default class EquipArmorList extends Component {
   render() {
     return (
       <FlatList
-        style={{ flex: 1 }}
+        initialNumToRender={0}
         data={this.props.armor}
         keyExtractor={(item) => item.armor_set_id.toString()}
         renderItem={this.renderArmorSet}

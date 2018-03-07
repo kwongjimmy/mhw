@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { View, FlatList, ScrollView } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, List, ListItem, Tab, Tabs } from 'native-base';
+import { Container, Text, Left, Body, Right, ListItem } from 'native-base';
 
 export default class ItemInfoLoot extends PureComponent {
   constructor(props) {
@@ -46,7 +46,7 @@ export default class ItemInfoLoot extends PureComponent {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      //console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
@@ -152,12 +152,10 @@ export default class ItemInfoLoot extends PureComponent {
 
   render() {
     return (
-      <Container style={{ backgroundColor: 'white' }}>
-        <ScrollView>
-          {this.renderMonsterLoot()}
-          {this.renderMapLoot()}
-        </ScrollView>
-      </Container>
+      <ScrollView>
+        {this.renderMonsterLoot()}
+        {this.renderMapLoot()}
+      </ScrollView>
     );
   }
 }

@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { ScrollView, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Tabs, ListItem, Text, Left, Body } from 'native-base';
 import SkillEquip from './SkillEquip';
 
-export default class SkillInfo extends Component {
+export default class SkillInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -53,7 +53,7 @@ export default class SkillInfo extends Component {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      //console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
@@ -64,8 +64,7 @@ export default class SkillInfo extends Component {
   }
 
   renderLevels() {
-    return this.state.levels.map((item, key) => {
-      return (
+    return this.state.levels.map((item, key) => (
         <ListItem key={key} style={{ marginLeft: 0, paddingLeft: 8 }}>
           <Left>
             <Text style={{ fontSize: 15.5, color: '#191919' }}>{`Lv ${item.level}`}</Text>
@@ -74,8 +73,7 @@ export default class SkillInfo extends Component {
             <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.description}</Text>
           </Body>
         </ListItem>
-      );
-    });
+    ));
   }
 
   renderContent(screen) {

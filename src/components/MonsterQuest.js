@@ -10,7 +10,7 @@ export default class MonsterQuest extends Component {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      //console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
@@ -49,7 +49,7 @@ export default class MonsterQuest extends Component {
   render() {
     return (
       <FlatList
-        contextContainerStyle={{ paddingTop: 20 }}
+        initialNumToRender={0}
         data={this.props.monster_quest}
         keyExtractor={(item) => item.quest_id.toString()}
         renderItem={this.renderListItems}

@@ -4,7 +4,7 @@ import EquipArmorInfo from '../components/EquipArmorInfo';
 import MapInfo from '../components/MapInfo';
 import WeaponInfo from '../components/WeaponInfo';
 import QuestInfo from '../components/QuestInfo';
-import DecorationInfo from '../components/DecorationInfo'
+import DecorationInfo from '../components/DecorationInfo';
 
 export default class TablessInfoScreen extends PureComponent {
   static navigatorStyle = {
@@ -19,7 +19,7 @@ export default class TablessInfoScreen extends PureComponent {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      // console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({

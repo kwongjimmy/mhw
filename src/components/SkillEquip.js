@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { ScrollView, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, ListItem, Text, Left, Body, Right } from 'native-base';
 
-export default class SkillEquip extends Component {
+export default class SkillEquip extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

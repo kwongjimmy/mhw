@@ -5,7 +5,6 @@ import { WeaponImages } from '../assets';
 
 export default class WeaponSelectScreen extends PureComponent {
   static navigatorStyle = {
-    // navBarHideOnScroll: true,
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
     topBarBorderColor: 'red',
     topBarBorderWidth: 17,
@@ -129,10 +128,6 @@ export default class WeaponSelectScreen extends PureComponent {
   }
 
   render() {
-    return (
-      <Container style={{ backgroundColor: 'white' }}>
-        {this.renderSelectList()}
-      </Container>
-    );
+    return this.renderSelectList();
   }
 }

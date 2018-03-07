@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, ActivityIndicator } from 'react-native';
-import { Container, Header, Content, List, ListItem, Text, Tabs, Tab, Right, Left, Body } from 'native-base';
+import { Container, ListItem, Text, Right, Left } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
 
-export default class CharmInfo extends Component {
-
+export default class CharmInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,7 +53,7 @@ export default class CharmInfo extends Component {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      //console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
@@ -215,25 +214,21 @@ export default class CharmInfo extends Component {
   renderContent() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+        <Container style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
-        </View>
+        </Container>
       );
     }
     return (
-    <View>
-      {this.renderInfo()}
-      {this.renderSkills()}
-      {this.renderCrafting()}
-    </View>
+      <Container style={{ backgroundColor: 'white' }}>
+        {this.renderInfo()}
+        {this.renderSkills()}
+        {this.renderCrafting()}
+      </Container>
     );
   }
 
   render() {
-    return (
-      <Container style={{ backgroundColor: 'white' }}>
-        {this.renderContent()}
-      </Container>
-    );
+    return this.renderContent();
   }
 }

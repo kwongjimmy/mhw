@@ -180,70 +180,68 @@ export default class MonsterInfoScreen extends PureComponent {
 
   render() {
     return (
-      <Container style={{ backgroundColor: 'white' }}>
-         <Tabs
-           prerenderingSiblingsNumber={Infinity}
-           scrollWithoutAnimation={false}
-           tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }}
-           initialPage={0}
-           renderTabBar={() => <ScrollableTab style={{ elevation: 2 }}/>}
+       <Tabs
+         prerenderingSiblingsNumber={Infinity}
+         scrollWithoutAnimation={false}
+         tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }}
+         initialPage={0}
+         renderTabBar={() => <ScrollableTab style={{ elevation: 2 }}/>}
+         >
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Info"
            >
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="Info"
-             >
-             {this.renderContent('tab1')}
-           </Tab>
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="LR Loot"
-             >
-             {this.renderContent('tab2')}
-           </Tab>
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="HR Loot"
-             >
-             {this.renderContent('tab3')}
-           </Tab>
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="Armor"
-             >
-             {this.renderContent('tab4')}
-           </Tab>
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="Weapon"
-             >
-             {this.renderContent('tab5')}
-           </Tab>
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="Quest"
-             >
-             {this.renderContent('tab6')}
-           </Tab>
-         </Tabs>
-      </Container>
+           {this.renderContent('tab1')}
+         </Tab>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="LR Loot"
+           >
+           {this.renderContent('tab2')}
+         </Tab>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="HR Loot"
+           >
+           {this.renderContent('tab3')}
+         </Tab>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Armor"
+           >
+           {this.renderContent('tab4')}
+         </Tab>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Weapon"
+           >
+           {this.renderContent('tab5')}
+         </Tab>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Quest"
+           >
+           {this.renderContent('tab6')}
+         </Tab>
+       </Tabs>
     );
   }
 }

@@ -4,7 +4,6 @@ import EquipArmorInfo from '../components/EquipArmorInfo';
 
 export default class EquipInfoScreen extends PureComponent {
   static navigatorStyle = {
-    // navBarHideOnScroll: true,
     topBarBorderColor: 'red',
     topBarBorderWidth: 17,
   };

@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Text, View, FlatList, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Tabs, ListItem, Left, Right, Body } from 'native-base';
 
-export default class QuestScreen extends Component {
+export default class QuestScreen extends PureComponent {
   static navigatorStyle = {
-    // navBarHideOnScroll: true,
     topBarElevationShadowEnabled: false,
     navBarBackgroundColor: 'white',
   };
@@ -26,7 +25,7 @@ export default class QuestScreen extends Component {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      // console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
@@ -70,17 +69,9 @@ export default class QuestScreen extends Component {
         this.setState({
           assigned, optional, arena, loading: false,
         });
-        console.log(this.state);
-        db.close();
+        // db.close();
       });
     });
-  }
-
-  componentDidMount() {
-  }
-
-  componentWillUnmount() {
-    // db.close();
   }
 
   renderListItems = ({ item }) => {
@@ -118,6 +109,7 @@ export default class QuestScreen extends Component {
     if (screen === 'tab1') {
       return (
         <FlatList
+          initialNumToRender={0}
           data={this.state.assigned}
           keyExtractor={(item) => item.quest_id.toString()}
           renderItem={this.renderListItems}
@@ -126,6 +118,7 @@ export default class QuestScreen extends Component {
     } else if (screen === 'tab2') {
       return (
         <FlatList
+          initialNumToRender={0}
           data={this.state.optional}
           keyExtractor={(item) => item.quest_id.toString()}
           renderItem={this.renderListItems}
@@ -134,6 +127,7 @@ export default class QuestScreen extends Component {
     }
     return (
       <FlatList
+        initialNumToRender={0}
         data={this.state.arena}
         keyExtractor={(item) => item.quest_id.toString()}
         renderItem={this.renderListItems}
@@ -143,37 +137,35 @@ export default class QuestScreen extends Component {
 
   render() {
     return (
-      <Container style={{ backgroundColor: 'white' }}>
-         <Tabs tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="Assigned"
-             >
-             {this.renderContent('tab1')}
-           </Tab>
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="Optional"
-             >
-             {this.renderContent('tab2')}
-           </Tab>
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="Arena"
-             >
-             {this.renderContent('tab3')}
-           </Tab>
-         </Tabs>
-      </Container>
+       <Tabs tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Assigned"
+           >
+           {this.renderContent('tab1')}
+         </Tab>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Optional"
+           >
+           {this.renderContent('tab2')}
+         </Tab>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Arena"
+           >
+           {this.renderContent('tab3')}
+         </Tab>
+       </Tabs>
     );
   }
 }

@@ -383,7 +383,7 @@ export default class SearchScreen extends Component {
           this.setState({
             data: allMonsters, allMonsters, smallMonsters, largeMonsters, lowRank, items,skills,maps,quests,decorations,charms, weapons, loading: false,
           });
-          db.close();
+          // db.close();
         });
 
 

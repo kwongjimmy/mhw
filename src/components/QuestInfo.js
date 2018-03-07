@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { ScrollView, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, ListItem, Text, Left, Body, Right } from 'native-base';
 import DropDown from './DropDown';
 
-export default class QuestInfo extends Component {
+export default class QuestInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,7 +44,7 @@ export default class QuestInfo extends Component {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      //console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
@@ -63,35 +63,33 @@ export default class QuestInfo extends Component {
       );
     }
     return (
-			<View style={{ flex: 1 }}>
-				<DropDown
-					headerName={'Rewards'}
-          hide={false}
-					content={this.state.rewards.map((item, key) => {
-					return (
-						<ListItem
-							style={{ marginLeft: 0, paddingLeft: 8 }}
-							onPress={() => this.props.navigator.push({
-								screen: 'TabInfoScreen',
-								passProps: {
-									item_id: item.item_id,
-									type: 'item',
-								},
-								animationType: 'fade',
-								title: item.name,
-							})}
-							key={key}>
-							<Left>
-								<Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
-							</Left>
-							<Right>
-                <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.chance}%`}</Text>
-              </Right>
-						</ListItem>
-					);
-				})}
-			/>
-			</View>
+			<DropDown
+				headerName={'Rewards'}
+        hide={false}
+				content={this.state.rewards.map((item, key) => {
+				return (
+					<ListItem
+						style={{ marginLeft: 0, paddingLeft: 8 }}
+						onPress={() => this.props.navigator.push({
+							screen: 'TabInfoScreen',
+							passProps: {
+								item_id: item.item_id,
+								type: 'item',
+							},
+							animationType: 'fade',
+							title: item.name,
+						})}
+						key={key}>
+						<Left>
+							<Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+						</Left>
+						<Right>
+              <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.chance}%`}</Text>
+            </Right>
+					</ListItem>
+				);
+			})}
+		/>
     );
   }
 

@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Header, Content, List, ListItem, Text } from 'native-base';
 
-export default class ItemScreen extends Component {
+export default class ItemScreen extends PureComponent {
   static navigatorStyle = {
-    // navBarHideOnScroll: true,
     topBarBorderColor: 'red',
     topBarBorderWidth: 17,
   };
@@ -15,7 +14,7 @@ export default class ItemScreen extends Component {
     this.state = {
       items: [],
     };
-    // console.log(this.props)
+
     const db = SQLite.openDatabase({
       name: 'mhworld.db', createFromLocation: 'mhworld.db', location: 'Default',
     });
@@ -31,7 +30,7 @@ export default class ItemScreen extends Component {
             items.push(row);
           }
           this.setState({ items });
-          db.close();
+          // db.close();
         },
       );
     });
@@ -40,7 +39,7 @@ export default class ItemScreen extends Component {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      // console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
@@ -76,6 +75,7 @@ export default class ItemScreen extends Component {
     }
     return (
       <FlatList
+        initialNumToRender={0}
         data={this.state.items}
         keyExtractor={(item) => item.item_id.toString()}
         renderItem={this.renderListItems}
@@ -84,10 +84,6 @@ export default class ItemScreen extends Component {
   }
 
   render() {
-    return (
-      <Container style={{ backgroundColor: 'white' }}>
-        {this.renderContent()}
-      </Container>
-    );
+    return this.renderContent();
   }
 }

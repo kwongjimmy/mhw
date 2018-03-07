@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { View, TouchableOpacity } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, ListItem } from 'native-base';
+import React, { PureComponent } from 'react';
+import { View } from 'react-native';
+import { Text, Icon, Left, Body, Right, ListItem } from 'native-base';
 
-export default class EquipArmorContainer extends Component {
+export default class EquipArmorContainer extends PureComponent {
   constructor(props) {
     super(props);
     const armor = [];
@@ -97,7 +97,6 @@ export default class EquipArmorContainer extends Component {
   }
 
   renderSlots(item) {
-    // \u24ea
     let slot1 = (item.slot1 === 0) ? `-` : (item.slot1 === 1) ? `\u2460` : (item.slot1 === 2) ? `\u2461` : `\u2462`;
     let slot2 = (item.slot2 === 0) ? `-` : (item.slot2 === 1) ? `\u2460` : (item.slot2 === 2) ? `\u2461` : `\u2462`;
     let slot3 = (item.slot3 === 0) ? `-` : (item.slot3 === 1) ? `\u2460` : (item.slot3 === 2) ? `\u2461` : `\u2462`;

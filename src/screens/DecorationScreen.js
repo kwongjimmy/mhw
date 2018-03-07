@@ -33,7 +33,7 @@ export default class DecorationScreen extends Component {
           items.push(row);
         }
         this.setState({ items });
-        db.close();
+        // db.close();
        },
       );
     });
@@ -42,7 +42,7 @@ export default class DecorationScreen extends Component {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      // console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({

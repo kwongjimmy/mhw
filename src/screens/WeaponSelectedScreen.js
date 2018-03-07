@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { FlatList, Platform, ActivityIndicator, View } from 'react-native';
-import { Text, ListItem, Body, Left, Right } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
-import WeaponListItem from '../components/WeaponListItem'
+import WeaponListItem from '../components/WeaponListItem';
 
-export default class WeaponSelectedScreen extends Component {
+export default class WeaponSelectedScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
     topBarBorderColor: 'red',
@@ -22,7 +21,7 @@ export default class WeaponSelectedScreen extends Component {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      // console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
@@ -67,39 +66,8 @@ export default class WeaponSelectedScreen extends Component {
     });
   }
 
-  onNavigatorEvent(event) {
-    if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
-    }
-    if (event.id === 'bottomTabReselected') {
-      this.props.navigator.popToRoot({
-        animated: true,
-        animationType: 'fade',
-      });
-    }
-  }
-
   renderListItems = ({ item }) => {
     return (
-      // <ListItem
-      //   style={{ marginLeft: 0, paddingLeft: 8 }}
-      //   onPress={() => this.props.navigator.push({
-      //     screen: 'TablessInfoScreen',
-      //     passProps: {
-      //       item_id: item.item_id,
-      //       type: 'weapons',
-      //       item,
-      //     },
-      //     animationType: 'fade',
-      //     title: item.name,
-      //   })}
-      //   >
-      //   <Left>
-      //     <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
-      //   </Left>
-      //   <Right>
-      //   </Right>
-      // </ListItem>
       <WeaponListItem navigator={this.props.navigator} item={item} />
     );
   }
@@ -114,8 +82,8 @@ export default class WeaponSelectedScreen extends Component {
     }
     return (
       <FlatList
-        data={this.state.weapons}
         initialNumToRender={0}
+        data={this.state.weapons}
         keyExtractor={(item) => item.item_id.toString()}
         renderItem={this.renderListItems}
       />
@@ -123,7 +91,6 @@ export default class WeaponSelectedScreen extends Component {
   }
 
   render() {
-    // return <Text>Hi</Text>;
     return this.renderSelectList();
   }
 }

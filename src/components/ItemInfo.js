@@ -132,7 +132,7 @@ export default class ItemInfo extends PureComponent {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      //console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
@@ -146,32 +146,16 @@ export default class ItemInfo extends PureComponent {
     return (
       <View>
         <ListItem style={{ marginLeft: 0, borderBottomWidth: 0.0, borderColor: 'red' }} itemDivider>
-          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
             <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Buy</Text>
-          </View>
-          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
             <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Sell</Text>
-          </View>
-          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
             <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Carry</Text>
-          </View>
-          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
             <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Rarity</Text>
-          </View>
         </ListItem>
         <ListItem style={{ marginLeft: 0, backgroundColor: 'white' }} itemDivider>
-          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
             <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{`${this.state.item.buy_price}z`}</Text>
-          </View>
-          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
             <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{`${this.state.item.sell_price}z`}</Text>
-          </View>
-          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
             <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{this.state.item.carry}</Text>
-          </View>
-          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
             <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{this.state.item.rarity}</Text>
-          </View>
         </ListItem>
       </View>
     );

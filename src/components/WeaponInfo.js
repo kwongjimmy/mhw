@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { ScrollView, View, ActivityIndicator, Image } from 'react-native';
 import { Container, ListItem, Text, Right, Left, Body } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
@@ -28,7 +28,7 @@ const bulletTypes = {
   Tra: 'Tranq',
 };
 
-export default class WeaponInfo extends Component {
+export default class WeaponInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { Container, Header, Content, List, ListItem, Text, Tabs, Tab, Right, Left, Body } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
 
-export default class EquipArmorInfo extends Component {
+export default class EquipArmorInfo extends PureComponent {
 
   constructor(props) {
     super(props);
@@ -208,19 +208,15 @@ export default class EquipArmorInfo extends Component {
       );
     }
     return (
-    <View>
-      {this.renderInfo()}
-      {this.renderSkills()}
-      {this.renderCrafting()}
-    </View>
+      <View>
+        {this.renderInfo()}
+        {this.renderSkills()}
+        {this.renderCrafting()}
+      </View>
     );
   }
 
   render() {
-    return (
-      <Container style={{ backgroundColor: 'white' }}>
-        {this.renderContent()}
-      </Container>
-    );
+    return this.renderContent();
   }
 }

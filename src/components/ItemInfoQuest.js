@@ -10,7 +10,7 @@ export default class ItemInfoQuest extends PureComponent {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      //console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
@@ -47,6 +47,7 @@ export default class ItemInfoQuest extends PureComponent {
   render() {
     return (
       <FlatList
+        initialNumToRender={0}
         contextContainerStyle={{ paddingTop: 20 }}
         data={this.props.items}
         keyExtractor={(item) => item.quest_id.toString()}

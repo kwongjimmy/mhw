@@ -17,7 +17,7 @@ export default class MonsterScreen extends PureComponent {
   }
 
   okCallback(msg) {
-    console.log(`okCallback: ${msg}`);
+    // console.log(`okCallback: ${msg}`);
     setTimeout(() => {
       const db = SQLite.openDatabase({
         name: 'mhworld.db', createFromLocation: '~mhworld.db', location: 'Default',
@@ -61,7 +61,7 @@ export default class MonsterScreen extends PureComponent {
   }
 
   errorCallback(msg) {
-    console.log(`okCallback: ${msg}`);
+    // console.log(`okCallback: ${msg}`);
     setTimeout(() => {
       const db = SQLite.openDatabase({
         name: 'mhworld.db', createFromLocation: '~mhworld.db', location: 'Default',
@@ -159,41 +159,39 @@ export default class MonsterScreen extends PureComponent {
 
   render() {
     return (
-      <Container style={{ backgroundColor: 'white' }}>
-        <Tabs
-          prerenderingSiblingsNumber={Infinity}
-          scrollWithoutAnimation={false}
-          tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }}
-          initialPage={0}>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-           textStyle={{ color: '#5e5e5e' }}
-           heading="All"
-           >
-           {this.renderContent('all')}
-         </Tab>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-           textStyle={{ color: '#5e5e5e' }}
-           heading="Large"
-           >
-           {this.renderContent('large')}
-         </Tab>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-           textStyle={{ color: '#5e5e5e' }}
-           heading="Small"
-           >
-           {this.renderContent('small')}
-         </Tab>
-       </Tabs>
-      </Container>
+      <Tabs
+        prerenderingSiblingsNumber={Infinity}
+        scrollWithoutAnimation={false}
+        tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }}
+        initialPage={0}>
+       <Tab
+         activeTabStyle={{ backgroundColor: 'white' }}
+         tabStyle={{ backgroundColor: 'white' }}
+         activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+         textStyle={{ color: '#5e5e5e' }}
+         heading="All"
+         >
+         {this.renderContent('all')}
+       </Tab>
+       <Tab
+         activeTabStyle={{ backgroundColor: 'white' }}
+         tabStyle={{ backgroundColor: 'white' }}
+         activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+         textStyle={{ color: '#5e5e5e' }}
+         heading="Large"
+         >
+         {this.renderContent('large')}
+       </Tab>
+       <Tab
+         activeTabStyle={{ backgroundColor: 'white' }}
+         tabStyle={{ backgroundColor: 'white' }}
+         activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+         textStyle={{ color: '#5e5e5e' }}
+         heading="Small"
+         >
+         {this.renderContent('small')}
+       </Tab>
+     </Tabs>
     );
   }
 }

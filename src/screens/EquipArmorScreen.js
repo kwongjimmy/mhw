@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Tabs } from 'native-base';
 import EquipArmorList from '../components/EquipArmorList';
 
-export default class EquipArmorScreen extends Component {
+export default class EquipArmorScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -148,28 +148,26 @@ export default class EquipArmorScreen extends Component {
 
   render() {
     return (
-      <Container style={{ backgroundColor: 'white' }}>
-         <Tabs prerenderingSiblingsNumber={Infinity} scrollWithoutAnimation={false} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="Low Rank"
-             >
-             {this.renderContent('low')}
-           </Tab>
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="High Rank"
-             >
-             {this.renderContent('high')}
-           </Tab>
-         </Tabs>
-      </Container>
+       <Tabs prerenderingSiblingsNumber={Infinity} scrollWithoutAnimation={false} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Low Rank"
+           >
+           {this.renderContent('low')}
+         </Tab>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="High Rank"
+           >
+           {this.renderContent('high')}
+         </Tab>
+       </Tabs>
     );
   }
 }

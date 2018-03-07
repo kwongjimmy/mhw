@@ -15,7 +15,7 @@ export default class MonsterLoot extends PureComponent {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      //console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
@@ -70,6 +70,7 @@ export default class MonsterLoot extends PureComponent {
   render() {
     return (
       <FlatList
+        initialNumToRender={0}
         data={this.state.data}
         keyExtractor={(item) => item.loot_id.toString()}
         renderItem={this.renderListItems}

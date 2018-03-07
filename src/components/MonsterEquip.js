@@ -15,7 +15,7 @@ export default class MonsterEquip extends PureComponent {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      //console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
@@ -27,17 +27,6 @@ export default class MonsterEquip extends PureComponent {
 
   renderWeaponListItems = ({ item }) => {
     return (
-      // <ListItem
-      //   style={{ marginLeft: 0, paddingLeft: 8 }}
-      // >
-      //   <Left>
-      //     <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
-      //   </Left>
-      //   <Body>
-      //   </Body>
-      //   <Right>
-      //   </Right>
-      // </ListItem>
       <WeaponListItem navigator={this.props.navigator} item={item} />
     );
   }
@@ -77,10 +66,10 @@ export default class MonsterEquip extends PureComponent {
         screen: 'TablessInfoScreen',
         passProps: {
           item_id: item.item_id,
-          type: 'armor'
+          type: 'armor',
         },
         animationType: 'fade',
-        title: item.name
+        title: item.name,
       })}
       >
         <Left>

@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, FlatList, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, ListItem, Text, Left, Right } from 'native-base';
 
-export default class CharmScreen extends Component {
+export default class CharmScreen extends PureComponent {
   static navigatorStyle = {
-    // navBarHideOnScroll: true,
     topBarBorderColor: 'red',
     topBarBorderWidth: 17,
   };
@@ -40,7 +39,7 @@ export default class CharmScreen extends Component {
             items.push(row);
           }
           this.setState({ items });
-          db.close();
+          // db.close();
         },
       );
     });
@@ -49,7 +48,7 @@ export default class CharmScreen extends Component {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      // console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
@@ -110,6 +109,7 @@ export default class CharmScreen extends Component {
     }
     return (
       <FlatList
+        initialNumToRender={0}
         data={this.state.items}
         keyExtractor={(item) => item.item_id.toString()}
         renderItem={this.renderListItems}
@@ -118,10 +118,6 @@ export default class CharmScreen extends Component {
   }
 
   render() {
-    return (
-      <Container style={{ backgroundColor: 'white' }}>
-        {this.renderContent()}
-      </Container>
-    );
+    return this.renderContent();
   }
 }

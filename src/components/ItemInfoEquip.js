@@ -10,7 +10,7 @@ export default class ItemInfoEquip extends PureComponent {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      //console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
@@ -134,12 +134,10 @@ export default class ItemInfoEquip extends PureComponent {
 
   render() {
     return (
-      <Container style={{ backgroundColor: 'white' }}>
-        <ScrollView>
-          {this.renderArmor()}
-          {this.renderWeapons()}
-        </ScrollView>
-      </Container>
+      <ScrollView>
+        {this.renderArmor()}
+        {this.renderWeapons()}
+      </ScrollView>
     );
   }
 }

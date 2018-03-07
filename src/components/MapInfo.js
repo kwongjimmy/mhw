@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { ScrollView, FlatList, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Tabs, ListItem, Text, Left, Body, Right } from 'native-base';
 import DropDown from './DropDown';
 
-export default class MapInfo extends Component {
+export default class MapInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -57,7 +57,7 @@ export default class MapInfo extends Component {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      //console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
@@ -113,10 +113,6 @@ export default class MapInfo extends Component {
   }
 
   render() {
-    return (
-      <Container style={{ backgroundColor: 'white' }}>
-        {this.renderContent()}
-      </Container>
-    );
+    return this.renderContent();
   }
 }
