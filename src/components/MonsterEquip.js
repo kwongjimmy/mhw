@@ -27,18 +27,18 @@ export default class MonsterEquip extends Component {
 
   renderWeaponListItems = ({ item }) => {
     return (
-      // <ListItem
-      //   style={{ marginLeft: 0, paddingLeft: 8 }}
-      // >
-      //   <Left>
-      //     <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
-      //   </Left>
-      //   <Body>
-      //   </Body>
-      //   <Right>
-      //   </Right>
-      // </ListItem>
-      <WeaponListItem navigator={this.props.navigator} item={item} />
+      <ListItem
+        style={{ marginLeft: 0, paddingLeft: 8 }}
+      >
+        <Left>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+        </Left>
+        <Body>
+        </Body>
+        <Right>
+        </Right>
+      </ListItem>
+      // {/* <WeaponListItem navigator={this.props.navigator} item={item} /> */}
     );
   }
 

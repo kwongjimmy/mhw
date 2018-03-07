@@ -112,7 +112,6 @@ export default class ItemInfo extends PureComponent {
           this.setState({
             item, itemArmor, itemWeapons, itemMapLoot, itemMonsterLoot, itemQuest, loading: false,
           });
-          console.log(this.state);
         },
       );
     });
@@ -197,7 +196,7 @@ export default class ItemInfo extends PureComponent {
       <ItemInfoQuest navigator={this.props.navigator} items={this.state.itemQuest}/>
     );
   }
-  
+
   render() {
     return (
       <Container style={{ backgroundColor: 'white' }}>

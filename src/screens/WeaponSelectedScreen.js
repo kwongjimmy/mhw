@@ -54,26 +54,26 @@ export default class WeaponSelectedScreen extends Component {
 
   renderListItems = ({ item }) => {
     return (
-      <ListItem
-        style={{ marginLeft: 0, paddingLeft: 8 }}
-        onPress={() => this.props.navigator.push({
-          screen: 'TablessInfoScreen',
-          passProps: {
-            item_id: item.item_id,
-            type: 'weapons',
-            item,
-          },
-          animationType: 'fade',
-          title: item.name,
-        })}
-        >
-        <Left>
-          <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
-        </Left>
-        <Right>
-        </Right>
-      </ListItem>
-      // <WeaponListItem navigator={this.props.navigator} table={this.props.table} tableType={this.props.type} item={item} />
+      // <ListItem
+      //   style={{ marginLeft: 0, paddingLeft: 8 }}
+      //   onPress={() => this.props.navigator.push({
+      //     screen: 'TablessInfoScreen',
+      //     passProps: {
+      //       item_id: item.item_id,
+      //       type: 'weapons',
+      //       item,
+      //     },
+      //     animationType: 'fade',
+      //     title: item.name,
+      //   })}
+      //   >
+      //   <Left>
+      //     <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+      //   </Left>
+      //   <Right>
+      //   </Right>
+      // </ListItem>
+      <WeaponListItem navigator={this.props.navigator} item={item} />
     );
   }
 

@@ -80,7 +80,6 @@ export default class SkillEquip extends Component {
             charms,
             loading: false,
           });
-          console.log(this.state);
         },
       );
     });

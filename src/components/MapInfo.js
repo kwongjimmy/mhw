@@ -31,7 +31,6 @@ export default class MapInfo extends Component {
             areas,
             loading: false,
           });
-          console.log(this.state);
         },
       );
     });

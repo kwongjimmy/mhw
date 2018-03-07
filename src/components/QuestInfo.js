@@ -36,7 +36,6 @@ export default class QuestInfo extends Component {
             loading: false,
             rewards,
           });
-          console.log(this.state);
         }
       );
     });

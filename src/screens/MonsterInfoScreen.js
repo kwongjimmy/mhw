@@ -32,6 +32,7 @@ export default class MonsterInfoScreen extends Component {
       const monster_armor = [];
       const monster_weapons = [];
       const monster_quest = [];
+      const test = [];
       tx.executeSql('SELECT * FROM monster_hit WHERE monster_id = ?', [this.props.monster_id], (tx, results) => {
         for (let i = 0; i < results.rows.length; i += 1) {
           const row = results.rows.item(i);

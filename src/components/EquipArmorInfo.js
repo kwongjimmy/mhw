@@ -54,8 +54,6 @@ export default class EquipArmorInfo extends Component {
           this.setState({
             info, materials, skills, loading: false
           });
-          console.log(this.props);
-          console.log(this.state);
         }
       );
     });

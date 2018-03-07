@@ -45,7 +45,6 @@ export default class SkillInfo extends Component {
             levels,
             loading: false,
           });
-          console.log(this.state);
         },
       );
     });

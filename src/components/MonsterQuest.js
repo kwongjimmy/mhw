@@ -23,7 +23,17 @@ export default class MonsterQuest extends Component {
   renderListItems = ({ item }) => {
     return (
       <View>
-        <ListItem style={{ marginLeft: 0 }}>
+        <ListItem
+          style={{ marginLeft: 0, paddingLeft: 8 }}
+          onPress={() => this.props.navigator.push({
+          screen: 'TablessInfoScreen',
+          passProps: {
+            type: 'quests',
+            quest_id: item.quest_id,
+          },
+          animationType: 'fade',
+          title: item.quest_name,
+        })}>
           <Body>
             <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.quest_name}</Text>
           </Body>
