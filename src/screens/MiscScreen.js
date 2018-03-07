@@ -50,7 +50,7 @@ export default class MiscScreen extends PureComponent {
         passProps: {
 
         },
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
         title: item.title,
         })}>
         <Left>
@@ -63,6 +63,7 @@ export default class MiscScreen extends PureComponent {
   render() {
     return (
       <FlatList
+        style={{ backgroundColor: 'white' }}
         data={this.state.screens}
         keyExtractor={(item) => item.route}
         renderItem={this.renderListItems}

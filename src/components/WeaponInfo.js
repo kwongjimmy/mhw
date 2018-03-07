@@ -90,7 +90,7 @@ export default class WeaponInfo extends PureComponent {
         `SELECT
           weapon_sharpness.*,
           weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
-          weapons.*, items.name
+          weapons.*, items.name as name, items.rarity as rarity
           FROM weapons
           JOIN items on weapons.item_id = items.item_id
           LEFT JOIN weapon_bowgun_chars ON weapons.item_id = weapon_bowgun_chars.item_id
@@ -484,7 +484,7 @@ export default class WeaponInfo extends PureComponent {
                       item_id: item.item_id,
                       type: 'item',
                     },
-                    animationType: 'fade',
+                    animationType: 'slide-horizontal',
                     title: item.name,
                   })}
                   >
@@ -529,7 +529,7 @@ export default class WeaponInfo extends PureComponent {
                       item_id: item.item_id,
                       type: 'item',
                     },
-                    animationType: 'fade',
+                    animationType: 'slide-horizontal',
                     title: item.name,
                   })}
                   >

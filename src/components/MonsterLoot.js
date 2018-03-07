@@ -20,7 +20,7 @@ export default class MonsterLoot extends PureComponent {
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
         animated: true,
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
       });
     }
   }
@@ -53,7 +53,7 @@ export default class MonsterLoot extends PureComponent {
               item_id: item.item_id,
               type: 'item',
             },
-            animationType: 'fade',
+            animationType: 'slide-horizontal',
             title: item.item_name,
           })}>
           <Left>

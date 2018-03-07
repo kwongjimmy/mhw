@@ -44,7 +44,7 @@ export default class MapScreen extends PureComponent {
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
         animated: true,
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
       });
     }
   }
@@ -59,7 +59,7 @@ export default class MapScreen extends PureComponent {
           item_id: item.map_id,
           type: 'maps'
         },
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
         title: item.name,
       })}>
       <Left>
@@ -79,6 +79,7 @@ export default class MapScreen extends PureComponent {
     }
     return (
       <FlatList
+        style={{ backgroundColor: 'white' }}
         initialNumToRender={0}
         data={this.state.items}
         keyExtractor={(item) => item.map_id.toString()}

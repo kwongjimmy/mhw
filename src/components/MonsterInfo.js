@@ -37,7 +37,7 @@ export default class MonsterInfo extends PureComponent {
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
         animated: true,
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
       });
     }
   }
@@ -146,7 +146,6 @@ export default class MonsterInfo extends PureComponent {
   render() {
     return (
       <FlatList
-        initialNumToRender={0}
         data={this.state.data}
         keyExtractor={(item) => item.part_name}
         renderItem={this.renderListItems}

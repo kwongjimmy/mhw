@@ -141,7 +141,7 @@ export default class EquipArmorContainer extends PureComponent {
                 item_id: item.item_id,
                 type: 'armor',
               },
-              animationType: 'fade',
+              animationType: 'slide-horizontal',
               title: item.name
             })}
             >

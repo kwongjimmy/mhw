@@ -15,7 +15,7 @@ export default class MonsterQuest extends Component {
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
         animated: true,
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
       });
     }
   }
@@ -31,7 +31,7 @@ export default class MonsterQuest extends Component {
             type: 'quests',
             quest_id: item.quest_id,
           },
-          animationType: 'fade',
+          animationType: 'slide-horizontal',
           title: item.quest_name,
         })}>
           <Body>

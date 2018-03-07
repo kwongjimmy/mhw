@@ -52,7 +52,7 @@ export default class ItemInfo extends PureComponent {
       );
       tx.executeSql(
         `SELECT
-          A.name as name, B.*,
+          A.name as name, A.rarity as rarity, B.*,
 		      weapon_sharpness.*,
           weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
           weapons.*
@@ -137,7 +137,7 @@ export default class ItemInfo extends PureComponent {
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
         animated: true,
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
       });
     }
   }

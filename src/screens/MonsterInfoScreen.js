@@ -108,7 +108,7 @@ export default class MonsterInfoScreen extends PureComponent {
         `SELECT
         weapon_sharpness.*,
         weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
-        D.*, C.name
+        D.*, C.name as name, C.rarity as rarity
         FROM monster_loot as A
         JOIN monster_loot_categories as B on A.category_id = B.category_id
         JOIN items as C ON A.item_id = C.item_id

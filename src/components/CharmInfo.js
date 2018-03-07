@@ -58,7 +58,7 @@ export default class CharmInfo extends PureComponent {
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
         animated: true,
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
       });
     }
   }
@@ -95,7 +95,7 @@ export default class CharmInfo extends PureComponent {
                 armor_skill_id: this.state.info.skill1_id,
                 type: 'skill',
               },
-              animationType: 'fade',
+              animationType: 'slide-horizontal',
               title: this.state.info.skill1_name,
             })}
             >
@@ -114,7 +114,7 @@ export default class CharmInfo extends PureComponent {
                 armor_skill_id: this.state.info.skill2_id,
                 type: 'skill',
               },
-              animationType: 'fade',
+              animationType: 'slide-horizontal',
               title: this.state.info.skill2_name,
             })}
             >
@@ -137,7 +137,7 @@ export default class CharmInfo extends PureComponent {
               armor_skill_id: this.state.info.skill1_id,
               type: 'skill',
             },
-            animationType: 'fade',
+            animationType: 'slide-horizontal',
             title: this.state.info.skill1_name,
           })}
           >
@@ -192,7 +192,7 @@ export default class CharmInfo extends PureComponent {
                     item_id: item.item_id,
                     type: 'item',
                   },
-                  animationType: 'fade',
+                  animationType: 'slide-horizontal',
                   title: item.name,
                 })}
                 >

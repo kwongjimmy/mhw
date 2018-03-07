@@ -95,7 +95,7 @@ export default class EquipArmorInfo extends PureComponent {
               armor_skill_id: this.state.skills[0].skill2_id,
               type: 'skill',
             },
-            animationType: 'fade',
+            animationType: 'slide-horizontal',
             title: this.state.skills[0].skill2_name,
           })}
           >
@@ -123,7 +123,7 @@ export default class EquipArmorInfo extends PureComponent {
             armor_skill_id: this.state.skills[0].skill1_id,
             type: 'skill',
           },
-          animationType: 'fade',
+          animationType: 'slide-horizontal',
           title: this.state.skills[0].skill1_name,
         })}
         >
@@ -180,7 +180,7 @@ export default class EquipArmorInfo extends PureComponent {
                     item_id: item.item_id,
                     type: 'item',
                   },
-                  animationType: 'fade',
+                  animationType: 'slide-horizontal',
                   title: item.name,
                 })}
                 >
@@ -208,7 +208,7 @@ export default class EquipArmorInfo extends PureComponent {
       );
     }
     return (
-      <View>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
         {this.renderInfo()}
         {this.renderSkills()}
         {this.renderCrafting()}

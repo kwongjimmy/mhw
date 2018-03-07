@@ -49,7 +49,7 @@ export default class QuestInfo extends PureComponent {
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
         animated: true,
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
       });
     }
   }
@@ -76,7 +76,7 @@ export default class QuestInfo extends PureComponent {
 								item_id: item.item_id,
 								type: 'item',
 							},
-							animationType: 'fade',
+							animationType: 'slide-horizontal',
 							title: item.name,
 						})}
 						key={key}>

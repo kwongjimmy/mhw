@@ -99,7 +99,7 @@ export default class WeaponSelectScreen extends PureComponent {
           type: item.type,
           item
         },
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
         title: item.name
         })}>
       <Left>
@@ -119,6 +119,7 @@ export default class WeaponSelectScreen extends PureComponent {
   renderSelectList() {
     return (
       <FlatList
+        style={{ backgroundColor: 'white' }}
         initialNumToRender={0}
         data={this.state.weapons}
         keyExtractor={(item) => item.name}

@@ -107,7 +107,7 @@ export default class SkillEquip extends PureComponent {
                   item_id: item.item_id,
                   type: 'armor',
                 },
-                animationType: 'fade',
+                animationType: 'slide-horizontal',
                 title: item.name
                 })}>
                 <Left>
@@ -149,7 +149,7 @@ export default class SkillEquip extends PureComponent {
                   item_id: item.item_id,
                   type: 'charms',
                 },
-                animationType: 'fade',
+                animationType: 'slide-horizontal',
                 title: item.name
                 })}
                 >

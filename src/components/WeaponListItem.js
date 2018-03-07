@@ -255,7 +255,7 @@ export default class WeaponListItem extends PureComponent {
             type: 'weapons',
             item: this.props.item,
           },
-          animationType: 'fade',
+          animationType: 'slide-horizontal',
           title: name,
         })}
         >
