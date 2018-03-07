@@ -137,7 +137,7 @@ export default class QuestScreen extends PureComponent {
 
   render() {
     return (
-       <Tabs tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
+       <Tabs prerenderingSiblingsNumber={Infinity} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}

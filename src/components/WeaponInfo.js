@@ -187,32 +187,24 @@ export default class WeaponInfo extends PureComponent {
     }
     if (info.req_armor_skill) {
       return (
-        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginLeft: 15, marginRight: 15 }}>
-          <View style={{ flex: 1, borderColor: 'blue', borderWidth: 0 }}>
+        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginLeft: 0, marginRight: 0 }}>
             <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`(${info.element_amount})`}</Text>
-          </View>
-          <View style={{ flex: 0.5, borderWidth: 0, borderColor: 'red' }}>
             <Image
               resizeMode="contain"
               style={{ height: 22.5, width: 22.5 }}
               source={ElementStatusImages[info.element_type]}
             />
-          </View>
         </View>
       );
     } else if (info.element_amount > 0) {
       return (
-        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderWidth: 0, marginLeft: 15, marginRight: 15 }}>
-          <View style={{ flex: 1, borderColor: 'blue', borderWidth: 0 }}>
+        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderWidth: 0, marginLeft: 0, marginRight: 0 }}>
             <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${info.element_amount}`}</Text>
-          </View>
-          <View style={{ flex: 0.5, borderWidth: 0, borderColor: 'red' }}>
             <Image
               resizeMode="contain"
               style={{ height: 22.5, width: 22.5 }}
               source={ElementStatusImages[info.element_type]}
             />
-          </View>
         </View>
       );
     }

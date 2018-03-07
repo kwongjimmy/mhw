@@ -52,7 +52,7 @@ export default class ItemInfo extends PureComponent {
       );
       tx.executeSql(
         `SELECT
-          A.name, B.*,
+          A.name as name, B.*,
 		      weapon_sharpness.*,
           weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
           weapons.*
@@ -192,7 +192,7 @@ export default class ItemInfo extends PureComponent {
   render() {
     return (
       <Container style={{ backgroundColor: 'white' }}>
-         <Tabs tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
+         <Tabs prerenderingSiblingsNumber={Infinity} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
            <Tab
              activeTabStyle={{ backgroundColor: 'white' }}
              tabStyle={{ backgroundColor: 'white' }}
