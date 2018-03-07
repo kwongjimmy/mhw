@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, FlatList } from 'react-native';
 import { Text, ListItem, Right, Left, Body } from 'native-base';
 import WeaponListItem from './WeaponListItem'
 
-export default class MonsterEquip extends Component {
+export default class MonsterEquip extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,23 +27,22 @@ export default class MonsterEquip extends Component {
 
   renderWeaponListItems = ({ item }) => {
     return (
-      <ListItem
-        style={{ marginLeft: 0, paddingLeft: 8 }}
-      >
-        <Left>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
-        </Left>
-        <Body>
-        </Body>
-        <Right>
-        </Right>
-      </ListItem>
-      // {/* <WeaponListItem navigator={this.props.navigator} item={item} /> */}
+      // <ListItem
+      //   style={{ marginLeft: 0, paddingLeft: 8 }}
+      // >
+      //   <Left>
+      //     <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+      //   </Left>
+      //   <Body>
+      //   </Body>
+      //   <Right>
+      //   </Right>
+      // </ListItem>
+      <WeaponListItem navigator={this.props.navigator} item={item} />
     );
   }
 
   renderSlots(item) {
-    // \u24ea
     let slot1 = (item.slot1 === 0) ? `-` : (item.slot1 === 1) ? `\u2460` : (item.slot1 === 2) ? `\u2461` : `\u2462`;
     let slot2 = (item.slot2 === 0) ? `-` : (item.slot2 === 1) ? `\u2460` : (item.slot2 === 2) ? `\u2461` : `\u2462`;
     let slot3 = (item.slot3 === 0) ? `-` : (item.slot3 === 1) ? `\u2460` : (item.slot3 === 2) ? `\u2461` : `\u2462`;
@@ -72,11 +71,6 @@ export default class MonsterEquip extends Component {
 
   renderListItems = ({ item }) => {
     return (
-      // <View>
-      //   <ListItem style={{ marginLeft: 0, paddingLeft: 18 }}>
-      //     <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
-      //   </ListItem>
-      // </View>
       <ListItem
         style={{ marginLeft: 0, paddingLeft: 8 }}
         onPress={() => this.props.navigator.push({
@@ -106,6 +100,7 @@ export default class MonsterEquip extends Component {
     if (this.props.type === 'armor') {
       return (
         <FlatList
+          initialNumToRender={0}
           data={this.state.data}
           keyExtractor={(item) => item.item_id.toString()}
           renderItem={this.renderListItems.bind(this)}
@@ -114,6 +109,7 @@ export default class MonsterEquip extends Component {
     }
     return (
       <FlatList
+        initialNumToRender={0}
         data={this.state.data}
         keyExtractor={(item) => item.item_id.toString()}
         renderItem={this.renderWeaponListItems.bind(this)}

@@ -149,7 +149,7 @@ export default class EquipArmorScreen extends Component {
   render() {
     return (
       <Container style={{ backgroundColor: 'white' }}>
-         <Tabs tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
+         <Tabs prerenderingSiblingsNumber={Infinity} scrollWithoutAnimation={false} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
            <Tab
              activeTabStyle={{ backgroundColor: 'white' }}
              tabStyle={{ backgroundColor: 'white' }}

@@ -1,16 +1,10 @@
 import { Navigation } from 'react-native-navigation';
 
-import Screen1 from './screens/Screen1';
-import Screen2 from './screens/Screen2';
-import Screen3 from './screens/Screen3';
-import Screen4 from './screens/Screen4';
-
 import MonsterScreen from './screens/MonsterScreen';
 import EquipArmorScreen from './screens/EquipArmorScreen';
 import QuestScreen from './screens/QuestScreen';
 import WeaponSelectScreen from './screens/WeaponSelectScreen';
 import WeaponSelectedScreen from './screens/WeaponSelectedScreen';
-import WeaponScreen from './screens/WeaponScreen';
 import MiscScreen from './screens/MiscScreen';
 import ItemScreen from './screens/ItemScreen';
 import SearchScreen from './screens/SearchScreen';
@@ -152,11 +146,6 @@ import TablessInfoScreen from './screens/TablessInfoScreen';
 // export default startApp();
 
 export default () => {
-  Navigation.registerComponent('Screen1', () => Screen1);
-  Navigation.registerComponent('Screen2', () => Screen2);
-  Navigation.registerComponent('Screen3', () => Screen3);
-  Navigation.registerComponent('Screen4', () => Screen4);
-
   Navigation.registerComponent('MonsterScreen', () => MonsterScreen);
   Navigation.registerComponent('EquipArmorScreen', () => EquipArmorScreen);
   Navigation.registerComponent('QuestScreen', () => QuestScreen);
@@ -169,8 +158,6 @@ export default () => {
   Navigation.registerComponent('MapScreen', () => MapScreen);
   Navigation.registerComponent('DecorationScreen', () => DecorationScreen);
 
-
-  Navigation.registerComponent('WeaponScreen', () => WeaponScreen);
   Navigation.registerComponent('WeaponSelectedScreen', () => WeaponSelectedScreen);
   Navigation.registerComponent('MonsterInfoScreen', () => MonsterInfoScreen);
   Navigation.registerComponent('TabInfoScreen', () => TabInfoScreen);

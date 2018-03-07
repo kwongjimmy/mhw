@@ -36,7 +36,7 @@ export default class DropDown extends Component {
     return (
       <View>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 8 }}
+          style={{ marginLeft: 0, paddingLeft: 8, borderBottomWidth: 0.5, borderColor: '#d1d1d1' }}
           itemDivider
           onPress={() => {
             this.setState({ hide: !this.state.hide })

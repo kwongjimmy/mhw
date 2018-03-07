@@ -51,11 +51,23 @@ export default class ItemInfo extends PureComponent {
         },
       );
       tx.executeSql(
-        `SELECT A.name as name, B.* from items as A
+        `SELECT
+          A.name, B.*,
+		      weapon_sharpness.*,
+          weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
+          weapons.*
+          FROM items as A
           JOIN (SELECT B.item_id, quantity from items AS A JOIN crafting as B ON A.item_id = B.item_material_id WHERE A.item_id = ?) as B
           ON A.item_id = B.item_id
-          WHERE A.category = 'weapon'
-        `
+		      JOIN weapons ON A.item_id = weapons.item_id
+		      LEFT JOIN weapon_bowgun_chars ON weapons.item_id = weapon_bowgun_chars.item_id
+          LEFT JOIN weapon_coatings ON weapons.item_id = weapon_coatings.item_id
+          LEFT JOIN weapon_kinsects ON weapons.item_id = weapon_kinsects.item_id
+          LEFT JOIN weapon_notes ON weapons.item_id = weapon_notes.item_id
+          LEFT JOIN weapon_phials ON weapons.item_id = weapon_phials.item_id
+          LEFT JOIN weapon_sharpness ON weapons.item_id = weapon_sharpness.item_id
+          LEFT JOIN weapon_shellings ON weapons.item_id = weapon_shellings.item_id
+          WHERE A.category = 'weapon'`
         , [this.props.item_id], (tx, results) => {
           // Get rows with Web SQL Database spec compliance.
           const len = results.rows.length;
@@ -132,40 +144,36 @@ export default class ItemInfo extends PureComponent {
 
   renderInfo() {
     return (
-      <Container>
-        <Content>
-          <List>
-            <ListItem style={{ marginLeft: 0, borderBottomWidth: 0.0, borderColor: 'red' }} itemDivider>
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Buy</Text>
-              </View>
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Sell</Text>
-              </View>
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Carry</Text>
-              </View>
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Rarity</Text>
-              </View>
-            </ListItem>
-            <ListItem style={{ marginLeft: 0, backgroundColor: 'white' }} itemDivider>
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{`${this.state.item.buy_price}z`}</Text>
-              </View>
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{`${this.state.item.sell_price}z`}</Text>
-              </View>
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{this.state.item.carry}</Text>
-              </View>
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{this.state.item.rarity}</Text>
-              </View>
-            </ListItem>
-          </List>
-        </Content>
-      </Container>
+      <View>
+        <ListItem style={{ marginLeft: 0, borderBottomWidth: 0.0, borderColor: 'red' }} itemDivider>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Buy</Text>
+          </View>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Sell</Text>
+          </View>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Carry</Text>
+          </View>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Rarity</Text>
+          </View>
+        </ListItem>
+        <ListItem style={{ marginLeft: 0, backgroundColor: 'white' }} itemDivider>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{`${this.state.item.buy_price}z`}</Text>
+          </View>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{`${this.state.item.sell_price}z`}</Text>
+          </View>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{this.state.item.carry}</Text>
+          </View>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{this.state.item.rarity}</Text>
+          </View>
+        </ListItem>
+      </View>
     );
   }
 

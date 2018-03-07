@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, FlatList } from 'react-native';
 import { Text, ListItem, Left, Right } from 'native-base';
 
-export default class MonsterLoot extends Component {
+export default class MonsterLoot extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

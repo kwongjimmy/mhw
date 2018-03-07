@@ -5,23 +5,6 @@ import SQLite from 'react-native-sqlite-storage';
 import { ElementStatusImages, BowCoatings } from '../assets';
 import WeaponListItem from './WeaponListItem';
 
-const weaponTable = {
-  great_sword: 'weapon_general_melee',
-  long_sword: 'weapon_general_melee',
-  sword_and_shield: 'weapon_general_melee',
-  dual_blade: 'weapon_dual_blades',
-  hammer: 'weapon_general_melee',
-  hunting_horn: 'weapon_hunting_horns',
-  lance: 'weapon_general_melee',
-  gunlance: 'weapon_gunlances',
-  switch_axe: 'weapon_switch_axes',
-  charge_blade: 'weapon_charge_blades',
-  insect_glaive: 'weapon_general_melee',
-  bow: 'weapon_bows',
-  light_bowgun: 'weapon_bowguns',
-  heavy_bowgun: 'weapon_bowguns',
-};
-
 const bulletTypes = {
   Nrm: 'Normal',
   Prc: 'Piercing',
@@ -79,7 +62,7 @@ export default class WeaponInfo extends Component {
       }
       tx.executeSql(
         `SELECT D.item_id, D.name, C.quantity
-        FROM ${weaponTable[this.state.info.type]} as A
+        FROM weapons as A
         JOIN items AS B ON A.item_id = B.item_id
         JOIN crafting AS C ON A.item_id = C.item_id
         JOIN items as D ON C.item_material_id = D.item_id WHERE A.item_id = ?`
@@ -92,7 +75,7 @@ export default class WeaponInfo extends Component {
       );
       tx.executeSql(
         `SELECT D.item_id, D.name, C.quantity
-        FROM ${weaponTable[this.state.info.type]} as A
+        FROM weapons as A
         JOIN items AS B ON A.item_id = B.item_id
         JOIN weapon_upgrade_items AS C ON A.item_id = C.item_id
         JOIN items as D ON C.material_item_id = D.item_id WHERE A.item_id = ?`
@@ -104,10 +87,20 @@ export default class WeaponInfo extends Component {
         },
       );
       tx.executeSql(
-        `SELECT *
-          FROM ${weaponTable[this.state.info.type]} as A
-          JOIN items AS B ON A.item_id = B.item_id
-  		    WHERE A.upgrade_from = ?`
+        `SELECT
+          weapon_sharpness.*,
+          weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
+          weapons.*, items.name
+          FROM weapons
+          JOIN items on weapons.item_id = items.item_id
+          LEFT JOIN weapon_bowgun_chars ON weapons.item_id = weapon_bowgun_chars.item_id
+          LEFT JOIN weapon_coatings ON weapons.item_id = weapon_coatings.item_id
+          LEFT JOIN weapon_kinsects ON weapons.item_id = weapon_kinsects.item_id
+          LEFT JOIN weapon_notes ON weapons.item_id = weapon_notes.item_id
+          LEFT JOIN weapon_phials ON weapons.item_id = weapon_phials.item_id
+          LEFT JOIN weapon_sharpness ON weapons.item_id = weapon_sharpness.item_id
+          LEFT JOIN weapon_shellings ON weapons.item_id = weapon_shellings.item_id
+  		    WHERE weapons.upgrade_from = ?`
         , [this.props.item_id], (tx, results) => {
           const len = results.rows.length;
           for (let i = 0; i < len; i += 1) {
@@ -156,7 +149,7 @@ export default class WeaponInfo extends Component {
       return (
         <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${info.kinsect}`}</Text>
       );
-    } else if (info.type === 'gunlance') {
+    } else if (info.type === 'gun_lance') {
       return <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{info.shelling}</Text>;
     } else if (info.type === 'hunting_horn') {
       return (
@@ -225,7 +218,7 @@ export default class WeaponInfo extends Component {
     }
     return (
       <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${info.element_amount}`}</Text>
-    )
+    );
   }
 
   renderSecondaryInfo(info) {
@@ -235,15 +228,15 @@ export default class WeaponInfo extends Component {
 
     let special = '';
     if (info.type === 'charge_blade' || info.type === 'switch_axe') {
-      special = 'Phial'
+      special = 'Phial';
     } else if (info.type === 'dual_blade') {
-      special = 'Element 2'
+      special = 'Element 2';
     } else if (info.type === 'insect_glaive') {
-      special = 'Kinsect'
+      special = 'Kinsect';
     } else if (info.type === 'hunting_horn') {
-      special = 'Notes'
-    } else if (info.type === 'gunlance') {
-      special = 'Shelling'
+      special = 'Notes';
+    } else if (info.type === 'gun_lance') {
+      special = 'Shelling';
     }
 
     return (
@@ -293,7 +286,7 @@ export default class WeaponInfo extends Component {
 
   renderCoatings(info) {
     const {
-      cls, pow, par, poi, sle, bla
+      cls, pow, par, poi, sle, bla,
     } = info;
     let margin = cls + pow + par + poi + sle + bla;
 

@@ -37,16 +37,27 @@ export default class ItemInfoEquip extends PureComponent {
     return (
       this.props.weapons.map((item, key) => {
         return (
-          <View key={key}>
-            <ListItem style={{ marginLeft: 0, paddingLeft: 8 }}>
-              <Left>
-                <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
-              </Left>
-              <Right>
-                <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.quantity}</Text>
-              </Right>
-            </ListItem>
-          </View>
+          <ListItem
+            key={key}
+            style={{ marginLeft: 0, paddingLeft: 8 }}
+            onPress={() => this.props.navigator.push({
+              screen: 'TablessInfoScreen',
+              passProps: {
+                item_id: item.item_id,
+                type: 'weapons',
+                item: item,
+              },
+              animationType: 'fade',
+              title: item.name,
+            })}
+            >
+            <Left>
+              <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+            </Left>
+            <Right>
+              <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.quantity}</Text>
+            </Right>
+          </ListItem>
         );
       })
     );

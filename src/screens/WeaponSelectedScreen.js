@@ -17,27 +17,54 @@ export default class WeaponSelectedScreen extends Component {
       weapons: [],
       loading: true,
     };
-    const query = `SELECT A.*, B.name as name, B.rarity
-    FROM ${this.props.table} as A
-    JOIN items AS B ON A.item_id = B.item_id
-    WHERE A.type = ?`;
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  onNavigatorEvent(event) {
+    if (event.id === 'bottomTabSelected') {
+      console.log('Tab selected!');
+    }
+    if (event.id === 'bottomTabReselected') {
+      this.props.navigator.popToRoot({
+        animated: true,
+        animationType: 'fade',
+      });
+    }
+  }
+
+  componentWillMount() {
     const db = SQLite.openDatabase({
       name: 'mhworld.db', location: 'Default',
     });
     db.transaction((tx) => {
       const weapons = [];
-      tx.executeSql(query, [this.props.type], (tx, results) => {
-        const len = results.rows.length;
-        for (let i = 0; i < len; i += 1) {
-          weapons.push(results.rows.item(i));
-        }
-        this.setState({
-          loading: false,
-          weapons,
-        });
-      });
+      tx.executeSql(
+        `SELECT
+          weapon_sharpness.*,
+          weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
+          weapons.*, items.name
+          FROM weapons
+          JOIN items on weapons.item_id = items.item_id
+          LEFT JOIN weapon_bowgun_chars ON weapons.item_id = weapon_bowgun_chars.item_id
+          LEFT JOIN weapon_coatings ON weapons.item_id = weapon_coatings.item_id
+          LEFT JOIN weapon_kinsects ON weapons.item_id = weapon_kinsects.item_id
+          LEFT JOIN weapon_notes ON weapons.item_id = weapon_notes.item_id
+          LEFT JOIN weapon_phials ON weapons.item_id = weapon_phials.item_id
+          LEFT JOIN weapon_sharpness ON weapons.item_id = weapon_sharpness.item_id
+          LEFT JOIN weapon_shellings ON weapons.item_id = weapon_shellings.item_id
+          WHERE type = ?`
+        , [this.props.type], (tx, results) => {
+          const len = results.rows.length;
+          for (let i = 0; i < len; i += 1) {
+            weapons.push(results.rows.item(i));
+          }
+          this.setState({
+            loading: false,
+            weapons,
+          });
+        },
+      );
     });
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   onNavigatorEvent(event) {
@@ -88,13 +115,15 @@ export default class WeaponSelectedScreen extends Component {
     return (
       <FlatList
         data={this.state.weapons}
-        keyExtractor={item => item.item_id.toString()}
+        initialNumToRender={0}
+        keyExtractor={(item) => item.item_id.toString()}
         renderItem={this.renderListItems}
       />
     );
   }
 
   render() {
+    // return <Text>Hi</Text>;
     return this.renderSelectList();
   }
 }

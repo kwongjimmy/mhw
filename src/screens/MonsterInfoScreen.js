@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import React, { PureComponent } from 'react';
+import { Text, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Tabs, ScrollableTab } from 'native-base';
 
@@ -10,7 +10,7 @@ import MonsterLoot from '../components/MonsterLoot';
 import MonsterEquip from '../components/MonsterEquip';
 import MonsterQuest from '../components/MonsterQuest';
 
-export default class MonsterInfoScreen extends Component {
+export default class MonsterInfoScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,13 +32,11 @@ export default class MonsterInfoScreen extends Component {
       const monster_armor = [];
       const monster_weapons = [];
       const monster_quest = [];
-      const test = [];
       tx.executeSql('SELECT * FROM monster_hit WHERE monster_id = ?', [this.props.monster_id], (tx, results) => {
         for (let i = 0; i < results.rows.length; i += 1) {
           const row = results.rows.item(i);
           monster_hit.push(row);
         }
-        // this.setState({ monster_hit });
       });
       tx.executeSql(
         `SELECT
@@ -107,16 +105,27 @@ export default class MonsterInfoScreen extends Component {
         },
       );
       tx.executeSql(
-        `SELECT C.name, C.item_id FROM monster_loot as A
+        `SELECT
+        weapon_sharpness.*,
+        weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
+        D.*, C.name
+        FROM monster_loot as A
         JOIN monster_loot_categories as B on A.category_id = B.category_id
         JOIN items as C ON A.item_id = C.item_id
+        JOIN weapons as D ON C.item_id = D.item_id
+        LEFT JOIN weapon_bowgun_chars ON D.item_id = weapon_bowgun_chars.item_id
+        LEFT JOIN weapon_coatings ON D.item_id = weapon_coatings.item_id
+        LEFT JOIN weapon_kinsects ON D.item_id = weapon_kinsects.item_id
+        LEFT JOIN weapon_notes ON D.item_id = weapon_notes.item_id
+        LEFT JOIN weapon_phials ON D.item_id = weapon_phials.item_id
+        LEFT JOIN weapon_sharpness ON D.item_id = weapon_sharpness.item_id
+        LEFT JOIN weapon_shellings ON D.item_id = weapon_shellings.item_id
         WHERE A.monster_id = ? AND B.name = 'Weapon'`,
         [this.props.monster_id], (tx, results) => {
           for (let i = 0; i < results.rows.length; i += 1) {
             const row = results.rows.item(i);
             monster_weapons.push(row);
           }
-        // this.setState({ monster_weapons });
         },
       );
       tx.executeSql(
@@ -138,8 +147,6 @@ export default class MonsterInfoScreen extends Component {
             monster_quest,
             loading: false,
           });
-          console.log(this.state);
-          // db.close();
         },
       );
     });
@@ -175,6 +182,8 @@ export default class MonsterInfoScreen extends Component {
     return (
       <Container style={{ backgroundColor: 'white' }}>
          <Tabs
+           prerenderingSiblingsNumber={Infinity}
+           scrollWithoutAnimation={false}
            tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }}
            initialPage={0}
            renderTabBar={() => <ScrollableTab style={{ elevation: 2 }}/>}

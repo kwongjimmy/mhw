@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { Image, View, FlatList } from 'react-native'
 import { Text, ListItem, Left, Right, Body } from 'native-base';
 
 import styles from './Styles/MonsterInfoScreenStyles';
 import { ElementStatusImages } from '../assets';
 
-export default class MonsterInfo extends Component {
+export default class MonsterInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -146,7 +146,7 @@ export default class MonsterInfo extends Component {
   render() {
     return (
       <FlatList
-        // ListHeaderComponent={this.renderHeader.bind(this)}
+        initialNumToRender={0}
         data={this.state.data}
         keyExtractor={(item) => item.part_name}
         renderItem={this.renderListItems}
