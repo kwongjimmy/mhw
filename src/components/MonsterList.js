@@ -20,7 +20,7 @@ export default class MonsterList extends PureComponent {
     }
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 18 }}
+        style={{ height: 80, marginLeft: 0, paddingLeft: 18 }}
         onPress={() => this.props.navigator.push({
         screen: 'MonsterInfoScreen',
         passProps: {
@@ -52,6 +52,9 @@ export default class MonsterList extends PureComponent {
         data={this.props.monsters}
         keyExtractor={(item) => item.monster_id.toString()}
         renderItem={this.renderMonster}
+        getItemLayout={(data, index) => (
+          { length: 80, offset: 80 * index, index }
+        )}
       />
     );
   }

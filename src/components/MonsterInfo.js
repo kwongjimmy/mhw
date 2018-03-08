@@ -125,7 +125,7 @@ export default class MonsterInfo extends PureComponent {
       return this.renderHeader();
     }
     return (
-      <ListItem style={{ marginLeft: 0, paddingLeft: 18, paddingRight: 5 }}>
+      <ListItem style={{ height: 55, marginLeft: 0, paddingLeft: 18, paddingRight: 5 }}>
         <Text style={[styles.monsterHitText, { flex: 2.5, fontSize: 13, textAlign: 'left' }]}>{item.part_name}</Text>
         <Text style={styles.monsterHitText}>{item.sever}</Text>
         <Text style={styles.monsterHitText}>{item.blunt}</Text>

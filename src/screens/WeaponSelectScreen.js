@@ -92,7 +92,7 @@ export default class WeaponSelectScreen extends PureComponent {
     const src = WeaponImages[item.name];
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 18 }}
+        style={{ height: 52, marginLeft: 0, paddingLeft: 18 }}
         onPress={() => this.props.navigator.push({
         screen: 'WeaponSelectedScreen',
         passProps: {
@@ -109,7 +109,7 @@ export default class WeaponSelectScreen extends PureComponent {
           source={src}
         />
       </Left>
-      <Body style={{ flex: 5 }}>
+      <Body style={{ flex: 6 }}>
         <Text style={{ fontSize: 20, color: '#191919' }}>{item.name}</Text>
       </Body>
       </ListItem>
@@ -120,10 +120,13 @@ export default class WeaponSelectScreen extends PureComponent {
     return (
       <FlatList
         style={{ backgroundColor: 'white' }}
-        initialNumToRender={0}
+        initialNumToRender={10}
         data={this.state.weapons}
         keyExtractor={(item) => item.name}
         renderItem={this.renderListItems}
+        getItemLayout={(data, index) => (
+          { length: 52, offset: 52 * index, index }
+        )}
       />
     );
   }

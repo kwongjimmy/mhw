@@ -17,7 +17,7 @@ export default class MonsterScreen extends PureComponent {
   }
 
   okCallback(msg) {
-    // console.log(`okCallback: ${msg}`);
+    console.log(`okCallback: ${msg}`);
     setTimeout(() => {
       const db = SQLite.openDatabase({
         name: 'mhworld.db', createFromLocation: '~mhworld.db', location: 'Default',
@@ -61,7 +61,7 @@ export default class MonsterScreen extends PureComponent {
   }
 
   errorCallback(msg) {
-    // console.log(`okCallback: ${msg}`);
+    console.log(`okCallback: ${msg}`);
     setTimeout(() => {
       const db = SQLite.openDatabase({
         name: 'mhworld.db', createFromLocation: '~mhworld.db', location: 'Default',
@@ -101,7 +101,7 @@ export default class MonsterScreen extends PureComponent {
           });
         });
       });
-    }, 100);
+    }, 150);
   }
 
   componentDidMount() {

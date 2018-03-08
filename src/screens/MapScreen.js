@@ -80,10 +80,13 @@ export default class MapScreen extends PureComponent {
     return (
       <FlatList
         style={{ backgroundColor: 'white' }}
-        initialNumToRender={0}
+        initialNumToRender={11}
         data={this.state.items}
         keyExtractor={(item) => item.map_id.toString()}
         renderItem={this.renderListItems}
+        getItemLayout={(data, index) => (
+          { length: 52, offset: 52 * index, index }
+        )}
       />
     );
   }

@@ -110,30 +110,39 @@ export default class QuestScreen extends PureComponent {
       return (
         <FlatList
           style={{ backgroundColor: 'white' }}
-          initialNumToRender={0}
+          initialNumToRender={11}
           data={this.state.assigned}
           keyExtractor={(item) => item.quest_id.toString()}
           renderItem={this.renderListItems}
+          getItemLayout={(data, index) => (
+            { length: 52, offset: 52 * index, index }
+          )}
         />
       );
     } else if (screen === 'tab2') {
       return (
         <FlatList
           style={{ backgroundColor: 'white' }}
-          initialNumToRender={0}
+          initialNumToRender={11}
           data={this.state.optional}
           keyExtractor={(item) => item.quest_id.toString()}
           renderItem={this.renderListItems}
+          getItemLayout={(data, index) => (
+            { length: 52, offset: 52 * index, index }
+          )}
         />
       );
     }
     return (
       <FlatList
         style={{ backgroundColor: 'white' }}
-        initialNumToRender={0}
+        initialNumToRender={11}
         data={this.state.arena}
         keyExtractor={(item) => item.quest_id.toString()}
         renderItem={this.renderListItems}
+        getItemLayout={(data, index) => (
+          { length: 52, offset: 52 * index, index }
+        )}
       />
     );
   }

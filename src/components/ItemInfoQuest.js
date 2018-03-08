@@ -23,7 +23,7 @@ export default class ItemInfoQuest extends PureComponent {
   renderListItems = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0 }}
+        style={{ height: 65, marginLeft: 0 }}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
         passProps: {
@@ -52,6 +52,9 @@ export default class ItemInfoQuest extends PureComponent {
         data={this.props.items}
         keyExtractor={(item) => item.quest_id.toString()}
         renderItem={this.renderListItems}
+        getItemLayout={(data, index) => (
+          { length: 65, offset: 65 * index, index }
+        )}
       />
     );
   }

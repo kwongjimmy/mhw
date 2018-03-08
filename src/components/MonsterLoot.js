@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import { View, FlatList } from 'react-native';
 import { Text, ListItem, Left, Right } from 'native-base';
-import { OptimizedFlatList } from 'react-native-optimized-flatlist'
 
 export default class MonsterLoot extends PureComponent {
   constructor(props) {
@@ -75,6 +74,9 @@ export default class MonsterLoot extends PureComponent {
         data={this.state.data}
         keyExtractor={item => item.loot_id.toString()}
         renderItem={this.renderListItems}
+        getItemLayout={(data, index) => (
+          { length: 52, offset: 52 * index, index }
+        )}
       />
     );
   }

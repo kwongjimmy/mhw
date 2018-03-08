@@ -24,7 +24,7 @@ export default class MonsterQuest extends Component {
     return (
       <View>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 8 }}
+          style={{ height: 65, marginLeft: 0, paddingLeft: 8 }}
           onPress={() => this.props.navigator.push({
           screen: 'TablessInfoScreen',
           passProps: {
@@ -53,6 +53,9 @@ export default class MonsterQuest extends Component {
         data={this.props.monster_quest}
         keyExtractor={(item) => item.quest_id.toString()}
         renderItem={this.renderListItems}
+        getItemLayout={(data, index) => (
+          { length: 65, offset: 65 * index, index }
+        )}
       />
     );
   }

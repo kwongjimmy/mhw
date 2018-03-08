@@ -84,7 +84,7 @@ export default class SkillScreen extends PureComponent {
     return (
       <FlatList
         style={{ backgroundColor: 'white' }}
-        initialNumToRender={0}
+        initialNumToRender={8}
         data={this.state.items}
         keyExtractor={(item) => item.armor_skill_id.toString()}
         renderItem={this.renderListItems}

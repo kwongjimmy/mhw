@@ -87,9 +87,13 @@ export default class DecorationScreen extends Component {
     }
     return (
       <FlatList
+        initialNumToRender={11}
         data={this.state.items}
         keyExtractor={(item) => item.item_id.toString()}
         renderItem={this.renderListItems}
+        getItemLayout={(data, index) => (
+          { length: 52, offset: 52 * index, index }
+        )}
       />
     );
   }

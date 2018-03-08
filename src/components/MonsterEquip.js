@@ -89,10 +89,13 @@ export default class MonsterEquip extends PureComponent {
     if (this.props.type === 'armor') {
       return (
         <FlatList
-          initialNumToRender={10}
+          initialNumToRender={11}
           data={this.state.data}
           keyExtractor={(item) => item.item_id.toString()}
           renderItem={this.renderListItems.bind(this)}
+          getItemLayout={(data, index) => (
+            { length: 52, offset: 52 * index, index }
+          )}
         />
       );
     }

@@ -121,7 +121,7 @@ export default class EquipArmorScreen extends PureComponent {
   componentDidMount() {
     setTimeout(() => {
       this.getData();
-    }, 250);
+    }, 200);
   }
 
   componentWillUnmount() {
@@ -148,7 +148,7 @@ export default class EquipArmorScreen extends PureComponent {
 
   render() {
     return (
-       <Tabs prerenderingSiblingsNumber={2} scrollWithoutAnimation={false} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
+       <Tabs prerenderingSiblingsNumber={0} scrollWithoutAnimation={false} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
