@@ -17,8 +17,9 @@ export default class DecorationScreen extends Component {
     };
 
     const db = SQLite.openDatabase({
-      name: 'mhworld.db', createFromLocation: 'mhworld.db', location: 'Default',
-    });
+      name: 'mhworld.db', location: 'Default',
+    }, this.okCallback, this.errorCallback);
+
     db.transaction((tx) => {
       const items = [];
       tx.executeSql(
