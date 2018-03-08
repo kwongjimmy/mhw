@@ -9,17 +9,15 @@ export default class DecorationInfo extends Component {
     this.state = {
       loading: true,
       info: {},
-      skill: {},
       feystones: [],
     };
 
     const db = SQLite.openDatabase({
-      name: 'mhworld.db', createFromLocation: 'mhworld.db', location: 'Default',
-    });
+      name: 'mhworld.db', location: 'Default',
+    }, this.okCallback, this.errorCallback);
 
     db.transaction((tx) => {
       let info = {};
-      let skill = {};
       let feystones = [];
 
       tx.executeSql(
@@ -35,22 +33,15 @@ export default class DecorationInfo extends Component {
       );
 
       tx.executeSql(
-        `SELECT * FROM decorations WHERE item_id=?`
-        , [this.props.item_id], (tx, results) => {
-          info = results.rows.item(0);
-        }
-			);
-
-      tx.executeSql(
-        `SELECT B.*, C.level as level
+        `SELECT A.*, B.armor_skill_id as armor_skill_id, B.name as name, C.level as level
           FROM decorations AS A
           JOIN armor_skills_levels AS C ON A.skill = C.armor_skill_level_id
           LEFT JOIN armor_skills AS B ON C.armor_skill_id = B.armor_skill_id
           WHERE A.item_id=?`
         , [this.props.item_id], (tx, results) => {
-          skill = results.rows.item(0);
+          info = results.rows.item(0);
           this.setState({
-            info, skill, feystones, loading: false
+            info, feystones, loading: false
           });
         }
       );
@@ -89,18 +80,18 @@ export default class DecorationInfo extends Component {
           onPress={() => this.props.navigator.push({
             screen: 'TabInfoScreen',
             passProps: {
-              armor_skill_id: this.state.skill.armor_skill_id,
+              armor_skill_id: this.state.info.armor_skill_id,
               type: 'skill',
             },
             animationType: 'fade',
-            title: this.state.skill.name,
+            title: this.state.info.name,
           })}
           >
           <Left>
-            <Text style={{ fontSize: 15.5, color: '#191919' }}>{this.state.skill.name}</Text>
+            <Text style={{ fontSize: 15.5, color: '#191919' }}>{this.state.info.name}</Text>
           </Left>
           <Right>
-            <Text style={{ fontSize: 15.5, color: '#191919' }}>+{this.state.skill.level}</Text>
+            <Text style={{ fontSize: 15.5, color: '#191919' }}>+{this.state.info.level}</Text>
           </Right>
         </ListItem>
       </View>
