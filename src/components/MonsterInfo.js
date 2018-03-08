@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Image, View, FlatList } from 'react-native'
+import { Image, View, FlatList, InteractionManager, ActivityIndicator } from 'react-native'
 import { Text, ListItem, Left, Right, Body } from 'native-base';
 
 import styles from './Styles/MonsterInfoScreenStyles';
@@ -26,8 +26,15 @@ export default class MonsterInfo extends PureComponent {
     data = data.splice(0, 0, firstData);
     this.state = {
       stickyHeaderIndices: [0],
-      data: this.props.monster_hit
+      data: this.props.monster_hit,
+      loading: true,
     };
+  }
+
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({ loading: false });
+    });
   }
 
   onNavigatorEvent(event) {
@@ -120,6 +127,12 @@ export default class MonsterInfo extends PureComponent {
     );
   }
 
+  renderExtractColor(item) {
+    if (item.extract_color === '') {
+      return <Text></Text>;
+    }
+    return <View style={[styles.monsterExtractContainer, { backgroundColor: item.extract_color }]} />;
+  }
   renderListItems = ({ item }) => {
     if (item.header === true) {
       return this.renderHeader();
@@ -137,13 +150,22 @@ export default class MonsterInfo extends PureComponent {
         <Text style={styles.monsterHitText}>{item.thunder}</Text>
         <Text style={styles.monsterHitText}>{item.dragon}</Text>
         <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
-          <View style={[styles.monsterExtractContainer, { backgroundColor: item.extract_color }]} />
+          {this.renderExtractColor(item)}
         </View>
       </ListItem>
     );
   }
 
   render() {
+    if (this.state.loading) {
+      return (
+        <View style={{
+          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white',
+        }}>
+          <ActivityIndicator size="large" color="#5e5e5e"/>
+        </View>
+      );
+    }
     return (
       <FlatList
         data={this.state.data}

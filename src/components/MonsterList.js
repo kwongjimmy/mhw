@@ -1,13 +1,23 @@
 import React, { PureComponent } from 'react';
-import { Image, View, FlatList, TouchableHighlight } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, ListItem } from 'native-base';
+import { Image, View, FlatList, InteractionManager, ActivityIndicator } from 'react-native';
+import { Text, Left, Body, Right, ListItem } from 'native-base';
 import { MonsterImages } from '../assets';
 
 // Styles
 import styles from '../screens/Styles/MonsterScreenStyles';
 
 export default class MonsterList extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+    };
+  }
+  
   componentDidMount() {
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({ loading: false });
+    });
   }
 
   renderMonster = ({ item }) => {
@@ -45,6 +55,15 @@ export default class MonsterList extends PureComponent {
   }
 
   render() {
+    if (this.state.loading) {
+      return (
+        <View style={{
+          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white',
+        }}>
+          <ActivityIndicator size="large" color="#5e5e5e"/>
+        </View>
+      );
+    }
     return (
       <FlatList
         style={{ backgroundColor: 'white' }}

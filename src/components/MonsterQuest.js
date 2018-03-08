@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, InteractionManager, ActivityIndicator } from 'react-native';
 import { Text, ListItem, Left, Right, Body } from 'native-base';
 
 export default class MonsterQuest extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      loading: true,
+    };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({ loading: false });
+    });
   }
 
   onNavigatorEvent(event) {
@@ -47,6 +56,15 @@ export default class MonsterQuest extends Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return (
+        <View style={{
+          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white',
+        }}>
+          <ActivityIndicator size="large" color="#5e5e5e"/>
+        </View>
+      );
+    }
     return (
       <FlatList
         initialNumToRender={8}
