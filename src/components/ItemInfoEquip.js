@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { View, ScrollView } from 'react-native';
-import { Container, Text, Left, Body, Right, ListItem } from 'native-base';
+import { Text, Left, Right, ListItem } from 'native-base';
 
 export default class ItemInfoEquip extends PureComponent {
   constructor(props) {

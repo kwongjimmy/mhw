@@ -131,7 +131,7 @@ export default class EquipArmorScreen extends PureComponent {
   renderContent(screen) {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
         </View>
       );
@@ -148,7 +148,7 @@ export default class EquipArmorScreen extends PureComponent {
 
   render() {
     return (
-       <Tabs prerenderingSiblingsNumber={Infinity} scrollWithoutAnimation={false} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
+       <Tabs prerenderingSiblingsNumber={2} scrollWithoutAnimation={false} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}

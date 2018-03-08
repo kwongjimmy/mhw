@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { ScrollView, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
-import { Container, Content, Text, Left, Body, Right, List, ListItem, Tab, Tabs } from 'native-base';
+import { Text, Left, Body, Right, ListItem, Tab, Tabs } from 'native-base';
 import ItemInfoEquip from './ItemInfoEquip';
 import ItemInfoQuest from './ItemInfoQuest';
 import ItemInfoLoot from './ItemInfoLoot';
@@ -164,7 +164,7 @@ export default class ItemInfo extends PureComponent {
   renderContent(screen) {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
         </View>
       );
@@ -191,46 +191,44 @@ export default class ItemInfo extends PureComponent {
 
   render() {
     return (
-      <Container style={{ backgroundColor: 'white' }}>
-         <Tabs prerenderingSiblingsNumber={Infinity} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="Info"
-             >
-             {this.renderContent('tab1')}
-           </Tab>
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="Loot"
-             >
-             {this.renderContent('tab2')}
-           </Tab>
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="Equip"
-             >
-             {this.renderContent('tab3')}
-           </Tab>
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="Quest"
-             >
-             {this.renderContent('tab4')}
-           </Tab>
-         </Tabs>
-      </Container>
+       <Tabs prerenderingSiblingsNumber={4} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Info"
+           >
+           {this.renderContent('tab1')}
+         </Tab>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Loot"
+           >
+           {this.renderContent('tab2')}
+         </Tab>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Equip"
+           >
+           {this.renderContent('tab3')}
+         </Tab>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Quest"
+           >
+           {this.renderContent('tab4')}
+         </Tab>
+       </Tabs>
     );
   }
 }

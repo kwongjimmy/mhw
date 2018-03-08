@@ -57,7 +57,7 @@ export default class QuestInfo extends PureComponent {
   renderContent() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
         </View>
       );
@@ -95,9 +95,9 @@ export default class QuestInfo extends PureComponent {
 
   render() {
     return (
-			<ScrollView>
+			<ScrollView style={{ backgroundColor: 'white' }}>
 				{this.renderContent()}
 			</ScrollView>
-		);
+    );
   }
 }

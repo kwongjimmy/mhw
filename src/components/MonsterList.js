@@ -32,7 +32,7 @@ export default class MonsterList extends PureComponent {
       <Left>
         <Image
           resizeMode="contain"
-          style={styles.monsterImage2}
+          style={{ width: 60, height: 60 }}
           source={src}
         />
       </Left>
@@ -46,14 +46,13 @@ export default class MonsterList extends PureComponent {
 
   render() {
     return (
-      <Container style={{ backgroundColor: 'white' }}>
-        <FlatList
-          initialNumToRender={0}
-          data={this.props.monsters}
-          keyExtractor={(item) => item.monster_id.toString()}
-          renderItem={this.renderMonster}
-        />
-      </Container>
+      <FlatList
+        style={{ backgroundColor: 'white' }}
+        initialNumToRender={7}
+        data={this.props.monsters}
+        keyExtractor={(item) => item.monster_id.toString()}
+        renderItem={this.renderMonster}
+      />
     );
   }
 }

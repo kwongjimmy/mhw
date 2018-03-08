@@ -101,7 +101,7 @@ export default class QuestScreen extends PureComponent {
   renderContent(screen) {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
         </View>
       );
@@ -109,6 +109,7 @@ export default class QuestScreen extends PureComponent {
     if (screen === 'tab1') {
       return (
         <FlatList
+          style={{ backgroundColor: 'white' }}
           initialNumToRender={0}
           data={this.state.assigned}
           keyExtractor={(item) => item.quest_id.toString()}
@@ -118,6 +119,7 @@ export default class QuestScreen extends PureComponent {
     } else if (screen === 'tab2') {
       return (
         <FlatList
+          style={{ backgroundColor: 'white' }}
           initialNumToRender={0}
           data={this.state.optional}
           keyExtractor={(item) => item.quest_id.toString()}
@@ -127,6 +129,7 @@ export default class QuestScreen extends PureComponent {
     }
     return (
       <FlatList
+        style={{ backgroundColor: 'white' }}
         initialNumToRender={0}
         data={this.state.arena}
         keyExtractor={(item) => item.quest_id.toString()}
@@ -137,7 +140,7 @@ export default class QuestScreen extends PureComponent {
 
   render() {
     return (
-       <Tabs prerenderingSiblingsNumber={Infinity} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
+       <Tabs prerenderingSiblingsNumber={3} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}

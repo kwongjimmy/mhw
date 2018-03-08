@@ -156,7 +156,7 @@ export default class MonsterInfoScreen extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{
-          flex: 1, justifyContent: 'center', alignSelf: 'center', backgroundColor: 'white',
+          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white',
         }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
         </View>
@@ -172,6 +172,7 @@ export default class MonsterInfoScreen extends PureComponent {
       return <MonsterEquip navigator={this.props.navigator} data={this.state.monster_armor} type={'armor'}/>;
     } else if (screen === 'tab5') {
       return <MonsterEquip navigator={this.props.navigator} data={this.state.monster_weapons} type={'weapon'}/>;
+
     }
     return (
       <MonsterQuest navigator={this.props.navigator} monster_quest={this.state.monster_quest}/>
@@ -181,7 +182,7 @@ export default class MonsterInfoScreen extends PureComponent {
   render() {
     return (
        <Tabs
-         prerenderingSiblingsNumber={Infinity}
+         prerenderingSiblingsNumber={6}
          scrollWithoutAnimation={false}
          tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }}
          initialPage={0}

@@ -25,7 +25,7 @@ export default class SkillEquip extends PureComponent {
         `SELECT
           A.item_id as item_id, A.rank as rank,
           A.slot1, A.slot2, A.slot3,
-          C.name,
+          C.name as name,
           B1.level as level
           FROM armor AS A
           JOIN items AS C ON A.item_id = C.item_id
@@ -35,7 +35,7 @@ export default class SkillEquip extends PureComponent {
           SELECT
           A.item_id as item_id, A.rank as rank,
           A.slot1, A.slot2, A.slot3,
-          C.name,
+          C.name as name,
           B1.level as level
           FROM armor as A
           JOIN items AS C ON A.item_id = C.item_id
@@ -53,7 +53,7 @@ export default class SkillEquip extends PureComponent {
       tx.executeSql(
         `SELECT
           A.item_id as item_id,
-          C.name,
+          C.name as name,
           B1.level as level
           FROM charms AS A
           JOIN items AS C ON A.item_id = C.item_id
@@ -62,7 +62,7 @@ export default class SkillEquip extends PureComponent {
           UNION
           SELECT
           A.item_id as item_id,
-          C.name,
+          C.name as name,
           B1.level as level
           FROM charms AS A
           JOIN items AS C ON A.item_id = C.item_id

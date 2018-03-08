@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { View, ActivityIndicator } from 'react-native';
-import { Container, ListItem, Text, Right, Left } from 'native-base';
+import { ListItem, Text, Right, Left } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
 
 export default class CharmInfo extends PureComponent {
@@ -214,17 +214,17 @@ export default class CharmInfo extends PureComponent {
   renderContent() {
     if (this.state.loading) {
       return (
-        <Container style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
-        </Container>
+        </View>
       );
     }
     return (
-      <Container style={{ backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
         {this.renderInfo()}
         {this.renderSkills()}
         {this.renderCrafting()}
-      </Container>
+      </View>
     );
   }
 

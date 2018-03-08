@@ -138,7 +138,7 @@ export default class MonsterScreen extends PureComponent {
   renderContent(screen) {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
         </View>
       );
@@ -160,7 +160,7 @@ export default class MonsterScreen extends PureComponent {
   render() {
     return (
       <Tabs
-        prerenderingSiblingsNumber={Infinity}
+        prerenderingSiblingsNumber={3}
         scrollWithoutAnimation={false}
         tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }}
         initialPage={0}>

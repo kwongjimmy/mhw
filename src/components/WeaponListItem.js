@@ -263,7 +263,7 @@ export default class WeaponListItem extends PureComponent {
           <View style={{ flex: 0.5, alignItems: 'center', justifyContent: 'center', borderWidth: 0 }}>
             <Image
               resizeMode="contain"
-              style={{ flex: 1, height: 22.5, width: 22.5 }}
+              style={{ flex: 1, height: 20, width: 20 }}
               source={WeaponImages[weaponTypes[type]]}
             />
           </View>

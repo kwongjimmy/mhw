@@ -12,7 +12,7 @@ export default class EquipArmorList extends PureComponent {
   render() {
     return (
       <FlatList
-        initialNumToRender={0}
+        initialNumToRender={12}
         data={this.props.armor}
         keyExtractor={(item) => item.armor_set_id.toString()}
         renderItem={this.renderArmorSet}

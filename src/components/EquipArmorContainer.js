@@ -142,7 +142,7 @@ export default class EquipArmorContainer extends PureComponent {
                 type: 'armor',
               },
               animationType: 'slide-horizontal',
-              title: item.name
+              title: item.name,
             })}
             >
               <Left style={{ flex: 1.5 }}>
@@ -170,7 +170,6 @@ export default class EquipArmorContainer extends PureComponent {
         {this.renderHeader()}
         {this.renderBody()}
       </View>
-
     );
   }
 }

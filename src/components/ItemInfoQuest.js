@@ -47,7 +47,7 @@ export default class ItemInfoQuest extends PureComponent {
   render() {
     return (
       <FlatList
-        initialNumToRender={0}
+        initialNumToRender={8}
         contextContainerStyle={{ paddingTop: 20 }}
         data={this.props.items}
         keyExtractor={(item) => item.quest_id.toString()}

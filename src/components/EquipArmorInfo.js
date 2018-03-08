@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { View, ActivityIndicator } from 'react-native';
-import { Container, Header, Content, List, ListItem, Text, Tabs, Tab, Right, Left, Body } from 'native-base';
+import { ListItem, Text, Right, Left, Body } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
 
 export default class EquipArmorInfo extends PureComponent {
@@ -34,7 +34,7 @@ export default class EquipArmorInfo extends PureComponent {
           for (let i = 0; i < len; i += 1) {
             materials.push(results.rows.item(i));
           }
-        }
+        },
       );
       tx.executeSql(
         `SELECT
@@ -52,11 +52,24 @@ export default class EquipArmorInfo extends PureComponent {
             skills.push(results.rows.item(i));
           }
           this.setState({
-            info, materials, skills, loading: false
+            info, materials, skills, loading: false,
           });
-        }
+        },
       );
     });
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  onNavigatorEvent(event) {
+    if (event.id === 'bottomTabSelected') {
+      // console.log('Tab selected!');
+    }
+    if (event.id === 'bottomTabReselected') {
+      this.props.navigator.popToRoot({
+        animated: true,
+        animationType: 'slide-horizontal',
+      });
+    }
   }
 
   renderInfo() {
@@ -202,7 +215,7 @@ export default class EquipArmorInfo extends PureComponent {
   renderContent() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
         </View>
       );

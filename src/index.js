@@ -234,6 +234,7 @@ export default () => {
       tabBarSelectedLabelColor: 'red', // iOS only. change the color of the selected tab text
       // forceTitlesDisplay: true, // Android only. If true - Show all bottom tab labels. If false - only the selected tab's label is visible.
       tabBarHideShadow: false, // iOS only. Remove default tab bar top shadow (hairline)
+      forceTitlesDisplay: true,
     },
     tabsStyle: { // optional, **iOS Only** add this if you want to style the tab bar beyond the defaults
       tabBarHidden: false, // make the tab bar hidden

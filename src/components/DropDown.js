@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { View } from 'react-native';
-import { Container, Text, Icon, Left, Right, ListItem } from 'native-base';
+import { Text, Icon, Left, Right, ListItem } from 'native-base';
 
 export default class DropDown extends PureComponent {
   constructor(props) {

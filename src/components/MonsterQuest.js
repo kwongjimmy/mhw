@@ -49,7 +49,7 @@ export default class MonsterQuest extends Component {
   render() {
     return (
       <FlatList
-        initialNumToRender={0}
+        initialNumToRender={8}
         data={this.props.monster_quest}
         keyExtractor={(item) => item.quest_id.toString()}
         renderItem={this.renderListItems}

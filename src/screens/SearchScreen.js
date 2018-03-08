@@ -554,7 +554,7 @@ export default class SearchScreen extends Component {
   renderContent(screen) {
     if (this.state.loading) {
       return (
-        // <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+        // <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center', backgroundColor: 'white' }}>
         //   <ActivityIndicator size="large" color="#5e5e5e"/>
         // </View>
         <FlatList

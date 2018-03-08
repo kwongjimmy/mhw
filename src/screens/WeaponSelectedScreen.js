@@ -75,7 +75,7 @@ export default class WeaponSelectedScreen extends PureComponent {
   renderSelectList() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
         </View>
       );
@@ -83,7 +83,7 @@ export default class WeaponSelectedScreen extends PureComponent {
     return (
       <FlatList
         style={{ backgroundColor: 'white' }}
-        initialNumToRender={0}
+        initialNumToRender={8}
         data={this.state.weapons}
         keyExtractor={(item) => item.item_id.toString()}
         renderItem={this.renderListItems}
