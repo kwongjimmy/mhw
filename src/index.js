@@ -18,7 +18,7 @@ import MonsterInfoScreen from './screens/MonsterInfoScreen';
 import TabInfoScreen from './screens/TabInfoScreen';
 import TablessInfoScreen from './screens/TablessInfoScreen';
 
-function startApp() {
+ export default function startApp() {
   Navigation.registerComponent('MonsterScreen', () => MonsterScreen);
   Navigation.registerComponent('EquipArmorScreen', () => EquipArmorScreen);
   Navigation.registerComponent('QuestScreen', () => QuestScreen);
@@ -110,9 +110,9 @@ function startApp() {
   });
 }
 
-iconsLoaded.then(() => {
-  startApp();
-});
+// iconsLoaded.then(() => {
+//   startApp();
+// });
 
 // export default () => {
 //   Navigation.registerComponent('MonsterScreen', () => MonsterScreen);
