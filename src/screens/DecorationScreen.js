@@ -23,9 +23,11 @@ export default class DecorationScreen extends Component {
       const items = [];
       tx.executeSql(
         `SELECT
-          A.item_id as item_id, B.name as name
+          A.item_id as item_id, B.name as name, C.name as skill_name, D.level as skill_level
           FROM decorations AS A
-          JOIN items AS B ON A.item_id = B.item_id`
+          JOIN items AS B ON A.item_id = B.item_id
+          LEFT JOIN armor_skills_levels AS D ON A.skill = D.armor_skill_level_id
+          LEFT JOIN armor_skills AS C ON D.armor_skill_id = C.armor_skill_id`
         , [], (tx, results) => {
         const len = results.rows.length;
         for(let i = 0; i < len; i += 1) {
@@ -65,7 +67,12 @@ export default class DecorationScreen extends Component {
         animationType: 'fade',
         title: item.name,
       })}>
+      <Left style= {{ flex: 1 }}>
         <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+      </Left>
+      <Right style= {{ flex: 1 }}>
+        <Text style={{ fontSize: 15.5, color: '#8e8e8e' }}>{item.skill_name} +{item.skill_level}</Text>
+      </Right>
       </ListItem>
     );
   }
