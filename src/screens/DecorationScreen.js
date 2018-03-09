@@ -58,7 +58,7 @@ export default class DecorationScreen extends Component {
   renderListItems = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 18 }}
+        style={{ marginLeft: 0, paddingLeft: 8 }}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
         passProps: {
