@@ -41,6 +41,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* MHWTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MHWTests.m */; };
 		3F02DCCC3C2648618A245A51 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C34FCC8601F4E9A88D82733 /* Entypo.ttf */; };
 		5582DF5D7B9347A0AA5A934E /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 75162EBADEC347C1A069EED9 /* Foundation.ttf */; };
+		5A022C5D2ADF41EA94BBE85D /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0934EBD7D7B14C2E8BD4C4B1 /* libSplashScreen.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		76FD8C378A0648B7A8979722 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BBBA8CE3A57B47528441B52B /* Ionicons.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -52,6 +53,7 @@
 		938EE62E204A171300411176 /* libSQLite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 938EE5EF204A163000411176 /* libSQLite.a */; };
 		938EE631204A173800411176 /* mhworld.db in Resources */ = {isa = PBXBuildFile; fileRef = 938EE630204A173800411176 /* mhworld.db */; };
 		938EE639204A187500411176 /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 938EE637204A17EA00411176 /* libReactNativeNavigation.a */; };
+		938EE7332052223F00411176 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 938EE7322052222900411176 /* libSplashScreen.a */; };
 		ABA6186326614C54ADD0B462 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 00AE53B46E464284A6A99F35 /* Zocial.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		FE1AC1812831470CBA625FA2 /* libSQLite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 250E60E71AA84F88A1876FE5 /* libSQLite.a */; };
@@ -345,6 +347,13 @@
 			remoteGlobalIDString = D8AFADBD1BEE6F3F00A4592D;
 			remoteInfo = ReactNativeNavigation;
 		};
+		938EE7312052222900411176 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 10B8DCCE3D9D4C769B66FB41 /* SplashScreen.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3D7682761D8E76B80014119E;
+			remoteInfo = SplashScreen;
+		};
 		ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
@@ -365,6 +374,8 @@
 		00E356EE1AD99517003FC87E /* MHWTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MHWTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* MHWTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MHWTests.m; sourceTree = "<group>"; };
+		0934EBD7D7B14C2E8BD4C4B1 /* libSplashScreen.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSplashScreen.a; sourceTree = "<group>"; };
+		10B8DCCE3D9D4C769B66FB41 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* MHW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MHW.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -434,6 +445,8 @@
 				938EE62E204A171300411176 /* libSQLite.a in Frameworks */,
 				FE1AC1812831470CBA625FA2 /* libSQLite.a in Frameworks */,
 				211122D8B49649389EF99E82 /* libRNVectorIcons.a in Frameworks */,
+				5A022C5D2ADF41EA94BBE85D /* libSplashScreen.a in Frameworks */,
+				938EE7332052223F00411176 /* libSplashScreen.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -625,6 +638,7 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				95CDD560DC7C42B689302790 /* SQLite.xcodeproj */,
 				182A1EDE6DFD44C8A7148A66 /* RNVectorIcons.xcodeproj */,
+				10B8DCCE3D9D4C769B66FB41 /* SplashScreen.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -670,6 +684,7 @@
 			children = (
 				250E60E71AA84F88A1876FE5 /* libSQLite.a */,
 				2ADF0017172941F986EA8AA8 /* libRNVectorIcons.a */,
+				0934EBD7D7B14C2E8BD4C4B1 /* libSplashScreen.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -703,6 +718,14 @@
 			isa = PBXGroup;
 			children = (
 				938EE637204A17EA00411176 /* libReactNativeNavigation.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		938EE72E2052222900411176 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				938EE7322052222900411176 /* libSplashScreen.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -900,6 +923,10 @@
 				{
 					ProductGroup = 938EE5F0204A163000411176 /* Products */;
 					ProjectRef = 182A1EDE6DFD44C8A7148A66 /* RNVectorIcons.xcodeproj */;
+				},
+				{
+					ProductGroup = 938EE72E2052222900411176 /* Products */;
+					ProjectRef = 10B8DCCE3D9D4C769B66FB41 /* SplashScreen.xcodeproj */;
 				},
 				{
 					ProductGroup = 938EE5B6204A162F00411176 /* Products */;
@@ -1190,6 +1217,13 @@
 			remoteRef = 938EE636204A17EA00411176 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		938EE7322052222900411176 /* libSplashScreen.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSplashScreen.a;
+			remoteRef = 938EE7312052222900411176 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1351,12 +1385,14 @@
 					"$(inherited)",
 					"$(SRCROOT)..\node_modules\neact-native-sqlite-storagesrcios",
 					"$(SRCROOT)..\node_modules\neact-native-vector-iconsRNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 				INFOPLIST_FILE = MHWTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1378,12 +1414,14 @@
 					"$(inherited)",
 					"$(SRCROOT)..\node_modules\neact-native-sqlite-storagesrcios",
 					"$(SRCROOT)..\node_modules\neact-native-vector-iconsRNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 				INFOPLIST_FILE = MHWTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1411,6 +1449,7 @@
 					ode_modules,
 					"eact-native-vector-iconsRNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 				INFOPLIST_FILE = MHW/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1438,6 +1477,7 @@
 					ode_modules,
 					"eact-native-vector-iconsRNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 				INFOPLIST_FILE = MHW/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1467,11 +1507,13 @@
 					"$(inherited)",
 					"$(SRCROOT)..\node_modules\neact-native-sqlite-storagesrcios",
 					"$(SRCROOT)..\node_modules\neact-native-vector-iconsRNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 				INFOPLIST_FILE = "MHW-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1503,11 +1545,13 @@
 					"$(inherited)",
 					"$(SRCROOT)..\node_modules\neact-native-sqlite-storagesrcios",
 					"$(SRCROOT)..\node_modules\neact-native-vector-iconsRNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 				INFOPLIST_FILE = "MHW-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1540,6 +1584,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.MHW-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1564,6 +1609,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);

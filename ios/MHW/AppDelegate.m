@@ -12,6 +12,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import "RCCManager.h"
+#import "SplashScreen.h"
 
 @implementation AppDelegate
 
@@ -62,7 +63,7 @@
    [self.window makeKeyAndVisible];
    */
   
-  
+  [SplashScreen show];
   return YES;
 }
 
