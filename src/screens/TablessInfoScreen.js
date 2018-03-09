@@ -30,7 +30,6 @@ export default class TablessInfoScreen extends PureComponent {
   }
 
   render() {
-    console.log(this.props);
     if (this.props.type === 'charms') {
       return (
         <CharmInfo navigator={this.props.navigator} item_id={this.props.item_id}/>

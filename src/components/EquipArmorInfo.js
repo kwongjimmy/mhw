@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, InteractionManager } from 'react-native';
 import { ListItem, Text, Right, Left, Body } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
 
@@ -13,49 +13,51 @@ export default class EquipArmorInfo extends PureComponent {
       materials: [],
       skills: [],
     };
-    const db = SQLite.openDatabase({
-      name: 'mhworld.db', location: 'Default',
-    }, this.okCallback, this.errorCallback);
-    db.transaction((tx) => {
-      let materials = [];
-      let info = {};
-      let skills = [];
-      tx.executeSql('SELECT * FROM armor as A JOIN items AS B ON A.item_id = B.item_id WHERE A.item_id = ?', [this.props.item_id], (tx, results) => {
-        info = results.rows.item(0);
-      });
-      tx.executeSql(
-        `SELECT D.item_id, D.name, C.quantity
-        FROM armor as A
-        JOIN items AS B ON A.item_id = B.item_id
-        JOIN crafting AS C ON A.item_id = C.item_id
-        JOIN items as D ON C.item_material_id = D.item_id WHERE A.item_id = ?`
-        , [this.props.item_id], (tx, results) => {
-          const len = results.rows.length;
-          for (let i = 0; i < len; i += 1) {
-            materials.push(results.rows.item(i));
-          }
-        },
-      );
-      tx.executeSql(
-        `SELECT
-          B.armor_skill_id as skill1_id, B.level as skill1_level, B1.name as skill1_name,
-          C.armor_skill_id as skill2_id, C.level as skill2_level, C1.name as skill2_name
+    InteractionManager.runAfterInteractions(() => {
+      const db = SQLite.openDatabase({
+        name: 'mhworld.db', location: 'Default',
+      }, this.okCallback, this.errorCallback);
+      db.transaction((tx) => {
+        let materials = [];
+        let info = {};
+        let skills = [];
+        tx.executeSql('SELECT * FROM armor as A JOIN items AS B ON A.item_id = B.item_id WHERE A.item_id = ?', [this.props.item_id], (tx, results) => {
+          info = results.rows.item(0);
+        });
+        tx.executeSql(
+          `SELECT D.item_id, D.name, C.quantity
           FROM armor as A
-          LEFT JOIN armor_skills_levels AS B ON A.skill1 = B.armor_skill_level_id
-          LEFT JOIN armor_skills_levels AS C ON A.skill2 = C.armor_skill_level_id
-          LEFT JOIN armor_skills AS B1 ON B.armor_skill_id = B1.armor_skill_id
-          LEFT JOIN armor_skills AS C1 ON C.armor_skill_id = C1.armor_skill_id
-          WHERE A.item_id = ?`
-        , [this.props.item_id], (tx, results) => {
-          const len = results.rows.length;
-          for (let i = 0; i < len; i += 1) {
-            skills.push(results.rows.item(i));
-          }
-          this.setState({
-            info, materials, skills, loading: false,
-          });
-        },
-      );
+          JOIN items AS B ON A.item_id = B.item_id
+          JOIN crafting AS C ON A.item_id = C.item_id
+          JOIN items as D ON C.item_material_id = D.item_id WHERE A.item_id = ?`
+          , [this.props.item_id], (tx, results) => {
+            const len = results.rows.length;
+            for (let i = 0; i < len; i += 1) {
+              materials.push(results.rows.item(i));
+            }
+          },
+        );
+        tx.executeSql(
+          `SELECT
+            B.armor_skill_id as skill1_id, B.level as skill1_level, B1.name as skill1_name,
+            C.armor_skill_id as skill2_id, C.level as skill2_level, C1.name as skill2_name
+            FROM armor as A
+            LEFT JOIN armor_skills_levels AS B ON A.skill1 = B.armor_skill_level_id
+            LEFT JOIN armor_skills_levels AS C ON A.skill2 = C.armor_skill_level_id
+            LEFT JOIN armor_skills AS B1 ON B.armor_skill_id = B1.armor_skill_id
+            LEFT JOIN armor_skills AS C1 ON C.armor_skill_id = C1.armor_skill_id
+            WHERE A.item_id = ?`
+          , [this.props.item_id], (tx, results) => {
+            const len = results.rows.length;
+            for (let i = 0; i < len; i += 1) {
+              skills.push(results.rows.item(i));
+            }
+            this.setState({
+              info, materials, skills, loading: false,
+            });
+          },
+        );
+      });
     });
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }

@@ -16,9 +16,9 @@ export default class EquipArmorList extends PureComponent {
         data={this.props.armor}
         keyExtractor={(item) => item.armor_set_id.toString()}
         renderItem={this.renderArmorSet}
-        getItemLayout={(data, index) => (
-          { length: 52, offset: 52 * index, index }
-        )}
+        // getItemLayout={(data, index) => (
+        //   { length: 52, offset: 52 * index, index }
+        // )}
       />
     );
   }
