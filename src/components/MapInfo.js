@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { ScrollView, FlatList, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
-import { Container, Tab, Tabs, ListItem, Text, Left, Body, Right } from 'native-base';
+import { Container, Tab, Tabs, ListItem, Text, Left, Body, Right, Icon } from 'native-base';
 import DropDown from './DropDown';
 
 export default class MapInfo extends PureComponent {
@@ -72,6 +72,14 @@ export default class MapInfo extends PureComponent {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
+        </View>
+      );
+    }
+    if (!this.state.loading && this.state.areas.length === 0) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: '#8e8e8e' }} />
+          <Text style={{ textAlign: 'center', fontSize: 25, color: '#8e8e8e' }}>No Data</Text>
         </View>
       );
     }

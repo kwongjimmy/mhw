@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { View, FlatList, ScrollView } from 'react-native';
-import { Container, Text, Left, Body, Right, ListItem } from 'native-base';
+import { Container, Text, Left, Body, Right, ListItem, Icon } from 'native-base';
 
 export default class ItemInfoLoot extends PureComponent {
   constructor(props) {
@@ -151,6 +151,14 @@ export default class ItemInfoLoot extends PureComponent {
   }
 
   render() {
+    if (this.props.monsterLoot.length === 0 && this.props.mapLoot.length === 0) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: '#8e8e8e' }} />
+          <Text style={{ textAlign: 'center', fontSize: 25, color: '#8e8e8e' }}>No Data</Text>
+        </View>
+      );
+    }
     return (
       <ScrollView>
         {this.renderMonsterLoot()}

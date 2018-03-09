@@ -50,12 +50,43 @@ export default class ItemScreen extends PureComponent {
   }
 
   renderListItems = ({ item }) => {
+    if (item.category === 'weapon') {
+      return (
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18 }} onPress={() => this.props.navigator.push({
+          screen: 'TablessInfoScreen',
+          passProps: {
+            item_id: item.item_id,
+            type: 'weapons',
+            refetch: true,
+          },
+          animationType: 'slide-horizontal',
+          title: item.name,
+        })}>
+          <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+        </ListItem>
+      );
+    }
+    if (item.category === 'item') {
+      return (
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18 }} onPress={() => this.props.navigator.push({
+          screen: 'TabInfoScreen',
+          passProps: {
+            item_id: item.item_id,
+            type: item.category,
+          },
+          animationType: 'slide-horizontal',
+          title: item.name,
+        })}>
+          <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+        </ListItem>
+      );
+    }
     return (
       <ListItem style={{ marginLeft: 0, paddingLeft: 18 }} onPress={() => this.props.navigator.push({
-        screen: 'TabInfoScreen',
+        screen: 'TablessInfoScreen',
         passProps: {
           item_id: item.item_id,
-          type: 'item',
+          type: `${item.category}s`,
         },
         animationType: 'slide-horizontal',
         title: item.name,

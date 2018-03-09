@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import { FlatList } from 'react-native';
-import { ListItem, Body, Right, Text } from 'native-base';
+import { View, FlatList } from 'react-native';
+import { ListItem, Body, Right, Text, Icon } from 'native-base';
 
 export default class ItemInfoQuest extends PureComponent {
   constructor(props) {
@@ -45,6 +45,14 @@ export default class ItemInfoQuest extends PureComponent {
   }
 
   render() {
+    if (this.props.items.length === 0) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: '#8e8e8e' }} />
+          <Text style={{ textAlign: 'center', fontSize: 25, color: '#8e8e8e' }}>No Data</Text>
+        </View>
+      );
+    }
     return (
       <FlatList
         initialNumToRender={8}

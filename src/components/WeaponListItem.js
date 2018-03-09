@@ -145,8 +145,11 @@ export default class WeaponListItem extends PureComponent {
       cls, pow, par, poi, sle, bla,
     } = info;
     let margin = cls + pow + par + poi + sle + bla;
-    margin = 90 - (margin * 10);
-
+    if (margin < 3) {
+      margin = 100
+    } else {
+      margin = 95 - (margin * 10);
+    }
     const close = (cls === 1) ?
       <View style={{ flex: 1, alignItems: 'flex-end' }}>
         <Image
@@ -254,6 +257,7 @@ export default class WeaponListItem extends PureComponent {
             item_id,
             type: 'weapons',
             item: this.props.item,
+            refetch: false,
           },
           animationType: 'slide-horizontal',
           title: name,

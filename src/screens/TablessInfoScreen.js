@@ -30,6 +30,7 @@ export default class TablessInfoScreen extends PureComponent {
   }
 
   render() {
+    console.log(this.props);
     if (this.props.type === 'charms') {
       return (
         <CharmInfo navigator={this.props.navigator} item_id={this.props.item_id}/>
@@ -44,6 +45,7 @@ export default class TablessInfoScreen extends PureComponent {
           navigator={this.props.navigator}
           item_id={this.props.item_id}
           item={this.props.item}
+          refetch={this.props.refetch}
         />
       );
     } else if (this.props.type === 'quests') {
@@ -55,7 +57,6 @@ export default class TablessInfoScreen extends PureComponent {
         <DecorationInfo navigator={this.props.navigator} item_id={this.props.item_id}/>
       );
     }
-
     return (
       <EquipArmorInfo navigator={this.props.navigator} item_id={this.props.item_id}/>
     );

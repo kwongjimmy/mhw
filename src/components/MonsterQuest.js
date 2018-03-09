@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { View, FlatList, InteractionManager, ActivityIndicator } from 'react-native';
-import { Text, ListItem, Left, Right, Body } from 'native-base';
+import { Text, ListItem, Left, Right, Body, Icon } from 'native-base';
 
 export default class MonsterQuest extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: true,
+      data: this.props.monster_quest
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
@@ -65,10 +66,18 @@ export default class MonsterQuest extends Component {
         </View>
       );
     }
+    if (!this.state.loading && this.state.data.length === 0) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: '#8e8e8e' }} />
+          <Text style={{ textAlign: 'center', fontSize: 25, color: '#8e8e8e' }}>No Data</Text>
+        </View>
+      );
+    }
     return (
       <FlatList
         initialNumToRender={8}
-        data={this.props.monster_quest}
+        data={this.state.data}
         keyExtractor={(item) => item.quest_id.toString()}
         renderItem={this.renderListItems}
         getItemLayout={(data, index) => (

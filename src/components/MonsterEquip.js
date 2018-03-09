@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { View, FlatList, InteractionManager, ActivityIndicator } from 'react-native';
-import { Text, ListItem, Right, Left, Body } from 'native-base';
+import { Text, ListItem, Right, Left, Body, Icon } from 'native-base';
 import WeaponListItem from './WeaponListItem'
 
 export default class MonsterEquip extends PureComponent {
@@ -99,6 +99,14 @@ export default class MonsterEquip extends PureComponent {
           flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white',
         }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
+        </View>
+      );
+    }
+    if (!this.state.loading && this.state.data.length === 0) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: '#8e8e8e' }} />
+          <Text style={{ textAlign: 'center', fontSize: 25, color: '#8e8e8e' }}>No Data</Text>
         </View>
       );
     }

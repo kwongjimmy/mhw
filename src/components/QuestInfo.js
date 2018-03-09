@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { ScrollView, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
-import { Container, ListItem, Text, Left, Body, Right } from 'native-base';
+import { Container, ListItem, Text, Left, Body, Right, Icon } from 'native-base';
 import DropDown from './DropDown';
 
 export default class QuestInfo extends PureComponent {
@@ -62,7 +62,16 @@ export default class QuestInfo extends PureComponent {
         </View>
       );
     }
+    if (!this.state.loading && this.state.rewards.length === 0) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: '#8e8e8e' }} />
+          <Text style={{ textAlign: 'center', fontSize: 25, color: '#8e8e8e' }}>No Data</Text>
+        </View>
+      );
+    }
     return (
+      <ScrollView style={{ backgroundColor: 'white' }}>
 			<DropDown
 				headerName={'Rewards'}
         hide={false}
@@ -90,14 +99,11 @@ export default class QuestInfo extends PureComponent {
 				);
 			})}
 		/>
+    </ScrollView>
     );
   }
 
   render() {
-    return (
-			<ScrollView style={{ backgroundColor: 'white' }}>
-				{this.renderContent()}
-			</ScrollView>
-    );
+    return this.renderContent();
   }
 }

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { View, FlatList, InteractionManager, ActivityIndicator } from 'react-native';
-import { Text, ListItem, Left, Right } from 'native-base';
+import { Text, ListItem, Left, Right, Icon } from 'native-base';
 
 export default class MonsterLoot extends PureComponent {
   constructor(props) {
@@ -80,6 +80,14 @@ export default class MonsterLoot extends PureComponent {
           flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white',
         }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
+        </View>
+      );
+    }
+    if (!this.state.loading && this.state.data.length === 0) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: '#8e8e8e' }} />
+          <Text style={{ textAlign: 'center', fontSize: 25, color: '#8e8e8e' }}>No Data</Text>
         </View>
       );
     }

@@ -45,21 +45,40 @@ export default class WeaponInfo extends PureComponent {
     db.transaction((tx) => {
       let craftMaterials = [];
       let upgradeMaterials = [];
-      let upgradeTo = [];
+      const upgradeTo = [];
       let ammo = [];
-      if (this.state.info.type.includes('bowgun')) {
+      let info = this.props.item;
+      if (this.props.refetch) {
         tx.executeSql(
-          `SELECT A.bullet_type, A.level_1, A.level_2, A.level_3
-            FROM weapon_bowgun_ammo as A
-            WHERE A.item_id = ?`
+`          SELECT weapon_sharpness.*,
+            weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
+            weapons.*, items.name as name, items.rarity as rarity
+            FROM weapons
+            JOIN items on weapons.item_id = items.item_id
+            LEFT JOIN weapon_bowgun_chars ON weapons.item_id = weapon_bowgun_chars.item_id
+            LEFT JOIN weapon_coatings ON weapons.item_id = weapon_coatings.item_id
+            LEFT JOIN weapon_kinsects ON weapons.item_id = weapon_kinsects.item_id
+            LEFT JOIN weapon_notes ON weapons.item_id = weapon_notes.item_id
+            LEFT JOIN weapon_phials ON weapons.item_id = weapon_phials.item_id
+            LEFT JOIN weapon_sharpness ON weapons.item_id = weapon_sharpness.item_id
+            LEFT JOIN weapon_shellings ON weapons.item_id = weapon_shellings.item_id
+            WHERE items.item_id = ?`
           , [this.props.item_id], (tx, results) => {
-            const len = results.rows.length;
-            for (let i = 0; i < len; i += 1) {
-              ammo.push(results.rows.item(i));
-            }
+            info = results.rows.item(0);
           },
         );
       }
+      tx.executeSql(
+        `SELECT A.bullet_type, A.level_1, A.level_2, A.level_3
+          FROM weapon_bowgun_ammo as A
+          WHERE A.item_id = ?`
+        , [this.props.item_id], (tx, results) => {
+          const len = results.rows.length;
+          for (let i = 0; i < len; i += 1) {
+            ammo.push(results.rows.item(i));
+          }
+        },
+      );
       tx.executeSql(
         `SELECT D.item_id, D.name, C.quantity
         FROM weapons as A
@@ -107,7 +126,7 @@ export default class WeaponInfo extends PureComponent {
             upgradeTo.push(results.rows.item(i));
           }
           this.setState({
-            ammo, craftMaterials, upgradeMaterials, upgradeTo, loading: false,
+            info, ammo, craftMaterials, upgradeMaterials, upgradeTo, loading: false,
           });
         },
       );

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { View, ScrollView } from 'react-native';
-import { Text, Left, Right, ListItem } from 'native-base';
+import { Text, Left, Right, ListItem, Icon } from 'native-base';
 
 export default class ItemInfoEquip extends PureComponent {
   constructor(props) {
@@ -133,6 +133,14 @@ export default class ItemInfoEquip extends PureComponent {
   }
 
   render() {
+    if (this.props.armor.length === 0 && this.props.weapons.length === 0) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: '#8e8e8e' }} />
+          <Text style={{ textAlign: 'center', fontSize: 25, color: '#8e8e8e' }}>No Data</Text>
+        </View>
+      );
+    }
     return (
       <ScrollView>
         {this.renderArmor()}
