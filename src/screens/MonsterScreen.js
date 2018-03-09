@@ -3,7 +3,7 @@ import { FlatList, View, ActivityIndicator, Platform, Image } from 'react-native
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Tabs, ListItem, Text, Left, Body } from 'native-base';
 import MonsterList from '../components/MonsterList';
-
+// import SplashScreen from 'react-native-splash-screen';
 export default class MonsterScreen extends PureComponent {
   constructor(props) {
     super(props)
@@ -105,7 +105,7 @@ export default class MonsterScreen extends PureComponent {
   }
 
   componentDidMount() {
-
+    // SplashScreen.hide();
   }
 
   componentWillUnmount() {

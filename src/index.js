@@ -74,6 +74,7 @@ import TablessInfoScreen from './screens/TablessInfoScreen';
         title: 'More',
       },
     ],
+    animationType: 'none',
     appStyle: {
       // tabFontFamily: 'Avenir-Medium',  // existing font family name or asset file without extension which can be '.ttf' or '.otf' (searched only if '.ttf' asset not found)
       tabFontSize: 10,
