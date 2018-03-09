@@ -403,7 +403,7 @@ export default class SearchScreen extends Component {
           this.setState({
             data: allMonsters, allMonsters, smallMonsters, largeMonsters, lowRank, items,skills,maps,quests,decorations,charms, weapons, loading: false,
           });
-          db.close();
+          // db.close();
         });
 
 
@@ -424,7 +424,7 @@ export default class SearchScreen extends Component {
             tableType: this.props.type,
             item,
           },
-          animationType: 'fade',
+          animationType: 'slide-horizontal',
           title: item.name,
         })}
         >
@@ -446,7 +446,7 @@ export default class SearchScreen extends Component {
           type: 'quests',
 					quest_id: item.quest_id,
 				},
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
         title: item.name,
       })}
       >
@@ -467,7 +467,7 @@ export default class SearchScreen extends Component {
           item_id: item.map_id,
           type: 'maps'
         },
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
         title: item.name,
       })}>
       <Left>
@@ -484,7 +484,7 @@ export default class SearchScreen extends Component {
           item_id: item.item_id,
           type: 'item',
         },
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
         title: item.name,
       })}>
         <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
@@ -501,7 +501,7 @@ export default class SearchScreen extends Component {
           item_id: item.item_id,
           type: 'decorations'
         },
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
         title: item.name,
       })}>
         <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
@@ -518,7 +518,7 @@ export default class SearchScreen extends Component {
           armor_skill_id: item.armor_skill_id,
           type: 'skill',
         },
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
         title: item.name,
       })}
       >
@@ -541,7 +541,7 @@ export default class SearchScreen extends Component {
           item_id: item.item_id,
           type: 'charms'
         },
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
         title: item.name,
       })}>
       <Left style={{ flex: 2 }}>
@@ -574,7 +574,7 @@ export default class SearchScreen extends Component {
   renderContent(screen) {
     if (this.state.loading) {
       return (
-        // <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+        // <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center', backgroundColor: 'white' }}>
         //   <ActivityIndicator size="large" color="#5e5e5e"/>
         // </View>
         <FlatList

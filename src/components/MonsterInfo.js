@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { Image, View, FlatList } from 'react-native'
 import { Text, ListItem, Left, Right, Body } from 'native-base';
 
 import styles from './Styles/MonsterInfoScreenStyles';
 import { ElementStatusImages } from '../assets';
 
-export default class MonsterInfo extends Component {
+export default class MonsterInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -32,12 +32,12 @@ export default class MonsterInfo extends Component {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      //console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
         animated: true,
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
       });
     }
   }
@@ -125,7 +125,7 @@ export default class MonsterInfo extends Component {
       return this.renderHeader();
     }
     return (
-      <ListItem style={{ marginLeft: 0, paddingLeft: 18, paddingRight: 5 }}>
+      <ListItem style={{ height: 55, marginLeft: 0, paddingLeft: 18, paddingRight: 5 }}>
         <Text style={[styles.monsterHitText, { flex: 2.5, fontSize: 13, textAlign: 'left' }]}>{item.part_name}</Text>
         <Text style={styles.monsterHitText}>{item.sever}</Text>
         <Text style={styles.monsterHitText}>{item.blunt}</Text>
@@ -146,7 +146,6 @@ export default class MonsterInfo extends Component {
   render() {
     return (
       <FlatList
-        // ListHeaderComponent={this.renderHeader.bind(this)}
         data={this.state.data}
         keyExtractor={(item) => item.part_name}
         renderItem={this.renderListItems}

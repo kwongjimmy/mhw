@@ -17,15 +17,18 @@ export default class DecorationScreen extends Component {
     };
 
     const db = SQLite.openDatabase({
-      name: 'mhworld.db', createFromLocation: 'mhworld.db', location: 'Default',
-    });
+      name: 'mhworld.db', location: 'Default',
+    }, this.okCallback, this.errorCallback);
+
     db.transaction((tx) => {
       const items = [];
       tx.executeSql(
         `SELECT
-          A.item_id as item_id, B.name as name
+          A.item_id as item_id, B.name as name, C.name as skill_name, D.level as skill_level
           FROM decorations AS A
-          JOIN items AS B ON A.item_id = B.item_id`
+          JOIN items AS B ON A.item_id = B.item_id
+          LEFT JOIN armor_skills_levels AS D ON A.skill = D.armor_skill_level_id
+          LEFT JOIN armor_skills AS C ON D.armor_skill_id = C.armor_skill_id`
         , [], (tx, results) => {
         const len = results.rows.length;
         for(let i = 0; i < len; i += 1) {
@@ -33,7 +36,7 @@ export default class DecorationScreen extends Component {
           items.push(row);
         }
         this.setState({ items });
-        db.close();
+        // db.close();
        },
       );
     });
@@ -42,12 +45,12 @@ export default class DecorationScreen extends Component {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      // console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
         animated: true,
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
       });
     }
   }
@@ -55,17 +58,22 @@ export default class DecorationScreen extends Component {
   renderListItems = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 8 }}
+        style={{ marginLeft: 0, paddingLeft: 18 }}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
         passProps: {
           item_id: item.item_id,
           type: 'decorations'
         },
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
         title: item.name,
       })}>
+      <Left style= {{ flex: 1 }}>
         <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+      </Left>
+      <Right style= {{ flex: 1 }}>
+        <Text style={{ fontSize: 15.5, color: '#8e8e8e' }}>{item.skill_name} +{item.skill_level}</Text>
+      </Right>
       </ListItem>
     );
   }
@@ -73,16 +81,20 @@ export default class DecorationScreen extends Component {
   renderContent() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
         </View>
       );
     }
     return (
       <FlatList
+        initialNumToRender={11}
         data={this.state.items}
         keyExtractor={(item) => item.item_id.toString()}
         renderItem={this.renderListItems}
+        getItemLayout={(data, index) => (
+          { length: 52, offset: 52 * index, index }
+        )}
       />
     );
   }

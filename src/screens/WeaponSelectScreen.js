@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import { Image, View, FlatList, TouchableHighlight, Platform } from 'react-native';
+import React, { PureComponent } from 'react';
+import { Image, FlatList, TouchableHighlight, Platform } from 'react-native';
 import { Container, ListItem, Body, Left, Right, Text } from 'native-base';
 import { WeaponImages } from '../assets';
 
-export default class WeaponSelectScreen extends Component {
+export default class WeaponSelectScreen extends PureComponent {
   static navigatorStyle = {
-    // navBarHideOnScroll: true,
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
     topBarBorderColor: 'red',
     topBarBorderWidth: 17,
@@ -14,12 +13,6 @@ export default class WeaponSelectScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      weapons1:
-      [
-        'Great Sword', 'Long Sword', 'Sword and Shield', 'Dual Blades',
-        'Hammer', 'Hunting Horn', 'Lance', 'Gunlance', 'Switch Axe',
-        'Charge Blade', 'Insect Glaive', 'Bow', 'Light Bowgun', 'Heavy Bowgun',
-      ],
       weapons: [
         {
           name: 'Great Sword',
@@ -59,7 +52,7 @@ export default class WeaponSelectScreen extends Component {
         {
           name: 'Gunlance',
           table: 'weapon_gunlances',
-          type: 'gunlance',
+          type: 'gun_lance',
         },
         {
           name: 'Switch Axe',
@@ -93,35 +86,20 @@ export default class WeaponSelectScreen extends Component {
         },
       ],
     };
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-  }
-
-  onNavigatorEvent(event) {
-    if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
-    }
-    if (event.id === 'bottomTabReselected') {
-      this.weaponSelectList.scrollToIndex({
-        animated: true,
-        index: 0,
-      });
-    }
   }
 
   renderListItems = ({ item }) => {
     const src = WeaponImages[item.name];
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 18 }}
+        style={{ height: 52, marginLeft: 0, paddingLeft: 18 }}
         onPress={() => this.props.navigator.push({
         screen: 'WeaponSelectedScreen',
         passProps: {
-          name: item.name,
           type: item.type,
-          table: item.table,
           item
         },
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
         title: item.name
         })}>
       <Left>
@@ -131,11 +109,9 @@ export default class WeaponSelectScreen extends Component {
           source={src}
         />
       </Left>
-      <Body style={{ flex: 5 }}>
-        <Text style={{ fontSize: 20, color: '#191919'}}>{item.name}</Text>
+      <Body style={{ flex: 6 }}>
+        <Text style={{ fontSize: 20, color: '#191919' }}>{item.name}</Text>
       </Body>
-      <Right>
-      </Right>
       </ListItem>
     );
   }
@@ -143,19 +119,19 @@ export default class WeaponSelectScreen extends Component {
   renderSelectList() {
     return (
       <FlatList
+        style={{ backgroundColor: 'white' }}
+        initialNumToRender={10}
         data={this.state.weapons}
         keyExtractor={(item) => item.name}
         renderItem={this.renderListItems}
-        ref={(ref) => { this.weaponSelectList = ref; }}
+        getItemLayout={(data, index) => (
+          { length: 52, offset: 52 * index, index }
+        )}
       />
     );
   }
 
   render() {
-    return (
-      <Container style={{ backgroundColor: 'white' }}>
-        {this.renderSelectList()}
-      </Container>
-    );
+    return this.renderSelectList();
   }
 }

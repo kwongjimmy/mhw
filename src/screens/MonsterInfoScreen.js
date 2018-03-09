@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import React, { PureComponent } from 'react';
+import { Text, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Tabs, ScrollableTab } from 'native-base';
 
@@ -10,7 +10,7 @@ import MonsterLoot from '../components/MonsterLoot';
 import MonsterEquip from '../components/MonsterEquip';
 import MonsterQuest from '../components/MonsterQuest';
 
-export default class MonsterInfoScreen extends Component {
+export default class MonsterInfoScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,13 +37,13 @@ export default class MonsterInfoScreen extends Component {
           const row = results.rows.item(i);
           monster_hit.push(row);
         }
-        // this.setState({ monster_hit });
       });
       tx.executeSql(
         `SELECT
         loot.loot_id,
         loot.item_id,
         loot.category_id,
+        loot.chance,
         cat.rank,
         cat.name,
         items.name as item_name,
@@ -65,6 +65,7 @@ export default class MonsterInfoScreen extends Component {
         loot.loot_id,
         loot.item_id,
         loot.category_id,
+        loot.chance,
         cat.rank,
         cat.name,
         items.name as item_name,
@@ -104,16 +105,27 @@ export default class MonsterInfoScreen extends Component {
         },
       );
       tx.executeSql(
-        `SELECT C.name, C.item_id FROM monster_loot as A
+        `SELECT
+        weapon_sharpness.*,
+        weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
+        D.*, C.name as name, C.rarity as rarity
+        FROM monster_loot as A
         JOIN monster_loot_categories as B on A.category_id = B.category_id
         JOIN items as C ON A.item_id = C.item_id
+        JOIN weapons as D ON C.item_id = D.item_id
+        LEFT JOIN weapon_bowgun_chars ON D.item_id = weapon_bowgun_chars.item_id
+        LEFT JOIN weapon_coatings ON D.item_id = weapon_coatings.item_id
+        LEFT JOIN weapon_kinsects ON D.item_id = weapon_kinsects.item_id
+        LEFT JOIN weapon_notes ON D.item_id = weapon_notes.item_id
+        LEFT JOIN weapon_phials ON D.item_id = weapon_phials.item_id
+        LEFT JOIN weapon_sharpness ON D.item_id = weapon_sharpness.item_id
+        LEFT JOIN weapon_shellings ON D.item_id = weapon_shellings.item_id
         WHERE A.monster_id = ? AND B.name = 'Weapon'`,
         [this.props.monster_id], (tx, results) => {
           for (let i = 0; i < results.rows.length; i += 1) {
             const row = results.rows.item(i);
             monster_weapons.push(row);
           }
-        // this.setState({ monster_weapons });
         },
       );
       tx.executeSql(
@@ -135,8 +147,6 @@ export default class MonsterInfoScreen extends Component {
             monster_quest,
             loading: false,
           });
-          console.log(this.state);
-          db.close();
         },
       );
     });
@@ -146,7 +156,7 @@ export default class MonsterInfoScreen extends Component {
     if (this.state.loading) {
       return (
         <View style={{
-          flex: 1, justifyContent: 'center', alignSelf: 'center', backgroundColor: 'white',
+          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white',
         }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
         </View>
@@ -162,6 +172,7 @@ export default class MonsterInfoScreen extends Component {
       return <MonsterEquip navigator={this.props.navigator} data={this.state.monster_armor} type={'armor'}/>;
     } else if (screen === 'tab5') {
       return <MonsterEquip navigator={this.props.navigator} data={this.state.monster_weapons} type={'weapon'}/>;
+
     }
     return (
       <MonsterQuest navigator={this.props.navigator} monster_quest={this.state.monster_quest}/>
@@ -170,68 +181,68 @@ export default class MonsterInfoScreen extends Component {
 
   render() {
     return (
-      <Container style={{ backgroundColor: 'white' }}>
-         <Tabs
-           tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }}
-           initialPage={0}
-           renderTabBar={() => <ScrollableTab style={{ elevation: 2 }}/>}
+       <Tabs
+         prerenderingSiblingsNumber={6}
+         scrollWithoutAnimation={false}
+         tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }}
+         initialPage={0}
+         renderTabBar={() => <ScrollableTab style={{ elevation: 2 }}/>}
+         >
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Info"
            >
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="Info"
-             >
-             {this.renderContent('tab1')}
-           </Tab>
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="LR Loot"
-             >
-             {this.renderContent('tab2')}
-           </Tab>
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="HR Loot"
-             >
-             {this.renderContent('tab3')}
-           </Tab>
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="Armor"
-             >
-             {this.renderContent('tab4')}
-           </Tab>
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="Weapon"
-             >
-             {this.renderContent('tab5')}
-           </Tab>
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="Quest"
-             >
-             {this.renderContent('tab6')}
-           </Tab>
-         </Tabs>
-      </Container>
+           {this.renderContent('tab1')}
+         </Tab>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="LR Loot"
+           >
+           {this.renderContent('tab2')}
+         </Tab>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="HR Loot"
+           >
+           {this.renderContent('tab3')}
+         </Tab>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Armor"
+           >
+           {this.renderContent('tab4')}
+         </Tab>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Weapon"
+           >
+           {this.renderContent('tab5')}
+         </Tab>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Quest"
+           >
+           {this.renderContent('tab6')}
+         </Tab>
+       </Tabs>
     );
   }
 }

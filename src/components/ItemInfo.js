@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { ScrollView, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
-import { Container, Content, Text, Left, Body, Right, List, ListItem, Tab, Tabs } from 'native-base';
+import { Text, Left, Body, Right, ListItem, Tab, Tabs } from 'native-base';
 import ItemInfoEquip from './ItemInfoEquip';
 import ItemInfoQuest from './ItemInfoQuest';
 import ItemInfoLoot from './ItemInfoLoot';
@@ -51,11 +51,23 @@ export default class ItemInfo extends PureComponent {
         },
       );
       tx.executeSql(
-        `SELECT A.name as name, B.* from items as A
+        `SELECT
+          A.name as name, A.rarity as rarity, B.*,
+		      weapon_sharpness.*,
+          weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
+          weapons.*
+          FROM items as A
           JOIN (SELECT B.item_id, quantity from items AS A JOIN crafting as B ON A.item_id = B.item_material_id WHERE A.item_id = ?) as B
           ON A.item_id = B.item_id
-          WHERE A.category = 'weapon'
-        `
+		      JOIN weapons ON A.item_id = weapons.item_id
+		      LEFT JOIN weapon_bowgun_chars ON weapons.item_id = weapon_bowgun_chars.item_id
+          LEFT JOIN weapon_coatings ON weapons.item_id = weapon_coatings.item_id
+          LEFT JOIN weapon_kinsects ON weapons.item_id = weapon_kinsects.item_id
+          LEFT JOIN weapon_notes ON weapons.item_id = weapon_notes.item_id
+          LEFT JOIN weapon_phials ON weapons.item_id = weapon_phials.item_id
+          LEFT JOIN weapon_sharpness ON weapons.item_id = weapon_sharpness.item_id
+          LEFT JOIN weapon_shellings ON weapons.item_id = weapon_shellings.item_id
+          WHERE A.category = 'weapon'`
         , [this.props.item_id], (tx, results) => {
           // Get rows with Web SQL Database spec compliance.
           const len = results.rows.length;
@@ -112,7 +124,6 @@ export default class ItemInfo extends PureComponent {
           this.setState({
             item, itemArmor, itemWeapons, itemMapLoot, itemMonsterLoot, itemQuest, loading: false,
           });
-          console.log(this.state);
         },
       );
     });
@@ -121,59 +132,39 @@ export default class ItemInfo extends PureComponent {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      //console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
         animated: true,
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
       });
     }
   }
 
   renderInfo() {
     return (
-      <Container>
-        <Content>
-          <List>
-            <ListItem style={{ marginLeft: 0, borderBottomWidth: 0.0, borderColor: 'red' }} itemDivider>
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Buy</Text>
-              </View>
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Sell</Text>
-              </View>
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Carry</Text>
-              </View>
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Rarity</Text>
-              </View>
-            </ListItem>
-            <ListItem style={{ marginLeft: 0, backgroundColor: 'white' }} itemDivider>
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{`${this.state.item.buy_price}z`}</Text>
-              </View>
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{`${this.state.item.sell_price}z`}</Text>
-              </View>
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{this.state.item.carry}</Text>
-              </View>
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{this.state.item.rarity}</Text>
-              </View>
-            </ListItem>
-          </List>
-        </Content>
-      </Container>
+      <View>
+        <ListItem style={{ marginLeft: 0, borderBottomWidth: 0.0, borderColor: 'red' }} itemDivider>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Buy</Text>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Sell</Text>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Carry</Text>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Rarity</Text>
+        </ListItem>
+        <ListItem style={{ marginLeft: 0, backgroundColor: 'white' }} itemDivider>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{`${this.state.item.buy_price}z`}</Text>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{`${this.state.item.sell_price}z`}</Text>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{this.state.item.carry}</Text>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{this.state.item.rarity}</Text>
+        </ListItem>
+      </View>
     );
   }
 
   renderContent(screen) {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
         </View>
       );
@@ -197,49 +188,47 @@ export default class ItemInfo extends PureComponent {
       <ItemInfoQuest navigator={this.props.navigator} items={this.state.itemQuest}/>
     );
   }
-  
+
   render() {
     return (
-      <Container style={{ backgroundColor: 'white' }}>
-         <Tabs tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="Info"
-             >
-             {this.renderContent('tab1')}
-           </Tab>
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="Loot"
-             >
-             {this.renderContent('tab2')}
-           </Tab>
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="Equip"
-             >
-             {this.renderContent('tab3')}
-           </Tab>
-           <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-             textStyle={{ color: '#5e5e5e' }}
-             heading="Quest"
-             >
-             {this.renderContent('tab4')}
-           </Tab>
-         </Tabs>
-      </Container>
+       <Tabs prerenderingSiblingsNumber={4} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Info"
+           >
+           {this.renderContent('tab1')}
+         </Tab>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Loot"
+           >
+           {this.renderContent('tab2')}
+         </Tab>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Equip"
+           >
+           {this.renderContent('tab3')}
+         </Tab>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Quest"
+           >
+           {this.renderContent('tab4')}
+         </Tab>
+       </Tabs>
     );
   }
 }

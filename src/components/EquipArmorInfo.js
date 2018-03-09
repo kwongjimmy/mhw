@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, ActivityIndicator } from 'react-native';
-import { Container, Header, Content, List, ListItem, Text, Tabs, Tab, Right, Left, Body } from 'native-base';
+import { ListItem, Text, Right, Left, Body } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
 
-export default class EquipArmorInfo extends Component {
+export default class EquipArmorInfo extends PureComponent {
 
   constructor(props) {
     super(props);
@@ -34,7 +34,7 @@ export default class EquipArmorInfo extends Component {
           for (let i = 0; i < len; i += 1) {
             materials.push(results.rows.item(i));
           }
-        }
+        },
       );
       tx.executeSql(
         `SELECT
@@ -52,13 +52,24 @@ export default class EquipArmorInfo extends Component {
             skills.push(results.rows.item(i));
           }
           this.setState({
-            info, materials, skills, loading: false
+            info, materials, skills, loading: false,
           });
-          console.log(this.props);
-          console.log(this.state);
-        }
+        },
       );
     });
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  onNavigatorEvent(event) {
+    if (event.id === 'bottomTabSelected') {
+      // console.log('Tab selected!');
+    }
+    if (event.id === 'bottomTabReselected') {
+      this.props.navigator.popToRoot({
+        animated: true,
+        animationType: 'slide-horizontal',
+      });
+    }
   }
 
   renderInfo() {
@@ -97,7 +108,7 @@ export default class EquipArmorInfo extends Component {
               armor_skill_id: this.state.skills[0].skill2_id,
               type: 'skill',
             },
-            animationType: 'fade',
+            animationType: 'slide-horizontal',
             title: this.state.skills[0].skill2_name,
           })}
           >
@@ -105,7 +116,7 @@ export default class EquipArmorInfo extends Component {
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{this.state.skills[0].skill2_name}</Text>
           </Left>
           <Right>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{this.state.skills[0].skill2_level}</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`+${this.state.skills[0].skill2_level}`}</Text>
           </Right>
         </ListItem>
       );
@@ -125,7 +136,7 @@ export default class EquipArmorInfo extends Component {
             armor_skill_id: this.state.skills[0].skill1_id,
             type: 'skill',
           },
-          animationType: 'fade',
+          animationType: 'slide-horizontal',
           title: this.state.skills[0].skill1_name,
         })}
         >
@@ -182,7 +193,7 @@ export default class EquipArmorInfo extends Component {
                     item_id: item.item_id,
                     type: 'item',
                   },
-                  animationType: 'fade',
+                  animationType: 'slide-horizontal',
                   title: item.name,
                 })}
                 >
@@ -204,25 +215,21 @@ export default class EquipArmorInfo extends Component {
   renderContent() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
         </View>
       );
     }
     return (
-    <View>
-      {this.renderInfo()}
-      {this.renderSkills()}
-      {this.renderCrafting()}
-    </View>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        {this.renderInfo()}
+        {this.renderSkills()}
+        {this.renderCrafting()}
+      </View>
     );
   }
 
   render() {
-    return (
-      <Container style={{ backgroundColor: 'white' }}>
-        {this.renderContent()}
-      </Container>
-    );
+    return this.renderContent();
   }
 }

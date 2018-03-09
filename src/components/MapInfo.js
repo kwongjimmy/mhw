@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import { FlatList, View, ActivityIndicator } from 'react-native';
+import React, { PureComponent } from 'react';
+import { ScrollView, FlatList, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
-import { Container, Tab, Tabs, ListItem, Text, Left, Body } from 'native-base';
+import { Container, Tab, Tabs, ListItem, Text, Left, Body, Right } from 'native-base';
+import DropDown from './DropDown';
 
-export default class MapInfo extends Component {
+export default class MapInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,97 +23,96 @@ export default class MapInfo extends Component {
           WHERE A.map_id = ?`
         , [this.props.map_id], (tx, results) => {
         // Get rows with Web SQL Database spec compliance.
+          let area = 0;
+          let first = true;
+          let areaArr = [];
           const len = results.rows.length;
           for (let i = 0; i < len; i += 1) {
             const row = results.rows.item(i);
-            areas.push(row);
+            if (area !== row.area && first) {
+              area = row.area;
+              areaArr.push(row);
+              first = false;
+            } else if ( area !== row.area && !first) {
+              areas.push(areaArr);
+              areaArr = [];
+              area = row.area;
+              areaArr.push(row);
+            } else {
+              areaArr.push(row);
+            }
+            if (i + 1 === len) {
+              areas.push(areaArr);
+            }
           }
           this.setState({
             areas,
             loading: false,
           });
-          console.log(this.state);
         },
       );
     });
-    this.currentArea = '';
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      //console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
         animated: true,
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
       });
     }
-  }
-
-  renderHeader(item) {
-    if (this.currentArea !== item.area) {
-      this.currentArea = item.area;
-      return (
-        <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
-          <Left>
-            <Text style={{ fontSize: 15.5, color: '#191919' }}>{`Area ${this.currentArea}`}</Text>
-          </Left>
-        </ListItem>
-      );
-    }
-    return (
-      null
-    );
-  }
-
-  renderListItems = ({ item }) => {
-    return (
-      <View>
-        {this.renderHeader(item)}
-        <ListItem
-          style={{ marginLeft: 0, paddingLeft: 8 }}
-          onPress={() => this.props.navigator.push({
-            screen: 'TabInfoScreen',
-            passProps: {
-              item_id: item.item_id,
-              type: 'item',
-            },
-            animationType: 'fade',
-            title: item.item_name,
-          })}
-          >
-          <Left>
-            <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.item_name}</Text>
-          </Left>
-        </ListItem>
-      </View>
-    );
   }
 
   renderContent() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
         </View>
       );
     }
     return (
-      <FlatList
-        data={this.state.areas}
-        keyExtractor={(item) => `${item.map_id} ${item.area} ${item.item_id}`}
-        renderItem={this.renderListItems}
-      />
+      <ScrollView>
+        {this.state.areas.map((item, key) => {
+          return (
+            <DropDown
+              key={key}
+              headerName={`Area ${item[0].area}`}
+              hide={true}
+              content={item.map((item2, key2) => {
+              return (
+                <ListItem
+                  style={{ marginLeft: 0, paddingLeft: 8 }}
+                  onPress={() => this.props.navigator.push({
+                    screen: 'TabInfoScreen',
+                    passProps: {
+                      item_id: item2.item_id,
+                      type: 'item',
+                    },
+                    animationType: 'slide-horizontal',
+                    title: item2.name,
+                  })}
+                  key={key2}>
+                  <Left>
+                    <Text style={{ fontSize: 15.5, color: '#191919' }}>{item2.item_name}</Text>
+                  </Left>
+                  <Right>
+                  </Right>
+                </ListItem>
+              );
+            })}
+          />
+          );
+        })}
+      </ScrollView>
     );
   }
 
   render() {
-    return (
-      <Container style={{ backgroundColor: 'white' }}>
-        {this.renderContent()}
-      </Container>
-    );
+    return this.renderContent();
   }
 }

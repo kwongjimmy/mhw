@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import { Image, View, FlatList, TouchableHighlight } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, ListItem } from 'native-base';
 import { MonsterImages } from '../assets';
@@ -6,55 +6,8 @@ import { MonsterImages } from '../assets';
 // Styles
 import styles from '../screens/Styles/MonsterScreenStyles';
 
-let top = true;
 export default class MonsterList extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-  }
-
   componentDidMount() {
-  }
-
-  onNavigatorEvent(event) {
-    if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
-    }
-    if (event.id === 'bottomTabReselected') {
-      if (top === false) {
-        if (this.props.type === 'all') {
-          this.allFlatListRef.scrollToIndex({
-            animated: true,
-            index: 0,
-          });
-        } else if (this.props.type === 'large') {
-          this.largeFlatListRef.scrollToIndex({
-            animated: true,
-            index: 0,
-          });
-        }
-        else {
-          this.smallFlatListRef.scrollToIndex({
-            animated: true,
-            index: 0,
-          });
-        }
-      }
-    }
-  }
-
-  handleScroll(event) {
-    if (event.nativeEvent.contentOffset.y !== 0) {
-      top = false;
-    } else {
-      top = true;
-    }
-  }
-
-  setRef(ref) {
-    if (this.props.type === 'all') return this.allFlatListRef = ref;
-    else if (this.props.type === 'large') return this.largeFlatListRef = ref;
-    return this.smallFlatListRef = ref;
   }
 
   renderMonster = ({ item }) => {
@@ -67,19 +20,19 @@ export default class MonsterList extends PureComponent {
     }
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 18 }}
+        style={{ height: 80, marginLeft: 0, paddingLeft: 18 }}
         onPress={() => this.props.navigator.push({
         screen: 'MonsterInfoScreen',
         passProps: {
           monster_id: item.monster_id,
         },
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
         title: item.monster_name,
       })}>
       <Left>
         <Image
           resizeMode="contain"
-          style={styles.monsterImage2}
+          style={{ width: 60, height: 60 }}
           source={src}
         />
       </Left>
@@ -93,15 +46,16 @@ export default class MonsterList extends PureComponent {
 
   render() {
     return (
-      <Container style={{ backgroundColor: 'white' }}>
-        <FlatList
-          data={this.props.monsters}
-          keyExtractor={(item) => item.monster_id.toString()}
-          renderItem={this.renderMonster}
-          ref={this.setRef.bind(this)}
-          onScroll={this.handleScroll.bind(this)}
-        />
-      </Container>
+      <FlatList
+        style={{ backgroundColor: 'white' }}
+        initialNumToRender={7}
+        data={this.props.monsters}
+        keyExtractor={(item) => item.monster_id.toString()}
+        renderItem={this.renderMonster}
+        getItemLayout={(data, index) => (
+          { length: 80, offset: 80 * index, index }
+        )}
+      />
     );
   }
 }

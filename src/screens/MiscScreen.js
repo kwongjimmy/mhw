@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { FlatList, Platform } from 'react-native';
 import { Container, ListItem, Text, Left } from 'native-base';
 
-export default class MiscScreen extends Component {
+export default class MiscScreen extends PureComponent {
   static navigatorStyle = {
-    // navBarHideOnScroll: true,
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
     topBarBorderColor: 'red',
     topBarBorderWidth: 17,
@@ -24,15 +23,15 @@ export default class MiscScreen extends Component {
         },
         {
           route: 'CharmScreen',
-          title: 'Charms'
+          title: 'Charms',
         },
         {
           route: 'DecorationScreen',
-          title: 'Decorations'
+          title: 'Decorations',
         },
         {
           route: 'SkillScreen',
-          title: 'Skills'
+          title: 'Skills',
         },
         {
           route: 'MapScreen',
@@ -51,7 +50,7 @@ export default class MiscScreen extends Component {
         passProps: {
 
         },
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
         title: item.title,
         })}>
         <Left>
@@ -63,13 +62,12 @@ export default class MiscScreen extends Component {
 
   render() {
     return (
-      <Container style={{ backgroundColor: 'white' }}>
-        <FlatList
-          data={this.state.screens}
-          keyExtractor={(item) => item.route}
-          renderItem={this.renderListItems}
-        />
-      </Container>
+      <FlatList
+        style={{ backgroundColor: 'white' }}
+        data={this.state.screens}
+        keyExtractor={(item) => item.route}
+        renderItem={this.renderListItems}
+      />
     );
   }
 }

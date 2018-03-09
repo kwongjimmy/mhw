@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, FlatList, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, ListItem, Text, Left, Right, Body } from 'native-base';
 
-export default class SkillScreen extends Component {
+export default class SkillScreen extends PureComponent {
   static navigatorStyle = {
-    // navBarHideOnScroll: true,
     topBarBorderColor: 'red',
     topBarBorderWidth: 17,
   };
@@ -15,7 +14,7 @@ export default class SkillScreen extends Component {
     this.state = {
       items: [],
     };
-    // console.log(this.props)
+
     const db = SQLite.openDatabase({
       name: 'mhworld.db', createFromLocation: 'mhworld.db', location: 'Default',
     });
@@ -31,7 +30,7 @@ export default class SkillScreen extends Component {
             items.push(row);
           }
           this.setState({ items });
-          db.close();
+          // db.close();
         },
       );
     });
@@ -40,12 +39,12 @@ export default class SkillScreen extends Component {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      // console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
         animated: true,
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
       });
     }
   }
@@ -60,7 +59,7 @@ export default class SkillScreen extends Component {
           armor_skill_id: item.armor_skill_id,
           type: 'skill',
         },
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
         title: item.name,
       })}
       >
@@ -77,13 +76,15 @@ export default class SkillScreen extends Component {
   renderContent() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
         </View>
       );
     }
     return (
       <FlatList
+        style={{ backgroundColor: 'white' }}
+        initialNumToRender={8}
         data={this.state.items}
         keyExtractor={(item) => item.armor_skill_id.toString()}
         renderItem={this.renderListItems}
@@ -92,10 +93,6 @@ export default class SkillScreen extends Component {
   }
 
   render() {
-    return (
-      <Container style={{ backgroundColor: 'white' }}>
-        {this.renderContent()}
-      </Container>
-    );
+    return this.renderContent();
   }
 }

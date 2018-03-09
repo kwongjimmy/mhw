@@ -1,28 +1,18 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { FlatList, View, ActivityIndicator, Platform, Image } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Tabs, ListItem, Text, Left, Body } from 'native-base';
 import MonsterList from '../components/MonsterList';
 
-export default class MonsterScreen extends Component {
+export default class MonsterScreen extends PureComponent {
   constructor(props) {
     super(props)
-    const skeletonData = [];
-    for (let i = 0; i < 10; i += 1) {
-      skeletonData.push({
-        type: 'AAAAAAAA AAAAA',
-        size: 'AAAAAA',
-        monster_name: 'AAAAAAAAAAAA',
-        monster_id: i,
-      })
-    }
     this.state = {
       allMonsters: [],
       smallMonsters: [],
       largeMonsters: [],
       loading: true,
       data: [],
-      skeletonData,
     };
   }
 
@@ -65,7 +55,6 @@ export default class MonsterScreen extends Component {
           this.setState({
             data: allMonsters, allMonsters, smallMonsters, largeMonsters, loading: false,
           });
-          console.log(this.state);
         });
       });
     }, 100);
@@ -110,10 +99,9 @@ export default class MonsterScreen extends Component {
           this.setState({
             data: allMonsters, allMonsters, smallMonsters, largeMonsters, loading: false,
           });
-          console.log(this.state);
         });
       });
-    }, 250);
+    }, 150);
   }
 
   componentDidMount() {
@@ -150,31 +138,9 @@ export default class MonsterScreen extends Component {
   renderContent(screen) {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
         </View>
-        // <FlatList
-        //   data={this.state.skeletonData}
-        //   keyExtractor={(item) => item.monster_id.toString()}
-        //   renderItem={({ item }) => {
-        //     return (
-        //       <ListItem style={{ marginLeft: 0, paddingLeft: 18 }}>
-        //       <Left>
-        //         {/* <Image
-        //           resizeMode="contain"
-        //           style={styles.monsterImage2}
-        //           source={src}
-        //         /> */}
-        //         <View style={{ height: 60, width: 60, backgroundColor: '#f0f0f0' }}/>
-        //       </Left>
-        //       <Body style={{ flex: 4 }}>
-        //         <View style= {{ height: 12, width: 180, backgroundColor: '#e6e6e6', marginBottom: 6, marginLeft: 12 }}/>
-        //         <View style= {{ height: 11, width: 90, backgroundColor: '#f0f0f0', marginTop: 6, marginLeft: 12 }}/>
-        //       </Body>
-        //       </ListItem>
-        //     );
-        //   }}
-        // />
       );
     }
     if (screen === 'all') {
@@ -193,37 +159,39 @@ export default class MonsterScreen extends Component {
 
   render() {
     return (
-      <Container style={{ backgroundColor: 'white' }}>
-        <Tabs tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-           textStyle={{ color: '#5e5e5e' }}
-           heading="All"
-           >
-           {this.renderContent('all')}
-         </Tab>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-           textStyle={{ color: '#5e5e5e' }}
-           heading="Large"
-           >
-           {this.renderContent('large')}
-         </Tab>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-           textStyle={{ color: '#5e5e5e' }}
-           heading="Small"
-           >
-           {this.renderContent('small')}
-         </Tab>
-       </Tabs>
-      </Container>
+      <Tabs
+        prerenderingSiblingsNumber={3}
+        scrollWithoutAnimation={false}
+        tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }}
+        initialPage={0}>
+       <Tab
+         activeTabStyle={{ backgroundColor: 'white' }}
+         tabStyle={{ backgroundColor: 'white' }}
+         activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+         textStyle={{ color: '#5e5e5e' }}
+         heading="All"
+         >
+         {this.renderContent('all')}
+       </Tab>
+       <Tab
+         activeTabStyle={{ backgroundColor: 'white' }}
+         tabStyle={{ backgroundColor: 'white' }}
+         activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+         textStyle={{ color: '#5e5e5e' }}
+         heading="Large"
+         >
+         {this.renderContent('large')}
+       </Tab>
+       <Tab
+         activeTabStyle={{ backgroundColor: 'white' }}
+         tabStyle={{ backgroundColor: 'white' }}
+         activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+         textStyle={{ color: '#5e5e5e' }}
+         heading="Small"
+         >
+         {this.renderContent('small')}
+       </Tab>
+     </Tabs>
     );
   }
 }

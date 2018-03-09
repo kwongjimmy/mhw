@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { ScrollView, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, ListItem, Text, Left, Body, Right } from 'native-base';
 import DropDown from './DropDown';
 
-export default class QuestInfo extends Component {
+export default class QuestInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,25 +32,24 @@ export default class QuestInfo extends Component {
           for (let i = 0; i < len; i += 1) {
             rewards.push(results.rows.item(i));
           }
-					this.setState({
-						loading: false,
-						rewards
-					});
-					console.log(this.state);
+          this.setState({
+            loading: false,
+            rewards,
+          });
         }
-			);
+      );
     });
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      //console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
         animated: true,
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
       });
     }
   }
@@ -58,46 +57,47 @@ export default class QuestInfo extends Component {
   renderContent() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
         </View>
       );
     }
     return (
-			<View style={{ flex: 1 }}>
-				<DropDown
-					headerName={'Items'}
-					content={this.state.rewards.map((item, key) => {
-					return (
-						<ListItem
-							style={{ marginLeft: 0, paddingLeft: 8 }}
-							onPress={() => this.props.navigator.push({
-								screen: 'TabInfoScreen',
-								passProps: {
-									item_id: item.item_id,
-									type: 'item',
-								},
-								animationType: 'fade',
-								title: item.name,
-							})}
-							key={key}>
-							<Left>
-								<Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
-							</Left>
-							<Right />
-						</ListItem>
-					);
-				})}
-			/>
-			</View>
+			<DropDown
+				headerName={'Rewards'}
+        hide={false}
+				content={this.state.rewards.map((item, key) => {
+				return (
+					<ListItem
+						style={{ marginLeft: 0, paddingLeft: 8 }}
+						onPress={() => this.props.navigator.push({
+							screen: 'TabInfoScreen',
+							passProps: {
+								item_id: item.item_id,
+								type: 'item',
+							},
+							animationType: 'slide-horizontal',
+							title: item.name,
+						})}
+						key={key}>
+						<Left>
+							<Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+						</Left>
+						<Right>
+              <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.chance}%`}</Text>
+            </Right>
+					</ListItem>
+				);
+			})}
+		/>
     );
   }
 
   render() {
     return (
-			<ScrollView>
+			<ScrollView style={{ backgroundColor: 'white' }}>
 				{this.renderContent()}
 			</ScrollView>
-		);
+    );
   }
 }

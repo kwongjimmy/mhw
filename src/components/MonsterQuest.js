@@ -10,12 +10,12 @@ export default class MonsterQuest extends Component {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      //console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
         animated: true,
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
       });
     }
   }
@@ -23,7 +23,17 @@ export default class MonsterQuest extends Component {
   renderListItems = ({ item }) => {
     return (
       <View>
-        <ListItem style={{ marginLeft: 0 }}>
+        <ListItem
+          style={{ height: 65, marginLeft: 0, paddingLeft: 8 }}
+          onPress={() => this.props.navigator.push({
+          screen: 'TablessInfoScreen',
+          passProps: {
+            type: 'quests',
+            quest_id: item.quest_id,
+          },
+          animationType: 'slide-horizontal',
+          title: item.quest_name,
+        })}>
           <Body>
             <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.quest_name}</Text>
           </Body>
@@ -39,10 +49,13 @@ export default class MonsterQuest extends Component {
   render() {
     return (
       <FlatList
-        contextContainerStyle={{ paddingTop: 20 }}
+        initialNumToRender={8}
         data={this.props.monster_quest}
         keyExtractor={(item) => item.quest_id.toString()}
         renderItem={this.renderListItems}
+        getItemLayout={(data, index) => (
+          { length: 65, offset: 65 * index, index }
+        )}
       />
     );
   }

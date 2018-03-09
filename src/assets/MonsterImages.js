@@ -47,6 +47,6 @@ const MonsterImages = {
   Xenojiiva: require('./images/monsters/MHW-Xenojiiva_Icon.png'),
   ZorahMagdaros: require('./images/monsters/MHW-Zorah_Magdaros_Icon.png'),
   Unknown: require('./images/monsters/MHW-Unknown_Monster_Icon.png'),
-}
+};
 
-export default MonsterImages
+export default MonsterImages;

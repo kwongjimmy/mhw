@@ -18,7 +18,7 @@ export default class SearchList extends PureComponent {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      //console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       if (top === false) {
@@ -73,7 +73,7 @@ export default class SearchList extends PureComponent {
         passProps: {
           monster_id: item.monster_id,
         },
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
         title: item.monster_name,
       })}>
       <Left>

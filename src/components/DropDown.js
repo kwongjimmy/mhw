@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, ListItem } from 'native-base';
+import { Text, Icon, Left, Right, ListItem } from 'native-base';
 
-export default class DropDown extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
+export default class DropDown extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
       headerName: this.props.headerName,
       content: this.props.content,
-      hide: true,
-		};
+      hide: this.props.hide,
+    };
   }
 
   renderHeaderIcon() {
@@ -29,17 +29,17 @@ export default class DropDown extends Component {
     }
     return (
       null
-    )
+    );
   }
 
   render() {
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 8 }}
+          style={{ marginLeft: 0, paddingLeft: 8, borderBottomWidth: 0.5, borderColor: '#d1d1d1' }}
           itemDivider
           onPress={() => {
-            this.setState({ hide: !this.state.hide })
+            this.setState({ hide: !this.state.hide });
           }}>
           <Left>
             <Text style={{ fontSize: 15.5, color: '#191919' }}>{this.state.headerName}</Text>

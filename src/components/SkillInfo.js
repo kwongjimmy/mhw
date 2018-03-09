@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { ScrollView, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
-import { Container, Tab, Tabs, ListItem, Text, Left, Body } from 'native-base';
+import { Tab, Tabs, ListItem, Text, Left, Body } from 'native-base';
 import SkillEquip from './SkillEquip';
 
-export default class SkillInfo extends Component {
+export default class SkillInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -45,7 +45,6 @@ export default class SkillInfo extends Component {
             levels,
             loading: false,
           });
-          console.log(this.state);
         },
       );
     });
@@ -54,19 +53,18 @@ export default class SkillInfo extends Component {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      //console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
         animated: true,
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
       });
     }
   }
 
   renderLevels() {
-    return this.state.levels.map((item, key) => {
-      return (
+    return this.state.levels.map((item, key) => (
         <ListItem key={key} style={{ marginLeft: 0, paddingLeft: 8 }}>
           <Left>
             <Text style={{ fontSize: 15.5, color: '#191919' }}>{`Lv ${item.level}`}</Text>
@@ -75,21 +73,20 @@ export default class SkillInfo extends Component {
             <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.description}</Text>
           </Body>
         </ListItem>
-      );
-    });
+    ));
   }
 
   renderContent(screen) {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
         </View>
       );
     }
     if (screen === 'Info') {
       return (
-        <ScrollView>
+        <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
           <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
             <Left>
               <Text style={{ fontSize: 15.5, color: '#191919' }}>Description</Text>
@@ -119,28 +116,26 @@ export default class SkillInfo extends Component {
 
   render() {
     return (
-      <Container style={{ backgroundColor: 'white' }}>
-        <Tabs tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-           textStyle={{ color: '#5e5e5e' }}
-           heading="Info"
-           >
-           {this.renderContent('Info')}
-         </Tab>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-           textStyle={{ color: '#5e5e5e' }}
-           heading="Equip"
-           >
-           {this.renderContent('Equip')}
-         </Tab>
-       </Tabs>
-      </Container>
+      <Tabs prerenderingSiblingsNumber={2} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
+        <Tab
+         activeTabStyle={{ backgroundColor: 'white' }}
+         tabStyle={{ backgroundColor: 'white' }}
+         activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+         textStyle={{ color: '#5e5e5e' }}
+         heading="Info"
+         >
+         {this.renderContent('Info')}
+        </Tab>
+        <Tab
+         activeTabStyle={{ backgroundColor: 'white' }}
+         tabStyle={{ backgroundColor: 'white' }}
+         activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+         textStyle={{ color: '#5e5e5e' }}
+         heading="Equip"
+         >
+         {this.renderContent('Equip')}
+        </Tab>
+     </Tabs>
     );
   }
 }

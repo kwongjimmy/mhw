@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { ScrollView, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, ListItem, Text, Left, Body, Right } from 'native-base';
 
-export default class SkillEquip extends Component {
+export default class SkillEquip extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,7 +25,7 @@ export default class SkillEquip extends Component {
         `SELECT
           A.item_id as item_id, A.rank as rank,
           A.slot1, A.slot2, A.slot3,
-          C.name,
+          C.name as name,
           B1.level as level
           FROM armor AS A
           JOIN items AS C ON A.item_id = C.item_id
@@ -35,7 +35,7 @@ export default class SkillEquip extends Component {
           SELECT
           A.item_id as item_id, A.rank as rank,
           A.slot1, A.slot2, A.slot3,
-          C.name,
+          C.name as name,
           B1.level as level
           FROM armor as A
           JOIN items AS C ON A.item_id = C.item_id
@@ -53,7 +53,7 @@ export default class SkillEquip extends Component {
       tx.executeSql(
         `SELECT
           A.item_id as item_id,
-          C.name,
+          C.name as name,
           B1.level as level
           FROM charms AS A
           JOIN items AS C ON A.item_id = C.item_id
@@ -62,7 +62,7 @@ export default class SkillEquip extends Component {
           UNION
           SELECT
           A.item_id as item_id,
-          C.name,
+          C.name as name,
           B1.level as level
           FROM charms AS A
           JOIN items AS C ON A.item_id = C.item_id
@@ -80,7 +80,6 @@ export default class SkillEquip extends Component {
             charms,
             loading: false,
           });
-          console.log(this.state);
         },
       );
     });
@@ -108,7 +107,7 @@ export default class SkillEquip extends Component {
                   item_id: item.item_id,
                   type: 'armor',
                 },
-                animationType: 'fade',
+                animationType: 'slide-horizontal',
                 title: item.name
                 })}>
                 <Left>
@@ -150,7 +149,7 @@ export default class SkillEquip extends Component {
                   item_id: item.item_id,
                   type: 'charms',
                 },
-                animationType: 'fade',
+                animationType: 'slide-horizontal',
                 title: item.name
                 })}
                 >

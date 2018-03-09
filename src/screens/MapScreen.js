@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, FlatList, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, ListItem, Text, Left, Right } from 'native-base';
 
-export default class MapScreen extends Component {
+export default class MapScreen extends PureComponent {
   static navigatorStyle = {
-    // navBarHideOnScroll: true,
     topBarBorderColor: 'red',
     topBarBorderWidth: 17,
   };
@@ -40,12 +39,12 @@ export default class MapScreen extends Component {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      // console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
         animated: true,
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
       });
     }
   }
@@ -60,7 +59,7 @@ export default class MapScreen extends Component {
           item_id: item.map_id,
           type: 'maps'
         },
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
         title: item.name,
       })}>
       <Left>
@@ -73,25 +72,26 @@ export default class MapScreen extends Component {
   renderContent() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
         </View>
       );
     }
     return (
       <FlatList
+        style={{ backgroundColor: 'white' }}
+        initialNumToRender={11}
         data={this.state.items}
         keyExtractor={(item) => item.map_id.toString()}
         renderItem={this.renderListItems}
+        getItemLayout={(data, index) => (
+          { length: 52, offset: 52 * index, index }
+        )}
       />
     );
   }
 
   render() {
-    return (
-      <Container style={{ backgroundColor: 'white' }}>
-        {this.renderContent()}
-      </Container>
-    );
+    return this.renderContent();
   }
 }

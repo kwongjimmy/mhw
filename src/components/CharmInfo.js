@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, ActivityIndicator } from 'react-native';
-import { Container, Header, Content, List, ListItem, Text, Tabs, Tab, Right, Left, Body } from 'native-base';
+import { ListItem, Text, Right, Left } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
 
-export default class CharmInfo extends Component {
-
+export default class CharmInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,12 +53,12 @@ export default class CharmInfo extends Component {
 
   onNavigatorEvent(event) {
     if (event.id === 'bottomTabSelected') {
-      console.log('Tab selected!');
+      //console.log('Tab selected!');
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
         animated: true,
-        animationType: 'fade',
+        animationType: 'slide-horizontal',
       });
     }
   }
@@ -96,7 +95,7 @@ export default class CharmInfo extends Component {
                 armor_skill_id: this.state.info.skill1_id,
                 type: 'skill',
               },
-              animationType: 'fade',
+              animationType: 'slide-horizontal',
               title: this.state.info.skill1_name,
             })}
             >
@@ -115,7 +114,7 @@ export default class CharmInfo extends Component {
                 armor_skill_id: this.state.info.skill2_id,
                 type: 'skill',
               },
-              animationType: 'fade',
+              animationType: 'slide-horizontal',
               title: this.state.info.skill2_name,
             })}
             >
@@ -138,7 +137,7 @@ export default class CharmInfo extends Component {
               armor_skill_id: this.state.info.skill1_id,
               type: 'skill',
             },
-            animationType: 'fade',
+            animationType: 'slide-horizontal',
             title: this.state.info.skill1_name,
           })}
           >
@@ -193,7 +192,7 @@ export default class CharmInfo extends Component {
                     item_id: item.item_id,
                     type: 'item',
                   },
-                  animationType: 'fade',
+                  animationType: 'slide-horizontal',
                   title: item.name,
                 })}
                 >
@@ -215,25 +214,21 @@ export default class CharmInfo extends Component {
   renderContent() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
         </View>
       );
     }
     return (
-    <View>
-      {this.renderInfo()}
-      {this.renderSkills()}
-      {this.renderCrafting()}
-    </View>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        {this.renderInfo()}
+        {this.renderSkills()}
+        {this.renderCrafting()}
+      </View>
     );
   }
 
   render() {
-    return (
-      <Container style={{ backgroundColor: 'white' }}>
-        {this.renderContent()}
-      </Container>
-    );
+    return this.renderContent();
   }
 }
