@@ -1,6 +1,13 @@
 import React, { PureComponent } from 'react';
-import { FlatList, Platform } from 'react-native';
-import { Container, ListItem, Text, Left } from 'native-base';
+import { View, FlatList, Platform, Image } from 'react-native';
+import { Container, ListItem, Text, Left, Body } from 'native-base';
+// import {
+//   AdMobBanner,
+//   AdMobInterstitial,
+//   PublisherBanner,
+//   AdMobRewarded,
+// } from 'react-native-admob';
+import { MiscImages } from '../assets';
 
 export default class MiscScreen extends PureComponent {
   static navigatorStyle = {
@@ -44,7 +51,7 @@ export default class MiscScreen extends PureComponent {
   renderListItems = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 8 }}
+        style={{ marginLeft: 0, paddingLeft: 18 }}
         onPress={() => this.props.navigator.push({
         screen: item.route,
         passProps: {
@@ -54,20 +61,38 @@ export default class MiscScreen extends PureComponent {
         title: item.title,
         })}>
         <Left>
-          <Text>{item.title}</Text>
+          <Image
+            resizeMode="contain"
+            style={{ width: 35, height: 35 }}
+            source={MiscImages[item.title]}
+          />
         </Left>
+        <Body style={{ flex: 6 }}>
+          <Text style={{ fontSize: 20, color: '#191919' }}>{item.title}</Text>
+        </Body>
       </ListItem>
     );
   }
 
   render() {
     return (
+      <View style={{ flex: 1 }}>
       <FlatList
         style={{ backgroundColor: 'white' }}
         data={this.state.screens}
         keyExtractor={(item) => item.route}
         renderItem={this.renderListItems}
       />
+      {/* <AdMobBanner
+        style={{ alignSelf: 'center' }}
+        adSize="fullBanner"
+        validAdSizes={['banner', 'largeBanner', 'mediumRectangle']}
+        adUnitID="ca-app-pub-9661316023859369/7600878725"
+        // testDevices={[AdMobBanner.simulatorId]}
+        // onAdFailedToLoad={error => console.error(error)}
+        onAppEvent={event => console.log(event.name, event.info)}
+      /> */}
+    </View>
     );
   }
 }

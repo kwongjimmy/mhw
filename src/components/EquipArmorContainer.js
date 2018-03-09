@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
-import { View } from 'react-native';
+import { Image, View } from 'react-native';
 import { Text, Icon, Left, Body, Right, ListItem } from 'native-base';
+import { ArmorImages } from '../assets';
 
 export default class EquipArmorContainer extends PureComponent {
   constructor(props) {
@@ -17,6 +18,7 @@ export default class EquipArmorContainer extends PureComponent {
         slot3: this.props.armor.head_slot3,
         skill1_level: this.props.armor.head_skill1_level,
         skill2_level: this.props.armor.head_skill2_level,
+        type: 'head',
       });
     }
     if (this.props.armor.armor_item_id !== null) {
@@ -30,6 +32,7 @@ export default class EquipArmorContainer extends PureComponent {
         slot3: this.props.armor.armor_slot3,
         skill1_level: this.props.armor.armor_skill1_level,
         skill2_level: this.props.armor.armor_skill2_level,
+        type: 'armor',
       });
     }
     if (this.props.armor.gloves_item_id !== null) {
@@ -43,6 +46,7 @@ export default class EquipArmorContainer extends PureComponent {
         slot3: this.props.armor.gloves_slot3,
         skill1_level: this.props.armor.gloves_skill1_level,
         skill2_level: this.props.armor.gloves_skill2_level,
+        type: 'gloves',
       });
     }
     if (this.props.armor.belt_item_id !== null) {
@@ -56,6 +60,7 @@ export default class EquipArmorContainer extends PureComponent {
         slot3: this.props.armor.belt_slot3,
         skill1_level: this.props.armor.belt_skill1_level,
         skill2_level: this.props.armor.belt_skill2_level,
+        type: 'belt',
       });
     }
     if (this.props.armor.pants_item_id !== null) {
@@ -69,6 +74,7 @@ export default class EquipArmorContainer extends PureComponent {
         slot3: this.props.armor.pants_slot3,
         skill1_level: this.props.armor.pants_skill1_level,
         skill2_level: this.props.armor.pants_skill2_level,
+        type: 'pants',
       });
     }
     this.state = {
@@ -146,6 +152,11 @@ export default class EquipArmorContainer extends PureComponent {
             })}
             >
               <Left style={{ flex: 1.5 }}>
+                <Image
+                  resizeMode="contain"
+                  style={{ width: 20, height: 20 }}
+                  source={ArmorImages[item.type]}
+                />
                 <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
               </Left>
               <Body style={{ flex: 1.5 }}>

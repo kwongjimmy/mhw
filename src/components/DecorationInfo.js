@@ -95,7 +95,7 @@ export default class DecorationInfo extends Component {
           </Right>
         </ListItem>
       </View>
-    )
+    );
   }
 
   renderFeystones() {
