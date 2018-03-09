@@ -4,8 +4,11 @@ import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab,Header,Button, Icon, Tabs, Title,Right,Item,Input, ListItem, Text, Left, Body, ScrollableTab} from 'native-base';
 import MonsterList from '../components/MonsterList';
 import SearchList from '../components/SearchList';
-
+import WeaponListItem from '../components/WeaponListItem';
 import EquipArmorList from '../components/EquipArmorList';
+
+currentScreen = "monster";
+currentWord = "";
 
 export default class SearchScreen extends Component {
   static navigatorStyle = {
@@ -14,12 +17,9 @@ export default class SearchScreen extends Component {
   constructor(props) {
     super(props)
     const skeletonData = [];
-
     this.state = {
       allMonsters: [],
       lowRank: [],
-      smallMonsters: [],
-      largeMonsters: [],
       items: [],
       skills: [],
       maps: [],
@@ -33,6 +33,7 @@ export default class SearchScreen extends Component {
     };
   }
   searchMatchingWords(keyWord) {
+    currentWord = keyWord;
     var keyW = keyWord.toLowerCase();
     const db = SQLite.openDatabase({
       name: 'mhworld.db', createFromLocation: '~mhworld.db', location: 'Default',
@@ -42,8 +43,6 @@ export default class SearchScreen extends Component {
       db.transaction((tx) => {
         const allMonsters = [];
         const lowRank = [];
-        const smallMonsters = [];
-        const largeMonsters = [];
         const items = [];
         const skills = [];
         const maps = [];
@@ -52,8 +51,17 @@ export default class SearchScreen extends Component {
         const charms = [];
         const weapons = [];
         this.setState({
-          data: allMonsters, allMonsters, smallMonsters, largeMonsters, lowRank, items,skills,maps,quests,decorations,charms, weapons, loading: false,
+          data: allMonsters, lowRank, items,skills,maps,quests,decorations,charms, weapons, loading: false,
         });
+        this.renderContent('monster');
+        this.renderContent('armor');
+        this.renderContent('weapon');
+        this.renderContent('item');
+        this.renderContent('quest');
+        this.renderContent('charm');
+        this.renderContent('decoration');
+        this.renderContent('skill');
+        this.renderContent('map');
         db.close();
         });
     }
@@ -61,8 +69,6 @@ export default class SearchScreen extends Component {
       db.transaction((tx) => {
         const allMonsters = [];
         const lowRank = [];
-        const smallMonsters = [];
-        const largeMonsters = [];
         const items = [];
         const skills = [];
         const maps = [];
@@ -70,17 +76,13 @@ export default class SearchScreen extends Component {
         const decorations = [];
         const charms = [];
         const weapons = [];
-        tx.executeSql("SELECT * FROM monster WHERE LOWER(monster_name) LIKE ? OR LOWER(type) LIKE ? ORDER BY monster_name LIMIT 50" , [keyW+'%',keyW+'%'], (tx, results) => {
-          // Get rows with Web SQL Database spec compliance.
+
+        tx.executeSql("SELECT * FROM monster WHERE LOWER(monster_name) LIKE ? ORDER BY monster_name LIMIT 20" , [keyW+'%'], (tx, results) => {
           const len = results.rows.length;
           for (let i = 0; i < len; i += 1) {
             const row = results.rows.item(i);
             allMonsters.push(row);
-            // this.setState({record: row});
           }
-          // this.setState({ allMonsters });
-          // db.close();
-          this.renderContent('all');
         });
         tx.executeSql(`
           SELECT
@@ -114,15 +116,13 @@ export default class SearchScreen extends Component {
               LEFT JOIN armor_skills AS DS1 ON DSL1.armor_skill_id = DS1.armor_skill_id LEFT JOIN armor_skills AS DS2 ON DSL2.armor_skill_id = DS2.armor_skill_id
               LEFT JOIN armor_skills AS ES1 ON ESL1.armor_skill_id = ES1.armor_skill_id LEFT JOIN armor_skills AS ES2 ON ESL2.armor_skill_id = ES2.armor_skill_id
               LEFT JOIN armor_skills AS FS1 ON FSL1.armor_skill_id = FS1.armor_skill_id LEFT JOIN armor_skills AS FS2 ON FSL2.armor_skill_id = FS2.armor_skill_id
-
-          ) AS X
+                      ) AS X
           LEFT JOIN items AS I1 ON X.head_item_id = I1.item_id
           LEFT JOIN items AS I2 ON X.armor_item_id = I2.item_id
           LEFT JOIN items AS I3 ON X.gloves_item_id = I3.item_id
           LEFT JOIN items AS I4 ON X.belt_item_id = I4.item_id
-          LEFT JOIN items AS I5 ON X.pants_item_id = I5.item_id WHERE LOWER(X.name) LIKE ? LIMIT 50`
+          LEFT JOIN items AS I5 ON X.pants_item_id = I5.item_id WHERE LOWER(X.name) LIKE ? LIMIT 20`
            , [keyW+'%'], (tx, results) => {
-          // Get rows with Web SQL Database spec compliance.
           const len = results.rows.length;
           for (let i = 0; i < len; i += 1) {
             const row = results.rows.item(i);
@@ -130,8 +130,20 @@ export default class SearchScreen extends Component {
           }
           this.renderContent('armor');
         });
-        tx.executeSql(`SELECT item_id, name, rarity
-        FROM items where category = 'weapon' AND name LIKE ? ORDER BY name LIMIT 50`, [keyW+'%'], (tx, results) => {
+        tx.executeSql(  `SELECT
+            weapon_sharpness.*,
+            weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
+            weapons.*, items.name as name, items.rarity as rarity
+            FROM weapons
+            JOIN items on weapons.item_id = items.item_id
+            LEFT JOIN weapon_bowgun_chars ON weapons.item_id = weapon_bowgun_chars.item_id
+            LEFT JOIN weapon_coatings ON weapons.item_id = weapon_coatings.item_id
+            LEFT JOIN weapon_kinsects ON weapons.item_id = weapon_kinsects.item_id
+            LEFT JOIN weapon_notes ON weapons.item_id = weapon_notes.item_id
+            LEFT JOIN weapon_phials ON weapons.item_id = weapon_phials.item_id
+            LEFT JOIN weapon_sharpness ON weapons.item_id = weapon_sharpness.item_id
+            LEFT JOIN weapon_shellings ON weapons.item_id = weapon_shellings.item_id
+            WHERE items.name LIKE ? ORDER BY name LIMIT 20`, [keyW+'%'], (tx, results) => {
           const len = results.rows.length;
           for (let i = 0; i < len; i += 1) {
             weapons.push(results.rows.item(i));
@@ -139,9 +151,8 @@ export default class SearchScreen extends Component {
           this.renderContent('weapon');
         });
         tx.executeSql(
-          'SELECT item_id, name, category FROM items WHERE LOWER(name) LIKE ? ORDER BY name LIMIT 50',
+          'SELECT item_id, name, category FROM items WHERE LOWER(name) LIKE ? ORDER BY name LIMIT 20',
           [keyW+'%'], (tx, results) => {
-          // Get rows with Web SQL Database spec compliance.
             const len = results.rows.length;
             for (let i = 0; i < len; i += 1) {
               const row = results.rows.item(i);
@@ -149,8 +160,7 @@ export default class SearchScreen extends Component {
             }
             this.renderContent('item');
           });
-          tx.executeSql('SELECT * FROM quests WHERE LOWER(name) LIKE ? ORDER BY name LIMIT 50', [keyW+'%'], (tx, results) => {
-            // Get rows with Web SQL Database spec compliance.
+          tx.executeSql('SELECT * FROM quests WHERE LOWER(name) LIKE ? ORDER BY name LIMIT 20', [keyW+'%'], (tx, results) => {
             const len = results.rows.length;
             for (let i = 0; i < len; i += 1) {
               const row = results.rows.item(i);
@@ -159,9 +169,8 @@ export default class SearchScreen extends Component {
             this.renderContent('quest');
           });
           tx.executeSql(
-            'SELECT * FROM armor_skills WHERE LOWER(name) LIKE ? ORDER BY name LIMIT 50',
+            'SELECT * FROM armor_skills WHERE LOWER(name) LIKE ? ORDER BY name LIMIT 20',
             [keyW+'%'], (tx, results) => {
-            // Get rows with Web SQL Database spec compliance.
               const len = results.rows.length;
               for (let i = 0; i < len; i += 1) {
                 const row = results.rows.item(i);
@@ -174,7 +183,7 @@ export default class SearchScreen extends Component {
             `SELECT
               A.item_id as item_id, B.name as name
               FROM decorations AS A
-              JOIN items AS B ON A.item_id = B.item_id WHERE LOWER(name) LIKE ? ORDER BY name LIMIT 50`
+              JOIN items AS B ON A.item_id = B.item_id WHERE LOWER(name) LIKE ? ORDER BY name LIMIT 20`
             , [keyW+'%'], (tx, results) => {
             const len = results.rows.length;
             for(let i = 0; i < len; i += 1) {
@@ -194,9 +203,8 @@ export default class SearchScreen extends Component {
               LEFT JOIN armor_skills_levels AS C1 ON A.armor_skill_1 = C1.armor_skill_level_id
               LEFT JOIN armor_skills_levels AS C2 ON A.armor_skill_2 = C2.armor_skill_level_id
               LEFT JOIN armor_skills AS CL1 ON C1.armor_skill_id = CL1.armor_skill_id
-              LEFT JOIN armor_skills AS CL2 ON C2.armor_skill_id = CL2.armor_skill_id WHERE LOWER(B.name) LIKE ? ORDER BY B.name LIMIT 50`
+              LEFT JOIN armor_skills AS CL2 ON C2.armor_skill_id = CL2.armor_skill_id WHERE LOWER(B.name) LIKE ? ORDER BY B.name LIMIT 20`
             , [keyW+'%'], (tx, results) => {
-            // Get rows with Web SQL Database spec compliance.
               const len = results.rows.length;
               for (let i = 0; i < len; i += 1) {
                 const row = results.rows.item(i);
@@ -206,31 +214,20 @@ export default class SearchScreen extends Component {
             },
           );
           tx.executeSql(
-            'SELECT * FROM maps WHERE LOWER(name) LIKE ? ORDER BY name LIMIT 50',
+            'SELECT * FROM maps WHERE LOWER(name) LIKE ? ORDER BY name LIMIT 20',
             [keyW+'%'], (tx, results) => {
-            // Get rows with Web SQL Database spec compliance.
               const len = results.rows.length;
               for (let i = 0; i < len; i += 1) {
                 const row = results.rows.item(i);
                 maps.push(row);
               }
               this.renderContent('map');
+              this.setState({
+                data: allMonsters, allMonsters, lowRank, items,skills,maps,quests,decorations,charms, weapons, loading: false,
+              });
+              db.close();
             },
           );
-        tx.executeSql('SELECT * FROM monster WHERE size=?', ['Large'], (tx, results) => {
-          // Get rows with Web SQL Database spec compliance.
-          const len = results.rows.length;
-          for (let i = 0; i < len; i += 1) {
-            const row = results.rows.item(i);
-            largeMonsters.push(row);
-          }
-          this.setState({
-            data: allMonsters, allMonsters, smallMonsters, largeMonsters, lowRank, items,skills,maps,quests,decorations,charms, weapons, loading: false,
-          });
-          db.close();
-        });
-
-
       });
     }
     else if(keyWord.length >2 ){
@@ -247,16 +244,12 @@ export default class SearchScreen extends Component {
         const charms = [];
         const weapons = [];
         tx.executeSql("SELECT * FROM monster WHERE LOWER(monster_name) LIKE ? OR LOWER(type) LIKE ? ORDER BY SUBSTR(monster_name,1,3)" , ['%'+keyW+'%','%'+keyW+'%'], (tx, results) => {
-          // Get rows with Web SQL Database spec compliance.
           const len = results.rows.length;
           for (let i = 0; i < len; i += 1) {
             const row = results.rows.item(i);
             allMonsters.push(row);
-            // this.setState({record: row});
           }
-          // this.setState({ allMonsters });
-          // db.close();
-          this.renderContent('all');
+          this.renderContent('monster');
         });
         tx.executeSql(`
           SELECT
@@ -298,7 +291,6 @@ export default class SearchScreen extends Component {
           LEFT JOIN items AS I4 ON X.belt_item_id = I4.item_id
           LEFT JOIN items AS I5 ON X.pants_item_id = I5.item_id WHERE LOWER(X.name) LIKE ? ORDER BY SUBSTR(X.name,1,3)`
            , ['%'+keyW+'%'], (tx, results) => {
-          // Get rows with Web SQL Database spec compliance.
           const len = results.rows.length;
           for (let i = 0; i < len; i += 1) {
             const row = results.rows.item(i);
@@ -306,8 +298,20 @@ export default class SearchScreen extends Component {
           }
           this.renderContent('armor');
         });
-        tx.executeSql(`SELECT item_id, name, rarity
-        FROM items where category = 'weapon' AND name LIKE ? ORDER BY SUBSTR(name,1,3)`, ['%'+keyW+'%'], (tx, results) => {
+        tx.executeSql(  `SELECT
+            weapon_sharpness.*,
+            weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
+            weapons.*, items.name as name, items.rarity as rarity
+            FROM weapons
+            JOIN items on weapons.item_id = items.item_id
+            LEFT JOIN weapon_bowgun_chars ON weapons.item_id = weapon_bowgun_chars.item_id
+            LEFT JOIN weapon_coatings ON weapons.item_id = weapon_coatings.item_id
+            LEFT JOIN weapon_kinsects ON weapons.item_id = weapon_kinsects.item_id
+            LEFT JOIN weapon_notes ON weapons.item_id = weapon_notes.item_id
+            LEFT JOIN weapon_phials ON weapons.item_id = weapon_phials.item_id
+            LEFT JOIN weapon_sharpness ON weapons.item_id = weapon_sharpness.item_id
+            LEFT JOIN weapon_shellings ON weapons.item_id = weapon_shellings.item_id
+            WHERE items.name LIKE ? ORDER BY SUBSTR(items.name,1,3)`, ['%'+keyW+'%'], (tx, results) => {
           const len = results.rows.length;
           for (let i = 0; i < len; i += 1) {
             weapons.push(results.rows.item(i));
@@ -317,7 +321,6 @@ export default class SearchScreen extends Component {
         tx.executeSql(
           'SELECT item_id, name, category FROM items WHERE LOWER(name) LIKE ? ORDER BY SUBSTR(name,1,3)',
           ['%'+keyW+'%'], (tx, results) => {
-          // Get rows with Web SQL Database spec compliance.
             const len = results.rows.length;
             for (let i = 0; i < len; i += 1) {
               const row = results.rows.item(i);
@@ -326,7 +329,6 @@ export default class SearchScreen extends Component {
             this.renderContent('item');
           });
           tx.executeSql('SELECT * FROM quests WHERE LOWER(name) LIKE ? ORDER BY SUBSTR(name,1,3)', ['%'+keyW+'%'], (tx, results) => {
-            // Get rows with Web SQL Database spec compliance.
             const len = results.rows.length;
             for (let i = 0; i < len; i += 1) {
               const row = results.rows.item(i);
@@ -337,7 +339,6 @@ export default class SearchScreen extends Component {
           tx.executeSql(
             'SELECT * FROM armor_skills WHERE LOWER(name) LIKE ? ORDER BY SUBSTR(name,1,3)',
             ['%'+keyW+'%'], (tx, results) => {
-            // Get rows with Web SQL Database spec compliance.
               const len = results.rows.length;
               for (let i = 0; i < len; i += 1) {
                 const row = results.rows.item(i);
@@ -384,56 +385,24 @@ export default class SearchScreen extends Component {
           tx.executeSql(
             'SELECT * FROM maps WHERE LOWER(name) LIKE ? ORDER BY SUBSTR(name,1,3)',
             ['%'+keyW+'%'], (tx, results) => {
-            // Get rows with Web SQL Database spec compliance.
               const len = results.rows.length;
               for (let i = 0; i < len; i += 1) {
                 const row = results.rows.item(i);
                 maps.push(row);
               }
               this.renderContent('map');
+              this.setState({
+                data: allMonsters, allMonsters, lowRank, items,skills,maps,quests,decorations,charms, weapons, loading: false,
+              });
+              db.close();
             },
           );
-        tx.executeSql('SELECT * FROM monster WHERE size=?', ['Large'], (tx, results) => {
-          // Get rows with Web SQL Database spec compliance.
-          const len = results.rows.length;
-          for (let i = 0; i < len; i += 1) {
-            const row = results.rows.item(i);
-            largeMonsters.push(row);
-          }
-          this.setState({
-            data: allMonsters, allMonsters, smallMonsters, largeMonsters, lowRank, items,skills,maps,quests,decorations,charms, weapons, loading: false,
-          });
-          // db.close();
-        });
-
-
       });
     }
   }
-
   renderListWeapons = ({ item }) => {
     return (
-      <ListItem
-        style={{ marginLeft: 0, paddingLeft: 8 }}
-        onPress={() => this.props.navigator.push({
-          screen: 'TablessInfoScreen',
-          passProps: {
-            item_id: item.item_id,
-            type: 'weapons',
-            table: this.props.table,
-            tableType: this.props.type,
-            item,
-          },
-          animationType: 'slide-horizontal',
-          title: item.name,
-        })}
-        >
-      <Left>
-        <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
-      </Left>
-      <Right>
-      </Right>
-      </ListItem>
+      <WeaponListItem navigator={this.props.navigator} item={item} />
     );
   }
   renderListQuests = ({ item }) => {
@@ -456,7 +425,6 @@ export default class SearchScreen extends Component {
       </ListItem>
     );
   }
-
   renderListMaps = ({ item }) => {
     return (
       <ListItem
@@ -570,13 +538,9 @@ export default class SearchScreen extends Component {
       null
     );
   }
-
   renderContent(screen) {
     if (this.state.loading) {
       return (
-        // <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center', backgroundColor: 'white' }}>
-        //   <ActivityIndicator size="large" color="#5e5e5e"/>
-        // </View>
         <FlatList
           data={this.state.skeletonData}
           keyExtractor={(item) => item.monster_id.toString()}
@@ -601,15 +565,30 @@ export default class SearchScreen extends Component {
         />
       );
     }
-    if (screen === 'all') {
+    if (screen === 'monster') {
+      currentScreen = "monster";
       return (
-        <MonsterList navigator={this.props.navigator} monsters={this.state.allMonsters} type={'all'}/>
+        <MonsterList navigator={this.props.navigator} monsters={this.state.allMonsters} type={'monster'}/>
       );
-    } else if (screen === 'armor') {
+    }
+    else if (screen === 'armor') {
+      currentScreen = "armor";
       return (
         <EquipArmorList navigator={this.props.navigator} armor={this.state.lowRank}/>
       );
-    } else if (screen === 'item') {
+    }
+    else if (screen === 'weapon') {
+      return (
+        <FlatList
+          style={{ backgroundColor: 'white' }}
+          initialNumToRender={8}
+          data={this.state.weapons}
+          keyExtractor={(item) => item.item_id.toString()}
+          renderItem={this.renderListWeapons}
+        />
+      );
+    }
+    else if (screen === 'item') {
       return (
         <FlatList
           data={this.state.items}
@@ -662,20 +641,7 @@ export default class SearchScreen extends Component {
         />
       );
     }
-    else if (screen === 'weapon') {
-      return (
-        <FlatList
-          data={this.state.weapons}
-          keyExtractor={(item) => item.item_id.toString()}
-          renderItem={this.renderListWeapons}
-        />
-      );
-    }
-    return (
-      <SearchList navigator={this.props.navigator} monsters={this.state.smallMonsters} type={'small'}/>
-    );
   }
-
   render() {
     return (
       <Container style={{ backgroundColor: 'white' }}>
@@ -702,7 +668,7 @@ export default class SearchScreen extends Component {
            textStyle={{ color: '#5e5e5e' }}
            heading="Monster"
            >
-           {this.renderContent('all')}
+           {this.renderContent('monster')}
          </Tab>
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
