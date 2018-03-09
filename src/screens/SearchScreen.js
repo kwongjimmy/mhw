@@ -37,7 +37,27 @@ export default class SearchScreen extends Component {
     const db = SQLite.openDatabase({
       name: 'mhworld.db', createFromLocation: '~mhworld.db', location: 'Default',
     });
-    if(keyWord.length <3 || keyWord == "" ){
+    if(keyWord == "")
+    {
+      db.transaction((tx) => {
+        const allMonsters = [];
+        const lowRank = [];
+        const smallMonsters = [];
+        const largeMonsters = [];
+        const items = [];
+        const skills = [];
+        const maps = [];
+        const quests = [];
+        const decorations = [];
+        const charms = [];
+        const weapons = [];
+        this.setState({
+          data: allMonsters, allMonsters, smallMonsters, largeMonsters, lowRank, items,skills,maps,quests,decorations,charms, weapons, loading: false,
+        });
+        db.close();
+        });
+    }
+    else if(keyWord.length <3   ){
       db.transaction((tx) => {
         const allMonsters = [];
         const lowRank = [];
