@@ -26,19 +26,19 @@ export default class WeaponListItem extends PureComponent {
     if (type === 'switch_axe' || type === 'charge_blade') {
       return (
         <View style={{ flex: 1 }}>
-          <Text style={{ flex: 1, fontSize: 14, color: '#191919',textAlign: 'center' }}>{`${phial}`}</Text>
+          <Text style={{ fontSize: 14, color: '#191919',textAlign: 'center' }}>{`${phial}`}</Text>
         </View>
       );
     } else if (type === 'insect_glaive') {
       return (
         <View style={{ flex: 1 }}>
-          <Text style={{ flex: 1, fontSize: 14, color: '#191919', textAlign: 'center' }}>{`${kinsect}`}</Text>
+          <Text style={{ fontSize: 14, color: '#191919', textAlign: 'center' }}>{`${kinsect}`}</Text>
         </View>
       );
     } else if (type === 'gun_lance') {
       return (
         <View style={{ flex: 1 }}>
-          <Text style={{ flex: 1, fontSize: 14, color: '#191919', textAlign: 'center' }}>{`${shelling}`}</Text>
+          <Text style={{ fontSize: 14, color: '#191919', textAlign: 'center' }}>{`${shelling}`}</Text>
         </View>
       );
     } else if (type === 'hunting_horn') {
@@ -52,12 +52,12 @@ export default class WeaponListItem extends PureComponent {
     } else if (type.includes('bowgun')) {
       return (
         <View style={{ flex: 1, flexDirection: 'row' }}>
-          <Text style={{ flex: 1, fontSize: 14, color: '#191919', textAlign: 'right' }}>{`DEV: ${deviation}`}</Text>
+          <Text style={{ fontSize: 14, color: '#191919', textAlign: 'right' }}>{`DEV: ${deviation}`}</Text>
         </View>
       );
     }
     return (
-      null
+      <Text />
     );
   }
 
@@ -65,8 +65,8 @@ export default class WeaponListItem extends PureComponent {
     const { affinity } = item;
     if (affinity !== 0) {
       return (
-        <View style={{ flex: 0.5, flexDirection: 'row', borderWidth: 0 }}>
-          <Text style={{ flex: 1, fontSize: 14, color: '#191919' }}>{`AFF: ${affinity}%`}</Text>
+        <View style={{ flex: 1, flexDirection: 'row', borderWidth: 0 }}>
+          <Text style={{ fontSize: 14, color: '#191919' }}>{`AFF: ${affinity}%`}</Text>
         </View>
       );
     }
@@ -219,15 +219,15 @@ export default class WeaponListItem extends PureComponent {
     if (type.includes('bow')) {
       if (type.includes('gun')) {
         return (
-          <View style={{ flex: 1 }}>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`${special_ammo}`}</Text>
+          <View style={{ flex: 1, justifyContent: 'center' }}>
+            <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${special_ammo}`}</Text>
           </View>
         );
       }
       return this.renderCoatings(info);
     }
     return (
-      <View style={{ flex: 1, flexDirection: 'row', width: 93 }}>
+      <View style={{ flex: 1, flexDirection: 'row', width: 93, justifyContent: 'center' }}>
         <View style={{ flex: red, height: 10, backgroundColor: '#C4424E' }}/>
         <View style={{ flex: orange, height: 10, backgroundColor: '#DE7A56' }}/>
         <View style={{ flex: yellow, height: 10, backgroundColor: '#D5BF45' }}/>
@@ -250,7 +250,7 @@ export default class WeaponListItem extends PureComponent {
 
     return (
       <ListItem
-        style={{ marginLeft: 0, marginRight: 0, paddingRight: 8, paddingLeft: 8 }}
+        style={{ marginLeft: 0, marginRight: 0, paddingRight: 8, paddingLeft: 8, height: 87.5 }}
         onPress={() => this.props.navigator.push({
           screen: 'TablessInfoScreen',
           passProps: {
@@ -284,7 +284,7 @@ export default class WeaponListItem extends PureComponent {
         </Left>
         <Right style={{ flex: 0.5, borderWidth: 0, borderColor: 'green' }}>
             {this.renderMeleeRangeInfo(this.props.item)}
-          <View style={{ flex: 1, flexDirection: 'row', paddingTop: 2.5 }}>
+          <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'right' }}>{`${slotOne} ${slotTwo} ${slotThree}`}</Text>
           </View>
           {this.renderSpecial(this.props.item)}

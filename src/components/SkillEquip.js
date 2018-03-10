@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { ScrollView, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, ListItem, Text, Left, Body, Right } from 'native-base';
+import DropDown from './DropDown';
 
 export default class SkillEquip extends PureComponent {
   constructor(props) {
@@ -75,9 +76,28 @@ export default class SkillEquip extends PureComponent {
             const row = results.rows.item(i);
             charms.push(row);
           }
+        },
+      );
+      tx.executeSql(
+        `SELECT
+          A.item_id as item_id,
+          C.name as name,
+          B1.level as level
+          FROM decorations AS A
+          JOIN items AS C ON A.item_id = C.item_id
+          LEFT JOIN armor_skills_levels AS B1 ON A.skill = B1.armor_skill_level_id
+          WHERE B1.armor_skill_id = ?`
+        , [this.props.armor_skill_id], (tx, results) => {
+        // Get rows with Web SQL Database spec compliance.
+          const len = results.rows.length;
+          for (let i = 0; i < len; i += 1) {
+            const row = results.rows.item(i);
+            decorations.push(row);
+          }
           this.setState({
             armor,
             charms,
+            decorations,
             loading: false,
           });
         },
@@ -89,14 +109,10 @@ export default class SkillEquip extends PureComponent {
     if (this.state.armor.length > 0) {
       return (
         <View>
-          <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
-            <Left>
-              <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>Armor</Text>
-            </Left>
-            <Right>
-            </Right>
-          </ListItem>
-          {this.state.armor.map((item, key) => {
+          <DropDown
+            headerName={'Armor'}
+            hide={false}
+            content={this.state.armor.map((item, key) => {
             return (
               <ListItem
                 key={key}
@@ -108,7 +124,7 @@ export default class SkillEquip extends PureComponent {
                   type: 'armor',
                 },
                 animationType: 'slide-horizontal',
-                title: item.name
+                title: item.name,
                 })}>
                 <Left>
                   <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
@@ -119,6 +135,7 @@ export default class SkillEquip extends PureComponent {
               </ListItem>
             );
           })}
+          />
         </View>
       );
     }
@@ -131,14 +148,10 @@ export default class SkillEquip extends PureComponent {
     if (this.state.charms.length > 0) {
       return (
         <View>
-          <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
-            <Left>
-              <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>Charms</Text>
-            </Left>
-            <Right>
-            </Right>
-          </ListItem>
-          {this.state.charms.map((item, key) => {
+          <DropDown
+            headerName={'Charms'}
+            hide={false}
+            content={this.state.charms.map((item, key) => {
             return (
               <ListItem
                 key={key}
@@ -162,6 +175,47 @@ export default class SkillEquip extends PureComponent {
               </ListItem>
             );
           })}
+          />
+        </View>
+      );
+    }
+    return (
+      null
+    );
+  }
+
+  renderDecorations() {
+    if (this.state.decorations.length > 0) {
+      return (
+        <View>
+          <DropDown
+            headerName={`Decorations`}
+            hide={false}
+            content={this.state.decorations.map((item, key) => {
+              return (
+                <ListItem
+                  key={key}
+                  style={{ marginLeft: 0, paddingLeft: 8 }}
+                  onPress={() => this.props.navigator.push({
+                  screen: 'TablessInfoScreen',
+                  passProps: {
+                    item_id: item.item_id,
+                    type: 'decorations',
+                  },
+                  animationType: 'slide-horizontal',
+                  title: item.name
+                  })}
+                  >
+                  <Left>
+                    <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+                  </Left>
+                  <Right>
+                    <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`+${item.level}`}</Text>
+                  </Right>
+                </ListItem>
+              );
+            })}
+          />
         </View>
       );
     }
@@ -175,7 +229,7 @@ export default class SkillEquip extends PureComponent {
       <ScrollView>
         {this.renderArmor()}
         {this.renderCharms()}
-        {/* {this.renderDecorations()} */}
+        {this.renderDecorations()}
       </ScrollView>
     );
   }
