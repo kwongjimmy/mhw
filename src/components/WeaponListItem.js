@@ -44,9 +44,9 @@ export default class WeaponListItem extends PureComponent {
     } else if (type === 'hunting_horn') {
       return (
         <View style={{ flex: 1, flexDirection: 'row' }}>
-          <Text style={{ fontSize: 18, color: note1.replace('white', 'gray'), textAlign: 'center' }}>{`\u266b`}</Text>
-          <Text style={{ fontSize: 18, color: note2.replace('white', 'gray'), textAlign: 'center' }}>{`\u266b`}</Text>
-          <Text style={{ fontSize: 18, color: note3.replace('white', 'gray'), textAlign: 'center' }}>{`\u266b`}</Text>
+          <Text style={{ fontSize: 16.5, color: note1.replace('white', 'gray'), textAlign: 'center' }}>{`\u266b`}</Text>
+          <Text style={{ fontSize: 16.5, color: note2.replace('white', 'gray'), textAlign: 'center' }}>{`\u266b`}</Text>
+          <Text style={{ fontSize: 16.5, color: note3.replace('white', 'gray'), textAlign: 'center' }}>{`\u266b`}</Text>
         </View>
       )
     } else if (type.includes('bowgun')) {
@@ -235,14 +235,14 @@ export default class WeaponListItem extends PureComponent {
       marginBottom = 4.5;
     }
     return (
-      <View style={{ flex: 1, flexDirection: 'row', width: 95, justifyContent: 'center'}}>
-        <View style={{ flex: red, marginTop, marginBottom, backgroundColor: '#C4424E' }}/>
-        <View style={{ flex: orange, marginTop, marginBottom, backgroundColor: '#DE7A56' }}/>
-        <View style={{ flex: yellow, marginTop, marginBottom, backgroundColor: '#D5BF45' }}/>
-        <View style={{ flex: green, marginTop, marginBottom, backgroundColor: '#94BB46' }}/>
-        <View style={{ flex: blue, marginTop, marginBottom, backgroundColor: '#465DD1' }}/>
-        <View style={{ flex: white, marginTop, marginBottom, backgroundColor: 'white' }}/>
-        <View style={{ flex: black, marginTop, marginBottom, backgroundColor: 'black' }}/>
+      <View style={{ flex: 1, flexDirection: 'row', width: 100, justifyContent: 'center'}}>
+        <View style={{ flex: red, marginTop, marginBottom, height: 10, backgroundColor: '#C4424E' }}/>
+        <View style={{ flex: orange, marginTop, marginBottom, height: 10, backgroundColor: '#DE7A56' }}/>
+        <View style={{ flex: yellow, marginTop, marginBottom, height: 10, backgroundColor: '#D5BF45' }}/>
+        <View style={{ flex: green, marginTop, marginBottom, height: 10, backgroundColor: '#94BB46' }}/>
+        <View style={{ flex: blue, marginTop, marginBottom, height: 10, backgroundColor: '#465DD1' }}/>
+        <View style={{ flex: white, marginTop, marginBottom, height: 10, backgroundColor: 'white' }}/>
+        <View style={{ flex: black, marginTop, marginBottom, height: 10, backgroundColor: 'black' }}/>
       </View>
     );
   }

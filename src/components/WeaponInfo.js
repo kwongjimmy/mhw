@@ -465,7 +465,7 @@ export default class WeaponInfo extends PureComponent {
         <ListItem style={{ marginLeft: 0, backgroundColor: 'white' }} itemDivider>
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${damage} (${true_damage})`} </Text>
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${slotOne} ${slotTwo} ${slotThree}`}</Text>
-          <View style={{ flex: 1, flexDirection: 'row', width: 95 }}>
+          <View style={{ flex: 1, flexDirection: 'row', width: 100 }}>
             <View style={{ flex: red, height: 10, backgroundColor: '#C4424E' }}/>
             <View style={{ flex: orange, height: 10, backgroundColor: '#DE7A56' }}/>
             <View style={{ flex: yellow, height: 10, backgroundColor: '#D5BF45' }}/>

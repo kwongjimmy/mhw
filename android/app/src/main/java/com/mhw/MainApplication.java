@@ -37,7 +37,7 @@ public class MainApplication extends NavigationApplication {
   public boolean clearHostOnActivityDestroy() {
     return false;
   }
-  
+
   @Override
   public List<ReactPackage> createAdditionalReactPackages() {
     return getPackages();
