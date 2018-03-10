@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { ScrollView, FlatList, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Tabs, ListItem, Text, Left, Body, Right, Icon } from 'native-base';
+import _ from 'underscore';
 import DropDown from './DropDown';
 
 export default class MapInfo extends PureComponent {
@@ -23,28 +24,16 @@ export default class MapInfo extends PureComponent {
           WHERE A.map_id = ?`
         , [this.props.map_id], (tx, results) => {
         // Get rows with Web SQL Database spec compliance.
-          let area = 0;
-          let first = true;
-          let areaArr = [];
+          // let area = 0;
+          // let first = true;
+          // let areaArr = [];
           const len = results.rows.length;
           for (let i = 0; i < len; i += 1) {
             const row = results.rows.item(i);
-            if (area !== row.area && first) {
-              area = row.area;
-              areaArr.push(row);
-              first = false;
-            } else if ( area !== row.area && !first) {
-              areas.push(areaArr);
-              areaArr = [];
-              area = row.area;
-              areaArr.push(row);
-            } else {
-              areaArr.push(row);
-            }
-            if (i + 1 === len) {
-              areas.push(areaArr);
-            }
+            areas.push(row);
           }
+          areas = _.groupBy(areas, area => area.area);
+          areas = _.values(areas);
           this.setState({
             areas,
             loading: false,
@@ -67,7 +56,38 @@ export default class MapInfo extends PureComponent {
     }
   }
 
-  renderContent() {
+  renderListItems = ({ item }) => {
+    return (
+        <DropDown
+          headerName={`Area ${item[0].area}`}
+          hide={true}
+          content={item.map((item2, key2) => {
+          return (
+            <ListItem
+              style={{ marginLeft: 0, paddingLeft: 8 }}
+              onPress={() => this.props.navigator.push({
+                screen: 'TabInfoScreen',
+                passProps: {
+                  item_id: item2.item_id,
+                  type: 'item',
+                },
+                animationType: 'slide-horizontal',
+                title: item2.name,
+              })}
+              key={key2}>
+              <Left>
+                <Text style={{ fontSize: 15.5, color: '#191919' }}>{item2.item_name}</Text>
+              </Left>
+              <Right>
+              </Right>
+            </ListItem>
+          );
+        })}
+      />
+    );
+  }
+
+  render() {
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
@@ -84,43 +104,15 @@ export default class MapInfo extends PureComponent {
       );
     }
     return (
-      <ScrollView>
-        {this.state.areas.map((item, key) => {
-          return (
-            <DropDown
-              key={key}
-              headerName={`Area ${item[0].area}`}
-              hide={true}
-              content={item.map((item2, key2) => {
-              return (
-                <ListItem
-                  style={{ marginLeft: 0, paddingLeft: 8 }}
-                  onPress={() => this.props.navigator.push({
-                    screen: 'TabInfoScreen',
-                    passProps: {
-                      item_id: item2.item_id,
-                      type: 'item',
-                    },
-                    animationType: 'slide-horizontal',
-                    title: item2.name,
-                  })}
-                  key={key2}>
-                  <Left>
-                    <Text style={{ fontSize: 15.5, color: '#191919' }}>{item2.item_name}</Text>
-                  </Left>
-                  <Right>
-                  </Right>
-                </ListItem>
-              );
-            })}
-          />
-          );
-        })}
-      </ScrollView>
+      <FlatList
+        initialNumToRender={12}
+        data={this.state.areas}
+        keyExtractor={item => `${item[0].area} ${item[0].item_name}`}
+        renderItem={this.renderListItems}
+        getItemLayout={(data, index) => (
+          { length: 52, offset: 52 * index, index }
+        )}
+      />
     );
-  }
-
-  render() {
-    return this.renderContent();
   }
 }

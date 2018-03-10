@@ -49,31 +49,6 @@ export default class MonsterLoot extends PureComponent {
     );
   }
 
-  // renderListItems = ({ item }) => {
-  //   return (
-  //     <View>
-  //       {this.renderListHeader(item)}
-  //       <ListItem style={{ marginLeft: 0, paddingLeft: 8 }}
-  //         onPress={() => this.props.navigator.push({
-  //           screen: 'TabInfoScreen',
-  //           passProps: {
-  //             item_id: item.item_id,
-  //             type: 'item',
-  //           },
-  //           animationType: 'slide-horizontal',
-  //           title: item.item_name,
-  //         })}>
-  //         <Left>
-  //           <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.item_name}</Text>
-  //         </Left>
-  //         <Right>
-  //           <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.chance}%`}</Text>
-  //         </Right>
-  //       </ListItem>
-  //     </View>
-  //   );
-  // }
-
   renderListItems = ({ item }) => {
     return (
       <DropDown
