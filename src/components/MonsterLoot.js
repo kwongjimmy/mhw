@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { View, FlatList, InteractionManager, ActivityIndicator } from 'react-native';
 import { Text, ListItem, Left, Right, Icon } from 'native-base';
+import DropDown from './DropDown';
 
 export default class MonsterLoot extends PureComponent {
   constructor(props) {
@@ -48,28 +49,60 @@ export default class MonsterLoot extends PureComponent {
     );
   }
 
+  // renderListItems = ({ item }) => {
+  //   return (
+  //     <View>
+  //       {this.renderListHeader(item)}
+  //       <ListItem style={{ marginLeft: 0, paddingLeft: 8 }}
+  //         onPress={() => this.props.navigator.push({
+  //           screen: 'TabInfoScreen',
+  //           passProps: {
+  //             item_id: item.item_id,
+  //             type: 'item',
+  //           },
+  //           animationType: 'slide-horizontal',
+  //           title: item.item_name,
+  //         })}>
+  //         <Left>
+  //           <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.item_name}</Text>
+  //         </Left>
+  //         <Right>
+  //           <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.chance}%`}</Text>
+  //         </Right>
+  //       </ListItem>
+  //     </View>
+  //   );
+  // }
+
   renderListItems = ({ item }) => {
     return (
-      <View>
-        {this.renderListHeader(item)}
-        <ListItem style={{ marginLeft: 0, paddingLeft: 8 }}
-          onPress={() => this.props.navigator.push({
-            screen: 'TabInfoScreen',
-            passProps: {
-              item_id: item.item_id,
-              type: 'item',
-            },
-            animationType: 'slide-horizontal',
-            title: item.item_name,
-          })}>
-          <Left>
-            <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.item_name}</Text>
-          </Left>
-          <Right>
-            <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.chance}%`}</Text>
-          </Right>
-        </ListItem>
-      </View>
+      <DropDown
+        headerName={`${item[0].name}`}
+        hide={false}
+        content={item.map((item2, key2) => {
+        return (
+          <ListItem
+            style={{ marginLeft: 0, paddingLeft: 8 }}
+            onPress={() => this.props.navigator.push({
+              screen: 'TabInfoScreen',
+              passProps: {
+                item_id: item2.item_id,
+                type: 'item',
+              },
+              animationType: 'slide-horizontal',
+              title: item2.name,
+            })}
+            key={key2}>
+            <Left>
+              <Text style={{ fontSize: 15.5, color: '#191919' }}>{item2.item_name}</Text>
+            </Left>
+            <Right>
+              <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item2.chance}%`}</Text>
+            </Right>
+          </ListItem>
+        );
+        })}
+      />
     );
   }
 
@@ -95,7 +128,7 @@ export default class MonsterLoot extends PureComponent {
       <FlatList
         initialNumToRender={12}
         data={this.state.data}
-        keyExtractor={item => item.loot_id.toString()}
+        keyExtractor={item => `${item[0].name} ${item[0].item_name}`}
         renderItem={this.renderListItems}
         getItemLayout={(data, index) => (
           { length: 52, offset: 52 * index, index }

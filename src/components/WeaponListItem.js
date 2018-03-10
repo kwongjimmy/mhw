@@ -146,7 +146,7 @@ export default class WeaponListItem extends PureComponent {
     } = info;
     let margin = cls + pow + par + poi + sle + bla;
     if (margin < 3) {
-      margin = 100
+      margin = 90
     } else {
       margin = 95 - (margin * 10);
     }
@@ -226,15 +226,23 @@ export default class WeaponListItem extends PureComponent {
       }
       return this.renderCoatings(info);
     }
+    let marginTop = 7.5;
+    let marginBottom = 7.5;
+    if (info.type === 'hunting_horn' || info.type === 'gun_lance' ||
+    info.type === 'switch_axe' || info.type === 'charge_blade' ||
+    info.type === 'insect_glaive') {
+      marginTop = 4.5;
+      marginBottom = 4.5;
+    }
     return (
-      <View style={{ flex: 1, flexDirection: 'row', width: 93, justifyContent: 'center' }}>
-        <View style={{ flex: red, height: 10, backgroundColor: '#C4424E' }}/>
-        <View style={{ flex: orange, height: 10, backgroundColor: '#DE7A56' }}/>
-        <View style={{ flex: yellow, height: 10, backgroundColor: '#D5BF45' }}/>
-        <View style={{ flex: green, height: 10, backgroundColor: '#94BB46' }}/>
-        <View style={{ flex: blue, height: 10, backgroundColor: '#465DD1' }}/>
-        <View style={{ flex: white, height: 10, backgroundColor: 'white' }}/>
-        <View style={{ flex: black, height: 10, backgroundColor: 'black' }}/>
+      <View style={{ flex: 1, flexDirection: 'row', width: 95, justifyContent: 'center'}}>
+        <View style={{ flex: red, marginTop, marginBottom, backgroundColor: '#C4424E' }}/>
+        <View style={{ flex: orange, marginTop, marginBottom, backgroundColor: '#DE7A56' }}/>
+        <View style={{ flex: yellow, marginTop, marginBottom, backgroundColor: '#D5BF45' }}/>
+        <View style={{ flex: green, marginTop, marginBottom, backgroundColor: '#94BB46' }}/>
+        <View style={{ flex: blue, marginTop, marginBottom, backgroundColor: '#465DD1' }}/>
+        <View style={{ flex: white, marginTop, marginBottom, backgroundColor: 'white' }}/>
+        <View style={{ flex: black, marginTop, marginBottom, backgroundColor: 'black' }}/>
       </View>
     );
   }

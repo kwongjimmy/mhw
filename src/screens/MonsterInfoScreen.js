@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { Text, View, ActivityIndicator, InteractionManager } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Tabs, ScrollableTab } from 'native-base';
-
+import _ from 'underscore';
 // import { Images, ElementStatusImages } from '../assets'
 
 import MonsterInfo from '../components/MonsterInfo';
@@ -28,8 +28,8 @@ export default class MonsterInfoScreen extends PureComponent {
       }, this.okCallback, this.errorCallback);
       db.transaction((tx) => {
         const monster_hit = [];
-        const monster_loot = [];
-        const monster_loot_high = [];
+        let monster_loot = [];
+        let monster_loot_high = [];
         const monster_armor = [];
         const monster_weapons = [];
         const monster_quest = [];
@@ -53,12 +53,15 @@ export default class MonsterInfoScreen extends PureComponent {
           FROM monster_loot as loot
           INNER JOIN monster_loot_categories as cat ON loot.category_id = cat.category_id
           INNER JOIN items as items ON loot.item_id = items.item_id
-          WHERE loot.monster_id = ? AND cat.rank = 0`,
+          WHERE loot.monster_id = ? AND cat.rank = 0
+          ORDER BY cat.name`,
           [this.props.monster_id], (tx, results) => {
             for (let i = 0; i < results.rows.length; i += 1) {
               const row = results.rows.item(i);
               monster_loot.push(row);
             }
+            monster_loot = _.groupBy(monster_loot, loot => loot.name);
+            monster_loot = _.values(monster_loot);
           },
         );
         tx.executeSql(
@@ -75,12 +78,15 @@ export default class MonsterInfoScreen extends PureComponent {
           FROM monster_loot as loot
           INNER JOIN monster_loot_categories as cat ON loot.category_id = cat.category_id
           INNER JOIN items as items ON loot.item_id = items.item_id
-          WHERE loot.monster_id = ? AND cat.rank = 1`,
+          WHERE loot.monster_id = ? AND cat.rank = 1
+          ORDER BY cat.name`,
           [this.props.monster_id], (tx, results) => {
             for (let i = 0; i < results.rows.length; i += 1) {
               const row = results.rows.item(i);
               monster_loot_high.push(row);
             }
+            monster_loot_high = _.groupBy(monster_loot_high, loot => loot.name);
+            monster_loot_high = _.values(monster_loot_high);
           },
         );
         tx.executeSql(
