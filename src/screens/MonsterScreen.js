@@ -162,7 +162,7 @@ export default class MonsterScreen extends PureComponent {
   render() {
     return (
       <Tabs
-        prerenderingSiblingsNumber={0}
+        prerenderingSiblingsNumber={3}
         scrollWithoutAnimation={false}
         tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }}
         initialPage={0}>
