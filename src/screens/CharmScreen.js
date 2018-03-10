@@ -61,15 +61,15 @@ export default class CharmScreen extends PureComponent {
   renderSkills(item) {
     if (item.skill1_name !== null && item.skill2_name !== null) {
       return (
-        <Right style={{ flex: 2 }}>
-          <Text style={{ flex: 1, fontSize: 14, color: '#8e8e8e' }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
-          <Text style={{ flex: 1, fontSize: 14, color: '#8e8e8e' }}>{`${item.skill2_name} +${item.skill2_level}`}</Text>
+        <Right style={{ flex: 2, justifyContent: 'center' }}>
+          <Text style={{ fontSize: 14, color: '#8e8e8e' }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
+          <Text style={{ fontSize: 14, color: '#8e8e8e' }}>{`${item.skill2_name} +${item.skill2_level}`}</Text>
         </Right>
       );
     } else if (item.skill1_name !== null && item.skill2_name === null) {
       return (
-        <Right style={{ flex: 2 }}>
-          <Text style={{ flex: 1, fontSize: 14, color: '#8e8e8e' }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
+        <Right style={{ flex: 2, justifyContent: 'center' }}>
+          <Text style={{ fontSize: 14, color: '#8e8e8e' }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
         </Right>
       );
     }
@@ -81,7 +81,7 @@ export default class CharmScreen extends PureComponent {
   renderListItems = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 8 }}
+        style={{ marginLeft: 0, paddingLeft: 8, height: 60 }}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
         passProps: {
@@ -115,7 +115,7 @@ export default class CharmScreen extends PureComponent {
         keyExtractor={(item) => item.item_id.toString()}
         renderItem={this.renderListItems}
         getItemLayout={(data, index) => (
-          { length: 52, offset: 52 * index, index }
+          { length: 60, offset: 60 * index, index }
         )}
       />
     );

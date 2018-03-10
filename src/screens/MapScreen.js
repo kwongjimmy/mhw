@@ -52,7 +52,7 @@ export default class MapScreen extends PureComponent {
   renderListItems = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 8 }}
+        style={{ marginLeft: 0, paddingLeft: 8, height: 50 }}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
         passProps: {
@@ -63,7 +63,7 @@ export default class MapScreen extends PureComponent {
         title: item.name,
       })}>
       <Left>
-        <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+        <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'left' }}>{item.name}</Text>
       </Left>
       </ListItem>
     );
@@ -85,7 +85,7 @@ export default class MapScreen extends PureComponent {
         keyExtractor={(item) => item.map_id.toString()}
         renderItem={this.renderListItems}
         getItemLayout={(data, index) => (
-          { length: 52, offset: 52 * index, index }
+          { length: 50, offset: 50 * index, index }
         )}
       />
     );

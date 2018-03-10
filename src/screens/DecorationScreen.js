@@ -58,7 +58,7 @@ export default class DecorationScreen extends Component {
   renderListItems = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 8 }}
+        style={{ height: 60, marginLeft: 0, paddingLeft: 8 }}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
         passProps: {
@@ -71,8 +71,8 @@ export default class DecorationScreen extends Component {
       <Left style= {{ flex: 1 }}>
         <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
       </Left>
-      <Right style= {{ flex: 1 }}>
-        <Text style={{ fontSize: 15.5, color: '#8e8e8e' }}>{item.skill_name} +{item.skill_level}</Text>
+      <Right style= {{ flex: 1, justifyContent: 'center' }}>
+        <Text style={{ fontSize: 14, color: '#8e8e8e' }}>{item.skill_name} +{item.skill_level}</Text>
       </Right>
       </ListItem>
     );
@@ -93,7 +93,7 @@ export default class DecorationScreen extends Component {
         keyExtractor={(item) => item.item_id.toString()}
         renderItem={this.renderListItems}
         getItemLayout={(data, index) => (
-          { length: 52, offset: 52 * index, index }
+          { length: 60, offset: 60 * index, index }
         )}
       />
     );

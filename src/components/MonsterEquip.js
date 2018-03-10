@@ -43,21 +43,25 @@ export default class MonsterEquip extends PureComponent {
     let slot2 = (item.slot2 === 0) ? `-` : (item.slot2 === 1) ? `\u2460` : (item.slot2 === 2) ? `\u2461` : `\u2462`;
     let slot3 = (item.slot3 === 0) ? `-` : (item.slot3 === 1) ? `\u2460` : (item.slot3 === 2) ? `\u2461` : `\u2462`;
     return (
-      <Text style={{ flex: 1, fontSize: 15.5, fontWeight: '500', color: '#8e8e8e', textAlign: 'center' }}>{`${slot1} ${slot2} ${slot3}`}</Text>
+      <View style={{ justifyContent: 'center' }}>
+        <Text style={{ fontSize: 15.5, fontWeight: '500', color: '#8e8e8e', textAlign: 'center' }}>{`${slot1} ${slot2} ${slot3}`}</Text>
+      </View>
     );
   }
 
   renderSkills(item) {
     if (item.skill1_name !== null && item.skill2_name !== null) {
       return (
-        <View>
-          <Text style={{ flex: 1, fontSize: 11, color: '#8e8e8e' }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
+        <View style={{ justifyContent: 'center' }}>
+          <Text style={{ fontSize: 11, color: '#8e8e8e' }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
           <Text style={{ flex: 1, fontSize: 11, color: '#8e8e8e' }}>{`${item.skill2_name} +${item.skill2_level}`}</Text>
         </View>
       );
     } else if (item.skill1_name !== null && item.skill2_name === null) {
       return (
-        <Text style={{ flex: 1, fontSize: 11, color: '#8e8e8e' }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
+        <View style={{ justifyContent: 'center' }}>
+          <Text style={{ fontSize: 11, color: '#8e8e8e' }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
+        </View>
       );
     }
     return (
@@ -80,7 +84,7 @@ export default class MonsterEquip extends PureComponent {
       })}
       >
         <Left>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+          <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
         </Left>
         <Body>
           {this.renderSkills(item)}

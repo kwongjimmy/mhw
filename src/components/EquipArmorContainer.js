@@ -7,7 +7,7 @@ export default class EquipArmorContainer extends PureComponent {
   constructor(props) {
     super(props);
     const armor = [];
-    if (this.props.armor_head_item_id !== null) {
+    if (this.props.armor.head_item_id !== null) {
       armor.push({
         name: this.props.armor.head_name,
         item_id: this.props.armor.head_item_id,
@@ -82,19 +82,22 @@ export default class EquipArmorContainer extends PureComponent {
       armor,
       hide: true,
     };
+    // console.log(this.state);
   }
 
   renderSkills(item) {
     if (item.skill1 !== null && item.skill2 !== null) {
       return (
-        <View>
-          <Text style={{ flex: 1, fontSize: 11, color: '#8e8e8e' }}>{`${item.skill1} +${item.skill1_level}`}</Text>
-          <Text style={{ flex: 1, fontSize: 11, color: '#8e8e8e' }}>{`${item.skill2} +${item.skill2_level}`}</Text>
+        <View style={{ justifyContent: 'center' }}>
+          <Text style={{ fontSize: 11, color: '#8e8e8e' }}>{`${item.skill1} +${item.skill1_level}`}</Text>
+          <Text style={{ fontSize: 11, color: '#8e8e8e' }}>{`${item.skill2} +${item.skill2_level}`}</Text>
         </View>
       );
     } else if (item.skill1 !== null && item.skill2 === null) {
       return (
-        <Text style={{ flex: 1, fontSize: 11, color: '#8e8e8e' }}>{`${item.skill1} +${item.skill1_level}`}</Text>
+        <View style={{ justifyContent: 'center' }}>
+          <Text style={{ fontSize: 11, color: '#8e8e8e' }}>{`${item.skill1} +${item.skill1_level}`}</Text>
+        </View>
       );
     }
     return (
@@ -107,7 +110,9 @@ export default class EquipArmorContainer extends PureComponent {
     let slot2 = (item.slot2 === 0) ? `-` : (item.slot2 === 1) ? `\u2460` : (item.slot2 === 2) ? `\u2461` : `\u2462`;
     let slot3 = (item.slot3 === 0) ? `-` : (item.slot3 === 1) ? `\u2460` : (item.slot3 === 2) ? `\u2461` : `\u2462`;
     return (
-      <Text style={{ flex: 1, fontSize: 14, fontWeight: '500', color: '#8e8e8e', textAlign: 'center' }}>{`${slot1} ${slot2} ${slot3}`}</Text>
+      <View style={{ justifyContent: 'center' }}>
+        <Text style={{ fontSize: 14, fontWeight: '500', color: '#8e8e8e', textAlign: 'center' }}>{`${slot1} ${slot2} ${slot3}`}</Text>
+      </View>
     );
   }
 
@@ -162,7 +167,7 @@ export default class EquipArmorContainer extends PureComponent {
               <Body style={{ flex: 1.5 }}>
                 {this.renderSkills(item)}
               </Body>
-              <Right style={{ flex: 1 }}>
+              <Right style={{ flex: 0.75 }}>
                 {this.renderSlots(item)}
               </Right>
             </ListItem>

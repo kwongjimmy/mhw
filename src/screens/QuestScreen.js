@@ -77,7 +77,7 @@ export default class QuestScreen extends PureComponent {
   renderListItems = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 18 }}
+        style={{ marginLeft: 0, paddingLeft: 18, height: 60 }}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
 				passProps: {
@@ -115,7 +115,7 @@ export default class QuestScreen extends PureComponent {
           keyExtractor={(item) => item.quest_id.toString()}
           renderItem={this.renderListItems}
           getItemLayout={(data, index) => (
-            { length: 52, offset: 52 * index, index }
+            { length: 60, offset: 60 * index, index }
           )}
         />
       );
@@ -128,7 +128,7 @@ export default class QuestScreen extends PureComponent {
           keyExtractor={(item) => item.quest_id.toString()}
           renderItem={this.renderListItems}
           getItemLayout={(data, index) => (
-            { length: 52, offset: 52 * index, index }
+            { length: 60, offset: 60 * index, index }
           )}
         />
       );
@@ -141,7 +141,7 @@ export default class QuestScreen extends PureComponent {
         keyExtractor={(item) => item.quest_id.toString()}
         renderItem={this.renderListItems}
         getItemLayout={(data, index) => (
-          { length: 52, offset: 52 * index, index }
+          { length: 60, offset: 60 * index, index }
         )}
       />
     );

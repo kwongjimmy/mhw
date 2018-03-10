@@ -47,7 +47,7 @@ export default class MonsterQuest extends Component {
           <Body>
             <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.quest_name}</Text>
           </Body>
-          <Right>
+          <Right style={{ justifyContent: 'center' }}>
             <Text style={{ fontSize: 14.5, color: '#5e5e5e' }}>{item.type}</Text>
             <Text style={{ fontSize: 14.5, color: '#5e5e5e' }}>{`${item.required_rank} \u2605`}</Text>
           </Right>

@@ -52,7 +52,7 @@ export default class ItemScreen extends PureComponent {
   renderListItems = ({ item }) => {
     if (item.category === 'weapon') {
       return (
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18 }} onPress={() => this.props.navigator.push({
+        <ListItem style={{ height: 50, marginLeft: 0, paddingLeft: 18 }} onPress={() => this.props.navigator.push({
           screen: 'TablessInfoScreen',
           passProps: {
             item_id: item.item_id,
@@ -62,13 +62,13 @@ export default class ItemScreen extends PureComponent {
           animationType: 'slide-horizontal',
           title: item.name,
         })}>
-          <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+          <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'left' }}>{item.name}</Text>
         </ListItem>
       );
     }
     if (item.category === 'item') {
       return (
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18 }} onPress={() => this.props.navigator.push({
+        <ListItem style={{ height: 50, marginLeft: 0, paddingLeft: 18 }} onPress={() => this.props.navigator.push({
           screen: 'TabInfoScreen',
           passProps: {
             item_id: item.item_id,
@@ -77,12 +77,12 @@ export default class ItemScreen extends PureComponent {
           animationType: 'slide-horizontal',
           title: item.name,
         })}>
-          <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+          <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'left' }}>{item.name}</Text>
         </ListItem>
       );
     }
     return (
-      <ListItem style={{ marginLeft: 0, paddingLeft: 18 }} onPress={() => this.props.navigator.push({
+      <ListItem style={{ height: 50, marginLeft: 0, paddingLeft: 18 }} onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
         passProps: {
           item_id: item.item_id,
@@ -91,7 +91,7 @@ export default class ItemScreen extends PureComponent {
         animationType: 'slide-horizontal',
         title: item.name,
       })}>
-        <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+        <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'left' }}>{item.name}</Text>
       </ListItem>
     );
   }
@@ -112,7 +112,7 @@ export default class ItemScreen extends PureComponent {
         keyExtractor={(item) => item.item_id.toString()}
         renderItem={this.renderListItems}
         getItemLayout={(data, index) => (
-          { length: 52, offset: 52 * index, index }
+          { length: 50, offset: 50 * index, index }
         )}
       />
     );
