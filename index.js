@@ -5,9 +5,23 @@
 
 __STRESS_TEST__ = false;
 // import App from './src/app';
+import { Platform } from 'react-native';
+import { Navigation, NativeEventsReceiver } from 'react-native-navigation';
 import { iconsMap, iconsLoaded } from './src/assets/app-icons';
-import registerApp from './src/index';
+import startApp from './src/index';
 
-iconsLoaded.then(() => {
-  registerApp();
-});
+if (Platform.OS === 'ios') {
+  iconsLoaded.then(() => {
+    startApp();
+  });
+} else {
+  Navigation.isAppLaunched()
+    .then((appLaunched) => {
+      if (appLaunched) {
+        iconsLoaded.then(() => {
+          startApp();
+        });
+      }
+      new NativeEventsReceiver().appLaunched(startApp);
+    });
+}
