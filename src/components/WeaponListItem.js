@@ -235,7 +235,7 @@ export default class WeaponListItem extends PureComponent {
       marginBottom = 4.5;
     }
     return (
-      <View style={{ flex: 1, flexDirection: 'row', width: 95, justifyContent: 'center'}}>
+      <View style={{ flex: 1, flexDirection: 'row', width: 95, justifyContent: 'center' }}>
         <View style={{ flex: red, marginTop, marginBottom, backgroundColor: '#C4424E' }}/>
         <View style={{ flex: orange, marginTop, marginBottom, backgroundColor: '#DE7A56' }}/>
         <View style={{ flex: yellow, marginTop, marginBottom, backgroundColor: '#D5BF45' }}/>
