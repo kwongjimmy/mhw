@@ -46,14 +46,14 @@ export default class AboutScreen extends PureComponent {
           style={{ marginLeft: 0, paddingLeft: 8 }}
           onPress={() => Linking.openURL('https://mhworld.kiranico.com/')}>
           <Left>
-            <Text style = {{ fontSize: 15.5 }}>Wikia - Monster Hunter World Data</Text>
+            <Text style = {{ fontSize: 15.5 }}>Kiranico - Monster Hunter World Data</Text>
           </Left>
         </ListItem>
         <ListItem
           style={{ marginLeft: 0, paddingLeft: 8 }}
           onPress={() => Linking.openURL('http://monsterhunter.wikia.com/wiki/Monster_Hunter:_World')}>
           <Left>
-          <Text style = {{ fontSize: 15.5 }}>Kiranico - Monster Hunter World Data</Text>
+          <Text style = {{ fontSize: 15.5 }}>Wikia - Monster Hunter World Data</Text>
           </Left>
         </ListItem>
         <ListItem
