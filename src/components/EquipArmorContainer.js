@@ -156,7 +156,7 @@ export default class EquipArmorContainer extends PureComponent {
               title: item.name,
             })}
             >
-              <Left style={{ flex: 1.5 }}>
+              <Left style={{ flex: 1.25 }}>
                 <Image
                   resizeMode="contain"
                   style={{ alignSelf: 'center', width: 20, height: 20 }}
@@ -164,10 +164,10 @@ export default class EquipArmorContainer extends PureComponent {
                 />
                 <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
               </Left>
-              <Body style={{ flex: 1.5 }}>
+              <Body style={{ flex: 1.25 }}>
                 {this.renderSkills(item)}
               </Body>
-              <Right style={{ flex: 0.75 }}>
+              <Right style={{ flex: 1 }}>
                 {this.renderSlots(item)}
               </Right>
             </ListItem>

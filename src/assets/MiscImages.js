@@ -6,6 +6,8 @@ const MiscImages = {
   'Decorations': require('./images/misc/ItemIcon017.png'),
   'Skills': require('./images/misc/ItemIcon026.png'),
   'Maps': require('./images/misc/ItemIcon027.png'),
+  'About': require('./images/misc/ItemIcon058f.png'),
+  'Support Us': require('./images/misc/ItemIcon060e.png'),
 };
 
 export default MiscImages;

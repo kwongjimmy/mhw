@@ -13,6 +13,7 @@ import CharmScreen from './screens/CharmScreen';
 import SkillScreen from './screens/SkillScreen';
 import MapScreen from './screens/MapScreen';
 import DecorationScreen from './screens/DecorationScreen';
+import AboutScreen from './screens/AboutScreen';
 
 import MonsterInfoScreen from './screens/MonsterInfoScreen';
 import TabInfoScreen from './screens/TabInfoScreen';
@@ -30,6 +31,7 @@ import TablessInfoScreen from './screens/TablessInfoScreen';
   Navigation.registerComponent('SkillScreen', () => SkillScreen);
   Navigation.registerComponent('MapScreen', () => MapScreen);
   Navigation.registerComponent('DecorationScreen', () => DecorationScreen);
+  Navigation.registerComponent('AboutScreen', () => AboutScreen);
 
   Navigation.registerComponent('WeaponSelectedScreen', () => WeaponSelectedScreen);
   Navigation.registerComponent('MonsterInfoScreen', () => MonsterInfoScreen);
