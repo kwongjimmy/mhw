@@ -1,4 +1,4 @@
-package com.mhw;
+package com.chingoo.mhw;
 
 import android.content.Intent;
 import android.os.Bundle;

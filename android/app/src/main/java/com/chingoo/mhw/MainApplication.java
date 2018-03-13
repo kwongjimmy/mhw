@@ -1,4 +1,4 @@
-package com.mhw;
+package com.chingoo.mhw;
 
 import android.app.Application;
 

@@ -1,4 +1,4 @@
-package com.mhw;
+package com.chingoo.mhw;
 
 import com.reactnativenavigation.controllers.SplashActivity;
 import org.devio.rn.splashscreen.SplashScreen;
