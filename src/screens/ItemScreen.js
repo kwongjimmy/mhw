@@ -21,7 +21,7 @@ export default class ItemScreen extends PureComponent {
     db.transaction((tx) => {
       const items = [];
       tx.executeSql(
-        `SELECT item_id, name, category FROM items WHERE category = 'item' ORDER BY item_id`,
+        `SELECT item_id, name, category FROM items WHERE category = 'item' ORDER BY name`,
         [], (tx, results) => {
         // Get rows with Web SQL Database spec compliance.
           const len = results.rows.length;
