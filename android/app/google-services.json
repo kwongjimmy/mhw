@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "267254252848",
+    "firebase_url": "https://mhw-db.firebaseio.com",
+    "project_id": "mhw-db",
+    "storage_bucket": "mhw-db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:267254252848:android:41fc926abae73de1",
+        "android_client_info": {
+          "package_name": "com.chingoo.mhw"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "267254252848-848f665iu06d1edual6iqmsb1gqopt7t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0Vtb9eWOEmjaccHnR9PDyvtC0G5Llu18"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

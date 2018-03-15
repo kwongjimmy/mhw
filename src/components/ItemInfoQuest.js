@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import { View, FlatList } from 'react-native';
-import { ListItem, Body, Right, Text, Icon } from 'native-base';
+import { ListItem, Body, Right, Left, Text, Icon } from 'native-base';
+import AdBanner from './AdBanner';
+import DropDown from './DropDown';
 
 export default class ItemInfoQuest extends PureComponent {
   constructor(props) {
@@ -44,26 +46,46 @@ export default class ItemInfoQuest extends PureComponent {
     );
   }
 
+  renderListHeader() {
+    return (
+      <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
+        <Left>
+          <Text style={{ fontSize: 15.5, color: '#191919' }}>Quests</Text>
+        </Left>
+        <Right />
+      </ListItem>
+    );
+  }
   render() {
     if (this.props.items.length === 0) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: '#8e8e8e' }} />
-          <Text style={{ textAlign: 'center', fontSize: 25, color: '#8e8e8e' }}>No Data</Text>
-        </View>
+        // <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+        //   <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: '#8e8e8e' }} />
+        //   <Text style={{ textAlign: 'center', fontSize: 25, color: '#8e8e8e' }}>No Data</Text>
+        // </View>
+        null
       );
     }
     return (
-      <FlatList
-        initialNumToRender={8}
-        contextContainerStyle={{ paddingTop: 20 }}
-        data={this.props.items}
-        keyExtractor={(item) => item.quest_id.toString()}
-        renderItem={this.renderListItems}
-        getItemLayout={(data, index) => (
-          { length: 65, offset: 65 * index, index }
-        )}
-      />
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <DropDown
+          headerName={'Quest Rewards'}
+          hide={false}
+          content={
+            <FlatList
+              // ListHeaderComponent={this.renderListHeader()}
+              initialNumToRender={8}
+              contextContainerStyle={{ paddingTop: 20 }}
+              data={this.props.items}
+              keyExtractor={(item) => item.quest_id.toString()}
+              renderItem={this.renderListItems}
+              getItemLayout={(data, index) => (
+                { length: 65, offset: 65 * index, index }
+              )}
+            />}
+          />
+        {/* <AdBanner /> */}
+      </View>
     );
   }
 }

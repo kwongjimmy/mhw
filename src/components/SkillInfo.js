@@ -3,6 +3,7 @@ import { ScrollView, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Tab, Tabs, ListItem, Text, Left, Body } from 'native-base';
 import SkillEquip from './SkillEquip';
+import AdBanner from './AdBanner';
 
 export default class SkillInfo extends PureComponent {
   constructor(props) {
@@ -86,31 +87,38 @@ export default class SkillInfo extends PureComponent {
     }
     if (screen === 'Info') {
       return (
-        <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
-          <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
-            <Left>
-              <Text style={{ fontSize: 15.5, color: '#191919' }}>Description</Text>
-            </Left>
-          </ListItem>
-          <ListItem style={{ marginLeft: 0, paddingLeft: 8 }}>
-            <Left>
-              <Text style={{ fontSize: 15.5, color: '#191919' }}>{this.state.info.description}</Text>
-            </Left>
-          </ListItem>
-          <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
-            <Left>
-              <Text style={{ fontSize: 15.5, color: '#191919' }}>Level</Text>
-            </Left>
-            <Body>
-            <Text></Text>
-            </Body>
-          </ListItem>
-          {this.renderLevels()}
-        </ScrollView>
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+          <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
+            <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
+              <Left>
+                <Text style={{ fontSize: 15.5, color: '#191919' }}>Description</Text>
+              </Left>
+            </ListItem>
+            <ListItem style={{ marginLeft: 0, paddingLeft: 8 }}>
+              <Left>
+                <Text style={{ fontSize: 15.5, color: '#191919' }}>{this.state.info.description}</Text>
+              </Left>
+            </ListItem>
+            <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
+              <Left>
+                <Text style={{ fontSize: 15.5, color: '#191919' }}>Level</Text>
+              </Left>
+              <Body>
+              <Text></Text>
+              </Body>
+            </ListItem>
+            {this.renderLevels()}
+          </ScrollView>
+          <AdBanner />
+        </View>
+
       );
     }
     return (
-      <SkillEquip navigator={this.props.navigator} armor_skill_id={this.props.armor_skill_id}/>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <SkillEquip navigator={this.props.navigator} armor_skill_id={this.props.armor_skill_id}/>
+        <AdBanner />
+      </View>
     );
   }
 

@@ -1,13 +1,16 @@
 import React, { PureComponent } from 'react';
 import { View, FlatList, Platform, Image, Linking} from 'react-native';
 import { Container, ListItem, Text, Left, Body } from 'native-base';
-// import {
-//   AdMobBanner,
-//   AdMobInterstitial,
-//   PublisherBanner,
-//   AdMobRewarded,
-// } from 'react-native-admob';
+import firebase from 'react-native-firebase';
 import { MiscImages } from '../assets';
+import AdBanner from '../components/AdBanner';
+
+const Banner = firebase.admob.Banner;
+const AdRequest = firebase.admob.AdRequest;
+const request = new AdRequest();
+request.addKeyword('games');
+request.addKeyword('monster hunter');
+request.addKeyword('video games');
 
 export default class MiscScreen extends PureComponent {
   static navigatorStyle = {
@@ -102,23 +105,25 @@ export default class MiscScreen extends PureComponent {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
-      <FlatList
-        style={{ backgroundColor: 'white' }}
-        data={this.state.screens}
-        keyExtractor={(item) => item.route}
-        renderItem={this.renderListItems}
-      />
-      {/* <AdMobBanner
-        style={{ alignSelf: 'center' }}
-        adSize="fullBanner"
-        validAdSizes={['banner', 'largeBanner', 'mediumRectangle']}
-        adUnitID="ca-app-pub-9661316023859369/7600878725"
-        // testDevices={[AdMobBanner.simulatorId]}
-        // onAdFailedToLoad={error => console.error(error)}
-        onAppEvent={event => console.log(event.name, event.info)}
-      /> */}
-    </View>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <FlatList
+          style={{ backgroundColor: 'white' }}
+          data={this.state.screens}
+          keyExtractor={(item) => item.route}
+          renderItem={this.renderListItems}
+        />
+      {/* <Banner
+        unitId={'ca-app-pub-3940256099942544/6300978111'}
+          // unitId={'ca-app-pub-9661316023859369/7600878725'}
+         size={'SMART_BANNER'}
+         request={request.build()}
+         onAdFailedToLoad={error => console.log(error)}
+         onAdLoaded={() => {
+           console.log('Advert loaded');
+         }}
+       /> */}
+       <AdBanner />
+     </View>
     );
   }
 }

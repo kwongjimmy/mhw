@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
-import { View, ActivityIndicator, InteractionManager } from 'react-native';
+import { View, ActivityIndicator, InteractionManager, ScrollView } from 'react-native';
 import { ListItem, Text, Right, Left, Body } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
+import AdBanner from './AdBanner';
 
 export default class EquipArmorInfo extends PureComponent {
 
@@ -190,7 +191,7 @@ export default class EquipArmorInfo extends PureComponent {
             <View key={key}>
               <ListItem style={{ marginLeft: 0, backgroundColor: 'white', paddingLeft: 8 }}
                 onPress={() => this.props.navigator.push({
-                  screen: 'TabInfoScreen',
+                  screen: 'TablessInfoScreen',
                   passProps: {
                     item_id: item.item_id,
                     type: 'item',
@@ -223,15 +224,20 @@ export default class EquipArmorInfo extends PureComponent {
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <ScrollView style={{ backgroundColor: 'white' }} contentContainerStyle={{ flex: 1 }}>
         {this.renderInfo()}
         {this.renderSkills()}
         {this.renderCrafting()}
-      </View>
+      </ScrollView>
     );
   }
 
   render() {
-    return this.renderContent();
+    return (
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        {this.renderContent()}
+        <AdBanner />
+      </View>
+    );
   }
 }

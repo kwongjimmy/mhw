@@ -3,6 +3,8 @@ package com.chingoo.mhw;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.admob.RNFirebaseAdMobPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -29,7 +31,9 @@ public class MainApplication extends NavigationApplication {
             // eg. new VectorIconsPackage()
             new VectorIconsPackage(),
             new SplashScreenReactPackage(),
-            new SQLitePluginPackage()  // register SQLite Plugin here
+            new SQLitePluginPackage(),  // register SQLite Plugin here
+            new RNFirebasePackage(),
+            new RNFirebaseAdMobPackage()
     );
   }
 

@@ -5,6 +5,8 @@ import MapInfo from '../components/MapInfo';
 import WeaponInfo from '../components/WeaponInfo';
 import QuestInfo from '../components/QuestInfo';
 import DecorationInfo from '../components/DecorationInfo';
+import ItemInfo from '../components/ItemInfo';
+
 
 export default class TablessInfoScreen extends PureComponent {
   static navigatorStyle = {
@@ -30,7 +32,11 @@ export default class TablessInfoScreen extends PureComponent {
   }
 
   render() {
-    if (this.props.type === 'charms') {
+    if (this.props.type === 'item') {
+      return (
+        <ItemInfo navigator={this.props.navigator} item_id={this.props.item_id}/>
+      );
+    } else if (this.props.type === 'charms') {
       return (
         <CharmInfo navigator={this.props.navigator} item_id={this.props.item_id}/>
       );

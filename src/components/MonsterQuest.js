@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, FlatList, InteractionManager, ActivityIndicator } from 'react-native';
 import { Text, ListItem, Left, Right, Body, Icon } from 'native-base';
+import AdBanner from './AdBanner';
 
 export default class MonsterQuest extends Component {
   constructor(props) {
@@ -75,15 +76,18 @@ export default class MonsterQuest extends Component {
       );
     }
     return (
-      <FlatList
-        initialNumToRender={8}
-        data={this.state.data}
-        keyExtractor={(item) => item.quest_id.toString()}
-        renderItem={this.renderListItems}
-        getItemLayout={(data, index) => (
-          { length: 65, offset: 65 * index, index }
-        )}
-      />
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <FlatList
+          initialNumToRender={8}
+          data={this.state.data}
+          keyExtractor={(item) => item.quest_id.toString()}
+          renderItem={this.renderListItems}
+          getItemLayout={(data, index) => (
+            { length: 65, offset: 65 * index, index }
+          )}
+        />
+        <AdBanner />
+      </View>
     );
   }
 }

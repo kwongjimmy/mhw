@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { View, FlatList, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, ListItem, Text, Left, Right, Body } from 'native-base';
+import AdBanner from '../components/AdBanner';
 
 export default class SkillScreen extends PureComponent {
   static navigatorStyle = {
@@ -82,13 +83,16 @@ export default class SkillScreen extends PureComponent {
       );
     }
     return (
-      <FlatList
-        style={{ backgroundColor: 'white' }}
-        initialNumToRender={8}
-        data={this.state.items}
-        keyExtractor={(item) => item.armor_skill_id.toString()}
-        renderItem={this.renderListItems}
-      />
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <FlatList
+          style={{ backgroundColor: 'white' }}
+          initialNumToRender={8}
+          data={this.state.items}
+          keyExtractor={(item) => item.armor_skill_id.toString()}
+          renderItem={this.renderListItems}
+        />
+        <AdBanner />
+      </View>
     );
   }
 

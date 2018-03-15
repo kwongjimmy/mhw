@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { Text, View, FlatList, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Tabs, ListItem, Left, Right, Body } from 'native-base';
+import AdBanner from '../components/AdBanner';
 
 export default class QuestScreen extends PureComponent {
   static navigatorStyle = {
@@ -108,42 +109,51 @@ export default class QuestScreen extends PureComponent {
     }
     if (screen === 'tab1') {
       return (
-        <FlatList
-          style={{ backgroundColor: 'white' }}
-          initialNumToRender={11}
-          data={this.state.assigned}
-          keyExtractor={(item) => item.quest_id.toString()}
-          renderItem={this.renderListItems}
-          getItemLayout={(data, index) => (
-            { length: 60, offset: 60 * index, index }
-          )}
-        />
+        <View style={{ flex: 1}}>
+          <FlatList
+            style={{ backgroundColor: 'white' }}
+            initialNumToRender={11}
+            data={this.state.assigned}
+            keyExtractor={(item) => item.quest_id.toString()}
+            renderItem={this.renderListItems}
+            getItemLayout={(data, index) => (
+              { length: 60, offset: 60 * index, index }
+            )}
+          />
+          <AdBanner />
+        </View>
       );
     } else if (screen === 'tab2') {
       return (
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+          <FlatList
+            style={{ backgroundColor: 'white' }}
+            initialNumToRender={11}
+            data={this.state.optional}
+            keyExtractor={(item) => item.quest_id.toString()}
+            renderItem={this.renderListItems}
+            getItemLayout={(data, index) => (
+              { length: 60, offset: 60 * index, index }
+            )}
+          />
+          <AdBanner />
+        </View>
+      );
+    }
+    return (
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
         <FlatList
           style={{ backgroundColor: 'white' }}
           initialNumToRender={11}
-          data={this.state.optional}
+          data={this.state.arena}
           keyExtractor={(item) => item.quest_id.toString()}
           renderItem={this.renderListItems}
           getItemLayout={(data, index) => (
             { length: 60, offset: 60 * index, index }
           )}
         />
-      );
-    }
-    return (
-      <FlatList
-        style={{ backgroundColor: 'white' }}
-        initialNumToRender={11}
-        data={this.state.arena}
-        keyExtractor={(item) => item.quest_id.toString()}
-        renderItem={this.renderListItems}
-        getItemLayout={(data, index) => (
-          { length: 60, offset: 60 * index, index }
-        )}
-      />
+        <AdBanner />
+      </View>
     );
   }
 

@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { FlatList, Platform, ActivityIndicator, View } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import WeaponListItem from '../components/WeaponListItem';
+import AdBanner from '../components/AdBanner';
 
 export default class WeaponSelectedScreen extends PureComponent {
   static navigatorStyle = {
@@ -95,6 +96,11 @@ export default class WeaponSelectedScreen extends PureComponent {
   }
 
   render() {
-    return this.renderSelectList();
+    return (
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        {this.renderSelectList()}
+        <AdBanner />
+      </View>
+    );
   }
 }

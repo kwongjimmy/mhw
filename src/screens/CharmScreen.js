@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { View, FlatList, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, ListItem, Text, Left, Right } from 'native-base';
+import AdBanner from '../components/AdBanner';
 
 export default class CharmScreen extends PureComponent {
   static navigatorStyle = {
@@ -108,16 +109,19 @@ export default class CharmScreen extends PureComponent {
       );
     }
     return (
-      <FlatList
-        style={{ backgroundColor: 'white' }}
-        initialNumToRender={11}
-        data={this.state.items}
-        keyExtractor={(item) => item.item_id.toString()}
-        renderItem={this.renderListItems}
-        getItemLayout={(data, index) => (
-          { length: 60, offset: 60 * index, index }
-        )}
-      />
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <FlatList
+          style={{ backgroundColor: 'white' }}
+          initialNumToRender={11}
+          data={this.state.items}
+          keyExtractor={(item) => item.item_id.toString()}
+          renderItem={this.renderListItems}
+          getItemLayout={(data, index) => (
+            { length: 60, offset: 60 * index, index }
+          )}
+        />
+        <AdBanner />
+      </View>
     );
   }
 

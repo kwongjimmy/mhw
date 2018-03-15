@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
-import { Image, FlatList, TouchableHighlight, Platform } from 'react-native';
+import { View, Image, FlatList, TouchableHighlight, Platform } from 'react-native';
 import { Container, ListItem, Body, Left, Right, Text } from 'native-base';
 import { WeaponImages } from '../assets';
+import AdBanner from '../components/AdBanner';
 
 export default class WeaponSelectScreen extends PureComponent {
   static navigatorStyle = {
@@ -118,16 +119,20 @@ export default class WeaponSelectScreen extends PureComponent {
 
   renderSelectList() {
     return (
-      <FlatList
-        style={{ backgroundColor: 'white' }}
-        initialNumToRender={10}
-        data={this.state.weapons}
-        keyExtractor={(item) => item.name}
-        renderItem={this.renderListItems}
-        getItemLayout={(data, index) => (
-          { length: 52, offset: 52 * index, index }
-        )}
-      />
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <FlatList
+          style={{ backgroundColor: 'white' }}
+          initialNumToRender={10}
+          data={this.state.weapons}
+          keyExtractor={(item) => item.name}
+          renderItem={this.renderListItems}
+          getItemLayout={(data, index) => (
+            { length: 52, offset: 52 * index, index }
+          )}
+        />
+        <AdBanner />
+      </View>
+
     );
   }
 

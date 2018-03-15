@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { View, FlatList, InteractionManager, ActivityIndicator } from 'react-native';
 import { Text, ListItem, Left, Right, Icon } from 'native-base';
 import DropDown from './DropDown';
+import AdBanner from './AdBanner';
 
 export default class MonsterLoot extends PureComponent {
   constructor(props) {
@@ -59,13 +60,13 @@ export default class MonsterLoot extends PureComponent {
           <ListItem
             style={{ marginLeft: 0, paddingLeft: 8 }}
             onPress={() => this.props.navigator.push({
-              screen: 'TabInfoScreen',
+              screen: 'TablessInfoScreen',
               passProps: {
                 item_id: item2.item_id,
                 type: 'item',
               },
               animationType: 'slide-horizontal',
-              title: item2.name,
+              title: item2.item_name,
             })}
             key={key2}>
             <Left>
@@ -100,15 +101,18 @@ export default class MonsterLoot extends PureComponent {
       );
     }
     return (
-      <FlatList
-        initialNumToRender={12}
-        data={this.state.data}
-        keyExtractor={item => `${item[0].name} ${item[0].item_name}`}
-        renderItem={this.renderListItems}
-        getItemLayout={(data, index) => (
-          { length: 52, offset: 52 * index, index }
-        )}
-      />
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <FlatList
+          initialNumToRender={12}
+          data={this.state.data}
+          keyExtractor={item => `${item[0].name} ${item[0].item_name}`}
+          renderItem={this.renderListItems}
+          getItemLayout={(data, index) => (
+            { length: 52, offset: 52 * index, index }
+          )}
+        />
+        <AdBanner />
+      </View>
     );
   }
 }

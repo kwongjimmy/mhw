@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, ActivityIndicator } from 'react-native';
-import { Container, ListItem, Text, Right, Left, Body } from 'native-base';
+import { View, ActivityIndicator, ScrollView } from 'react-native';
+import { ListItem, Text, Right, Left, Body } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
+import AdBanner from './AdBanner';
 
 export default class DecorationInfo extends Component {
   constructor(props) {
@@ -112,7 +113,7 @@ export default class DecorationInfo extends Component {
         <ListItem
           style={{ marginLeft: 0, paddingLeft: 8 }}
           onPress={() => this.props.navigator.push({
-            screen: 'TabInfoScreen',
+            screen: 'TablessInfoScreen',
             passProps: {
               item_id: this.state.feystones[1].item_id,
               type: 'item',
@@ -131,7 +132,7 @@ export default class DecorationInfo extends Component {
         <ListItem
           style={{ marginLeft: 0, paddingLeft: 8 }}
           onPress={() => this.props.navigator.push({
-            screen: 'TabInfoScreen',
+            screen: 'TablessInfoScreen',
             passProps: {
               item_id: this.state.feystones[0].item_id,
               type: 'item',
@@ -150,7 +151,7 @@ export default class DecorationInfo extends Component {
         <ListItem
           style={{ marginLeft: 0, paddingLeft: 8 }}
           onPress={() => this.props.navigator.push({
-            screen: 'TabInfoScreen',
+            screen: 'TablessInfoScreen',
             passProps: {
               item_id: this.state.feystones[3].item_id,
               type: 'item',
@@ -169,7 +170,7 @@ export default class DecorationInfo extends Component {
         <ListItem
           style={{ marginLeft: 0, paddingLeft: 8 }}
           onPress={() => this.props.navigator.push({
-            screen: 'TabInfoScreen',
+            screen: 'TablessInfoScreen',
             passProps: {
               item_id: this.state.feystones[2].item_id,
               type: 'item',
@@ -198,19 +199,17 @@ export default class DecorationInfo extends Component {
       );
     }
     return (
-      <View>
-        {this.renderSkills()}
-        {this.renderFeystones()}
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <ScrollView>
+          {this.renderSkills()}
+          {this.renderFeystones()}
+        </ScrollView>
+        <AdBanner />
       </View>
     );
-
   }
 
   render() {
-    return (
-      <Container style={{ backgroundColor: 'white' }}>
-        {this.renderContent()}
-      </Container>
-    );
+    return this.renderContent();
   }
 }

@@ -2,8 +2,10 @@ import React, { PureComponent } from 'react';
 import { FlatList, View, ActivityIndicator, Platform, Image } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Tabs, ListItem, Text, Left, Body } from 'native-base';
-import MonsterList from '../components/MonsterList';
 import SplashScreen from 'react-native-splash-screen';
+import MonsterList from '../components/MonsterList';
+import AdBanner from '../components/AdBanner';
+
 export default class MonsterScreen extends PureComponent {
   constructor(props) {
     super(props)
@@ -147,15 +149,24 @@ export default class MonsterScreen extends PureComponent {
     }
     if (screen === 'all') {
       return (
-        <MonsterList navigator={this.props.navigator} monsters={this.state.allMonsters} type={'all'}/>
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+          <MonsterList navigator={this.props.navigator} monsters={this.state.allMonsters} type={'all'}/>
+          <AdBanner />
+        </View>
       );
     } else if (screen === 'large') {
       return (
-        <MonsterList navigator={this.props.navigator} monsters={this.state.largeMonsters} type={'large'}/>
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+          <MonsterList navigator={this.props.navigator} monsters={this.state.largeMonsters} type={'large'}/>
+          <AdBanner />
+        </View>
       );
     }
     return (
-      <MonsterList navigator={this.props.navigator} monsters={this.state.smallMonsters} type={'small'}/>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <MonsterList navigator={this.props.navigator} monsters={this.state.smallMonsters} type={'small'}/>
+        <AdBanner />
+      </View>
     );
   }
 

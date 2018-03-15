@@ -5,6 +5,8 @@ import { Text, Left, Body, Right, ListItem, Tab, Tabs } from 'native-base';
 import ItemInfoEquip from './ItemInfoEquip';
 import ItemInfoQuest from './ItemInfoQuest';
 import ItemInfoLoot from './ItemInfoLoot';
+import AdBanner from './AdBanner';
+import DropDown from './DropDown';
 
 export default class ItemInfo extends PureComponent {
   constructor(props) {
@@ -144,7 +146,7 @@ export default class ItemInfo extends PureComponent {
 
   renderInfo() {
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         <ListItem style={{ marginLeft: 0, borderBottomWidth: 0.0, borderColor: 'red' }} itemDivider>
             <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Buy</Text>
             <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Sell</Text>
@@ -160,7 +162,6 @@ export default class ItemInfo extends PureComponent {
       </View>
     );
   }
-
   renderContent(screen) {
     if (this.state.loading) {
       return (
@@ -169,66 +170,95 @@ export default class ItemInfo extends PureComponent {
         </View>
       );
     }
-    if (screen === 'tab1') {
-      return this.renderInfo();
-    } else if (screen === 'tab2') {
-      return (
-        <ItemInfoLoot
-          navigator={this.props.navigator}
-          mapLoot={this.state.itemMapLoot}
-          monsterLoot={this.state.itemMonsterLoot}
-        />
-      );
-    } else if (screen === 'tab3') {
-      return (
-        <ItemInfoEquip navigator={this.props.navigator} armor={this.state.itemArmor} weapons={this.state.itemWeapons}/>
-      );
-    }
     return (
-      <ItemInfoQuest navigator={this.props.navigator} items={this.state.itemQuest}/>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <ScrollView>
+          {this.renderInfo()}
+          <ItemInfoLoot
+            navigator={this.props.navigator}
+            mapLoot={this.state.itemMapLoot}
+            monsterLoot={this.state.itemMonsterLoot} />
+          <ItemInfoEquip navigator={this.props.navigator} armor={this.state.itemArmor} weapons={this.state.itemWeapons}/>
+          <ItemInfoQuest navigator={this.props.navigator} items={this.state.itemQuest}/>
+        </ScrollView>
+        <AdBanner />
+      </View>
     );
   }
 
+  // renderContent(screen) {
+  //   if (this.state.loading) {
+  //     return (
+  //       <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+  //         <ActivityIndicator size="large" color="#5e5e5e"/>
+  //       </View>
+  //     );
+  //   }
+  //   if (screen === 'tab1') {
+  //     return (
+  //       <View style={{ flex: 1, backgroundColor: 'white' }}>
+  //         {this.renderInfo()}
+  //         <AdBanner />
+  //       </View>
+  //     )
+  //   } else if (screen === 'tab2') {
+  //     return (
+  //       <ItemInfoLoot
+  //         navigator={this.props.navigator}
+  //         mapLoot={this.state.itemMapLoot}
+  //         monsterLoot={this.state.itemMonsterLoot}
+  //       />
+  //     );
+  //   } else if (screen === 'tab3') {
+  //     return (
+  //       <ItemInfoEquip navigator={this.props.navigator} armor={this.state.itemArmor} weapons={this.state.itemWeapons}/>
+  //     );
+  //   }
+  //   return (
+  //     <ItemInfoQuest navigator={this.props.navigator} items={this.state.itemQuest}/>
+  //   );
+  // }
+
   render() {
-    return (
-       <Tabs prerenderingSiblingsNumber={4} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-           textStyle={{ color: '#5e5e5e' }}
-           heading="Info"
-           >
-           {this.renderContent('tab1')}
-         </Tab>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-           textStyle={{ color: '#5e5e5e' }}
-           heading="Loot"
-           >
-           {this.renderContent('tab2')}
-         </Tab>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-           textStyle={{ color: '#5e5e5e' }}
-           heading="Equip"
-           >
-           {this.renderContent('tab3')}
-         </Tab>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-           textStyle={{ color: '#5e5e5e' }}
-           heading="Quest"
-           >
-           {this.renderContent('tab4')}
-         </Tab>
-       </Tabs>
-    );
+    return this.renderContent();
+    //    <Tabs prerenderingSiblingsNumber={4} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
+    //      <Tab
+    //        activeTabStyle={{ backgroundColor: 'white' }}
+    //        tabStyle={{ backgroundColor: 'white' }}
+    //        activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+    //        textStyle={{ color: '#5e5e5e' }}
+    //        heading="Info"
+    //        >
+    //        {this.renderContent('tab1')}
+    //      </Tab>
+    //      <Tab
+    //        activeTabStyle={{ backgroundColor: 'white' }}
+    //        tabStyle={{ backgroundColor: 'white' }}
+    //        activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+    //        textStyle={{ color: '#5e5e5e' }}
+    //        heading="Loot"
+    //        >
+    //        {this.renderContent('tab2')}
+    //      </Tab>
+    //      <Tab
+    //        activeTabStyle={{ backgroundColor: 'white' }}
+    //        tabStyle={{ backgroundColor: 'white' }}
+    //        activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+    //        textStyle={{ color: '#5e5e5e' }}
+    //        heading="Equip"
+    //        >
+    //        {this.renderContent('tab3')}
+    //      </Tab>
+    //      <Tab
+    //        activeTabStyle={{ backgroundColor: 'white' }}
+    //        tabStyle={{ backgroundColor: 'white' }}
+    //        activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+    //        textStyle={{ color: '#5e5e5e' }}
+    //        heading="Quest"
+    //        >
+    //        {this.renderContent('tab4')}
+    //      </Tab>
+    //    </Tabs>
+    // );
   }
 }

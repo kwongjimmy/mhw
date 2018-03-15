@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { View, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Header, Content, List, ListItem, Text } from 'native-base';
+import AdBanner from '../components/AdBanner';
 
 export default class ItemScreen extends PureComponent {
   static navigatorStyle = {
@@ -70,7 +71,7 @@ export default class ItemScreen extends PureComponent {
     if (item.category === 'item') {
       return (
         <ListItem style={{ height: 50, marginLeft: 0, paddingLeft: 18 }} onPress={() => this.props.navigator.push({
-          screen: 'TabInfoScreen',
+          screen: 'TablessInfoScreen',
           passProps: {
             item_id: item.item_id,
             type: item.category,
@@ -106,16 +107,19 @@ export default class ItemScreen extends PureComponent {
       );
     }
     return (
-      <FlatList
-        style={{ backgroundColor: 'white' }}
-        initialNumToRender={12}
-        data={this.state.items}
-        keyExtractor={(item) => item.item_id.toString()}
-        renderItem={this.renderListItems}
-        getItemLayout={(data, index) => (
-          { length: 50, offset: 50 * index, index }
-        )}
-      />
+      <View style={{ flex: 1}}>
+        <FlatList
+          style={{ backgroundColor: 'white' }}
+          initialNumToRender={12}
+          data={this.state.items}
+          keyExtractor={(item) => item.item_id.toString()}
+          renderItem={this.renderListItems}
+          getItemLayout={(data, index) => (
+            { length: 50, offset: 50 * index, index }
+          )}
+        />
+        <AdBanner />
+      </View>
     );
   }
 

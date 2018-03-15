@@ -2,8 +2,15 @@ import React, { PureComponent } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Tabs } from 'native-base';
+import firebase from 'react-native-firebase';
+const Banner = firebase.admob.Banner;
+const AdRequest = firebase.admob.AdRequest;
+const request = new AdRequest();
+request.addKeyword('games');
+request.addKeyword('monster hunter');
+request.addKeyword('video games');
 import EquipArmorList from '../components/EquipArmorList';
-
+import AdBanner from '../components/AdBanner';
 export default class EquipArmorScreen extends PureComponent {
   constructor(props) {
     super(props);
@@ -138,11 +145,17 @@ export default class EquipArmorScreen extends PureComponent {
     }
     if (screen === 'low') {
       return (
-        <EquipArmorList navigator={this.props.navigator} armor={this.state.lowRank}/>
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+          <EquipArmorList navigator={this.props.navigator} armor={this.state.lowRank}/>
+          <AdBanner />
+       </View>
       );
     }
     return (
-      <EquipArmorList navigator={this.props.navigator} armor={this.state.highRank}/>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <EquipArmorList navigator={this.props.navigator} armor={this.state.highRank}/>
+        <AdBanner />
+       </View>
     );
   }
 
