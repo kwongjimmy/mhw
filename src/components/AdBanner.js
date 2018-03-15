@@ -14,7 +14,7 @@ export default class AdBanner extends PureComponent {
     this.state = {
       unitId: Platform.OS === 'ios' ? 'ca-app-pub-9661316023859369/8743467790' : 'ca-app-pub-9661316023859369/7600878725',
     };
-    console.log(this.state);
+    // console.log(this.state);
   }
 
   render() {
