@@ -65,7 +65,7 @@ export default class SearchScreen extends Component {
         db.close();
         });
     }
-    else if(keyWord.length <3   ){
+    else if(keyWord.length <3){
       db.transaction((tx) => {
         const allMonsters = [];
         const lowRank = [];
@@ -83,6 +83,7 @@ export default class SearchScreen extends Component {
             const row = results.rows.item(i);
             allMonsters.push(row);
           }
+          this.renderContent('monster');
         });
         tx.executeSql(`
           SELECT
