@@ -30,7 +30,6 @@ export default class ItemScreen extends PureComponent {
             const row = results.rows.item(i);
             items.push(row);
           }
-          console.log(items);
           this.setState({ items });
           // db.close();
         },
@@ -107,7 +106,7 @@ export default class ItemScreen extends PureComponent {
       );
     }
     return (
-      <View style={{ flex: 1}}>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
         <FlatList
           style={{ backgroundColor: 'white' }}
           initialNumToRender={12}
