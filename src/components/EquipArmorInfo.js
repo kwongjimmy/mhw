@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
-import { View, ActivityIndicator, InteractionManager, ScrollView } from 'react-native';
+import { Image, View, ActivityIndicator, InteractionManager, ScrollView } from 'react-native';
 import { ListItem, Text, Right, Left, Body } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
 import AdBanner from './AdBanner';
+import { ElementStatusImages } from '../assets';
 
 export default class EquipArmorInfo extends PureComponent {
 
@@ -77,7 +78,7 @@ export default class EquipArmorInfo extends PureComponent {
 
   renderInfo() {
     const {
-      buy_price, min_def, rarity, slot1, slot2, slot3,
+      buy_price, min_def, rarity, slot1, slot2, slot3, fire, water, thunder, ice, dragon
     } = this.state.info;
     let slotOne = (slot1 === 0) ? `-` : (slot1 === 1) ? `\u2460` : (slot1 === 2) ? `\u2461` : `\u2462`;
     let slotTwo = (slot2 === 0) ? `-` : (slot2 === 1) ? `\u2460` : (slot2 === 2) ? `\u2461` : `\u2462`;
@@ -95,6 +96,50 @@ export default class EquipArmorInfo extends PureComponent {
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${slotOne} ${slotTwo} ${slotThree}`}</Text>
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${buy_price}z`}</Text>
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{rarity}</Text>
+        </ListItem>
+        <ListItem style={{ marginLeft: 0, borderBottomWidth: 0.0, borderColor: 'red' }} itemDivider>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+            <Image
+              resizeMode="contain"
+              style={{ flex: 1, height: 20, width: 20, alignSelf: 'center' }}
+              source={ElementStatusImages['Fire']}
+            />
+          </View>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+            <Image
+              resizeMode="contain"
+              style={{ flex: 1, height: 20, width: 20, alignSelf: 'center' }}
+              source={ElementStatusImages['Water']}
+            />
+          </View>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+            <Image
+              resizeMode="contain"
+              style={{ flex: 1, height: 20, width: 20, alignSelf: 'center' }}
+              source={ElementStatusImages['Thunder']}
+            />
+          </View>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+            <Image
+              resizeMode="contain"
+              style={{ flex: 1, height: 20, width: 20, alignSelf: 'center' }}
+              source={ElementStatusImages['Ice']}
+            />
+          </View>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+            <Image
+              resizeMode="contain"
+              style={{ flex: 1, height: 20, width: 20, alignSelf: 'center' }}
+              source={ElementStatusImages['Dragon']}
+            />
+          </View>
+        </ListItem>
+        <ListItem style={{ marginLeft: 0, backgroundColor: 'white' }} itemDivider>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{fire}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{water}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{thunder}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{ice}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{dragon}</Text>
         </ListItem>
       </View>
     );
