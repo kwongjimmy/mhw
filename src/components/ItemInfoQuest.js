@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { View, FlatList } from 'react-native';
 import { ListItem, Body, Right, Text, Icon } from 'native-base';
+import AdBanner from './AdBanner';
 
 export default class ItemInfoQuest extends PureComponent {
   constructor(props) {
@@ -54,16 +55,19 @@ export default class ItemInfoQuest extends PureComponent {
       );
     }
     return (
-      <FlatList
-        initialNumToRender={8}
-        contextContainerStyle={{ paddingTop: 20 }}
-        data={this.props.items}
-        keyExtractor={(item) => item.quest_id.toString()}
-        renderItem={this.renderListItems}
-        getItemLayout={(data, index) => (
-          { length: 65, offset: 65 * index, index }
-        )}
-      />
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <FlatList
+          initialNumToRender={8}
+          contextContainerStyle={{ paddingTop: 20 }}
+          data={this.props.items}
+          keyExtractor={(item) => item.quest_id.toString()}
+          renderItem={this.renderListItems}
+          getItemLayout={(data, index) => (
+            { length: 65, offset: 65 * index, index }
+          )}
+        />
+        <AdBanner />
+      </View>
     );
   }
 }

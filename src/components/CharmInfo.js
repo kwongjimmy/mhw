@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, ScrollView } from 'react-native';
 import { ListItem, Text, Right, Left } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
+import AdBanner from './AdBanner';
 
 export default class CharmInfo extends PureComponent {
   constructor(props) {
@@ -221,9 +222,12 @@ export default class CharmInfo extends PureComponent {
     }
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
-        {this.renderInfo()}
-        {this.renderSkills()}
-        {this.renderCrafting()}
+        <ScrollView>
+          {this.renderInfo()}
+          {this.renderSkills()}
+          {this.renderCrafting()}
+        </ScrollView>
+        <AdBanner />
       </View>
     );
   }

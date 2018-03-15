@@ -6,6 +6,7 @@ import MonsterList from '../components/MonsterList';
 import SearchList from '../components/SearchList';
 import WeaponListItem from '../components/WeaponListItem';
 import EquipArmorList from '../components/EquipArmorList';
+import AdBanner from '../components/AdBanner';
 
 currentScreen = "monster";
 currentWord = "";
@@ -568,77 +569,104 @@ export default class SearchScreen extends Component {
     if (screen === 'monster') {
       currentScreen = "monster";
       return (
-        <MonsterList navigator={this.props.navigator} monsters={this.state.allMonsters} type={'monster'}/>
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+          <MonsterList navigator={this.props.navigator} monsters={this.state.allMonsters} type={'monster'}/>
+          <AdBanner />
+        </View>
       );
     }
     else if (screen === 'armor') {
       currentScreen = "armor";
       return (
-        <EquipArmorList navigator={this.props.navigator} armor={this.state.lowRank}/>
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+          <EquipArmorList navigator={this.props.navigator} armor={this.state.lowRank}/>
+          <AdBanner />
+        </View>
       );
     }
     else if (screen === 'weapon') {
       return (
-        <FlatList
-          style={{ backgroundColor: 'white' }}
-          initialNumToRender={8}
-          data={this.state.weapons}
-          keyExtractor={(item) => item.item_id.toString()}
-          renderItem={this.renderListWeapons}
-        />
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+          <FlatList
+            style={{ backgroundColor: 'white' }}
+            initialNumToRender={8}
+            data={this.state.weapons}
+            keyExtractor={(item) => item.item_id.toString()}
+            renderItem={this.renderListWeapons}
+          />
+          <AdBanner />
+        </View>
       );
     }
     else if (screen === 'item') {
       return (
-        <FlatList
-          data={this.state.items}
-          keyExtractor={(item) => item.item_id.toString()}
-          renderItem={this.renderListItems}
-        />
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+          <FlatList
+            data={this.state.items}
+            keyExtractor={(item) => item.item_id.toString()}
+            renderItem={this.renderListItems}
+          />
+          <AdBanner />
+        </View>
       );
     } else if (screen === 'skill') {
       return (
-        <FlatList
-          data={this.state.skills}
-          keyExtractor={(item) => item.armor_skill_id.toString()}
-          renderItem={this.renderListSkills}
-        />
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+          <FlatList
+            data={this.state.skills}
+            keyExtractor={(item) => item.armor_skill_id.toString()}
+            renderItem={this.renderListSkills}
+          />
+          <AdBanner />
+        </View>
       );
     }
     else if (screen === 'map') {
       return (
-        <FlatList
-          data={this.state.maps}
-          keyExtractor={(item) => item.map_id.toString()}
-          renderItem={this.renderListMaps}
-        />
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+          <FlatList
+            data={this.state.maps}
+            keyExtractor={(item) => item.map_id.toString()}
+            renderItem={this.renderListMaps}
+          />
+          <AdBanner />
+        </View>
       );
     }
     else if (screen === 'decoration') {
       return (
-        <FlatList
-          data={this.state.decorations}
-          keyExtractor={(item) => item.item_id.toString()}
-          renderItem={this.renderListDecorations}
-        />
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+          <FlatList
+            data={this.state.decorations}
+            keyExtractor={(item) => item.item_id.toString()}
+            renderItem={this.renderListDecorations}
+          />
+          <AdBanner />
+        </View>
       );
     }
     else if (screen === 'charm') {
       return (
-        <FlatList
-          data={this.state.charms}
-          keyExtractor={(item) => item.item_id.toString()}
-          renderItem={this.renderListCharms}
-        />
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+          <FlatList
+            data={this.state.charms}
+            keyExtractor={(item) => item.item_id.toString()}
+            renderItem={this.renderListCharms}
+          />
+          <AdBanner />
+        </View>
       );
     }
     else if (screen === 'quest') {
       return (
-        <FlatList
-          data={this.state.quests}
-          keyExtractor={(item) => item.quest_id.toString()}
-          renderItem={this.renderListQuests}
-        />
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+          <FlatList
+            data={this.state.quests}
+            keyExtractor={(item) => item.quest_id.toString()}
+            renderItem={this.renderListQuests}
+          />
+          <AdBanner />
+        </View>
       );
     }
   }

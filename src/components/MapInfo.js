@@ -4,6 +4,7 @@ import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Tabs, ListItem, Text, Left, Body, Right, Icon } from 'native-base';
 import _ from 'underscore';
 import DropDown from './DropDown';
+import AdBanner from './AdBanner';
 
 export default class MapInfo extends PureComponent {
   constructor(props) {
@@ -104,15 +105,18 @@ export default class MapInfo extends PureComponent {
       );
     }
     return (
-      <FlatList
-        initialNumToRender={12}
-        data={this.state.areas}
-        keyExtractor={item => `${item[0].area} ${item[0].item_name}`}
-        renderItem={this.renderListItems}
-        getItemLayout={(data, index) => (
-          { length: 52, offset: 52 * index, index }
-        )}
-      />
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <FlatList
+          initialNumToRender={12}
+          data={this.state.areas}
+          keyExtractor={item => `${item[0].area} ${item[0].item_name}`}
+          renderItem={this.renderListItems}
+          getItemLayout={(data, index) => (
+            { length: 52, offset: 52 * index, index }
+          )}
+        />
+        <AdBanner />
+      </View>
     );
   }
 }

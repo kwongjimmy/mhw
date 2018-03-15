@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { View, FlatList, InteractionManager, ActivityIndicator } from 'react-native';
 import { Text, ListItem, Left, Right, Icon } from 'native-base';
 import DropDown from './DropDown';
+import AdBanner from './AdBanner';
 
 export default class MonsterLoot extends PureComponent {
   constructor(props) {
@@ -100,15 +101,18 @@ export default class MonsterLoot extends PureComponent {
       );
     }
     return (
-      <FlatList
-        initialNumToRender={12}
-        data={this.state.data}
-        keyExtractor={item => `${item[0].name} ${item[0].item_name}`}
-        renderItem={this.renderListItems}
-        getItemLayout={(data, index) => (
-          { length: 52, offset: 52 * index, index }
-        )}
-      />
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <FlatList
+          initialNumToRender={12}
+          data={this.state.data}
+          keyExtractor={item => `${item[0].name} ${item[0].item_name}`}
+          renderItem={this.renderListItems}
+          getItemLayout={(data, index) => (
+            { length: 52, offset: 52 * index, index }
+          )}
+        />
+        <AdBanner />
+      </View>
     );
   }
 }

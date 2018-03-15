@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { Image, View, FlatList, InteractionManager, ActivityIndicator } from 'react-native'
 import { Text, ListItem, Left, Right, Body } from 'native-base';
-
+import AdBanner from './AdBanner';
 import styles from './Styles/MonsterInfoScreenStyles';
 import { ElementStatusImages } from '../assets';
 
@@ -167,12 +167,15 @@ export default class MonsterInfo extends PureComponent {
       );
     }
     return (
-      <FlatList
-        data={this.state.data}
-        keyExtractor={(item) => item.part_name}
-        renderItem={this.renderListItems}
-        stickyHeaderIndices={this.state.stickyHeaderIndices}
-      />
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <FlatList
+          data={this.state.data}
+          keyExtractor={(item) => item.part_name}
+          renderItem={this.renderListItems}
+          stickyHeaderIndices={this.state.stickyHeaderIndices}
+        />
+        <AdBanner />
+      </View>
     );
   }
 }

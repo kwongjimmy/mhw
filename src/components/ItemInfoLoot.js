@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { View, FlatList, ScrollView } from 'react-native';
 import { Container, Text, Left, Body, Right, ListItem, Icon } from 'native-base';
+import AdBanner from './AdBanner';
 
 export default class ItemInfoLoot extends PureComponent {
   constructor(props) {
@@ -160,10 +161,13 @@ export default class ItemInfoLoot extends PureComponent {
       );
     }
     return (
-      <ScrollView>
-        {this.renderMonsterLoot()}
-        {this.renderMapLoot()}
-      </ScrollView>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <ScrollView>
+          {this.renderMonsterLoot()}
+          {this.renderMapLoot()}
+        </ScrollView>
+        <AdBanner />
+      </View>
     );
   }
 }

@@ -4,6 +4,7 @@ import { Container, ListItem, Text, Right, Left, Body } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
 import { ElementStatusImages, BowCoatings } from '../assets';
 import WeaponListItem from './WeaponListItem';
+import AdBanner from './AdBanner';
 
 const bulletTypes = {
   Nrm: 'Normal',
@@ -599,16 +600,21 @@ export default class WeaponInfo extends PureComponent {
       );
     }
     return (
-    <ScrollView style={{ backgroundColor: 'white' }}>
-      {this.renderInfo(this.state.info)}
-      {this.renderUpgrading()}
-      {this.renderCrafting()}
-      {this.renderUpgradeTo()}
-    </ScrollView>
+      <ScrollView style={{ backgroundColor: 'white' }}>
+        {this.renderInfo(this.state.info)}
+        {this.renderUpgrading()}
+        {this.renderCrafting()}
+        {this.renderUpgradeTo()}
+      </ScrollView>
     );
   }
 
   render() {
-    return this.renderContent();
+    return (
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        {this.renderContent()}
+        <AdBanner />
+      </View>
+    );
   }
 }

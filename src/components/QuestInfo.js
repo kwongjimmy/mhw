@@ -3,6 +3,7 @@ import { ScrollView, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, ListItem, Text, Left, Body, Right, Icon } from 'native-base';
 import DropDown from './DropDown';
+import AdBanner from './AdBanner';
 
 export default class QuestInfo extends PureComponent {
   constructor(props) {
@@ -71,35 +72,38 @@ export default class QuestInfo extends PureComponent {
       );
     }
     return (
-      <ScrollView style={{ backgroundColor: 'white' }}>
-			<DropDown
-				headerName={'Rewards'}
-        hide={false}
-				content={this.state.rewards.map((item, key) => {
-				return (
-					<ListItem
-						style={{ marginLeft: 0, paddingLeft: 8 }}
-						onPress={() => this.props.navigator.push({
-							screen: 'TabInfoScreen',
-							passProps: {
-								item_id: item.item_id,
-								type: 'item',
-							},
-							animationType: 'slide-horizontal',
-							title: item.name,
-						})}
-						key={key}>
-						<Left>
-							<Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
-						</Left>
-						<Right>
-              <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.chance}%`}</Text>
-            </Right>
-					</ListItem>
-				);
-			})}
-		/>
-    </ScrollView>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <ScrollView style={{ backgroundColor: 'white' }}>
+        <DropDown
+          headerName={'Rewards'}
+          hide={false}
+          content={this.state.rewards.map((item, key) => {
+            return (
+              <ListItem
+                style={{ marginLeft: 0, paddingLeft: 8 }}
+                onPress={() => this.props.navigator.push({
+                  screen: 'TabInfoScreen',
+                  passProps: {
+                    item_id: item.item_id,
+                    type: 'item',
+                  },
+                  animationType: 'slide-horizontal',
+                  title: item.name,
+                })}
+                key={key}>
+                <Left>
+                  <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+                </Left>
+                <Right>
+                  <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.chance}%`}</Text>
+                </Right>
+              </ListItem>
+            );
+          })}
+        />
+        </ScrollView>
+        <AdBanner />
+      </View>
     );
   }
 

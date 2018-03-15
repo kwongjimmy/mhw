@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { View, FlatList, InteractionManager, ActivityIndicator } from 'react-native';
 import { Text, ListItem, Right, Left, Body, Icon } from 'native-base';
 import WeaponListItem from './WeaponListItem'
+import AdBanner from './AdBanner';
 
 export default class MonsterEquip extends PureComponent {
   constructor(props) {
@@ -116,24 +117,30 @@ export default class MonsterEquip extends PureComponent {
     }
     if (this.props.type === 'armor') {
       return (
-        <FlatList
-          initialNumToRender={11}
-          data={this.state.data}
-          keyExtractor={(item) => item.item_id.toString()}
-          renderItem={this.renderListItems.bind(this)}
-          getItemLayout={(data, index) => (
-            { length: 52, offset: 52 * index, index }
-          )}
-        />
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+          <FlatList
+            initialNumToRender={11}
+            data={this.state.data}
+            keyExtractor={(item) => item.item_id.toString()}
+            renderItem={this.renderListItems.bind(this)}
+            getItemLayout={(data, index) => (
+              { length: 52, offset: 52 * index, index }
+            )}
+          />
+          <AdBanner />
+        </View>
       );
     }
     return (
-      <FlatList
-        initialNumToRender={7}
-        data={this.state.data}
-        keyExtractor={(item) => item.item_id.toString()}
-        renderItem={this.renderWeaponListItems.bind(this)}
-      />
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <FlatList
+          initialNumToRender={7}
+          data={this.state.data}
+          keyExtractor={(item) => item.item_id.toString()}
+          renderItem={this.renderWeaponListItems.bind(this)}
+        />
+        <AdBanner />
+      </View>
     );
   }
 }

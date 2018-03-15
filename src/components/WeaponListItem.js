@@ -26,7 +26,7 @@ export default class WeaponListItem extends PureComponent {
     if (type === 'switch_axe' || type === 'charge_blade') {
       return (
         <View style={{ flex: 1 }}>
-          <Text style={{ fontSize: 14, color: '#191919',textAlign: 'center' }}>{`${phial}`}</Text>
+          <Text style={{ fontSize: 14, color: '#191919', textAlign: 'center' }}>{`${phial}`}</Text>
         </View>
       );
     } else if (type === 'insect_glaive') {

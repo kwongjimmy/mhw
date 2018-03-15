@@ -19,7 +19,7 @@ import MonsterInfoScreen from './screens/MonsterInfoScreen';
 import TabInfoScreen from './screens/TabInfoScreen';
 import TablessInfoScreen from './screens/TablessInfoScreen';
 
- export default function startApp() {
+export default function startApp() {
   Navigation.registerComponent('MonsterScreen', () => MonsterScreen);
   Navigation.registerComponent('EquipArmorScreen', () => EquipArmorScreen);
   Navigation.registerComponent('QuestScreen', () => QuestScreen);

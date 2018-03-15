@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, FlatList, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, ListItem, Text, Left, Right } from 'native-base';
+import AdBanner from '../components/AdBanner';
 
 export default class DecorationScreen extends Component {
   static navigatorStyle = {
@@ -87,23 +88,22 @@ export default class DecorationScreen extends Component {
       );
     }
     return (
-      <FlatList
-        initialNumToRender={11}
-        data={this.state.items}
-        keyExtractor={(item) => item.item_id.toString()}
-        renderItem={this.renderListItems}
-        getItemLayout={(data, index) => (
-          { length: 60, offset: 60 * index, index }
-        )}
-      />
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <FlatList
+          initialNumToRender={11}
+          data={this.state.items}
+          keyExtractor={(item) => item.item_id.toString()}
+          renderItem={this.renderListItems}
+          getItemLayout={(data, index) => (
+            { length: 60, offset: 60 * index, index }
+          )}
+        />
+        <AdBanner />
+      </View>
     );
   }
 
   render() {
-    return (
-      <Container style={{ backgroundColor: 'white' }}>
-        {this.renderContent()}
-      </Container>
-    );
+    return this.renderContent();
   }
 }

@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { View, ScrollView } from 'react-native';
 import { Text, Left, Right, ListItem, Icon } from 'native-base';
+import AdBanner from './AdBanner';
 
 export default class ItemInfoEquip extends PureComponent {
   constructor(props) {
@@ -142,10 +143,13 @@ export default class ItemInfoEquip extends PureComponent {
       );
     }
     return (
-      <ScrollView>
-        {this.renderArmor()}
-        {this.renderWeapons()}
-      </ScrollView>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <ScrollView>
+          {this.renderArmor()}
+          {this.renderWeapons()}
+        </ScrollView>
+        <AdBanner />
+      </View>
     );
   }
 }

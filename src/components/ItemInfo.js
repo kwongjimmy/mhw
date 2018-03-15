@@ -5,6 +5,7 @@ import { Text, Left, Body, Right, ListItem, Tab, Tabs } from 'native-base';
 import ItemInfoEquip from './ItemInfoEquip';
 import ItemInfoQuest from './ItemInfoQuest';
 import ItemInfoLoot from './ItemInfoLoot';
+import AdBanner from './AdBanner';
 
 export default class ItemInfo extends PureComponent {
   constructor(props) {
@@ -144,7 +145,7 @@ export default class ItemInfo extends PureComponent {
 
   renderInfo() {
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         <ListItem style={{ marginLeft: 0, borderBottomWidth: 0.0, borderColor: 'red' }} itemDivider>
             <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Buy</Text>
             <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Sell</Text>
@@ -170,7 +171,12 @@ export default class ItemInfo extends PureComponent {
       );
     }
     if (screen === 'tab1') {
-      return this.renderInfo();
+      return (
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+          {this.renderInfo()}
+          <AdBanner />
+        </View>
+      )
     } else if (screen === 'tab2') {
       return (
         <ItemInfoLoot
