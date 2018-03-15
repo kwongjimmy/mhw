@@ -13,6 +13,7 @@
 #import <React/RCTRootView.h>
 #import "RCCManager.h"
 #import "SplashScreen.h"
+#import <Firebase.h>
 
 @implementation AppDelegate
 
@@ -34,6 +35,7 @@
 //  self.window.rootViewController = rootViewController;
 //  [self.window makeKeyAndVisible];
 //  return YES;
+  [FIRApp configure];
   NSURL *jsCodeLocation;
 #ifdef DEBUG
   //  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.bundle?platform=ios&dev=true"];
