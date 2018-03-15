@@ -448,7 +448,7 @@ export default class SearchScreen extends Component {
   renderListItems = ({ item }) => {
     return (
       <ListItem style={{ marginLeft: 0, paddingLeft: 18 }} onPress={() => this.props.navigator.push({
-        screen: 'TabInfoScreen',
+        screen: 'TablessInfoScreen',
         passProps: {
           item_id: item.item_id,
           type: 'item',

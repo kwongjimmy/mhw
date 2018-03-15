@@ -82,7 +82,7 @@ export default class QuestInfo extends PureComponent {
               <ListItem
                 style={{ marginLeft: 0, paddingLeft: 8 }}
                 onPress={() => this.props.navigator.push({
-                  screen: 'TabInfoScreen',
+                  screen: 'TablessInfoScreen',
                   passProps: {
                     item_id: item.item_id,
                     type: 'item',

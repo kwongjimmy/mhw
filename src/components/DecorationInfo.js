@@ -113,7 +113,7 @@ export default class DecorationInfo extends Component {
         <ListItem
           style={{ marginLeft: 0, paddingLeft: 8 }}
           onPress={() => this.props.navigator.push({
-            screen: 'TabInfoScreen',
+            screen: 'TablessInfoScreen',
             passProps: {
               item_id: this.state.feystones[1].item_id,
               type: 'item',
@@ -132,7 +132,7 @@ export default class DecorationInfo extends Component {
         <ListItem
           style={{ marginLeft: 0, paddingLeft: 8 }}
           onPress={() => this.props.navigator.push({
-            screen: 'TabInfoScreen',
+            screen: 'TablessInfoScreen',
             passProps: {
               item_id: this.state.feystones[0].item_id,
               type: 'item',
@@ -151,7 +151,7 @@ export default class DecorationInfo extends Component {
         <ListItem
           style={{ marginLeft: 0, paddingLeft: 8 }}
           onPress={() => this.props.navigator.push({
-            screen: 'TabInfoScreen',
+            screen: 'TablessInfoScreen',
             passProps: {
               item_id: this.state.feystones[3].item_id,
               type: 'item',
@@ -170,7 +170,7 @@ export default class DecorationInfo extends Component {
         <ListItem
           style={{ marginLeft: 0, paddingLeft: 8 }}
           onPress={() => this.props.navigator.push({
-            screen: 'TabInfoScreen',
+            screen: 'TablessInfoScreen',
             passProps: {
               item_id: this.state.feystones[2].item_id,
               type: 'item',

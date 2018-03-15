@@ -71,7 +71,7 @@ export default class ItemScreen extends PureComponent {
     if (item.category === 'item') {
       return (
         <ListItem style={{ height: 50, marginLeft: 0, paddingLeft: 18 }} onPress={() => this.props.navigator.push({
-          screen: 'TabInfoScreen',
+          screen: 'TablessInfoScreen',
           passProps: {
             item_id: item.item_id,
             type: item.category,

@@ -499,7 +499,7 @@ export default class WeaponInfo extends PureComponent {
               <View key={key}>
                 <ListItem style={{ marginLeft: 0, backgroundColor: 'white', paddingLeft: 8 }}
                   onPress={() => this.props.navigator.push({
-                    screen: 'TabInfoScreen',
+                    screen: 'TablessInfoScreen',
                     passProps: {
                       item_id: item.item_id,
                       type: 'item',
@@ -544,7 +544,7 @@ export default class WeaponInfo extends PureComponent {
               <View key={key}>
                 <ListItem style={{ marginLeft: 0, backgroundColor: 'white', paddingLeft: 8 }}
                   onPress={() => this.props.navigator.push({
-                    screen: 'TabInfoScreen',
+                    screen: 'TablessInfoScreen',
                     passProps: {
                       item_id: item.item_id,
                       type: 'item',

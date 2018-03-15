@@ -60,13 +60,13 @@ export default class MonsterLoot extends PureComponent {
           <ListItem
             style={{ marginLeft: 0, paddingLeft: 8 }}
             onPress={() => this.props.navigator.push({
-              screen: 'TabInfoScreen',
+              screen: 'TablessInfoScreen',
               passProps: {
                 item_id: item2.item_id,
                 type: 'item',
               },
               animationType: 'slide-horizontal',
-              title: item2.name,
+              title: item2.item_name,
             })}
             key={key2}>
             <Left>

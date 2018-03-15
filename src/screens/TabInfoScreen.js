@@ -22,11 +22,6 @@ export default class TabInfoScreen extends PureComponent {
   }
 
   render() {
-    if (this.props.type === 'item') {
-      return (
-        <ItemInfo navigator={this.props.navigator} item_id={this.props.item_id}/>
-      );
-    }
     return (
       <SkillInfo navigator={this.props.navigator} armor_skill_id={this.props.armor_skill_id}/>
     );
