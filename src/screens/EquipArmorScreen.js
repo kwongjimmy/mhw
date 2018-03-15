@@ -70,7 +70,7 @@ export default class EquipArmorScreen extends PureComponent {
         LEFT JOIN items AS I3 ON X.gloves_item_id = I3.item_id
         LEFT JOIN items AS I4 ON X.belt_item_id = I4.item_id
         LEFT JOIN items AS I5 ON X.pants_item_id = I5.item_id
-        WHERE X.rank = ?`, ['High'], (tx, results) => {
+        WHERE X.armor_set_id > 10 AND X.rank = ?`, ['High'], (tx, results) => {
         for (let i = 0; i < results.rows.length; i += 1) {
           const row = results.rows.item(i);
           highRank.push(row);

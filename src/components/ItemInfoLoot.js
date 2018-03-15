@@ -175,11 +175,8 @@ export default class ItemInfoLoot extends PureComponent {
     }
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
-        <ScrollView>
-          {this.renderMonsterLoot()}
-          {this.renderMapLoot()}
-        </ScrollView>
-        {/* <AdBanner /> */}
+        {this.renderMonsterLoot()}
+        {this.renderMapLoot()}
       </View>
     );
   }

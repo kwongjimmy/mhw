@@ -20,6 +20,7 @@ export default class AdBanner extends PureComponent {
   render() {
     return (
       <Banner
+        style={{ alignSelf: 'center', justifyContent: 'center' }}
         // unitId={'ca-app-pub-3940256099942544/6300978111'}
         // unitId={'ca-app-pub-9661316023859369/8743467790'}
         unitId={this.state.unitId}

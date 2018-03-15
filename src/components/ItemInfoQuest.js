@@ -84,7 +84,6 @@ export default class ItemInfoQuest extends PureComponent {
               )}
             />}
           />
-        {/* <AdBanner /> */}
       </View>
     );
   }

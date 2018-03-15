@@ -235,14 +235,14 @@ export default class WeaponListItem extends PureComponent {
       marginBottom = 4.5;
     }
     return (
-      <View style={{ flex: 1, flexDirection: 'row', width: 100, justifyContent: 'center'}}>
-        <View style={{ flex: red, marginTop, marginBottom, height: 10, backgroundColor: '#C4424E' }}/>
-        <View style={{ flex: orange, marginTop, marginBottom, height: 10, backgroundColor: '#DE7A56' }}/>
-        <View style={{ flex: yellow, marginTop, marginBottom, height: 10, backgroundColor: '#D5BF45' }}/>
-        <View style={{ flex: green, marginTop, marginBottom, height: 10, backgroundColor: '#94BB46' }}/>
-        <View style={{ flex: blue, marginTop, marginBottom, height: 10, backgroundColor: '#465DD1' }}/>
-        <View style={{ flex: white, marginTop, marginBottom, height: 10, backgroundColor: 'white' }}/>
-        <View style={{ flex: black, marginTop, marginBottom, height: 10, backgroundColor: 'black' }}/>
+      <View style={{ flex: 1, flexDirection: 'row', width: 104, justifyContent: 'center', marginRight: -0.5 }}>
+        <View style={{ flex: red, marginTop, marginBottom, height: 10, backgroundColor: '#C4424E', marginRight: -0.5 }}/>
+        <View style={{ flex: orange, marginTop, marginBottom, height: 10, backgroundColor: '#DE7A56', marginRight: -0.5 }}/>
+        <View style={{ flex: yellow, marginTop, marginBottom, height: 10, backgroundColor: '#D5BF45', marginRight: -0.5 }}/>
+        <View style={{ flex: green, marginTop, marginBottom, height: 10, backgroundColor: '#94BB46', marginRight: -0.5 }}/>
+        <View style={{ flex: blue, marginTop, marginBottom, height: 10, backgroundColor: '#465DD1', marginRight: -0.5 }}/>
+        <View style={{ flex: white, marginTop, marginBottom, height: 10, backgroundColor: 'white', marginRight: -0.5 }}/>
+        <View style={{ flex: black, marginTop, marginBottom, height: 10, backgroundColor: 'black', marginRight: -0.5 }}/>
       </View>
     );
   }

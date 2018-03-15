@@ -224,20 +224,18 @@ export default class EquipArmorInfo extends PureComponent {
       );
     }
     return (
-      <ScrollView style={{ backgroundColor: 'white' }} contentContainerStyle={{ flex: 1 }}>
-        {this.renderInfo()}
-        {this.renderSkills()}
-        {this.renderCrafting()}
-      </ScrollView>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <ScrollView style={{ backgroundColor: 'white' }}>
+          {this.renderInfo()}
+          {this.renderSkills()}
+          {this.renderCrafting()}
+        </ScrollView>
+        <AdBanner />
+      </View>
     );
   }
 
   render() {
-    return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
-        {this.renderContent()}
-        <AdBanner />
-      </View>
-    );
+    return this.renderContent();
   }
 }

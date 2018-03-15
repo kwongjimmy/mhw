@@ -159,11 +159,8 @@ export default class ItemInfoEquip extends PureComponent {
     }
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
-        <ScrollView>
-          {this.renderArmor()}
-          {this.renderWeapons()}
-        </ScrollView>
-        {/* <AdBanner /> */}
+        {this.renderArmor()}
+        {this.renderWeapons()}
       </View>
     );
   }
