@@ -50,34 +50,12 @@ export default class MiscScreen extends PureComponent {
         {
           route: 'AboutScreen',
           title: 'About',
-        },
-        {
-          route: '',
-          title: 'Support Us',
-        },
+        }
       ],
     };
   }
 
   renderListItems = ({ item }) => {
-    if (item.title === 'Support Us') {
-      return (
-          <ListItem
-            style={{ marginLeft: 0, paddingLeft: 18 }}
-            onPress={() => Linking.openURL('https://www.paypal.me/mhwdatabasechingoos')}>
-            <Left>
-              <Image
-                resizeMode="contain"
-                style={{ width: 35, height: 35 }}
-                source={MiscImages[item.title]}
-              />
-            </Left>
-            <Body style={{ flex: 6 }}>
-              <Text style={{ fontSize: 20, color: '#191919' }}>{item.title}</Text>
-            </Body>
-          </ListItem>
-      );
-    }
     return (
       <ListItem
         style={{ marginLeft: 0, paddingLeft: 18 }}
