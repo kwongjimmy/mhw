@@ -201,7 +201,7 @@ export default class MonsterInfoScreen extends PureComponent {
            tabStyle={{ backgroundColor: 'white' }}
            activeTextStyle={{ color: '#191919', fontWeight: '100' }}
            textStyle={{ color: '#5e5e5e' }}
-           heading="Info"
+           heading="Weakness"
            >
            {this.renderContent('tab1')}
          </Tab>
