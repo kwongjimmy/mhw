@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { View, FlatList, ActivityIndicator } from 'react-native';
+import { Platform, View, FlatList, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, ListItem, Text, Left, Right } from 'native-base';
 import AdBanner from '../components/AdBanner';
 
 export default class DecorationScreen extends Component {
   static navigatorStyle = {
-    // navBarHideOnScroll: true,
+    topBarElevationShadowEnabled: Platform.OS !== 'ios',
     topBarBorderColor: 'red',
     topBarBorderWidth: 17,
   };

@@ -13,7 +13,7 @@ export default class MonsterList extends PureComponent {
       loading: true,
     };
   }
-  
+
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
       this.setState({ loading: false });
@@ -35,6 +35,7 @@ export default class MonsterList extends PureComponent {
         screen: 'MonsterInfoScreen',
         passProps: {
           monster_id: item.monster_id,
+          monster_info: item,
         },
         animationType: 'slide-horizontal',
         title: item.monster_name,

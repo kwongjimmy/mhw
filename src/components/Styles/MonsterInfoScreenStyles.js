@@ -56,8 +56,8 @@ export default StyleSheet.create({
     flex: 1,
     fontSize: 13,
     color: '#191919',
-    paddingTop: 5,
-    paddingBottom: 5,
+    // paddingTop: 5,
+    // paddingBottom: 5,
     textAlign: 'center',
   },
   monsterExtractContainer: {

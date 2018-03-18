@@ -73,7 +73,7 @@ export default class MapInfo extends PureComponent {
                   type: 'item',
                 },
                 animationType: 'slide-horizontal',
-                title: item2.name,
+                title: item2.item_name,
               })}
               key={key2}>
               <Left>

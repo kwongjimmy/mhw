@@ -67,10 +67,10 @@ export default class SkillInfo extends PureComponent {
   renderLevels() {
     return this.state.levels.map((item, key) => (
         <ListItem key={key} style={{ marginLeft: 0, paddingLeft: 8 }}>
-          <Left>
+          <Left style={{ flex: 1 }}>
             <Text style={{ fontSize: 15.5, color: '#191919' }}>{`Lv ${item.level}`}</Text>
           </Left>
-          <Body>
+          <Body style={{ flex: 3 }}>
             <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.description}</Text>
           </Body>
         </ListItem>

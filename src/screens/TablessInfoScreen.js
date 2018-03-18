@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { Platform } from 'react-native';
 import CharmInfo from '../components/CharmInfo';
 import EquipArmorInfo from '../components/EquipArmorInfo';
 import MapInfo from '../components/MapInfo';
@@ -10,6 +11,7 @@ import ItemInfo from '../components/ItemInfo';
 
 export default class TablessInfoScreen extends PureComponent {
   static navigatorStyle = {
+    topBarElevationShadowEnabled: Platform.OS !== 'ios',
     topBarBorderColor: 'red',
     topBarBorderWidth: 17,
   };

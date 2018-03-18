@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Image, View, FlatList, InteractionManager, ActivityIndicator } from 'react-native'
+import { ScrollView, Image, View, FlatList, InteractionManager, ActivityIndicator } from 'react-native'
 import { Text, ListItem, Left, Right, Body } from 'native-base';
 import AdBanner from './AdBanner';
 import styles from './Styles/MonsterInfoScreenStyles';
@@ -20,10 +20,11 @@ export default class MonsterInfo extends PureComponent {
       ice: ElementStatusImages.Ice,
       thunder: ElementStatusImages.Thunder,
       dragon: ElementStatusImages.Dragon,
+      extract_color: '',
       header: true,
     };
     let data = this.props.monster_hit;
-    data = data.splice(0, 0, firstData);
+    // data = data.splice(0, 0, firstData);
     this.state = {
       stickyHeaderIndices: [0],
       data: this.props.monster_hit,
@@ -51,7 +52,7 @@ export default class MonsterInfo extends PureComponent {
 
   renderHeader() {
     return (
-      <ListItem style={{ marginLeft: 0, paddingLeft: 18, borderColor: 'red', paddingRight: 5, backgroundColor: 'white' }}>
+      <ListItem style={{ marginLeft: 0, paddingLeft: 18, paddingRight: 5 }} itemDivider>
         <Text style={[styles.monsterHitText, { flex: 2.5 }]}>{''}</Text>
         <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
           <Image
@@ -138,21 +139,132 @@ export default class MonsterInfo extends PureComponent {
       return this.renderHeader();
     }
     return (
-      <ListItem style={{ height: 55, marginLeft: 0, paddingLeft: 18, paddingRight: 5 }}>
+      <ListItem style={{ height: 37.5, marginLeft: 0, paddingLeft: 18, paddingRight: 5 }}>
         <Text style={[styles.monsterHitText, { flex: 2.5, fontSize: 13, textAlign: 'left' }]}>{item.part_name}</Text>
         <Text style={styles.monsterHitText}>{item.sever}</Text>
         <Text style={styles.monsterHitText}>{item.blunt}</Text>
         <Text style={styles.monsterHitText}>{item.shot}</Text>
         <Text style={styles.monsterHitText}>{item.stun}</Text>
-        <Text style={styles.monsterHitText}>{item.fire}</Text>
-        <Text style={styles.monsterHitText}>{item.water}</Text>
-        <Text style={styles.monsterHitText}>{item.ice}</Text>
-        <Text style={styles.monsterHitText}>{item.thunder}</Text>
-        <Text style={styles.monsterHitText}>{item.dragon}</Text>
+        <Text style={[styles.monsterHitText, { color: 'red' }]}>{item.fire}</Text>
+        <Text style={[styles.monsterHitText, { color: 'darkblue' }]}>{item.water}</Text>
+        <Text style={[styles.monsterHitText, { color: 'teal' }]}>{item.ice}</Text>
+        <Text style={[styles.monsterHitText, { color: '#e5c100' }]}>{item.thunder}</Text>
+        <Text style={[styles.monsterHitText, { color: 'purple' }]}>{item.dragon}</Text>
         <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
           {this.renderExtractColor(item)}
         </View>
       </ListItem>
+    );
+  }
+
+  renderDamageHeader() {
+    return (
+      <ListItem style={{ height: 37.5, marginLeft: 0, paddingLeft: 18, paddingRight: 5 }} itemDivider>
+        <Text style={[styles.monsterHitText, { fontSize: 13, textAlign: 'left' }]}></Text>
+        <Text style={styles.monsterHitText}>Flinch</Text>
+        <Text style={styles.monsterHitText}>Wound</Text>
+        <Text style={styles.monsterHitText}>Sever</Text>
+      </ListItem>
+    );
+  }
+
+  renderDamageEffects = ({ item }) => {
+    if (item.header === true) {
+      return this.renderDamageHeader();
+    }
+    if (item.extract_color !== '') {
+      return (
+        <View>
+          <ListItem style={{ height: 37.5, marginLeft: 0, paddingLeft: 18, paddingRight: 5 }}>
+            <Text style={[styles.monsterHitText, { fontSize: 13, textAlign: 'left' }]}>{item.part_name}</Text>
+            <Text style={styles.monsterHitText}>{item.flinch}</Text>
+            <Text style={styles.monsterHitText}>{item.wound}</Text>
+            <Text style={styles.monsterHitText}>{item.sever2}</Text>
+          </ListItem>
+        </View>
+      );
+    }
+    return null;
+  }
+
+  renderDamage() {
+    return (
+      <View>
+        {this.renderDamageHeader()}
+        {this.state.data.map((item, key) => {
+          if (item.extract_color !== '') {
+            return (
+              <ListItem key={key} style={{ height: 37.5, marginLeft: 0, paddingLeft: 18, paddingRight: 5 }}>
+                <Text style={[styles.monsterHitText, { fontSize: 13, textAlign: 'left' }]}>{item.part_name}</Text>
+                <Text style={styles.monsterHitText}>{item.flinch}</Text>
+                <Text style={styles.monsterHitText}>{item.wound}</Text>
+                <Text style={styles.monsterHitText}>{item.sever2}</Text>
+              </ListItem>
+            );
+          }
+          return null;
+        })}
+      </View>
+    );
+  }
+  renderWeakness() {
+    return (
+      <View>
+        {this.renderHeader()}
+        {this.state.data.map((item, key) => {
+          return (
+            <ListItem key={key} style={{ height: 37.5, marginLeft: 0, paddingLeft: 18, paddingRight: 5 }}>
+              <Text style={[styles.monsterHitText, { flex: 2.5, fontSize: 13, textAlign: 'left' }]}>{item.part_name}</Text>
+              <Text style={styles.monsterHitText}>{item.sever}</Text>
+              <Text style={styles.monsterHitText}>{item.blunt}</Text>
+              <Text style={styles.monsterHitText}>{item.shot}</Text>
+              <Text style={styles.monsterHitText}>{item.stun}</Text>
+              <Text style={[styles.monsterHitText, { color: 'red' }]}>{item.fire}</Text>
+              <Text style={[styles.monsterHitText, { color: 'darkblue' }]}>{item.water}</Text>
+              <Text style={[styles.monsterHitText, { color: 'teal' }]}>{item.ice}</Text>
+              <Text style={[styles.monsterHitText, { color: '#e5c100' }]}>{item.thunder}</Text>
+              <Text style={[styles.monsterHitText, { color: 'purple' }]}>{item.dragon}</Text>
+              <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
+                {this.renderExtractColor(item)}
+              </View>
+            </ListItem>
+          );
+        })}
+      </View>
+    );
+  }
+
+  renderInfo() {
+    if (this.props.monster_size === 'Large') {
+      return (
+        <ScrollView>
+          {this.renderWeakness()}
+          {this.renderDamage()}
+          {/* <FlatList
+            data={this.state.data}
+            keyExtractor={(item) => item.part_name}
+            renderItem={this.renderListItems}
+            // stickyHeaderIndices={this.state.stickyHeaderIndices}
+          />
+          <FlatList
+            data={this.state.data}
+            keyExtractor={(item) => item.part_name}
+            renderItem={this.renderDamageEffects}
+            // stickyHeaderIndices={this.state.stickyHeaderIndices}
+          /> */}
+        </ScrollView>
+      );
+    }
+    return (
+      <ScrollView>
+        {this.renderWeakness()}
+        {/* <FlatList
+          data={this.state.data}
+          keyExtractor={(item) => item.part_name}
+          renderItem={this.renderListItems}
+          // stickyHeaderIndices={this.state.stickyHeaderIndices}
+        /> */}
+      </ScrollView>
     );
   }
 
@@ -168,12 +280,7 @@ export default class MonsterInfo extends PureComponent {
     }
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
-        <FlatList
-          data={this.state.data}
-          keyExtractor={(item) => item.part_name}
-          renderItem={this.renderListItems}
-          stickyHeaderIndices={this.state.stickyHeaderIndices}
-        />
+        {this.renderInfo()}
         <AdBanner />
       </View>
     );

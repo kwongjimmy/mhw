@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react';
-import { View, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Platform, View, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Header, Content, List, ListItem, Text } from 'native-base';
 import AdBanner from '../components/AdBanner';
 
 export default class ItemScreen extends PureComponent {
   static navigatorStyle = {
+    topBarElevationShadowEnabled: Platform.OS !== 'ios',
     topBarBorderColor: 'red',
     topBarBorderWidth: 17,
   };

@@ -84,7 +84,7 @@ export default class DecorationInfo extends Component {
               armor_skill_id: this.state.info.armor_skill_id,
               type: 'skill',
             },
-            animationType: 'fade',
+            animationType: 'slide-horizontal',
             title: this.state.info.name,
           })}
           >
@@ -118,7 +118,7 @@ export default class DecorationInfo extends Component {
               item_id: this.state.feystones[1].item_id,
               type: 'item',
             },
-            animationType: 'fade',
+            animationType: 'slide-horizontal',
             title: this.state.feystones[1].name,
           })}
           >
@@ -137,7 +137,7 @@ export default class DecorationInfo extends Component {
               item_id: this.state.feystones[0].item_id,
               type: 'item',
             },
-            animationType: 'fade',
+            animationType: 'slide-horizontal',
             title: this.state.feystones[0].name,
           })}
           >
@@ -156,7 +156,7 @@ export default class DecorationInfo extends Component {
               item_id: this.state.feystones[3].item_id,
               type: 'item',
             },
-            animationType: 'fade',
+            animationType: 'slide-horizontal',
             title: this.state.feystones[3].name,
           })}
           >
@@ -175,7 +175,7 @@ export default class DecorationInfo extends Component {
               item_id: this.state.feystones[2].item_id,
               type: 'item',
             },
-            animationType: 'fade',
+            animationType: 'slide-horizontal',
             title: this.state.feystones[2].name,
           })}
           >
@@ -193,7 +193,7 @@ export default class DecorationInfo extends Component {
   renderContent() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
           <ActivityIndicator size="large" color="#5e5e5e"/>
         </View>
       );

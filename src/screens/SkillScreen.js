@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react';
-import { View, FlatList, ActivityIndicator } from 'react-native';
+import { Platform, View, FlatList, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, ListItem, Text, Left, Right, Body } from 'native-base';
 import AdBanner from '../components/AdBanner';
 
 export default class SkillScreen extends PureComponent {
   static navigatorStyle = {
+    topBarElevationShadowEnabled: Platform.OS !== 'ios',
     topBarBorderColor: 'red',
     topBarBorderWidth: 17,
   };

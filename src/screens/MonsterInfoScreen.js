@@ -171,7 +171,7 @@ export default class MonsterInfoScreen extends PureComponent {
       );
     }
     if (screen === 'tab1') {
-      return <MonsterInfo navigator={this.props.navigator} monster_hit={this.state.monster_hit}/>;
+      return <MonsterInfo navigator={this.props.navigator} monster_size={this.props.monster_info.size} monster_hit={this.state.monster_hit}/>;
     } else if (screen === 'tab2') {
       return <MonsterLoot navigator={this.props.navigator} monster_loot={this.state.monster_loot}/>;
     } else if (screen === 'tab3') {
@@ -180,21 +180,108 @@ export default class MonsterInfoScreen extends PureComponent {
       return <MonsterEquip navigator={this.props.navigator} data={this.state.monster_armor} type={'armor'}/>;
     } else if (screen === 'tab5') {
       return <MonsterEquip navigator={this.props.navigator} data={this.state.monster_weapons} type={'weapon'}/>;
-
     }
     return (
       <MonsterQuest navigator={this.props.navigator} monster_quest={this.state.monster_quest}/>
     );
   }
 
+  renderLrLoot() {
+    if (this.state.monster_loot.length > 0) {
+      return (
+        <Tab
+          activeTabStyle={{ backgroundColor: 'white' }}
+          tabStyle={{ backgroundColor: 'white' }}
+          activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+          textStyle={{ color: '#5e5e5e' }}
+          heading="LR Loot"
+          >
+          {this.renderContent('tab2')}
+        </Tab>
+      );
+    }
+    return null;
+  }
+
+  renderHrLoot() {
+    if (this.state.monster_loot_high.length > 0) {
+      return (
+        <Tab
+          activeTabStyle={{ backgroundColor: 'white' }}
+          tabStyle={{ backgroundColor: 'white' }}
+          activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+          textStyle={{ color: '#5e5e5e' }}
+          heading="HR Loot"
+          >
+          {this.renderContent('tab3')}
+        </Tab>
+      );
+    }
+    return null;
+  }
+
+  renderWeapon() {
+    if (this.state.monster_weapons.length > 0) {
+      return (
+        <Tab
+          activeTabStyle={{ backgroundColor: 'white' }}
+          tabStyle={{ backgroundColor: 'white' }}
+          activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+          textStyle={{ color: '#5e5e5e' }}
+          heading="Weapon"
+          >
+          {this.renderContent('tab4')}
+        </Tab>
+      );
+    }
+    return null;
+  }
+
+  renderArmor() {
+    if (this.state.monster_armor.length > 0) {
+      return (
+        <Tab
+          activeTabStyle={{ backgroundColor: 'white' }}
+          tabStyle={{ backgroundColor: 'white' }}
+          activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+          textStyle={{ color: '#5e5e5e' }}
+          heading="Armor"
+          >
+          {this.renderContent('tab5')}
+        </Tab>
+      );
+    }
+    return null;
+  }
+
+  renderQuest() {
+    if (this.state.monster_quest.length > 0) {
+      return (
+        <Tab
+          activeTabStyle={{ backgroundColor: 'white' }}
+          tabStyle={{ backgroundColor: 'white' }}
+          activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+          textStyle={{ color: '#5e5e5e' }}
+          heading="Quest"
+          >
+          {this.renderContent('tab6')}
+        </Tab>
+      );
+    }
+    return null;
+  }
+
   render() {
+    if (this.state.loading) {
+      return this.renderContent();
+    }
     return (
        <Tabs
          prerenderingSiblingsNumber={3}
          scrollWithoutAnimation={false}
          tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }}
          initialPage={0}
-         renderTabBar={() => <ScrollableTab style={{ elevation: 2 }}/>}
+         renderTabBar={() => <ScrollableTab style={{ backgroundColor: 'white', elevation: 2 }}/>}
          >
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
@@ -205,7 +292,13 @@ export default class MonsterInfoScreen extends PureComponent {
            >
            {this.renderContent('tab1')}
          </Tab>
-         <Tab
+         {this.renderLrLoot()}
+         {this.renderHrLoot()}
+         {this.renderWeapon()}
+         {this.renderArmor()}
+         {this.renderQuest()}
+
+         {/* <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
            activeTextStyle={{ color: '#191919', fontWeight: '100' }}
@@ -213,8 +306,8 @@ export default class MonsterInfoScreen extends PureComponent {
            heading="LR Loot"
            >
            {this.renderContent('tab2')}
-         </Tab>
-         <Tab
+         </Tab> */}
+         {/* <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
            activeTextStyle={{ color: '#191919', fontWeight: '100' }}
@@ -222,8 +315,8 @@ export default class MonsterInfoScreen extends PureComponent {
            heading="HR Loot"
            >
            {this.renderContent('tab3')}
-         </Tab>
-         <Tab
+         </Tab> */}
+         {/* <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
            activeTextStyle={{ color: '#191919', fontWeight: '100' }}
@@ -249,7 +342,7 @@ export default class MonsterInfoScreen extends PureComponent {
            heading="Quest"
            >
            {this.renderContent('tab6')}
-         </Tab>
+         </Tab> */}
        </Tabs>
     );
   }

@@ -6,7 +6,7 @@ import android.os.Bundle;
 public class MainActivity extends SplashActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SplashScreen.show(this);
+        SplashScreen.show(this, true);
         super.onCreate(savedInstanceState);
     }
 }

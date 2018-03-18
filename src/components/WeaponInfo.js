@@ -410,7 +410,7 @@ export default class WeaponInfo extends PureComponent {
         <ListItem style={{ marginLeft: 0, backgroundColor: 'white' }} itemDivider>
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${damage} (${true_damage})`} </Text>
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${slotOne} ${slotTwo} ${slotThree}`}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${special_ammo}`}</Text>
+          <Text adjustsFontSizeToFit style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${special_ammo}`}</Text>
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{rarity}</Text>
         </ListItem>
         {this.renderBowGunSecondaryInfo(info)}
