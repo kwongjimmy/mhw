@@ -230,7 +230,7 @@ export default class MonsterInfoScreen extends PureComponent {
           textStyle={{ color: '#5e5e5e' }}
           heading="Weapon"
           >
-          {this.renderContent('tab4')}
+          {this.renderContent('tab5')}
         </Tab>
       );
     }
@@ -247,7 +247,7 @@ export default class MonsterInfoScreen extends PureComponent {
           textStyle={{ color: '#5e5e5e' }}
           heading="Armor"
           >
-          {this.renderContent('tab5')}
+          {this.renderContent('tab4')}
         </Tab>
       );
     }
