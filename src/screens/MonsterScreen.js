@@ -151,60 +151,60 @@ export default class MonsterScreen extends PureComponent {
       return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
           <MonsterList navigator={this.props.navigator} monsters={this.state.allMonsters} type={'all'}/>
-          <AdBanner />
         </View>
       );
     } else if (screen === 'large') {
       return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
           <MonsterList navigator={this.props.navigator} monsters={this.state.largeMonsters} type={'large'}/>
-          <AdBanner />
         </View>
       );
     }
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <MonsterList navigator={this.props.navigator} monsters={this.state.smallMonsters} type={'small'}/>
-        <AdBanner />
       </View>
     );
   }
 
   render() {
     return (
-      <Tabs
-        prerenderingSiblingsNumber={3}
-        scrollWithoutAnimation={false}
-        tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }}
-        initialPage={0}>
-       <Tab
-         activeTabStyle={{ backgroundColor: 'white' }}
-         tabStyle={{ backgroundColor: 'white' }}
-         activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-         textStyle={{ color: '#5e5e5e' }}
-         heading="All"
-         >
-         {this.renderContent('all')}
-       </Tab>
-       <Tab
-         activeTabStyle={{ backgroundColor: 'white' }}
-         tabStyle={{ backgroundColor: 'white' }}
-         activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-         textStyle={{ color: '#5e5e5e' }}
-         heading="Large"
-         >
-         {this.renderContent('large')}
-       </Tab>
-       <Tab
-         activeTabStyle={{ backgroundColor: 'white' }}
-         tabStyle={{ backgroundColor: 'white' }}
-         activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-         textStyle={{ color: '#5e5e5e' }}
-         heading="Small"
-         >
-         {this.renderContent('small')}
-       </Tab>
-     </Tabs>
+      <Container>
+        <Tabs
+          prerenderingSiblingsNumber={3}
+          scrollWithoutAnimation={false}
+          tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }}
+          initialPage={0}>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="All"
+           >
+           {this.renderContent('all')}
+         </Tab>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Large"
+           >
+           {this.renderContent('large')}
+         </Tab>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Small"
+           >
+           {this.renderContent('small')}
+         </Tab>
+       </Tabs>
+       <AdBanner />
+     </Container>
     );
   }
 }

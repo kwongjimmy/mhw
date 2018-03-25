@@ -432,7 +432,7 @@ export default class SearchScreen extends Component {
       <ListItem
         style={{ marginLeft: 0, paddingLeft: 8 }}
         onPress={() => this.props.navigator.push({
-        screen: 'TablessInfoScreen',
+        screen: 'TabInfoScreen',
         passProps: {
           item_id: item.map_id,
           type: 'maps'
@@ -572,7 +572,6 @@ export default class SearchScreen extends Component {
       return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
           <MonsterList navigator={this.props.navigator} monsters={this.state.allMonsters} type={'monster'}/>
-          <AdBanner />
         </View>
       );
     }
@@ -581,7 +580,6 @@ export default class SearchScreen extends Component {
       return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
           <EquipArmorList navigator={this.props.navigator} armor={this.state.lowRank}/>
-          <AdBanner />
         </View>
       );
     }
@@ -595,7 +593,6 @@ export default class SearchScreen extends Component {
             keyExtractor={(item) => item.item_id.toString()}
             renderItem={this.renderListWeapons}
           />
-          <AdBanner />
         </View>
       );
     }
@@ -607,7 +604,6 @@ export default class SearchScreen extends Component {
             keyExtractor={(item) => item.item_id.toString()}
             renderItem={this.renderListItems}
           />
-          <AdBanner />
         </View>
       );
     } else if (screen === 'skill') {
@@ -618,7 +614,6 @@ export default class SearchScreen extends Component {
             keyExtractor={(item) => item.armor_skill_id.toString()}
             renderItem={this.renderListSkills}
           />
-          <AdBanner />
         </View>
       );
     }
@@ -630,7 +625,6 @@ export default class SearchScreen extends Component {
             keyExtractor={(item) => item.map_id.toString()}
             renderItem={this.renderListMaps}
           />
-          <AdBanner />
         </View>
       );
     }
@@ -642,7 +636,6 @@ export default class SearchScreen extends Component {
             keyExtractor={(item) => item.item_id.toString()}
             renderItem={this.renderListDecorations}
           />
-          <AdBanner />
         </View>
       );
     }
@@ -654,7 +647,6 @@ export default class SearchScreen extends Component {
             keyExtractor={(item) => item.item_id.toString()}
             renderItem={this.renderListCharms}
           />
-          <AdBanner />
         </View>
       );
     }
@@ -666,11 +658,11 @@ export default class SearchScreen extends Component {
             keyExtractor={(item) => item.quest_id.toString()}
             renderItem={this.renderListQuests}
           />
-          <AdBanner />
         </View>
       );
     }
   }
+
   render() {
     return (
       <Container style={{ backgroundColor: 'white' }}>
@@ -772,6 +764,7 @@ export default class SearchScreen extends Component {
            {this.renderContent('map')}
          </Tab>
        </Tabs>
+       <AdBanner/>
       </Container>
     );
   }

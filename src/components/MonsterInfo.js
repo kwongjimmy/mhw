@@ -5,29 +5,34 @@ import AdBanner from './AdBanner';
 import styles from './Styles/MonsterInfoScreenStyles';
 import { ElementStatusImages } from '../assets';
 
+let effectiveness = {
+  true: `\u25ef`,
+  false: `\u2573`,
+  '△': `\u25b3`,
+  'small': 'Small',
+  'medium': 'Medium',
+  'large': 'Large',
+  'long': 'Long',
+  'short': 'Short',
+  null: '-',
+};
+
+let ailment = {
+  'blast': 'Blast',
+  'fatique': 'Fatique',
+  'mount': 'Mount',
+  'paralysis': 'Paralysis',
+  'poison': 'Poison',
+  'sleep': 'Sleep',
+  'stun': 'Stun',
+  'dragonseal': 'Dragon Seal'
+}
+
 export default class MonsterInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-    const firstData = {
-      part_name: '',
-      sever: ElementStatusImages.Sever,
-      blunt: ElementStatusImages.Blunt,
-      shot: ElementStatusImages.Shot,
-      stun: ElementStatusImages.Stun,
-      fire: ElementStatusImages.Fire,
-      water: ElementStatusImages.Water,
-      ice: ElementStatusImages.Ice,
-      thunder: ElementStatusImages.Thunder,
-      dragon: ElementStatusImages.Dragon,
-      extract_color: '',
-      header: true,
-    };
-    let data = this.props.monster_hit;
-    // data = data.splice(0, 0, firstData);
     this.state = {
-      stickyHeaderIndices: [0],
-      data: this.props.monster_hit,
       loading: true,
     };
   }
@@ -50,136 +55,60 @@ export default class MonsterInfo extends PureComponent {
     }
   }
 
-  renderHeader() {
+  renderTypeSize() {
     return (
-      <ListItem style={{ marginLeft: 0, paddingLeft: 18, paddingRight: 5 }} itemDivider>
-        <Text style={[styles.monsterHitText, { flex: 2.5 }]}>{''}</Text>
-        <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
-          <Image
-            resizeMode="contain"
-            style={{ height: 22.5, width: 22.5 }}
-            source={ElementStatusImages.Sever}
-          />
-        </View>
-        <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
-          <Image
-            resizeMode="contain"
-            style={{ height: 22.5, width: 22.5 }}
-            source={ElementStatusImages.Blunt}
-          />
-        </View>
-        <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
-          <Image
-            resizeMode="contain"
-            style={{ height: 22.5, width: 22.5 }}
-            source={ElementStatusImages.Shot}
-          />
-        </View>
-        <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
-          <Image
-            resizeMode="contain"
-            style={{ height: 22.5, width: 22.5 }}
-            source={ElementStatusImages.Stun}
-          />
-        </View>
-        <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
-          <Image
-            resizeMode="contain"
-            style={{ height: 22.5, width: 22.5 }}
-            source={ElementStatusImages.Fire}
-          />
-        </View>
-        <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
-          <Image
-            resizeMode="contain"
-            style={{ height: 22.5, width: 22.5 }}
-            source={ElementStatusImages.Water}
-          />
-        </View>
-        <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
-          <Image
-            resizeMode="contain"
-            style={{ height: 22.5, width: 22.5 }}
-            source={ElementStatusImages.Ice}
-          />
-        </View>
-        <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
-          <Image
-            resizeMode="contain"
-            style={{ height: 22.5, width: 22.5 }}
-            source={ElementStatusImages.Thunder}
-          />
-        </View>
-        <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
-          <Image
-            resizeMode="contain"
-            style={{ height: 22.5, width: 22.5 }}
-            source={ElementStatusImages.Dragon}
-          />
-        </View>
-        <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
-          <Image
-            resizeMode="contain"
-            style={{ height: 22.5, width: 22.5 }}
-            source={ElementStatusImages.Extract}
-          />
-        </View>
-      </ListItem>
+      <View>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, paddingRight: 18 }} itemDivider>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            Type
+          </Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            Size
+          </Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            Health
+          </Text>
+        </ListItem>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, paddingRight: 18 }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            {this.props.info.type}
+          </Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            {this.props.info.size}
+          </Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            {this.props.info.hp}
+          </Text>
+        </ListItem>
+      </View>
     );
   }
 
-  renderExtractColor(item) {
-    if (item.extract_color === '') {
-      return <Text></Text>;
-    }
-    return <View style={[styles.monsterExtractContainer, { backgroundColor: item.extract_color }]} />;
-  }
-  renderListItems = ({ item }) => {
-    if (item.header === true) {
-      return this.renderHeader();
-    }
-    return (
-      <ListItem style={{ height: 37.5, marginLeft: 0, paddingLeft: 18, paddingRight: 5 }}>
-        <Text style={[styles.monsterHitText, { flex: 2.5, fontSize: 13, textAlign: 'left' }]}>{item.part_name}</Text>
-        <Text style={styles.monsterHitText}>{item.sever}</Text>
-        <Text style={styles.monsterHitText}>{item.blunt}</Text>
-        <Text style={styles.monsterHitText}>{item.shot}</Text>
-        <Text style={styles.monsterHitText}>{item.stun}</Text>
-        <Text style={[styles.monsterHitText, { color: 'red' }]}>{item.fire}</Text>
-        <Text style={[styles.monsterHitText, { color: 'darkblue' }]}>{item.water}</Text>
-        <Text style={[styles.monsterHitText, { color: 'teal' }]}>{item.ice}</Text>
-        <Text style={[styles.monsterHitText, { color: '#e5c100' }]}>{item.thunder}</Text>
-        <Text style={[styles.monsterHitText, { color: 'purple' }]}>{item.dragon}</Text>
-        <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
-          {this.renderExtractColor(item)}
-        </View>
-      </ListItem>
-    );
-  }
-
-  renderDamageHeader() {
-    return (
-      <ListItem style={{ height: 37.5, marginLeft: 0, paddingLeft: 18, paddingRight: 5 }} itemDivider>
-        <Text style={[styles.monsterHitText, { fontSize: 13, textAlign: 'left' }]}></Text>
-        <Text style={styles.monsterHitText}>Flinch</Text>
-        <Text style={styles.monsterHitText}>Wound</Text>
-        <Text style={styles.monsterHitText}>Sever</Text>
-      </ListItem>
-    );
-  }
-
-  renderDamageEffects = ({ item }) => {
-    if (item.header === true) {
-      return this.renderDamageHeader();
-    }
-    if (item.extract_color !== '') {
+  renderCapture() {
+    if (this.props.info.small_crown > 0) {
       return (
         <View>
-          <ListItem style={{ height: 37.5, marginLeft: 0, paddingLeft: 18, paddingRight: 5 }}>
-            <Text style={[styles.monsterHitText, { fontSize: 13, textAlign: 'left' }]}>{item.part_name}</Text>
-            <Text style={styles.monsterHitText}>{item.flinch}</Text>
-            <Text style={styles.monsterHitText}>{item.wound}</Text>
-            <Text style={styles.monsterHitText}>{item.sever2}</Text>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 18, paddingRight: 18 }} itemDivider>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+              Small Crown
+            </Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+              Silver Crown
+            </Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+              Gold Crown
+            </Text>
+          </ListItem>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 18, paddingRight: 18 }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+              {this.props.info.small_crown}
+            </Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+              {this.props.info.silver_crown}
+            </Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+              {this.props.info.gold_crown}
+            </Text>
           </ListItem>
         </View>
       );
@@ -187,83 +116,238 @@ export default class MonsterInfo extends PureComponent {
     return null;
   }
 
-  renderDamage() {
+  renderTools() {
     return (
       <View>
-        {this.renderDamageHeader()}
-        {this.state.data.map((item, key) => {
-          if (item.extract_color !== '') {
-            return (
-              <ListItem key={key} style={{ height: 37.5, marginLeft: 0, paddingLeft: 18, paddingRight: 5 }}>
-                <Text style={[styles.monsterHitText, { fontSize: 13, textAlign: 'left' }]}>{item.part_name}</Text>
-                <Text style={styles.monsterHitText}>{item.flinch}</Text>
-                <Text style={styles.monsterHitText}>{item.wound}</Text>
-                <Text style={styles.monsterHitText}>{item.sever2}</Text>
-              </ListItem>
-            );
-          }
-          return null;
-        })}
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, paddingRight: 18 }} itemDivider>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            Shock Trap
+          </Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            Pitfall Trap
+          </Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            Ivy Trap
+          </Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            Capture
+          </Text>
+        </ListItem>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, paddingRight: 18, height: 37.5 }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            {`${effectiveness[this.props.tool[6].works]}`}
+          </Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            {`${effectiveness[this.props.tool[4].works]}`}
+          </Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            {`${effectiveness[this.props.tool[3].works]}`}
+          </Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            {`${this.props.info.capture_hp_percentage}%`}
+          </Text>
+        </ListItem>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, paddingRight: 18 }} itemDivider>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            Flash
+          </Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            Dung
+          </Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            Screamer
+          </Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            Meat
+          </Text>
+        </ListItem>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, paddingRight: 18, height: 37.5 }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            {`${effectiveness[this.props.tool[2].works]}`}
+          </Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            {`${effectiveness[this.props.tool[1].works]}`}
+          </Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            {`${effectiveness[this.props.tool[5].works]}`}
+          </Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            {`${effectiveness[this.props.tool[0].works]}`}
+          </Text>
+        </ListItem>
       </View>
     );
   }
-  renderWeakness() {
+
+  renderAilment() {
+    if (this.props.ailment.length > 0) {
+      return (
+        <View>
+          <ListItem style={{ marginLeft: 0, marginRight: 0, paddingLeft: 8, paddingRight: 18 }} itemDivider>
+            <Left style={{ flex: 1.5 }}>
+              <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+                Aliment
+              </Text>
+            </Left>
+            <Right style={{ flex: 1 }}>
+              <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+                Resistance
+              </Text>
+            </Right>
+            <Right style={{ flex: 1 }}>
+              <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+                Duration
+              </Text>
+            </Right>
+          </ListItem>
+        {this.props.ailment.map((item, key) =>
+          <ListItem key={key} style={{ marginLeft: 0, marginRight: 0, paddingLeft: 8, paddingRight: 18, height: 37.5 }}>
+            <Left style={{ flex: 1.5 }}>
+              <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+                {`${ailment[item.element]}`}
+              </Text>
+            </Left>
+            <Right style={{ flex: 1 }}>
+              <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+                {`${effectiveness[item.resistance]}`}
+              </Text>
+            </Right>
+            <Right style={{ flex: 1 }}>
+              <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+                {`${effectiveness[item.duration]}`}
+              </Text>
+            </Right>
+          </ListItem>)}
+      </View>
+      );
+    }
+    return null;
+  }
+
+  renderElement() {
+    const {
+      fire, water, thunder, ice, dragon,
+    } = this.props.info;
     return (
       <View>
-        {this.renderHeader()}
-        {this.state.data.map((item, key) => {
-          return (
-            <ListItem key={key} style={{ height: 37.5, marginLeft: 0, paddingLeft: 18, paddingRight: 5 }}>
-              <Text style={[styles.monsterHitText, { flex: 2.5, fontSize: 13, textAlign: 'left' }]}>{item.part_name}</Text>
-              <Text style={styles.monsterHitText}>{item.sever}</Text>
-              <Text style={styles.monsterHitText}>{item.blunt}</Text>
-              <Text style={styles.monsterHitText}>{item.shot}</Text>
-              <Text style={styles.monsterHitText}>{item.stun}</Text>
-              <Text style={[styles.monsterHitText, { color: 'red' }]}>{item.fire}</Text>
-              <Text style={[styles.monsterHitText, { color: 'darkblue' }]}>{item.water}</Text>
-              <Text style={[styles.monsterHitText, { color: 'teal' }]}>{item.ice}</Text>
-              <Text style={[styles.monsterHitText, { color: '#e5c100' }]}>{item.thunder}</Text>
-              <Text style={[styles.monsterHitText, { color: 'purple' }]}>{item.dragon}</Text>
-              <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
-                {this.renderExtractColor(item)}
-              </View>
-            </ListItem>
-          );
-        })}
+        <ListItem style={{ marginLeft: 0, borderBottomWidth: 0.0, borderColor: 'red' }} itemDivider>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+            <Image
+              resizeMode="contain"
+              style={{ flex: 1, height: 20, width: 20, alignSelf: 'center' }}
+              source={ElementStatusImages['Fire']}
+            />
+          </View>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+            <Image
+              resizeMode="contain"
+              style={{ flex: 1, height: 20, width: 20, alignSelf: 'center' }}
+              source={ElementStatusImages['Water']}
+            />
+          </View>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+            <Image
+              resizeMode="contain"
+              style={{ flex: 1, height: 20, width: 20, alignSelf: 'center' }}
+              source={ElementStatusImages['Thunder']}
+            />
+          </View>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+            <Image
+              resizeMode="contain"
+              style={{ flex: 1, height: 20, width: 20, alignSelf: 'center' }}
+              source={ElementStatusImages['Ice']}
+            />
+          </View>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+            <Image
+              resizeMode="contain"
+              style={{ flex: 1, height: 20, width: 20, alignSelf: 'center' }}
+              source={ElementStatusImages['Dragon']}
+            />
+          </View>
+        </ListItem>
+        <ListItem style={{ marginLeft: 0, backgroundColor: 'white', height: 37.5 }} itemDivider>
+          <Text style={{ flex: 1, fontSize: 14.5, color: '#191919', textAlign: 'center' }}>{fire}</Text>
+          <Text style={{ flex: 1, fontSize: 14.5, color: '#191919', textAlign: 'center' }}>{water}</Text>
+          <Text style={{ flex: 1, fontSize: 14.5, color: '#191919', textAlign: 'center' }}>{thunder}</Text>
+          <Text style={{ flex: 1, fontSize: 14.5, color: '#191919', textAlign: 'center' }}>{ice}</Text>
+          <Text style={{ flex: 1, fontSize: 14.5, color: '#191919', textAlign: 'center' }}>{dragon}</Text>
+        </ListItem>
+      </View>
+    );
+  }
+
+  renderStatus() {
+    const {
+      poison, sleep, paralysis, blast, stun,
+    } = this.props.info;
+    return (
+      <View>
+        <ListItem style={{ marginLeft: 0, borderBottomWidth: 0.0, borderColor: 'red' }} itemDivider>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+            <Image
+              resizeMode="contain"
+              style={{ flex: 1, height: 20, width: 20, alignSelf: 'center' }}
+              source={ElementStatusImages['Poison']}
+            />
+          </View>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+            <Image
+              resizeMode="contain"
+              style={{ flex: 1, height: 20, width: 20, alignSelf: 'center' }}
+              source={ElementStatusImages['Sleep']}
+            />
+          </View>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+            <Image
+              resizeMode="contain"
+              style={{ flex: 1, height: 20, width: 20, alignSelf: 'center' }}
+              source={ElementStatusImages['Paralysis']}
+            />
+          </View>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+            <Image
+              resizeMode="contain"
+              style={{ flex: 1, height: 20, width: 20, alignSelf: 'center' }}
+              source={ElementStatusImages['Blast']}
+            />
+          </View>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+            <Image
+              resizeMode="contain"
+              style={{ flex: 1, height: 20, width: 20, alignSelf: 'center' }}
+              source={ElementStatusImages['Stun']}
+            />
+          </View>
+        </ListItem>
+        <ListItem style={{ marginLeft: 0, backgroundColor: 'white', height: 37.5 }} itemDivider>
+          <Text style={{ flex: 1, fontSize: 14.5, color: '#191919', textAlign: 'center' }}>{poison}</Text>
+          <Text style={{ flex: 1, fontSize: 14.5, color: '#191919', textAlign: 'center' }}>{sleep}</Text>
+          <Text style={{ flex: 1, fontSize: 14.5, color: '#191919', textAlign: 'center' }}>{paralysis}</Text>
+          <Text style={{ flex: 1, fontSize: 14.5, color: '#191919', textAlign: 'center' }}>{blast}</Text>
+          <Text style={{ flex: 1, fontSize: 14.5, color: '#191919', textAlign: 'center' }}>{stun}</Text>
+        </ListItem>
       </View>
     );
   }
 
   renderInfo() {
-    if (this.props.monster_size === 'Large') {
+    if (this.props.info.size === 'Large') {
       return (
         <ScrollView>
-          {this.renderWeakness()}
-          {this.renderDamage()}
-          {/* <FlatList
-            data={this.state.data}
-            keyExtractor={(item) => item.part_name}
-            renderItem={this.renderListItems}
-            // stickyHeaderIndices={this.state.stickyHeaderIndices}
-          />
-          <FlatList
-            data={this.state.data}
-            keyExtractor={(item) => item.part_name}
-            renderItem={this.renderDamageEffects}
-            // stickyHeaderIndices={this.state.stickyHeaderIndices}
-          /> */}
+          {this.renderTypeSize()}
+          {this.renderCapture()}
+          {this.renderElement()}
+          {this.renderStatus()}
+          {this.renderTools()}
+          {this.renderAilment()}
         </ScrollView>
       );
     }
     return (
       <ScrollView>
-        {this.renderWeakness()}
-        {/* <FlatList
-          data={this.state.data}
-          keyExtractor={(item) => item.part_name}
-          renderItem={this.renderListItems}
-          // stickyHeaderIndices={this.state.stickyHeaderIndices}
-        /> */}
+        {this.renderTypeSize()}
       </ScrollView>
     );
   }
@@ -281,7 +365,6 @@ export default class MonsterInfo extends PureComponent {
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         {this.renderInfo()}
-        <AdBanner />
       </View>
     );
   }

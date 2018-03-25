@@ -84,13 +84,13 @@ export default class MonsterEquip extends PureComponent {
         title: item.name,
       })}
       >
-        <Left style={{ flex: 1 }}>
+        <Left style={{ flex: 1.5 }}>
           <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
         </Left>
-        <Body style={{ flex: 1 }}>
+        <Body style={{ flex: 1.5, flexGrow: 1.75 }}>
           {this.renderSkills(item)}
         </Body>
-        <Right style={{ flex: 1 }}>
+        <Right style={{ flex: 0.5, flexGrow: 1 }}>
           {this.renderSlots(item)}
         </Right>
       </ListItem>
@@ -127,7 +127,6 @@ export default class MonsterEquip extends PureComponent {
               { length: 52, offset: 52 * index, index }
             )}
           />
-          <AdBanner />
         </View>
       );
     }
@@ -139,7 +138,6 @@ export default class MonsterEquip extends PureComponent {
           keyExtractor={(item) => item.item_id.toString()}
           renderItem={this.renderWeaponListItems.bind(this)}
         />
-        <AdBanner />
       </View>
     );
   }

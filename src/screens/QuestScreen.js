@@ -120,7 +120,6 @@ export default class QuestScreen extends PureComponent {
               { length: 60, offset: 60 * index, index }
             )}
           />
-          <AdBanner />
         </View>
       );
     } else if (screen === 'tab2') {
@@ -136,7 +135,6 @@ export default class QuestScreen extends PureComponent {
               { length: 60, offset: 60 * index, index }
             )}
           />
-          <AdBanner />
         </View>
       );
     }
@@ -152,42 +150,44 @@ export default class QuestScreen extends PureComponent {
             { length: 60, offset: 60 * index, index }
           )}
         />
-        <AdBanner />
       </View>
     );
   }
 
   render() {
     return (
-       <Tabs prerenderingSiblingsNumber={3} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-           textStyle={{ color: '#5e5e5e' }}
-           heading="Assigned"
-           >
-           {this.renderContent('tab1')}
-         </Tab>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-           textStyle={{ color: '#5e5e5e' }}
-           heading="Optional"
-           >
-           {this.renderContent('tab2')}
-         </Tab>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-           textStyle={{ color: '#5e5e5e' }}
-           heading="Arena"
-           >
-           {this.renderContent('tab3')}
-         </Tab>
-       </Tabs>
+      <Container>
+        <Tabs prerenderingSiblingsNumber={3} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
+          <Tab
+            activeTabStyle={{ backgroundColor: 'white' }}
+            tabStyle={{ backgroundColor: 'white' }}
+            activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+            textStyle={{ color: '#5e5e5e' }}
+            heading="Assigned"
+            >
+            {this.renderContent('tab1')}
+          </Tab>
+          <Tab
+            activeTabStyle={{ backgroundColor: 'white' }}
+            tabStyle={{ backgroundColor: 'white' }}
+            activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+            textStyle={{ color: '#5e5e5e' }}
+            heading="Optional"
+            >
+            {this.renderContent('tab2')}
+          </Tab>
+          <Tab
+            activeTabStyle={{ backgroundColor: 'white' }}
+            tabStyle={{ backgroundColor: 'white' }}
+            activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+            textStyle={{ color: '#5e5e5e' }}
+            heading="Arena"
+            >
+            {this.renderContent('tab3')}
+          </Tab>
+        </Tabs>
+        <AdBanner />
+      </Container>
     );
   }
 }

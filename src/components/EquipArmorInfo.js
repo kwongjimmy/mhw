@@ -14,6 +14,7 @@ export default class EquipArmorInfo extends PureComponent {
       info: {},
       materials: [],
       skills: [],
+      setBonus: null,
     };
     InteractionManager.runAfterInteractions(() => {
       const db = SQLite.openDatabase({
@@ -22,6 +23,7 @@ export default class EquipArmorInfo extends PureComponent {
       db.transaction((tx) => {
         let materials = [];
         let info = {};
+        let setBonus = null;
         let skills = [];
         tx.executeSql('SELECT * FROM armor as A JOIN items AS B ON A.item_id = B.item_id WHERE A.item_id = ?', [this.props.item_id], (tx, results) => {
           info = results.rows.item(0);
@@ -41,6 +43,29 @@ export default class EquipArmorInfo extends PureComponent {
         );
         tx.executeSql(
           `SELECT
+            A.*,
+            B.name as set_bonus,
+            B.pieces as pieces,
+            B.pieces_2 as pieces_2,
+            S1.name as skill1,
+            S1.armor_skill_id as skill1_id,
+            S2.name as skill2,
+            S2.armor_skill_id as skill2_id
+            FROM (
+              SELECT armor_set_id FROM armor_sets
+              WHERE item_1 = ? OR item_2 = ? OR item_3 = ? OR item_4 = ? OR item_5 = ?
+            ) AS A
+            LEFT JOIN armor_set_bonus AS B ON A.armor_set_id = B.set_id
+            LEFT JOIN armor_skills_levels AS SL1 ON B.skill = SL1.armor_skill_level_id
+            LEFT JOIN armor_skills_levels AS SL2 ON B.skill_2 = SL2.armor_skill_level_id
+            LEFT JOIN armor_skills AS S1 ON S1.armor_skill_id = SL1.armor_skill_id
+            LEFT JOIN armor_skills AS S2 ON S2.armor_skill_id = SL2.armor_skill_id`
+          , [this.props.item_id,this.props.item_id,this.props.item_id,this.props.item_id,this.props.item_id], (tx, results) => {
+            setBonus = results.rows.item(0);
+          },
+        );
+        tx.executeSql(
+          `SELECT
             B.armor_skill_id as skill1_id, B.level as skill1_level, B1.name as skill1_name,
             C.armor_skill_id as skill2_id, C.level as skill2_level, C1.name as skill2_name
             FROM armor as A
@@ -55,8 +80,9 @@ export default class EquipArmorInfo extends PureComponent {
               skills.push(results.rows.item(i));
             }
             this.setState({
-              info, materials, skills, loading: false,
+              info, setBonus, materials, skills, loading: false,
             });
+            console.log(this.state);
           },
         );
       });
@@ -260,6 +286,67 @@ export default class EquipArmorInfo extends PureComponent {
     );
   }
 
+  renderSetBonus() {
+    if (this.state.setBonus !== null) {
+      return (
+        <View>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 18 }} itemDivider>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`${this.state.setBonus.set_bonus} Set Bonus`}</Text>
+          </ListItem>
+          {this.renderSetBonus1()}
+          {this.renderSetBonus2()}
+        </View>
+      );
+    }
+    return null;
+  }
+
+  renderSetBonus1() {
+    if (this.state.setBonus.skill1 !== null) {
+      return (
+        <ListItem
+          style={{ marginLeft: 0, paddingLeft: 18 }}
+          onPress={() => this.props.navigator.push({
+          screen: 'TabInfoScreen',
+          passProps: {
+            armor_skill_id: this.state.setBonus.skill1_id,
+            type: 'skill',
+          },
+          animationType: 'slide-horizontal',
+          title: this.state.setBonus.skill1,
+          })}>
+          <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>
+            {`(${this.state.setBonus.pieces} pieces) ${this.state.setBonus.skill1}`}
+          </Text>
+        </ListItem>
+      );
+    }
+    return null;
+  }
+
+  renderSetBonus2() {
+    if (this.state.setBonus.skill2 !== null) {
+      return (
+        <ListItem
+          style={{ marginLeft: 0, paddingLeft: 18 }}
+          onPress={() => this.props.navigator.push({
+          screen: 'TabInfoScreen',
+          passProps: {
+            armor_skill_id: this.state.setBonus.skill2_id,
+            type: 'skill',
+          },
+          animationType: 'slide-horizontal',
+          title: this.state.setBonus.skill2,
+          })}>
+          <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>
+            {`(${this.state.setBonus.pieces_2} pieces) ${this.state.setBonus.skill2}`}
+          </Text>
+        </ListItem>
+      );
+    }
+    return null;
+  }
+
   renderContent() {
     if (this.state.loading) {
       return (
@@ -273,6 +360,7 @@ export default class EquipArmorInfo extends PureComponent {
         <ScrollView style={{ backgroundColor: 'white' }}>
           {this.renderInfo()}
           {this.renderSkills()}
+          {this.renderSetBonus()}
           {this.renderCrafting()}
         </ScrollView>
         <AdBanner />

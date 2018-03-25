@@ -191,7 +191,7 @@ export default class WeaponInfo extends PureComponent {
             <View style={{ flex: 1, borderColor: 'blue', borderWidth: 0 }}>
               <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${info.element_amount2}`}</Text>
             </View>
-            <View style={{ flex: 0.5, borderWidth: 0, borderColor: 'red' }}>
+            <View style={{ flex: 0.5,  borderColor: 'red' }}>
               <Image
                 resizeMode="contain"
                 style={{ height: 22.5, width: 22.5 }}
@@ -218,7 +218,7 @@ export default class WeaponInfo extends PureComponent {
       );
     } else if (info.element_amount > 0) {
       return (
-        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderWidth: 0, marginLeft: 0, marginRight: 0 }}>
+        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',  marginLeft: 0, marginRight: 0 }}>
             <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${info.element_amount}`}</Text>
             <Image
               resizeMode="contain"
@@ -284,7 +284,7 @@ export default class WeaponInfo extends PureComponent {
         </ListItem>
         {this.state.ammo.map((item, key) => {
           return (
-            <ListItem key={key} style={{ marginLeft: 0, paddingLeft: 18 }}>
+            <ListItem key={key} style={{ marginLeft: 0, paddingLeft: 18, height: 37.5 }}>
               <Text style={{ flex: 3, fontSize: 15.5, color: '#191919' }}>{bulletTypes[item.bullet_type]}</Text>
               <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{item.level_1}</Text>
               <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{item.level_2}</Text>
@@ -383,7 +383,7 @@ export default class WeaponInfo extends PureComponent {
         </ListItem>
         <ListItem style={{ marginLeft: 0, backgroundColor: 'white' }} itemDivider>
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${defense}`} </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${affinity}`}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${affinity}%`}</Text>
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${deviation}`}</Text>
         </ListItem>
       </View>
@@ -401,17 +401,33 @@ export default class WeaponInfo extends PureComponent {
 
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, borderBottomWidth: 0.0 }} itemDivider>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Attack (True)</Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Slots</Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Special</Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Rarity</Text>
+        <ListItem style={{ marginLeft: 0, marginRight: 0, borderBottomWidth: 0.0, paddingLeft: 8, paddingRight: 8 }} itemDivider>
+          <Left style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Attack</Text>
+          </Left>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 0.5, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Slots</Text>
+          </Body>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 0.5, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Rarity</Text>
+          </Body>
+            <Right style={{ flex: 1, alignItems: 'center' }}>
+              <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Special</Text>
+            </Right>
         </ListItem>
-        <ListItem style={{ marginLeft: 0, backgroundColor: 'white' }} itemDivider>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${damage} (${true_damage})`} </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${slotOne} ${slotTwo} ${slotThree}`}</Text>
-          <Text adjustsFontSizeToFit style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${special_ammo}`}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{rarity}</Text>
+        <ListItem style={{ marginLeft: 0, marginRight: 0, paddingLeft: 8, paddingRight: 8,}}>
+          <Left style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${damage} (${true_damage})`} </Text>
+          </Left>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 0.5, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${slotOne} ${slotTwo} ${slotThree}`}</Text>
+          </Body>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 0.5, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{rarity}</Text>
+          </Body>
+          <Right style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${special_ammo}`}</Text>
+          </Right>
         </ListItem>
         {this.renderBowGunSecondaryInfo(info)}
       </View>
@@ -428,19 +444,35 @@ export default class WeaponInfo extends PureComponent {
 
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, borderBottomWidth: 0.0 }} itemDivider>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Attack (True)</Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Slots</Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Coatings</Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Rarity</Text>
+        <ListItem style={{ marginLeft: 0, marginRight: 0, borderBottomWidth: 0.0, paddingLeft: 8, paddingRight: 8 }} itemDivider>
+          <Left style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Attack</Text>
+          </Left>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 0.5, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Slots</Text>
+          </Body>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 0.5, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Rarity</Text>
+          </Body>
+            <Right style={{ flex: 1, alignItems: 'center' }}>
+              <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Coating</Text>
+            </Right>
         </ListItem>
-        <ListItem style={{ marginLeft: 0, backgroundColor: 'white' }} itemDivider>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${damage} (${true_damage})`} </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${slotOne} ${slotTwo} ${slotThree}`}</Text>
-          <View style={{ flex: 1, flexDirection: 'row' }}>
-            {this.renderCoatings(info)}
-          </View>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{rarity}</Text>
+        <ListItem style={{ marginLeft: 0, marginRight: 0, paddingLeft: 8, paddingRight: 8,}}>
+          <Left style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${damage} (${true_damage})`} </Text>
+          </Left>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 0.5, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${slotOne} ${slotTwo} ${slotThree}`}</Text>
+          </Body>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 0.5, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{rarity}</Text>
+          </Body>
+          <Right style={{ flex: 1, alignItems: 'center' }}>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                {this.renderCoatings(info)}
+            </View>
+          </Right>
         </ListItem>
         {this.renderSecondaryInfo(info)}
       </View>
@@ -457,25 +489,41 @@ export default class WeaponInfo extends PureComponent {
 
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, borderBottomWidth: 0.0 }} itemDivider>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Attack (True)</Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Slots</Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Sharpness</Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Rarity</Text>
+        <ListItem style={{ marginLeft: 0, marginRight: 0, borderBottomWidth: 0.0, paddingLeft: 8, paddingRight: 8 }} itemDivider>
+          <Left style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Attack</Text>
+          </Left>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 0.5, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Slots</Text>
+          </Body>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 0.5, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Rarity</Text>
+          </Body>
+            <Right style={{ flex: 1.5, alignItems: 'center' }}>
+              <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Sharpness</Text>
+            </Right>
         </ListItem>
-        <ListItem style={{ marginLeft: 0, backgroundColor: 'white' }} itemDivider>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${damage} (${true_damage})`} </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${slotOne} ${slotTwo} ${slotThree}`}</Text>
-          <View style={{ flex: 1, flexDirection: 'row', width: 104, backgroundColor: 'black' }}>
-            <View style={{ flex: red, height: 10, backgroundColor: '#C4424E', marginRight: -0.5 }}/>
-            <View style={{ flex: orange, height: 10, backgroundColor: '#DE7A56', marginRight: -0.5 }}/>
-            <View style={{ flex: yellow, height: 10, backgroundColor: '#D5BF45', marginRight: -0.5 }}/>
-            <View style={{ flex: green, height: 10, backgroundColor: '#94BB46', marginRight: -0.5 }}/>
-            <View style={{ flex: blue, height: 10, backgroundColor: '#465DD1', marginRight: -0.5 }}/>
-            <View style={{ flex: white, height: 10, backgroundColor: 'white', marginRight: -0.5 }}/>
-            <View style={{ flex: black, height: 10, backgroundColor: 'black', marginRight: -0.5 }}/>
-          </View>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{rarity}</Text>
+        <ListItem style={{ marginLeft: 0, marginRight: 0, paddingLeft: 8, paddingRight: 8 }}>
+          <Left style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${damage} (${true_damage})`} </Text>
+          </Left>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 0.5, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${slotOne} ${slotTwo} ${slotThree}`}</Text>
+          </Body>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 0.5, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{rarity}</Text>
+          </Body>
+          <Right style={{ flex: 1.5, alignItems: 'center' }}>
+            <View style={{ flex: 1, flexDirection: 'row', width: 104, justifyContent: 'center', alignItems: 'center' }}>
+              <View style={{ flex: red, height: 10, backgroundColor: '#C4424E', marginRight: -0.5 }}/>
+              <View style={{ flex: orange, height: 10, backgroundColor: '#DE7A56', marginRight: -0.5 }}/>
+              <View style={{ flex: yellow, height: 10, backgroundColor: '#D5BF45', marginRight: -0.5 }}/>
+              <View style={{ flex: green, height: 10, backgroundColor: '#94BB46', marginRight: -0.5 }}/>
+              <View style={{ flex: blue, height: 10, backgroundColor: '#465DD1', marginRight: -0.5}}/>
+              <View style={{ flex: white, height: 10, backgroundColor: 'white', marginRight: -0.5 }}/>
+              <View style={{ flex: black, height: 10, backgroundColor: 'black', marginRight: -0.5 }}/>
+            </View>
+          </Right>
         </ListItem>
         {this.renderSecondaryInfo(info)}
       </View>

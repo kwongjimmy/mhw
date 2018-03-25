@@ -82,7 +82,7 @@ export default class EquipArmorContainer extends PureComponent {
       armor,
       hide: true,
     };
-    // console.log(this.state);
+    // console.log(this.props);
   }
 
   renderSkills(item) {
@@ -138,10 +138,75 @@ export default class EquipArmorContainer extends PureComponent {
     );
   }
 
+  renderSetBonus() {
+    if (this.props.armor.set_bonus !== null) {
+      return (
+        <View>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 18, backgroundColor: '#F8F8F8' }} itemDivider>
+            <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>
+              {`${this.props.armor.set_bonus} Set Bonus`}
+            </Text>
+          </ListItem>
+          {this.renderSetBonus1()}
+          {this.renderSetBonus2()}
+        </View>
+      );
+    }
+    return null;
+  }
+
+  renderSetBonus1() {
+    if (this.props.armor.skill1_name !== null) {
+      return (
+        <ListItem
+          style={{ marginLeft: 0, paddingLeft: 18 }}
+          onPress={() => this.props.navigator.push({
+          screen: 'TabInfoScreen',
+          passProps: {
+            armor_skill_id: this.props.armor.skill1_id,
+            type: 'skill',
+          },
+          animationType: 'slide-horizontal',
+          title: this.props.armor.skill1_name,
+          })}>
+          <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>
+            {`(${this.props.armor.pieces} pieces) ${this.props.armor.skill1_name}`}
+          </Text>
+        </ListItem>
+      );
+    }
+    return null;
+  }
+
+  renderSetBonus2() {
+    if (this.props.armor.skill2_name !== null) {
+      return (
+        <ListItem
+          style={{ marginLeft: 0, paddingLeft: 18 }}
+          onPress={() => this.props.navigator.push({
+          screen: 'TabInfoScreen',
+          passProps: {
+            armor_skill_id: this.props.armor.skill2_id,
+            type: 'skill',
+          },
+          animationType: 'slide-horizontal',
+          title: this.props.armor.skill2_name,
+          })}>
+          <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>
+            {`(${this.props.armor.pieces2} pieces) ${this.props.armor.skill2_name}`}
+          </Text>
+        </ListItem>
+      );
+    }
+    return null;
+  }
+
   renderBody() {
     if (!this.state.hide) {
       return (
-        this.state.armor.map((item, key) => {
+        <View>
+        {this.renderSetBonus()}
+        {this.state.armor.map((item, key) => {
           return (
             <ListItem
               key={key}
@@ -156,7 +221,7 @@ export default class EquipArmorContainer extends PureComponent {
               title: item.name,
             })}
             >
-              <Left style={{ flex: 1.25 }}>
+              <Left style={{ flex: 1.5 }}>
                 <Image
                   resizeMode="contain"
                   style={{ alignSelf: 'center', width: 20, height: 20 }}
@@ -164,15 +229,16 @@ export default class EquipArmorContainer extends PureComponent {
                 />
                 <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
               </Left>
-              <Body style={{ flex: 1.25 }}>
+              <Body style={{ flex: 1.5, flexGrow: 1.75 }}>
                 {this.renderSkills(item)}
               </Body>
-              <Right style={{ flex: 1 }}>
+              <Right style={{ flex: 0.5, flexGrow: 1 }}>
                 {this.renderSlots(item)}
               </Right>
             </ListItem>
           );
-        })
+        })}
+        </View>
       );
     }
     return (

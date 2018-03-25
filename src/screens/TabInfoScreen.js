@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import ItemInfo from '../components/ItemInfo';
 import SkillInfo from '../components/SkillInfo';
+import MapInfo from '../components/MapInfo';
 
 
 export default class TabInfoScreen extends PureComponent {
@@ -22,6 +22,11 @@ export default class TabInfoScreen extends PureComponent {
   }
 
   render() {
+    if (this.props.type === 'maps') {
+      return (
+        <MapInfo navigator={this.props.navigator} map_id={this.props.item_id}/>
+      );
+    }
     return (
       <SkillInfo navigator={this.props.navigator} armor_skill_id={this.props.armor_skill_id}/>
     );

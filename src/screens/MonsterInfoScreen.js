@@ -4,11 +4,12 @@ import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Tabs, ScrollableTab } from 'native-base';
 import _ from 'underscore';
 // import { Images, ElementStatusImages } from '../assets'
-
 import MonsterInfo from '../components/MonsterInfo';
+import MonsterWeakness from '../components/MonsterWeakness';
 import MonsterLoot from '../components/MonsterLoot';
 import MonsterEquip from '../components/MonsterEquip';
 import MonsterQuest from '../components/MonsterQuest';
+import AdBanner from '../components/AdBanner';
 
 export default class MonsterInfoScreen extends PureComponent {
   constructor(props) {
@@ -27,6 +28,8 @@ export default class MonsterInfoScreen extends PureComponent {
         name: 'mhworld.db', location: 'Default',
       }, this.okCallback, this.errorCallback);
       db.transaction((tx) => {
+        const monster_tool = [];
+        const monster_ailment = [];
         const monster_hit = [];
         let monster_loot = [];
         let monster_loot_high = [];
@@ -37,6 +40,18 @@ export default class MonsterInfoScreen extends PureComponent {
           for (let i = 0; i < results.rows.length; i += 1) {
             const row = results.rows.item(i);
             monster_hit.push(row);
+          }
+        });
+        tx.executeSql('SELECT * FROM monster_ailments where monster_id = ? ORDER BY element', [this.props.monster_id], (tx, results) => {
+          for (let i = 0; i < results.rows.length; i += 1) {
+            const row = results.rows.item(i);
+            monster_ailment.push(row);
+          }
+        });
+        tx.executeSql('SELECT * FROM monster_tool_effectiveness where monster_id = ? ORDER BY tool', [this.props.monster_id], (tx, results) => {
+          for (let i = 0; i < results.rows.length; i += 1) {
+            const row = results.rows.item(i);
+            monster_tool.push(row);
           }
         });
         tx.executeSql(
@@ -146,6 +161,8 @@ export default class MonsterInfoScreen extends PureComponent {
               monster_quest.push(row);
             }
             this.setState({
+              monster_tool,
+              monster_ailment,
               monster_hit,
               monster_loot,
               monster_loot_high,
@@ -171,7 +188,7 @@ export default class MonsterInfoScreen extends PureComponent {
       );
     }
     if (screen === 'tab1') {
-      return <MonsterInfo navigator={this.props.navigator} monster_size={this.props.monster_info.size} monster_hit={this.state.monster_hit}/>;
+      return <MonsterWeakness navigator={this.props.navigator} monster_size={this.props.monster_info.size} monster_hit={this.state.monster_hit}/>;
     } else if (screen === 'tab2') {
       return <MonsterLoot navigator={this.props.navigator} monster_loot={this.state.monster_loot}/>;
     } else if (screen === 'tab3') {
@@ -180,6 +197,8 @@ export default class MonsterInfoScreen extends PureComponent {
       return <MonsterEquip navigator={this.props.navigator} data={this.state.monster_armor} type={'armor'}/>;
     } else if (screen === 'tab5') {
       return <MonsterEquip navigator={this.props.navigator} data={this.state.monster_weapons} type={'weapon'}/>;
+    } else if (screen === 'tab6') {
+      return <MonsterInfo navigator={this.props.navigator} info={this.props.monster_info} tool={this.state.monster_tool} ailment={this.state.monster_ailment}/>;
     }
     return (
       <MonsterQuest navigator={this.props.navigator} monster_quest={this.state.monster_quest}/>
@@ -264,7 +283,7 @@ export default class MonsterInfoScreen extends PureComponent {
           textStyle={{ color: '#5e5e5e' }}
           heading="Quest"
           >
-          {this.renderContent('tab6')}
+          {this.renderContent('tab7')}
         </Tab>
       );
     }
@@ -276,74 +295,41 @@ export default class MonsterInfoScreen extends PureComponent {
       return this.renderContent();
     }
     return (
-       <Tabs
-         prerenderingSiblingsNumber={3}
-         scrollWithoutAnimation={false}
-         tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }}
-         initialPage={0}
-         renderTabBar={() => <ScrollableTab style={{ backgroundColor: 'white', elevation: 2 }}/>}
-         >
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-           textStyle={{ color: '#5e5e5e' }}
-           heading="Weakness"
-           >
-           {this.renderContent('tab1')}
-         </Tab>
-         {this.renderLrLoot()}
-         {this.renderHrLoot()}
-         {this.renderWeapon()}
-         {this.renderArmor()}
-         {this.renderQuest()}
+      <Container>
+        <Tabs
+          prerenderingSiblingsNumber={3}
+          scrollWithoutAnimation={false}
+          tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }}
+          initialPage={0}
+          renderTabBar={() => <ScrollableTab style={{ backgroundColor: 'white', elevation: 2 }}/>}
+          >
+          <Tab
+            activeTabStyle={{ backgroundColor: 'white' }}
+            tabStyle={{ backgroundColor: 'white' }}
+            activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+            textStyle={{ color: '#5e5e5e' }}
+            heading="Info"
+            >
+            {this.renderContent('tab6')}
+          </Tab>
+          <Tab
+            activeTabStyle={{ backgroundColor: 'white' }}
+            tabStyle={{ backgroundColor: 'white' }}
+            activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+            textStyle={{ color: '#5e5e5e' }}
+            heading="Weakness"
+            >
+            {this.renderContent('tab1')}
+          </Tab>
+          {this.renderLrLoot()}
+          {this.renderHrLoot()}
+          {this.renderWeapon()}
+          {this.renderArmor()}
+          {this.renderQuest()}
+        </Tabs>
+        <AdBanner />
+      </Container>
 
-         {/* <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-           textStyle={{ color: '#5e5e5e' }}
-           heading="LR Loot"
-           >
-           {this.renderContent('tab2')}
-         </Tab> */}
-         {/* <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-           textStyle={{ color: '#5e5e5e' }}
-           heading="HR Loot"
-           >
-           {this.renderContent('tab3')}
-         </Tab> */}
-         {/* <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-           textStyle={{ color: '#5e5e5e' }}
-           heading="Armor"
-           >
-           {this.renderContent('tab4')}
-         </Tab>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-           textStyle={{ color: '#5e5e5e' }}
-           heading="Weapon"
-           >
-           {this.renderContent('tab5')}
-         </Tab>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-           textStyle={{ color: '#5e5e5e' }}
-           heading="Quest"
-           >
-           {this.renderContent('tab6')}
-         </Tab> */}
-       </Tabs>
     );
   }
 }

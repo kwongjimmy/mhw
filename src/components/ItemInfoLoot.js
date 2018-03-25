@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
-import { View, FlatList, ScrollView } from 'react-native';
+import { View, FlatList, ScrollView, Image } from 'react-native';
 import { Container, Text, Left, Body, Right, ListItem, Icon } from 'native-base';
 import AdBanner from './AdBanner';
 import DropDown from './DropDown';
-
+import { MonsterImages } from '../assets';
 
 export default class ItemInfoLoot extends PureComponent {
   constructor(props) {
@@ -14,18 +14,22 @@ export default class ItemInfoLoot extends PureComponent {
     let currentName = '';
     let currentRank = '';
     let currentArea = '';
+    let currentID = '';
     for (let i = 0; i < this.props.mapLoot.length; i += 1) {
       if (i === 0) {
+        currentID = this.props.mapLoot[i].map_id;
         currentName = this.props.mapLoot[i].name;
         currentRank = this.props.mapLoot[i].rank;
         currentArea = currentArea.concat(this.props.mapLoot[i].area).concat(', ');
       } else if (this.props.mapLoot[i].name !== currentName
         || this.props.mapLoot[i].rank !== currentRank) {
         result.push({
+          map_id: currentID,
           name: currentName,
           rank: currentRank,
           area: currentArea.slice(0, currentArea.length - 2),
         });
+        currentID = this.props.mapLoot[i].map_id;
         currentArea = '';
         currentArea = currentArea.concat(this.props.mapLoot[i].area).concat(', ');
         currentName = this.props.mapLoot[i].name;
@@ -33,6 +37,7 @@ export default class ItemInfoLoot extends PureComponent {
       } else if (i === this.props.mapLoot.length - 1) {
         currentArea = currentArea.concat(this.props.mapLoot[i].area).concat(', ');
         result.push({
+          map_id: currentID,
           name: currentName,
           rank: currentRank,
           area: currentArea.slice(0, currentArea.length - 2),
@@ -63,7 +68,17 @@ export default class ItemInfoLoot extends PureComponent {
     if (this.currentMap !== `${item.name} ${item.rank}`) {
       this.currentMap = `${item.name} ${item.rank}`;
       return (
-        <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
+        <ListItem
+          style={{ marginLeft: 0, paddingLeft: 8, backgroundColor: '#F8F8F8' }}
+          onPress={() => this.props.navigator.push({
+          screen: 'TabInfoScreen',
+          passProps: {
+            item_id: item.map_id,
+            type: 'maps',
+          },
+          animationType: 'slide-horizontal',
+          title: item.name,
+          })}>
           <Left>
             <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>{`${item.name}`} <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{` ${item.rank} Rank`}</Text> </Text>
           </Left>
@@ -104,25 +119,68 @@ export default class ItemInfoLoot extends PureComponent {
   renderMonsterHeader(item) {
     if (this.currentMonster !== `${item.monster_name} ${item.rank}`) {
       this.currentMonster = `${item.monster_name} ${item.rank}`;
+      let src = MonsterImages['Unknown'];
+      let name = item.monster_name;
+      if (name !== 'Gajalaka' && name !== 'Grimalkyne') {
+        name = name.replace(/["'-]/g, '');
+        name = name.replace(' ', '');
+        src = MonsterImages[name];
+      }
       if (item.rank) {
         return (
-          <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
-            <Left>
-              <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>{`${item.monster_name}`}  <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{` High Rank`}</Text></Text>
+          <ListItem
+            style={{ marginLeft: 0, paddingLeft: 18, backgroundColor: '#F8F8F8' }}
+            onPress={() => this.props.navigator.push({
+            screen: 'MonsterInfoScreen',
+            passProps: {
+              monster_id: item.monster_id,
+              monster_info: item,
+            },
+            animationType: 'slide-horizontal',
+            title: item.monster_name,
+            })}>
+            <Left style={{ flex: 1 }}>
+              <Image
+                resizeMode="contain"
+                style={{ width: 35, height: 35 }}
+                source={src}
+              />
             </Left>
-            <Right>
-              <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{` Amount`}</Text>
+            <Body style={{ flex: 3 }}>
+              <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>{`${item.monster_name}`}</Text>
+              <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{`High Rank`}</Text>
+            </Body>
+            <Right style={{ flex: 3 }}>
+              <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{`Amount`}</Text>
             </Right>
           </ListItem>
         );
       }
       return (
-        <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
-          <Left>
-            <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>{`${item.monster_name}`}  <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{` Low Rank`}</Text></Text>
+        <ListItem
+          style={{ marginLeft: 0, paddingLeft: 18, backgroundColor: '#F8F8F8' }}
+          onPress={() => this.props.navigator.push({
+          screen: 'MonsterInfoScreen',
+          passProps: {
+            monster_id: item.monster_id,
+            monster_info: item,
+          },
+          animationType: 'slide-horizontal',
+          title: item.monster_name,
+          })}>
+          <Left style={{ flex: 1 }}>
+            <Image
+              resizeMode="contain"
+              style={{ width: 35, height: 35 }}
+              source={src}
+            />
           </Left>
-          <Right>
-            <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{` Amount`}</Text>
+          <Body style={{ flex: 3 }}>
+            <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>{`${item.monster_name}`}</Text>
+            <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{`Low Rank`}</Text>
+          </Body>
+          <Right style={{ flex: 3 }}>
+            <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{`Amount`}</Text>
           </Right>
         </ListItem>
       );

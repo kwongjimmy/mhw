@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Platform, View } from 'react-native';
+import { Platform, View, InteractionManager } from 'react-native';
 import firebase from 'react-native-firebase';
 const Banner = firebase.admob.Banner;
 const AdRequest = firebase.admob.AdRequest;
@@ -12,15 +12,24 @@ export default class AdBanner extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      loading: true,
       unitId: Platform.OS === 'ios' ? 'ca-app-pub-9661316023859369/8743467790' : 'ca-app-pub-9661316023859369/7600878725',
     };
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({
+        loading: false
+      });
+    });
     // console.log(this.state);
   }
 
   render() {
+    if (this.state.loading) {
+      return null;
+    }
     return (
       <Banner
-        style={{ alignSelf: 'center', justifyContent: 'center' }}
+        style={{ alignSelf: 'center', justifyContent: 'center', backgroundColor: 'white' }}
         // unitId={'ca-app-pub-3940256099942544/6300978111'}
         // unitId={'ca-app-pub-9661316023859369/8743467790'}
         unitId={this.state.unitId}

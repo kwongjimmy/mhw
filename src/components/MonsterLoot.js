@@ -111,7 +111,6 @@ export default class MonsterLoot extends PureComponent {
             { length: 52, offset: 52 * index, index }
           )}
         />
-        <AdBanner />
       </View>
     );
   }

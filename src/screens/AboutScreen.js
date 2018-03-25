@@ -34,7 +34,7 @@ export default class AboutScreen extends PureComponent {
         </ListItem>
         <ListItem
           style={{ marginLeft: 0, paddingLeft: 8 }}
-          onPress={() => Linking.openURL('mailto:support@domain.com?subject=[MHW DB] Suggestions and Feedback')}>
+          onPress={() => Linking.openURL('mailto:chingoosat242@gmail.com?subject=[MHW DB] Suggestions and Feedback')}>
           <Left>
             <Text style={{ fontSize: 15.5, color: '#191919' }}>chingoosat242@gmail.com</Text>
           </Left>

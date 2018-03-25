@@ -56,7 +56,7 @@ export default class MapScreen extends PureComponent {
       <ListItem
         style={{ marginLeft: 0, paddingLeft: 8, height: 50 }}
         onPress={() => this.props.navigator.push({
-        screen: 'TablessInfoScreen',
+        screen: 'TabInfoScreen',
         passProps: {
           item_id: item.map_id,
           type: 'maps'

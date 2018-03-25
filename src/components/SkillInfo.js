@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { ScrollView, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
-import { Tab, Tabs, ListItem, Text, Left, Body } from 'native-base';
+import { Container, Tab, Tabs, ListItem, Text, Left, Body } from 'native-base';
 import SkillEquip from './SkillEquip';
 import AdBanner from './AdBanner';
 
@@ -109,7 +109,6 @@ export default class SkillInfo extends PureComponent {
             </ListItem>
             {this.renderLevels()}
           </ScrollView>
-          <AdBanner />
         </View>
 
       );
@@ -117,33 +116,35 @@ export default class SkillInfo extends PureComponent {
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <SkillEquip navigator={this.props.navigator} armor_skill_id={this.props.armor_skill_id}/>
-        <AdBanner />
       </View>
     );
   }
 
   render() {
     return (
-      <Tabs prerenderingSiblingsNumber={2} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
-        <Tab
-         activeTabStyle={{ backgroundColor: 'white' }}
-         tabStyle={{ backgroundColor: 'white' }}
-         activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-         textStyle={{ color: '#5e5e5e' }}
-         heading="Info"
-         >
-         {this.renderContent('Info')}
-        </Tab>
-        <Tab
-         activeTabStyle={{ backgroundColor: 'white' }}
-         tabStyle={{ backgroundColor: 'white' }}
-         activeTextStyle={{ color: '#191919', fontWeight: '100' }}
-         textStyle={{ color: '#5e5e5e' }}
-         heading="Equip"
-         >
-         {this.renderContent('Equip')}
-        </Tab>
-     </Tabs>
+      <Container>
+        <Tabs prerenderingSiblingsNumber={2} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
+          <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Info"
+           >
+           {this.renderContent('Info')}
+          </Tab>
+          <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           textStyle={{ color: '#5e5e5e' }}
+           heading="Equip"
+           >
+           {this.renderContent('Equip')}
+          </Tab>
+       </Tabs>
+       <AdBanner />
+      </Container>
     );
   }
 }

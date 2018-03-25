@@ -86,7 +86,6 @@ export default class MonsterQuest extends Component {
             { length: 65, offset: 65 * index, index }
           )}
         />
-        <AdBanner />
       </View>
     );
   }
