@@ -28,7 +28,7 @@ export default class MonsterScreen extends PureComponent {
         const allMonsters = [];
         const smallMonsters = [];
         const largeMonsters = [];
-        tx.executeSql('SELECT * FROM monster', [], (tx, results) => {
+        tx.executeSql('SELECT * FROM monster ORDER BY monster_name', [], (tx, results) => {
           // Get rows with Web SQL Database spec compliance.
           const len = results.rows.length;
           for (let i = 0; i < len; i += 1) {
@@ -39,7 +39,7 @@ export default class MonsterScreen extends PureComponent {
           // this.setState({ allMonsters });
           // db.close();
         });
-        tx.executeSql('SELECT * FROM monster WHERE size=?', ['Small'], (tx, results) => {
+        tx.executeSql('SELECT * FROM monster WHERE size=? ORDER BY monster_name', ['Small'], (tx, results) => {
           // Get rows with Web SQL Database spec compliance.
           const len = results.rows.length;
           for (let i = 0; i < len; i += 1) {
@@ -47,7 +47,7 @@ export default class MonsterScreen extends PureComponent {
             smallMonsters.push(row);
           }
         });
-        tx.executeSql('SELECT * FROM monster WHERE size=?', ['Large'], (tx, results) => {
+        tx.executeSql('SELECT * FROM monster WHERE size=? ORDER BY monster_name', ['Large'], (tx, results) => {
           // Get rows with Web SQL Database spec compliance.
           const len = results.rows.length;
           for (let i = 0; i < len; i += 1) {
@@ -73,7 +73,7 @@ export default class MonsterScreen extends PureComponent {
         const allMonsters = [];
         const smallMonsters = [];
         const largeMonsters = [];
-        tx.executeSql('SELECT * FROM monster', [], (tx, results) => {
+        tx.executeSql('SELECT * FROM monster ORDER BY monster_name', [], (tx, results) => {
           // Get rows with Web SQL Database spec compliance.
           const len = results.rows.length;
           for (let i = 0; i < len; i += 1) {
@@ -84,7 +84,7 @@ export default class MonsterScreen extends PureComponent {
           // this.setState({ allMonsters });
           // db.close();
         });
-        tx.executeSql('SELECT * FROM monster WHERE size=?', ['Small'], (tx, results) => {
+        tx.executeSql('SELECT * FROM monster WHERE size=? ORDER BY monster_name', ['Small'], (tx, results) => {
           // Get rows with Web SQL Database spec compliance.
           const len = results.rows.length;
           for (let i = 0; i < len; i += 1) {
@@ -92,7 +92,7 @@ export default class MonsterScreen extends PureComponent {
             smallMonsters.push(row);
           }
         });
-        tx.executeSql('SELECT * FROM monster WHERE size=?', ['Large'], (tx, results) => {
+        tx.executeSql('SELECT * FROM monster WHERE size=? ORDER BY monster_name', ['Large'], (tx, results) => {
           // Get rows with Web SQL Database spec compliance.
           const len = results.rows.length;
           for (let i = 0; i < len; i += 1) {

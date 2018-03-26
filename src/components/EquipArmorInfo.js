@@ -287,7 +287,8 @@ export default class EquipArmorInfo extends PureComponent {
   }
 
   renderSetBonus() {
-    if (this.state.setBonus !== null) {
+    console.log(this.state);
+    if (this.state.setBonus.set_bonus !== null) {
       return (
         <View>
           <ListItem style={{ marginLeft: 0, paddingLeft: 18 }} itemDivider>

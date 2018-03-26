@@ -110,7 +110,7 @@ export default class ItemScreen extends PureComponent {
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <FlatList
           style={{ backgroundColor: 'white' }}
-          initialNumToRender={12}
+          initialNumToRender={24}
           data={this.state.items}
           keyExtractor={(item) => item.item_id.toString()}
           renderItem={this.renderListItems}
