@@ -76,7 +76,7 @@ export default function startApp() {
         title: 'More',
       },
     ],
-    animationType: 'none',
+    animationType: 'fade',
     appStyle: {
       // tabFontFamily: 'Avenir-Medium',  // existing font family name or asset file without extension which can be '.ttf' or '.otf' (searched only if '.ttf' asset not found)
       tabFontSize: 10,

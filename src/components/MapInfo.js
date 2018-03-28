@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { ScrollView, FlatList, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Tabs, ListItem, Text, Left, Body, Right, Icon } from 'native-base';
-import _ from 'underscore';
+import _ from 'lodash';
 import DropDown from './DropDown';
 import AdBanner from './AdBanner';
 

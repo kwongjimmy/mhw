@@ -268,11 +268,11 @@ export default class MonsterInfo extends PureComponent {
           </View>
         </ListItem>
         <ListItem style={{ marginLeft: 0, backgroundColor: 'white', height: 37.5 }} itemDivider>
-          <Text style={{ flex: 1, fontSize: 14.5, color: '#191919', textAlign: 'center' }}>{fire}</Text>
-          <Text style={{ flex: 1, fontSize: 14.5, color: '#191919', textAlign: 'center' }}>{water}</Text>
-          <Text style={{ flex: 1, fontSize: 14.5, color: '#191919', textAlign: 'center' }}>{thunder}</Text>
-          <Text style={{ flex: 1, fontSize: 14.5, color: '#191919', textAlign: 'center' }}>{ice}</Text>
-          <Text style={{ flex: 1, fontSize: 14.5, color: '#191919', textAlign: 'center' }}>{dragon}</Text>
+          <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{fire}</Text>
+          <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{water}</Text>
+          <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{thunder}</Text>
+          <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{ice}</Text>
+          <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{dragon}</Text>
         </ListItem>
       </View>
     );
@@ -322,11 +322,11 @@ export default class MonsterInfo extends PureComponent {
           </View>
         </ListItem>
         <ListItem style={{ marginLeft: 0, backgroundColor: 'white', height: 37.5 }} itemDivider>
-          <Text style={{ flex: 1, fontSize: 14.5, color: '#191919', textAlign: 'center' }}>{poison}</Text>
-          <Text style={{ flex: 1, fontSize: 14.5, color: '#191919', textAlign: 'center' }}>{sleep}</Text>
-          <Text style={{ flex: 1, fontSize: 14.5, color: '#191919', textAlign: 'center' }}>{paralysis}</Text>
-          <Text style={{ flex: 1, fontSize: 14.5, color: '#191919', textAlign: 'center' }}>{blast}</Text>
-          <Text style={{ flex: 1, fontSize: 14.5, color: '#191919', textAlign: 'center' }}>{stun}</Text>
+          <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{poison}</Text>
+          <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{sleep}</Text>
+          <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{paralysis}</Text>
+          <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{blast}</Text>
+          <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{stun}</Text>
         </ListItem>
       </View>
     );

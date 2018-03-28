@@ -2,8 +2,7 @@ import React, { PureComponent } from 'react';
 import { Text, View, ActivityIndicator, InteractionManager } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Tabs, ScrollableTab } from 'native-base';
-import _ from 'underscore';
-// import { Images, ElementStatusImages } from '../assets'
+import _ from 'lodash';
 import MonsterInfo from '../components/MonsterInfo';
 import MonsterWeakness from '../components/MonsterWeakness';
 import MonsterLoot from '../components/MonsterLoot';
@@ -24,6 +23,7 @@ export default class MonsterInfoScreen extends PureComponent {
       loading: true,
     };
     InteractionManager.runAfterInteractions(() => {
+      // let start = new Date().getTime();
       const db = SQLite.openDatabase({
         name: 'mhworld.db', location: 'Default',
       }, this.okCallback, this.errorCallback);
@@ -171,6 +171,8 @@ export default class MonsterInfoScreen extends PureComponent {
               monster_quest,
               loading: false,
             });
+            // let end = new Date().getTime();
+            // console.log(end - start);
           },
         );
       });
