@@ -169,7 +169,7 @@ export default class MonsterScreen extends PureComponent {
 
   render() {
     return (
-      <Container>
+      <Container style={{ backgroundColor: 'white' }}>
         <Tabs
           prerenderingSiblingsNumber={3}
           scrollWithoutAnimation={false}

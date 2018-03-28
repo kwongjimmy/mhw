@@ -151,7 +151,7 @@ export default class ItemInfoLoot extends PureComponent {
               <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{`High Rank`}</Text>
             </Body>
             <Right style={{ flex: 3 }}>
-              <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{`Amount`}</Text>
+              <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{``}</Text>
             </Right>
           </ListItem>
         );
@@ -180,7 +180,7 @@ export default class ItemInfoLoot extends PureComponent {
             <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{`Low Rank`}</Text>
           </Body>
           <Right style={{ flex: 3 }}>
-            <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{`Amount`}</Text>
+            <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{``}</Text>
           </Right>
         </ListItem>
       );
@@ -206,7 +206,7 @@ export default class ItemInfoLoot extends PureComponent {
                       <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
                     </Left>
                     <Right>
-                      <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.quantity}</Text>
+                      <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.chance}%`}</Text>
                     </Right>
                   </ListItem>
                 </View>

@@ -29,11 +29,11 @@ export default class EquipArmorScreen extends PureComponent {
       tx.executeSql(`
         SELECT
         X.*,
-        I1.name AS head_name,
-        I2.name AS armor_name,
-        I3.name AS gloves_name,
-        I4.name AS belt_name,
-        I5.name AS pants_name,
+        I1.name AS head_name, I1.rarity as head_rarity,
+        I2.name AS armor_name, I2.rarity as armor_rarity,
+        I3.name AS gloves_name, I3.rarity as gloves_rarity,
+        I4.name AS belt_name, I4.rarity as belt_rarity,
+        I5.name AS pants_name, I5.rarity as pants_rarity,
 		    SB.name AS set_bonus,
 		    SB.pieces AS pieces,
 		    SB.pieces_2 AS pieces2,
@@ -86,11 +86,11 @@ export default class EquipArmorScreen extends PureComponent {
       tx.executeSql(`
         SELECT
         X.*,
-        I1.name AS head_name,
-        I2.name AS armor_name,
-        I3.name AS gloves_name,
-        I4.name AS belt_name,
-        I5.name AS pants_name,
+        I1.name AS head_name, I1.rarity as head_rarity,
+        I2.name AS armor_name, I2.rarity as armor_rarity,
+        I3.name AS gloves_name, I3.rarity as gloves_rarity,
+        I4.name AS belt_name, I4.rarity as belt_rarity,
+        I5.name AS pants_name, I5.rarity as pants_rarity,
 		    SB.name AS set_bonus,
 		    SB.pieces AS pieces,
 		    SB.pieces_2 AS pieces2,

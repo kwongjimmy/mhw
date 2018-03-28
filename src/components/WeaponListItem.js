@@ -44,9 +44,9 @@ export default class WeaponListItem extends PureComponent {
     } else if (type === 'hunting_horn') {
       return (
         <View style={{ flex: 1, flexDirection: 'row' }}>
-          <Text style={{ fontSize: 16.5, color: note1.replace('white', 'gray'), textAlign: 'center' }}>{`\u266b`}</Text>
-          <Text style={{ fontSize: 16.5, color: note2.replace('white', 'gray'), textAlign: 'center' }}>{`\u266b`}</Text>
-          <Text style={{ fontSize: 16.5, color: note3.replace('white', 'gray'), textAlign: 'center' }}>{`\u266b`}</Text>
+          <Text style={{ fontSize: 16.5, color: note1.replace('white', 'gray').replace('yellow', '#D5BF45'), textAlign: 'center' }}>{`\u266b`}</Text>
+          <Text style={{ fontSize: 16.5, color: note2.replace('white', 'gray').replace('yellow', '#D5BF45'), textAlign: 'center' }}>{`\u266b`}</Text>
+          <Text style={{ fontSize: 16.5, color: note3.replace('white', 'gray').replace('yellow', '#D5BF45'), textAlign: 'center' }}>{`\u266b`}</Text>
         </View>
       )
     } else if (type.includes('bowgun')) {
@@ -249,7 +249,7 @@ export default class WeaponListItem extends PureComponent {
 
   render() {
     const {
-       item_id, name, slot1, slot2, slot3, damage, type
+       item_id, name, slot1, slot2, slot3, damage, type, rarity
     } = this.props.item;
 
     const slotOne = (slot1 === 0) ? `-` : (slot1 === 1) ? `\u2460` : (slot1 === 2) ? `\u2461` : `\u2462`;
@@ -276,7 +276,7 @@ export default class WeaponListItem extends PureComponent {
             <Image
               resizeMode="contain"
               style={{ flex: 1, height: 20, width: 20 }}
-              source={WeaponImages[weaponTypes[type]]}
+              source={WeaponImages[`${weaponTypes[type]} ${rarity}`]}
             />
           </View>
           <View style={{ flex: 5, flexDirection: 'column'}}>

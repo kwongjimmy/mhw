@@ -18,6 +18,7 @@ export default class EquipArmorContainer extends PureComponent {
         slot3: this.props.armor.head_slot3,
         skill1_level: this.props.armor.head_skill1_level,
         skill2_level: this.props.armor.head_skill2_level,
+        rarity: this.props.armor.head_rarity,
         type: 'head',
       });
     }
@@ -32,6 +33,7 @@ export default class EquipArmorContainer extends PureComponent {
         slot3: this.props.armor.armor_slot3,
         skill1_level: this.props.armor.armor_skill1_level,
         skill2_level: this.props.armor.armor_skill2_level,
+        rarity: this.props.armor.armor_rarity,
         type: 'armor',
       });
     }
@@ -46,6 +48,7 @@ export default class EquipArmorContainer extends PureComponent {
         slot3: this.props.armor.gloves_slot3,
         skill1_level: this.props.armor.gloves_skill1_level,
         skill2_level: this.props.armor.gloves_skill2_level,
+        rarity: this.props.armor.gloves_rarity,
         type: 'gloves',
       });
     }
@@ -60,6 +63,7 @@ export default class EquipArmorContainer extends PureComponent {
         slot3: this.props.armor.belt_slot3,
         skill1_level: this.props.armor.belt_skill1_level,
         skill2_level: this.props.armor.belt_skill2_level,
+        rarity: this.props.armor.belt_rarity,
         type: 'belt',
       });
     }
@@ -74,6 +78,7 @@ export default class EquipArmorContainer extends PureComponent {
         slot3: this.props.armor.pants_slot3,
         skill1_level: this.props.armor.pants_skill1_level,
         skill2_level: this.props.armor.pants_skill2_level,
+        rarity: this.props.armor.pants_rarity,
         type: 'pants',
       });
     }
@@ -225,7 +230,7 @@ export default class EquipArmorContainer extends PureComponent {
                 <Image
                   resizeMode="contain"
                   style={{ alignSelf: 'center', width: 20, height: 20 }}
-                  source={ArmorImages[item.type]}
+                  source={ArmorImages[`${item.type} ${item.rarity}`]}
                 />
                 <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
               </Left>

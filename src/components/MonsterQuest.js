@@ -49,8 +49,8 @@ export default class MonsterQuest extends Component {
             <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.quest_name}</Text>
           </Body>
           <Right style={{ justifyContent: 'center' }}>
-            <Text style={{ fontSize: 14.5, color: '#5e5e5e' }}>{item.type}</Text>
-            <Text style={{ fontSize: 14.5, color: '#5e5e5e' }}>{`${item.required_rank} \u2605`}</Text>
+            <Text style={{ fontSize: 14.5, color: '#5e5e5e', textAlign: 'right' }}>{item.type.replace('Assignment', '')}</Text>
+            <Text style={{ fontSize: 14.5, color: '#5e5e5e', textAlign: 'right' }}>{`${item.required_rank} \u2605`}</Text>
           </Right>
         </ListItem>
       </View>

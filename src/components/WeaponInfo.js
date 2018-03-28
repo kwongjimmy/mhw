@@ -39,6 +39,7 @@ export default class WeaponInfo extends PureComponent {
       upgradeMaterials: [],
       upgradeFrom: [],
       ammo: [],
+      melodies: [],
     };
     const db = SQLite.openDatabase({
       name: 'mhworld.db', location: 'Default',
@@ -48,10 +49,11 @@ export default class WeaponInfo extends PureComponent {
       let upgradeMaterials = [];
       const upgradeTo = [];
       let ammo = [];
+      let melodies = [];
       let info = this.props.item;
       if (this.props.refetch) {
         tx.executeSql(
-`          SELECT weapon_sharpness.*,
+          `SELECT weapon_sharpness.*,
             weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
             weapons.*, items.name as name, items.rarity as rarity
             FROM weapons
@@ -66,6 +68,30 @@ export default class WeaponInfo extends PureComponent {
             WHERE items.item_id = ?`
           , [this.props.item_id], (tx, results) => {
             info = results.rows.item(0);
+          },
+        );
+      }
+      if (this.props.item.note1 !== null) {
+        const array = [
+          this.props.item.note1, this.props.item.note2, this.props.item.note3,
+          this.props.item.note1, this.props.item.note2, this.props.item.note3,
+          this.props.item.note1, this.props.item.note2, this.props.item.note3,
+          this.props.item.note1, this.props.item.note2, this.props.item.note3,
+        ];
+        tx.executeSql(
+          `SELECT DISTINCT
+            note1, note2, note3, note4, effect1, effect2,duration, extension
+            FROM horn_melodies
+            WHERE
+            ((? = note1 OR ? = note1 or ? = note1 or note1 IS NULL))
+            AND ((? = note2 OR ? = note2 or ? = note2 or note2 IS NULL))
+            AND ((? = note3 OR ? = note3 or ? = note3 or note3 IS NULL))
+            AND ((? = note4 OR ? = note4 or ? = note4 or note4 IS NULL))`
+          , array, (tx, results) => {
+            const len = results.rows.length;
+            for (let i = 0; i < len; i += 1) {
+              melodies.push(results.rows.item(i));
+            }
           },
         );
       }
@@ -127,7 +153,7 @@ export default class WeaponInfo extends PureComponent {
             upgradeTo.push(results.rows.item(i));
           }
           this.setState({
-            info, ammo, craftMaterials, upgradeMaterials, upgradeTo, loading: false,
+            info, ammo, craftMaterials, upgradeMaterials, upgradeTo, melodies, loading: false,
           });
         },
       );
@@ -620,6 +646,83 @@ export default class WeaponInfo extends PureComponent {
     );
   }
 
+  renderHornMelodies() {
+    if (this.state.melodies.length > 0) {
+      return (
+        <View>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 8, marginRight: 0, paddingRight: 8 }} itemDivider>
+            <View style={{ flex: 0.75, borderWidth: 0, borderColor: 'red' }}>
+              <Text style={{ flex: 1, fontSize: 9.5, color: '#191919', }}>Notes</Text>
+            </View>
+            <View style={{ flex: 1, borderWidth: 0, borderColor: 'orange' }}>
+              <Text style={{ flex: 1, fontSize: 9.5, color: '#191919', }}>Effect</Text>
+            </View>
+            <View style={{ flex: 1, borderWidth: 0, borderColor: 'yellow' }}>
+              <Text style={{ flex: 1, fontSize: 9.5, color: '#191919', }}>Effect 2</Text>
+            </View>
+            <View style={{ flex: 0.65, borderWidth: 0, borderColor: 'green' }}>
+              <Text style={{ flex: 1, fontSize: 9.5, color: '#8e8e8e', }}>Duration</Text>
+            </View>
+            <View style={{ flex: 0.65, borderWidth: 0, borderColor: 'blue' }}>
+              <Text style={{ flex: 1, fontSize: 9.5, color: '#8e8e8e', }}>Extension</Text>
+            </View>
+          </ListItem>
+          {this.state.melodies.map((item, key) => {
+            return (
+              <View key={key}>
+                <ListItem style={{ marginLeft: 0, paddingLeft: 8, marginRight: 0, paddingRight: 8, alignItems: 'center' }}>
+                  <View style={{ flex: 0.75, borderWidth: 0, borderColor: 'red', alignItems: 'center' }}>
+                    {this.renderHuntingHornNotes(item)}
+                  </View>
+                  <View style={{ flex: 1, borderWidth: 0, borderColor: 'orange' }}>
+                    <Text style={{ flex: 1, fontSize: 9.5, color: '#191919', textAlign: 'center' }}>{`${item.effect1}`}</Text>
+                  </View>
+                  <View style={{ flex: 1, borderWidth: 0, borderColor: 'yellow' }}>
+                    <Text style={{ flex: 1, fontSize: 9.5, color: '#191919', textAlign: 'center' }}>{`${item.effect2}`}</Text>
+                  </View>
+                  <View style={{ flex: 0.65, borderWidth: 0, borderColor: 'green' }}>
+                    <Text style={{ flex: 1, fontSize: 9.5, color: '#8e8e8e', textAlign: 'center' }}>{`${item.duration}`}</Text>
+                  </View>
+                  <View style={{ flex: 0.65, borderWidth: 0, borderColor: 'blue' }}>
+                    <Text style={{ flex: 1, fontSize: 9.5, color: '#8e8e8e', textAlign: 'center' }}>{`${item.extension}`}</Text>
+                  </View>
+                </ListItem>
+              </View>
+            );
+          })
+          }
+        </View>
+      );
+    }
+    return null;
+  }
+
+  renderHuntingHornNotes(item) {
+    if (item.note4 !== null) {
+      return (
+        <View style={{ flexDirection: 'row', borderWidth: 0 }}>
+          <Text style={{ textAlign: 'center', fontSize: 16.5, color: item.note1.replace('white', 'gray').replace('yellow', '#D5BF45') }}>{`\u266b`}</Text>
+          <Text style={{ textAlign: 'center', fontSize: 16.5, color: item.note2.replace('white', 'gray').replace('yellow', '#D5BF45') }}>{`\u266b`}</Text>
+          <Text style={{ textAlign: 'center', fontSize: 16.5, color: item.note3.replace('white', 'gray').replace('yellow', '#D5BF45') }}>{`\u266b`}</Text>
+          <Text style={{ textAlign: 'center', fontSize: 16.5, color: item.note4.replace('white', 'gray').replace('yellow', '#D5BF45') }}>{`\u266b`}</Text>
+        </View>
+      );
+    } else if (item.note3 !== null) {
+      return (
+        <View style={{ flexDirection: 'row', borderWidth: 0 }}>
+          <Text style={{ textAlign: 'center', fontSize: 16.5, color: item.note1.replace('white', 'gray').replace('yellow', '#D5BF45') }}>{`\u266b`}</Text>
+          <Text style={{ textAlign: 'center', fontSize: 16.5, color: item.note2.replace('white', 'gray').replace('yellow', '#D5BF45') }}>{`\u266b`}</Text>
+          <Text style={{ textAlign: 'center', fontSize: 16.5, color: item.note3.replace('white', 'gray').replace('yellow', '#D5BF45') }}>{`\u266b`}</Text>
+        </View>
+      );
+    }
+    return (
+      <View style={{ flexDirection: 'row', borderWidth: 0 }}>
+        <Text style={{ textAlign: 'center', fontSize: 16.5, color: item.note1.replace('white', 'gray').replace('yellow', '#D5BF45') }}>{`\u266b`}</Text>
+        <Text style={{ textAlign: 'center', fontSize: 16.5, color: item.note2.replace('white', 'gray').replace('yellow', '#D5BF45') }}>{`\u266b`}</Text>
+      </View>
+    );
+  }
   renderContent() {
     if (this.state.loading) {
       return (
@@ -653,6 +756,7 @@ export default class WeaponInfo extends PureComponent {
         {this.renderUpgrading()}
         {this.renderCrafting()}
         {this.renderUpgradeTo()}
+        {this.renderHornMelodies()}
       </ScrollView>
     );
   }

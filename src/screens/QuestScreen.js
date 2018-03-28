@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Text, View, FlatList, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
-import { Container, Tab, Tabs, ListItem, Left, Right, Body } from 'native-base';
+import { ScrollableTab, Container, Tab, Tabs, ListItem, Left, Right, Body } from 'native-base';
 import AdBanner from '../components/AdBanner';
 
 export default class QuestScreen extends PureComponent {
@@ -13,13 +13,11 @@ export default class QuestScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      tab1: true,
-      tab2: false,
-      tab3: false,
       loading: true,
       assigned: [],
       optional: [],
       arena: [],
+      special: [],
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
@@ -44,6 +42,7 @@ export default class QuestScreen extends PureComponent {
       const assigned = [];
       const optional = [];
       const arena = [];
+      const special = [];
       tx.executeSql('SELECT * FROM quests WHERE type=?', ['Assigned'], (tx, results) => {
         // Get rows with Web SQL Database spec compliance.
         const len = results.rows.length;
@@ -60,6 +59,14 @@ export default class QuestScreen extends PureComponent {
           optional.push(row);
         }
       });
+      tx.executeSql('SELECT * FROM quests WHERE type=?', ['Special Assignment'], (tx, results) => {
+        // Get rows with Web SQL Database spec compliance.
+        const len = results.rows.length;
+        for (let i = 0; i < len; i += 1) {
+          const row = results.rows.item(i);
+          special.push(row);
+        }
+      });
       tx.executeSql('SELECT * FROM quests WHERE type=?', ['Arena'], (tx, results) => {
         // Get rows with Web SQL Database spec compliance.
         const len = results.rows.length;
@@ -68,7 +75,7 @@ export default class QuestScreen extends PureComponent {
           arena.push(row);
         }
         this.setState({
-          assigned, optional, arena, loading: false,
+          assigned, optional, arena, special, loading: false,
         });
         // db.close();
       });
@@ -137,13 +144,28 @@ export default class QuestScreen extends PureComponent {
           />
         </View>
       );
+    } else if (screen === 'tab3') {
+      return (
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+          <FlatList
+            style={{ backgroundColor: 'white' }}
+            initialNumToRender={11}
+            data={this.state.arena}
+            keyExtractor={(item) => item.quest_id.toString()}
+            renderItem={this.renderListItems}
+            getItemLayout={(data, index) => (
+              { length: 60, offset: 60 * index, index }
+            )}
+          />
+        </View>
+      );
     }
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <FlatList
           style={{ backgroundColor: 'white' }}
           initialNumToRender={11}
-          data={this.state.arena}
+          data={this.state.special}
           keyExtractor={(item) => item.quest_id.toString()}
           renderItem={this.renderListItems}
           getItemLayout={(data, index) => (
@@ -157,7 +179,12 @@ export default class QuestScreen extends PureComponent {
   render() {
     return (
       <Container>
-        <Tabs prerenderingSiblingsNumber={3} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
+        <Tabs
+          prerenderingSiblingsNumber={3}
+          tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }}
+          initialPage={0}
+          renderTabBar={() => <ScrollableTab style={{ backgroundColor: 'white', elevation: 2 }}/>}
+          >
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
@@ -184,6 +211,15 @@ export default class QuestScreen extends PureComponent {
             heading="Arena"
             >
             {this.renderContent('tab3')}
+          </Tab>
+          <Tab
+            activeTabStyle={{ backgroundColor: 'white' }}
+            tabStyle={{ backgroundColor: 'white' }}
+            activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+            textStyle={{ color: '#5e5e5e' }}
+            heading="Special Assignment"
+            >
+            {this.renderContent('tab4')}
           </Tab>
         </Tabs>
         <AdBanner />

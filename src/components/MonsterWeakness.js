@@ -134,6 +134,7 @@ export default class MonsterWeakness extends PureComponent {
     }
     return <View style={[styles.monsterExtractContainer, { backgroundColor: item.extract_color }]} />;
   }
+
   renderListItems = ({ item }) => {
     if (item.header === true) {
       return this.renderHeader();
@@ -146,8 +147,8 @@ export default class MonsterWeakness extends PureComponent {
         <Text style={styles.monsterHitText}>{item.shot}</Text>
         <Text style={styles.monsterHitText}>{item.stun}</Text>
         <Text style={[styles.monsterHitText, { color: 'red' }]}>{item.fire}</Text>
-        <Text style={[styles.monsterHitText, { color: 'darkblue' }]}>{item.water}</Text>
-        <Text style={[styles.monsterHitText, { color: 'teal' }]}>{item.ice}</Text>
+        <Text style={[styles.monsterHitText, { color: 'teal' }]}>{item.water}</Text>
+        <Text style={[styles.monsterHitText, { color: 'darkblue' }]}>{item.ice}</Text>
         <Text style={[styles.monsterHitText, { color: '#e5c100' }]}>{item.thunder}</Text>
         <Text style={[styles.monsterHitText, { color: 'purple' }]}>{item.dragon}</Text>
         <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
@@ -207,6 +208,7 @@ export default class MonsterWeakness extends PureComponent {
       </View>
     );
   }
+
   renderWeakness() {
     return (
       <View>
@@ -214,7 +216,7 @@ export default class MonsterWeakness extends PureComponent {
         {this.state.data.map((item, key) => {
           return (
             <ListItem key={key} style={{ height: 37.5, marginLeft: 0, paddingLeft: 18, paddingRight: 5 }}>
-              <Text style={[styles.monsterHitText, { flex: 2.5, fontSize: 13, textAlign: 'left' }]}>{item.part_name}</Text>
+              <Text style={[styles.monsterHitText, { flex: 2.5, fontSize: 9.5, textAlign: 'left' }]}>{item.part_name}</Text>
               <Text style={styles.monsterHitText}>{item.sever}</Text>
               <Text style={styles.monsterHitText}>{item.blunt}</Text>
               <Text style={styles.monsterHitText}>{item.shot}</Text>

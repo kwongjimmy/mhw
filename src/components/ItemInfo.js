@@ -93,7 +93,7 @@ export default class ItemInfo extends PureComponent {
         },
       );
       tx.executeSql(
-        `SELECT A.*, B.name as name, B.quantity as quantity, B.item_id as item_id, B.rank as rank from monster as A
+        `SELECT A.*, B.name as name, B.quantity as quantity, B.chance as chance, B.item_id as item_id, B.rank as rank from monster as A
           JOIN (SELECT * from monster_loot as A JOIN monster_loot_categories as B ON A.category_id = B.category_id WHERE A.item_id = ?) as B
           ON A.monster_id = B.monster_id`
         , [this.props.item_id], (tx, results) => {

@@ -39,7 +39,7 @@ export default class ItemInfoQuest extends PureComponent {
           <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
         </Body>
         <Right>
-          <Text style={{ fontSize: 14.5, color: '#5e5e5e' }}>{item.type}</Text>
+          <Text style={{ fontSize: 14.5, color: '#5e5e5e' }}>{item.type.replace('Assignment', '')}</Text>
           <Text style={{ fontSize: 14.5, color: '#5e5e5e' }}>{`${item.required_rank} \u2605`}</Text>
         </Right>
       </ListItem>
