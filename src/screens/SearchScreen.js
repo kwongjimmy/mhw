@@ -741,7 +741,7 @@ export default class SearchScreen extends Component {
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           activeTextStyle={{ color: '#191919',  }}
            textStyle={{ color: '#5e5e5e' }}
            heading="Monster"
            >
@@ -750,7 +750,7 @@ export default class SearchScreen extends Component {
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           activeTextStyle={{ color: '#191919',  }}
            textStyle={{ color: '#5e5e5e' }}
            heading="Armor"
            >
@@ -759,7 +759,7 @@ export default class SearchScreen extends Component {
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           activeTextStyle={{ color: '#191919',  }}
            textStyle={{ color: '#5e5e5e' }}
            heading="Weapon"
            >
@@ -768,7 +768,7 @@ export default class SearchScreen extends Component {
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           activeTextStyle={{ color: '#191919',  }}
            textStyle={{ color: '#5e5e5e' }}
            heading="Item"
            >
@@ -777,7 +777,7 @@ export default class SearchScreen extends Component {
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           activeTextStyle={{ color: '#191919',  }}
            textStyle={{ color: '#5e5e5e' }}
            heading="Quests"
            >
@@ -786,7 +786,7 @@ export default class SearchScreen extends Component {
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           activeTextStyle={{ color: '#191919',  }}
            textStyle={{ color: '#5e5e5e' }}
            heading="Charms"
            >
@@ -795,7 +795,7 @@ export default class SearchScreen extends Component {
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           activeTextStyle={{ color: '#191919',  }}
            textStyle={{ color: '#5e5e5e' }}
            heading="Decorations"
            >
@@ -804,7 +804,7 @@ export default class SearchScreen extends Component {
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           activeTextStyle={{ color: '#191919',  }}
            textStyle={{ color: '#5e5e5e' }}
            heading="Skills"
            >
@@ -813,7 +813,7 @@ export default class SearchScreen extends Component {
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           activeTextStyle={{ color: '#191919',  }}
            textStyle={{ color: '#5e5e5e' }}
            heading="Maps"
            >

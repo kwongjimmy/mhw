@@ -188,7 +188,7 @@ export default class QuestScreen extends PureComponent {
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+            activeTextStyle={{ color: '#191919',  }}
             textStyle={{ color: '#5e5e5e' }}
             heading="Assigned"
             >
@@ -197,7 +197,7 @@ export default class QuestScreen extends PureComponent {
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+            activeTextStyle={{ color: '#191919',  }}
             textStyle={{ color: '#5e5e5e' }}
             heading="Optional"
             >
@@ -206,7 +206,7 @@ export default class QuestScreen extends PureComponent {
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+            activeTextStyle={{ color: '#191919',  }}
             textStyle={{ color: '#5e5e5e' }}
             heading="Arena"
             >
@@ -215,7 +215,7 @@ export default class QuestScreen extends PureComponent {
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+            activeTextStyle={{ color: '#191919',  }}
             textStyle={{ color: '#5e5e5e' }}
             heading="Special Assignment"
             >

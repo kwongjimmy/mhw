@@ -133,7 +133,7 @@ export default class MonsterInfo extends PureComponent {
             Capture
           </Text>
         </ListItem>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, paddingRight: 18, height: 37.5 }}>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, paddingRight: 18 }}>
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
             {`${effectiveness[this.props.tool[6].works]}`}
           </Text>
@@ -161,7 +161,7 @@ export default class MonsterInfo extends PureComponent {
             Meat
           </Text>
         </ListItem>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, paddingRight: 18, height: 37.5 }}>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, paddingRight: 18 }}>
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
             {`${effectiveness[this.props.tool[2].works]}`}
           </Text>
@@ -201,7 +201,7 @@ export default class MonsterInfo extends PureComponent {
             </Right>
           </ListItem>
         {this.props.ailment.map((item, key) =>
-          <ListItem key={key} style={{ marginLeft: 0, marginRight: 0, paddingLeft: 8, paddingRight: 18, height: 37.5 }}>
+          <ListItem key={key} style={{ marginLeft: 0, marginRight: 0, paddingLeft: 8, paddingRight: 18 }}>
             <Left style={{ flex: 1.5 }}>
               <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
                 {`${ailment[item.element]}`}
@@ -267,7 +267,7 @@ export default class MonsterInfo extends PureComponent {
             />
           </View>
         </ListItem>
-        <ListItem style={{ marginLeft: 0, backgroundColor: 'white', height: 37.5 }} itemDivider>
+        <ListItem style={{ marginLeft: 0, backgroundColor: 'white' }} itemDivider>
           <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{fire}</Text>
           <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{water}</Text>
           <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{thunder}</Text>
@@ -321,7 +321,7 @@ export default class MonsterInfo extends PureComponent {
             />
           </View>
         </ListItem>
-        <ListItem style={{ marginLeft: 0, backgroundColor: 'white', height: 37.5 }} itemDivider>
+        <ListItem style={{ marginLeft: 0, backgroundColor: 'white'}} itemDivider>
           <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{poison}</Text>
           <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{sleep}</Text>
           <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{paralysis}</Text>

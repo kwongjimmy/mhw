@@ -178,7 +178,7 @@ export default class MonsterScreen extends PureComponent {
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           activeTextStyle={{ color: '#191919',  }}
            textStyle={{ color: '#5e5e5e' }}
            heading="All"
            >
@@ -187,7 +187,7 @@ export default class MonsterScreen extends PureComponent {
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           activeTextStyle={{ color: '#191919',  }}
            textStyle={{ color: '#5e5e5e' }}
            heading="Large"
            >
@@ -196,7 +196,7 @@ export default class MonsterScreen extends PureComponent {
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+           activeTextStyle={{ color: '#191919',  }}
            textStyle={{ color: '#5e5e5e' }}
            heading="Small"
            >

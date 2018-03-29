@@ -314,7 +314,7 @@ export default class EquipArmorInfo extends PureComponent {
           animationType: 'slide-horizontal',
           title: this.state.setBonus.skill1,
           })}>
-          <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>
+          <Text style={{ fontSize: 15.5, color: '#191919' }}>
             {`(${this.state.setBonus.pieces} pieces) ${this.state.setBonus.skill1}`}
           </Text>
         </ListItem>
@@ -337,7 +337,7 @@ export default class EquipArmorInfo extends PureComponent {
           animationType: 'slide-horizontal',
           title: this.state.setBonus.skill2,
           })}>
-          <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>
+          <Text style={{ fontSize: 15.5, color: '#191919' }}>
             {`(${this.state.setBonus.pieces_2} pieces) ${this.state.setBonus.skill2}`}
           </Text>
         </ListItem>

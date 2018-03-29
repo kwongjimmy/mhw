@@ -174,7 +174,7 @@ export default class MapInfo extends PureComponent {
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+            activeTextStyle={{ color: '#191919',  }}
             textStyle={{ color: '#5e5e5e' }}
             heading="Low Rank"
             >
@@ -183,7 +183,7 @@ export default class MapInfo extends PureComponent {
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+            activeTextStyle={{ color: '#191919',  }}
             textStyle={{ color: '#5e5e5e' }}
             heading="High Rank"
             >

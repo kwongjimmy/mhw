@@ -33,23 +33,6 @@ export default class MonsterLoot extends PureComponent {
     }
   }
 
-  renderListHeader(item) {
-    if (this.currentCondition !== item.name) {
-      this.currentCondition = item.name;
-      return (
-        <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
-          <Left>
-            <Text style={{ fontSize: 15.5, fontWeight: '300', color: '#191919' }}>{item.name}</Text>
-          </Left>
-          <Right />
-        </ListItem>
-      );
-    }
-    return (
-      null
-    );
-  }
-
   renderListItems = ({ item }) => {
     return (
       <DropDown

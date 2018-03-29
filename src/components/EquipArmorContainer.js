@@ -148,7 +148,7 @@ export default class EquipArmorContainer extends PureComponent {
       return (
         <View>
           <ListItem style={{ marginLeft: 0, paddingLeft: 18, backgroundColor: '#F8F8F8' }} itemDivider>
-            <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>
+            <Text style={{ fontSize: 15.5, color: '#191919' }}>
               {`${this.props.armor.set_bonus} Set Bonus`}
             </Text>
           </ListItem>
@@ -174,7 +174,7 @@ export default class EquipArmorContainer extends PureComponent {
           animationType: 'slide-horizontal',
           title: this.props.armor.skill1_name,
           })}>
-          <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>
+          <Text style={{ fontSize: 15.5, color: '#191919' }}>
             {`(${this.props.armor.pieces} pieces) ${this.props.armor.skill1_name}`}
           </Text>
         </ListItem>
@@ -197,7 +197,7 @@ export default class EquipArmorContainer extends PureComponent {
           animationType: 'slide-horizontal',
           title: this.props.armor.skill2_name,
           })}>
-          <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>
+          <Text style={{ fontSize: 15.5, color: '#191919' }}>
             {`(${this.props.armor.pieces2} pieces) ${this.props.armor.skill2_name}`}
           </Text>
         </ListItem>

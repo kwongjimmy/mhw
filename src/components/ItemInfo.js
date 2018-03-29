@@ -225,7 +225,7 @@ export default class ItemInfo extends PureComponent {
     //      <Tab
     //        activeTabStyle={{ backgroundColor: 'white' }}
     //        tabStyle={{ backgroundColor: 'white' }}
-    //        activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+    //        activeTextStyle={{ color: '#191919',  }}
     //        textStyle={{ color: '#5e5e5e' }}
     //        heading="Info"
     //        >
@@ -234,7 +234,7 @@ export default class ItemInfo extends PureComponent {
     //      <Tab
     //        activeTabStyle={{ backgroundColor: 'white' }}
     //        tabStyle={{ backgroundColor: 'white' }}
-    //        activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+    //        activeTextStyle={{ color: '#191919',  }}
     //        textStyle={{ color: '#5e5e5e' }}
     //        heading="Loot"
     //        >
@@ -243,7 +243,7 @@ export default class ItemInfo extends PureComponent {
     //      <Tab
     //        activeTabStyle={{ backgroundColor: 'white' }}
     //        tabStyle={{ backgroundColor: 'white' }}
-    //        activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+    //        activeTextStyle={{ color: '#191919',  }}
     //        textStyle={{ color: '#5e5e5e' }}
     //        heading="Equip"
     //        >
@@ -252,7 +252,7 @@ export default class ItemInfo extends PureComponent {
     //      <Tab
     //        activeTabStyle={{ backgroundColor: 'white' }}
     //        tabStyle={{ backgroundColor: 'white' }}
-    //        activeTextStyle={{ color: '#191919', fontWeight: '100' }}
+    //        activeTextStyle={{ color: '#191919',  }}
     //        textStyle={{ color: '#5e5e5e' }}
     //        heading="Quest"
     //        >

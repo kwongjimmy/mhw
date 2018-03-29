@@ -80,7 +80,7 @@ export default class ItemInfoLoot extends PureComponent {
           title: item.name,
           })}>
           <Left>
-            <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>{`${item.name}`} <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{` ${item.rank} Rank`}</Text> </Text>
+            <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.name}`} <Text style={{ fontSize: 15.5, color: '#5e5e5e' }}>{` ${item.rank} Rank`}</Text> </Text>
           </Left>
         </ListItem>
       );
@@ -147,11 +147,11 @@ export default class ItemInfoLoot extends PureComponent {
               />
             </Left>
             <Body style={{ flex: 3 }}>
-              <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>{`${item.monster_name}`}</Text>
-              <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{`High Rank`}</Text>
+              <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.monster_name}`}</Text>
+              <Text style={{ fontSize: 15.5, color: '#5e5e5e' }}>{`High Rank`}</Text>
             </Body>
             <Right style={{ flex: 3 }}>
-              <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{``}</Text>
+              <Text style={{ fontSize: 15.5, color: '#5e5e5e' }}>{``}</Text>
             </Right>
           </ListItem>
         );
@@ -176,11 +176,11 @@ export default class ItemInfoLoot extends PureComponent {
             />
           </Left>
           <Body style={{ flex: 3 }}>
-            <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>{`${item.monster_name}`}</Text>
-            <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{`Low Rank`}</Text>
+            <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.monster_name}`}</Text>
+            <Text style={{ fontSize: 15.5, color: '#5e5e5e' }}>{`Low Rank`}</Text>
           </Body>
           <Right style={{ flex: 3 }}>
-            <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>{``}</Text>
+            <Text style={{ fontSize: 15.5, color: '#5e5e5e' }}>{``}</Text>
           </Right>
         </ListItem>
       );

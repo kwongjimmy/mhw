@@ -27,7 +27,7 @@ export default class ItemInfoEquip extends PureComponent {
     return (
       <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
         <Left>
-          <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>Weapons</Text>
+          <Text style={{ fontSize: 15.5, color: '#191919' }}>Weapons</Text>
         </Left>
         <Right>
           <Text style={{ fontSize: 15.5, color: '#5e5e5e' }}>Cost</Text>
@@ -90,10 +90,10 @@ export default class ItemInfoEquip extends PureComponent {
     return (
       <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
         <Left>
-          <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#191919' }}>Armor</Text>
+          <Text style={{ fontSize: 15.5, color: '#191919' }}>Armor</Text>
         </Left>
         <Right>
-          <Text style={{ fontSize: 15.5, fontWeight: '100', color: '#5e5e5e' }}>Cost</Text>
+          <Text style={{ fontSize: 15.5, color: '#5e5e5e' }}>Cost</Text>
         </Right>
       </ListItem>
     );
