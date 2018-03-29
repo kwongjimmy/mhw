@@ -227,7 +227,7 @@ export default class EquipArmorInfo extends PureComponent {
     if (this.state.skills[0].skill1_name !== null) {
       return (
         <View>
-          <ListItem style={{ marginLeft: 0, paddingLeft: 18 }} itemDivider>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
             <Left>
               <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>Skill</Text>
             </Left>
@@ -259,7 +259,7 @@ export default class EquipArmorInfo extends PureComponent {
         {this.state.materials.map((item, key) => {
           return (
             <View key={key}>
-              <ListItem style={{ marginLeft: 0, backgroundColor: 'white', paddingLeft: 18 }}
+              <ListItem style={{ marginLeft: 0, backgroundColor: 'white', paddingLeft: 8 }}
                 onPress={() => this.props.navigator.push({
                   screen: 'TablessInfoScreen',
                   passProps: {
@@ -289,7 +289,7 @@ export default class EquipArmorInfo extends PureComponent {
     if (this.state.setBonus.set_bonus !== null) {
       return (
         <View>
-          <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 18 }} itemDivider>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`${this.state.setBonus.set_bonus} Set Bonus`}</Text>
           </ListItem>
           {this.renderSetBonus1()}
