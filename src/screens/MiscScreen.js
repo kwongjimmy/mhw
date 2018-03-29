@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, FlatList, Platform, Image, Linking} from 'react-native';
+import { View, FlatList, Platform, Image, ActivityIndicator } from 'react-native';
 import { Container, ListItem, Text, Left, Body } from 'native-base';
 import firebase from 'react-native-firebase';
 import { MiscImages } from '../assets';
@@ -50,9 +50,19 @@ export default class MiscScreen extends PureComponent {
         {
           route: 'AboutScreen',
           title: 'About',
-        }
+        },
       ],
+      loading: true,
     };
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  onNavigatorEvent(event) {
+    if (event.id === 'willAppear' && this.state.loading) {
+      this.setState({
+        loading: false,
+      });
+    }
   }
 
   renderListItems = ({ item }) => {
@@ -82,24 +92,21 @@ export default class MiscScreen extends PureComponent {
   }
 
   render() {
+    if (this.state.loading) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+          <ActivityIndicator size="large" color="#5e5e5e"/>
+        </View>
+      );
+    }
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <FlatList
           style={{ backgroundColor: 'white' }}
           data={this.state.screens}
-          keyExtractor={(item) => item.route}
+          keyExtractor={item => item.route}
           renderItem={this.renderListItems}
         />
-      {/* <Banner
-        unitId={'ca-app-pub-3940256099942544/6300978111'}
-          // unitId={'ca-app-pub-9661316023859369/7600878725'}
-         size={'SMART_BANNER'}
-         request={request.build()}
-         onAdFailedToLoad={error => console.log(error)}
-         onAdLoaded={() => {
-           console.log('Advert loaded');
-         }}
-       /> */}
        <AdBanner />
      </View>
     );

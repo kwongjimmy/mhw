@@ -32,7 +32,17 @@ export default class SearchScreen extends Component {
       data: [],
       skeletonData,
     };
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
+
+  onNavigatorEvent(event) {
+    if (event.id === 'willAppear' && this.state.loading) {
+      this.setState({
+        loading: false,
+      });
+    }
+  }
+
   searchMatchingWords(keyWord) {
     currentWord = keyWord;
     var keyW = keyWord.toLowerCase();
@@ -89,14 +99,21 @@ export default class SearchScreen extends Component {
         tx.executeSql(`
           SELECT
           X.*,
-          I1.name AS head_name,
-          I2.name AS armor_name,
-          I3.name AS gloves_name,
-          I4.name AS belt_name,
-          I5.name AS pants_name
+          I1.name AS head_name, I1.rarity as head_rarity,
+          I2.name AS armor_name, I2.rarity as armor_rarity,
+          I3.name AS gloves_name, I3.rarity as gloves_rarity,
+          I4.name AS belt_name, I4.rarity as belt_rarity,
+          I5.name AS pants_name, I5.rarity as pants_rarity,
+  		    SB.name AS set_bonus,
+  		    SB.pieces AS pieces,
+  		    SB.pieces_2 AS pieces2,
+          SS1.armor_skill_id AS skill1_id,
+          SS2.armor_skill_id AS skill2_id,
+  	      SS1.name AS skill1_name,
+  		    SS2.name AS skill2_name
           FROM
           ( SELECT
-            A.name, A.armor_set_id, B.rank,
+            A.name, A.armor_set_id, ifnull(B.rank, 'High') as rank,
             B.item_id AS head_item_id, b.slot1 AS head_slot1, b.slot2 AS head_slot2, b.slot3 AS head_slot3, BS1.name AS head_skill1, BS2.name AS head_skill2, BSL1.level as head_skill1_level, BSL2.level as head_skill2_level,
             C.item_id AS armor_item_id, C.slot1 AS armor_slot1, C.slot2 AS armor_slot2, C.slot3 AS armor_slot3, CS1.name AS armor_skill1, CS2.name AS armor_skill2, CSL1.level as armor_skill1_level, CSL2.level as armor_skill2_level,
             D.item_id AS gloves_item_id, D.slot1 AS gloves_slot1, D.slot2 AS gloves_slot2, D.slot3 AS gloves_slot3, DS1.name AS gloves_skill1, DS2.name AS gloves_skill2, DSL1.level as gloves_skill1_level, DSL2.level as gloves_skill2_level,
@@ -118,12 +135,18 @@ export default class SearchScreen extends Component {
               LEFT JOIN armor_skills AS DS1 ON DSL1.armor_skill_id = DS1.armor_skill_id LEFT JOIN armor_skills AS DS2 ON DSL2.armor_skill_id = DS2.armor_skill_id
               LEFT JOIN armor_skills AS ES1 ON ESL1.armor_skill_id = ES1.armor_skill_id LEFT JOIN armor_skills AS ES2 ON ESL2.armor_skill_id = ES2.armor_skill_id
               LEFT JOIN armor_skills AS FS1 ON FSL1.armor_skill_id = FS1.armor_skill_id LEFT JOIN armor_skills AS FS2 ON FSL2.armor_skill_id = FS2.armor_skill_id
-                      ) AS X
+          ) AS X
           LEFT JOIN items AS I1 ON X.head_item_id = I1.item_id
           LEFT JOIN items AS I2 ON X.armor_item_id = I2.item_id
           LEFT JOIN items AS I3 ON X.gloves_item_id = I3.item_id
           LEFT JOIN items AS I4 ON X.belt_item_id = I4.item_id
-          LEFT JOIN items AS I5 ON X.pants_item_id = I5.item_id WHERE LOWER(X.name) LIKE ? LIMIT 20`
+          LEFT JOIN items AS I5 ON X.pants_item_id = I5.item_id
+  		    LEFT JOIN armor_set_bonus AS SB ON x.armor_set_id = SB.set_id
+  		    LEFT JOIN armor_skills_levels AS SB1 ON SB.skill = SB1.armor_skill_level_id
+  		    LEFT JOIN armor_skills_levels AS SB2 ON SB.skill_2 = SB2.armor_skill_level_id
+  		    LEFT JOIN armor_skills AS SS1 ON SS1.armor_skill_id = SB1.armor_skill_id
+  		    LEFT JOIN armor_skills AS SS2 ON SS2.armor_skill_id = SB2.armor_skill_id
+          WHERE LOWER(X.name) LIKE ? LIMIT 20`
            , [keyW+'%'], (tx, results) => {
           const len = results.rows.length;
           for (let i = 0; i < len; i += 1) {
@@ -153,7 +176,7 @@ export default class SearchScreen extends Component {
           this.renderContent('weapon');
         });
         tx.executeSql(
-          'SELECT item_id, name, category FROM items WHERE LOWER(name) LIKE ? ORDER BY name LIMIT 20',
+          `SELECT item_id, name, category FROM items WHERE category = 'item' AND LOWER(name) LIKE ? ORDER BY name LIMIT 20`,
           [keyW+'%'], (tx, results) => {
             const len = results.rows.length;
             for (let i = 0; i < len; i += 1) {
@@ -183,9 +206,12 @@ export default class SearchScreen extends Component {
           );
           tx.executeSql(
             `SELECT
-              A.item_id as item_id, B.name as name
+              A.item_id as item_id, B.name as name, C.name as skill_name, D.level as skill_level
               FROM decorations AS A
-              JOIN items AS B ON A.item_id = B.item_id WHERE LOWER(name) LIKE ? ORDER BY name LIMIT 20`
+              JOIN items AS B ON A.item_id = B.item_id
+              LEFT JOIN armor_skills_levels AS D ON A.skill = D.armor_skill_level_id
+              LEFT JOIN armor_skills AS C ON D.armor_skill_id = C.armor_skill_id
+              WHERE LOWER(B.name) LIKE ? ORDER BY B.name LIMIT 20`
             , [keyW+'%'], (tx, results) => {
             const len = results.rows.length;
             for(let i = 0; i < len; i += 1) {
@@ -256,14 +282,21 @@ export default class SearchScreen extends Component {
         tx.executeSql(`
           SELECT
           X.*,
-          I1.name AS head_name,
-          I2.name AS armor_name,
-          I3.name AS gloves_name,
-          I4.name AS belt_name,
-          I5.name AS pants_name
+          I1.name AS head_name, I1.rarity as head_rarity,
+          I2.name AS armor_name, I2.rarity as armor_rarity,
+          I3.name AS gloves_name, I3.rarity as gloves_rarity,
+          I4.name AS belt_name, I4.rarity as belt_rarity,
+          I5.name AS pants_name, I5.rarity as pants_rarity,
+  		    SB.name AS set_bonus,
+  		    SB.pieces AS pieces,
+  		    SB.pieces_2 AS pieces2,
+          SS1.armor_skill_id AS skill1_id,
+          SS2.armor_skill_id AS skill2_id,
+  	      SS1.name AS skill1_name,
+  		    SS2.name AS skill2_name
           FROM
           ( SELECT
-            A.name, A.armor_set_id, B.rank,
+            A.name, A.armor_set_id, ifnull(B.rank, 'High') as rank,
             B.item_id AS head_item_id, b.slot1 AS head_slot1, b.slot2 AS head_slot2, b.slot3 AS head_slot3, BS1.name AS head_skill1, BS2.name AS head_skill2, BSL1.level as head_skill1_level, BSL2.level as head_skill2_level,
             C.item_id AS armor_item_id, C.slot1 AS armor_slot1, C.slot2 AS armor_slot2, C.slot3 AS armor_slot3, CS1.name AS armor_skill1, CS2.name AS armor_skill2, CSL1.level as armor_skill1_level, CSL2.level as armor_skill2_level,
             D.item_id AS gloves_item_id, D.slot1 AS gloves_slot1, D.slot2 AS gloves_slot2, D.slot3 AS gloves_slot3, DS1.name AS gloves_skill1, DS2.name AS gloves_skill2, DSL1.level as gloves_skill1_level, DSL2.level as gloves_skill2_level,
@@ -285,13 +318,18 @@ export default class SearchScreen extends Component {
               LEFT JOIN armor_skills AS DS1 ON DSL1.armor_skill_id = DS1.armor_skill_id LEFT JOIN armor_skills AS DS2 ON DSL2.armor_skill_id = DS2.armor_skill_id
               LEFT JOIN armor_skills AS ES1 ON ESL1.armor_skill_id = ES1.armor_skill_id LEFT JOIN armor_skills AS ES2 ON ESL2.armor_skill_id = ES2.armor_skill_id
               LEFT JOIN armor_skills AS FS1 ON FSL1.armor_skill_id = FS1.armor_skill_id LEFT JOIN armor_skills AS FS2 ON FSL2.armor_skill_id = FS2.armor_skill_id
-
           ) AS X
           LEFT JOIN items AS I1 ON X.head_item_id = I1.item_id
           LEFT JOIN items AS I2 ON X.armor_item_id = I2.item_id
           LEFT JOIN items AS I3 ON X.gloves_item_id = I3.item_id
           LEFT JOIN items AS I4 ON X.belt_item_id = I4.item_id
-          LEFT JOIN items AS I5 ON X.pants_item_id = I5.item_id WHERE LOWER(X.name) LIKE ? ORDER BY SUBSTR(X.name,1,3)`
+          LEFT JOIN items AS I5 ON X.pants_item_id = I5.item_id
+  		    LEFT JOIN armor_set_bonus AS SB ON x.armor_set_id = SB.set_id
+  		    LEFT JOIN armor_skills_levels AS SB1 ON SB.skill = SB1.armor_skill_level_id
+  		    LEFT JOIN armor_skills_levels AS SB2 ON SB.skill_2 = SB2.armor_skill_level_id
+  		    LEFT JOIN armor_skills AS SS1 ON SS1.armor_skill_id = SB1.armor_skill_id
+  		    LEFT JOIN armor_skills AS SS2 ON SS2.armor_skill_id = SB2.armor_skill_id
+          WHERE LOWER(X.name) LIKE ? ORDER BY SUBSTR(X.name,1,3)`
            , ['%'+keyW+'%'], (tx, results) => {
           const len = results.rows.length;
           for (let i = 0; i < len; i += 1) {
@@ -321,7 +359,7 @@ export default class SearchScreen extends Component {
           this.renderContent('weapon');
         });
         tx.executeSql(
-          'SELECT item_id, name, category FROM items WHERE LOWER(name) LIKE ? ORDER BY SUBSTR(name,1,3)',
+          `SELECT item_id, name, category FROM items WHERE category = 'item' AND LOWER(name) LIKE ? ORDER BY SUBSTR(name,1,3)`,
           ['%'+keyW+'%'], (tx, results) => {
             const len = results.rows.length;
             for (let i = 0; i < len; i += 1) {
@@ -351,9 +389,12 @@ export default class SearchScreen extends Component {
           );
           tx.executeSql(
             `SELECT
-              A.item_id as item_id, B.name as name
+              A.item_id as item_id, B.name as name, C.name as skill_name, D.level as skill_level
               FROM decorations AS A
-              JOIN items AS B ON A.item_id = B.item_id WHERE LOWER(name) LIKE ? ORDER BY SUBSTR(name,1,3)`
+              JOIN items AS B ON A.item_id = B.item_id
+              LEFT JOIN armor_skills_levels AS D ON A.skill = D.armor_skill_level_id
+              LEFT JOIN armor_skills AS C ON D.armor_skill_id = C.armor_skill_id
+              WHERE LOWER(B.name) LIKE ? ORDER BY SUBSTR(B.name,1,3)`
             , ['%'+keyW+'%'], (tx, results) => {
             const len = results.rows.length;
             for(let i = 0; i < len; i += 1) {
@@ -410,20 +451,23 @@ export default class SearchScreen extends Component {
   renderListQuests = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 8 }}
+        style={{ marginLeft: 0, paddingLeft: 8, height: 60 }}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
-				passProps: {
+        passProps: {
           type: 'quests',
-					quest_id: item.quest_id,
-				},
+          quest_id: item.quest_id,
+        },
         animationType: 'slide-horizontal',
         title: item.name,
       })}
       >
-      <Left>
-        <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
-      </Left>
+        <Left>
+          <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+        </Left>
+        <Right>
+          <Text style={{ fontSize: 14.5, color: '#5e5e5e' }}>{`${item.required_rank} \u2605`}</Text>
+        </Right>
       </ListItem>
     );
   }
@@ -464,7 +508,7 @@ export default class SearchScreen extends Component {
   renderListDecorations = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 8 }}
+        style={{ height: 60, marginLeft: 0, paddingLeft: 8 }}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
         passProps: {
@@ -474,7 +518,12 @@ export default class SearchScreen extends Component {
         animationType: 'slide-horizontal',
         title: item.name,
       })}>
+      <Left style= {{ flex: 1 }}>
         <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+      </Left>
+      <Right style= {{ flex: 1, justifyContent: 'center' }}>
+        <Text style={{ fontSize: 14, color: '#8e8e8e' }}>{item.skill_name} +{item.skill_level}</Text>
+      </Right>
       </ListItem>
     );
   }
@@ -664,6 +713,13 @@ export default class SearchScreen extends Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+          <ActivityIndicator size="large" color="#5e5e5e"/>
+        </View>
+      );
+    }
     return (
       <Container style={{ backgroundColor: 'white' }}>
         <Header

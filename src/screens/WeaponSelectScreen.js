@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, Image, FlatList, TouchableHighlight, Platform } from 'react-native';
+import { View, Image, FlatList, TouchableHighlight, Platform, ActivityIndicator } from 'react-native';
 import { Container, ListItem, Body, Left, Right, Text } from 'native-base';
 import { WeaponImages } from '../assets';
 import AdBanner from '../components/AdBanner';
@@ -86,7 +86,17 @@ export default class WeaponSelectScreen extends PureComponent {
           type: 'heavy_bowgun',
         },
       ],
+      loading: true,
     };
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  onNavigatorEvent(event) {
+    if (event.id === 'willAppear' && this.state.loading) {
+      this.setState({
+        loading: false,
+      });
+    }
   }
 
   renderListItems = ({ item }) => {
@@ -118,6 +128,13 @@ export default class WeaponSelectScreen extends PureComponent {
   }
 
   renderSelectList() {
+    if (this.state.loading) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+          <ActivityIndicator size="large" color="#5e5e5e"/>
+        </View>
+      );
+    }
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <FlatList
@@ -132,7 +149,6 @@ export default class WeaponSelectScreen extends PureComponent {
         />
         <AdBanner />
       </View>
-
     );
   }
 
