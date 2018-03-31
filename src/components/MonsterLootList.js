@@ -1,50 +1,22 @@
 import React, { PureComponent } from 'react';
 import { View, FlatList, InteractionManager, ActivityIndicator } from 'react-native';
 import { Text, ListItem, Left, Right, Icon } from 'native-base';
-import SQLite from 'react-native-sqlite-storage';
 import AdBanner from './AdBanner';
 
-export default class MonsterLoot extends PureComponent {
+export default class MonsterLootList extends PureComponent {
   constructor(props) {
     super(props);
+    console.log(this.props.lowRank)
     this.state = {
-      data: [],
-      loading: true,
+      data: this.props.monster_loot,
+      lowRank: this.props.lowRank,
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
-      const db = SQLite.openDatabase({
-        name: 'mhworld.db', location: 'Default',
-      }, this.okCallback, this.errorCallback);
-      db.transaction((tx) => {
-        const data = [];
-        const rank = this.props.lowRank ? 0 : 1;
-        tx.executeSql(
-          `SELECT
-          loot.item_id,
-          loot.chance,
-          items.name as name,
-          items.rarity,
-          loot.quantity
-          FROM monster_loot as loot
-          INNER JOIN monster_loot_categories as cat ON loot.category_id = cat.category_id
-          INNER JOIN items as items ON loot.item_id = items.item_id
-          WHERE loot.monster_id = ? AND cat.rank = ? AND cat.name = ?`,
-          [this.props.monster_id, rank, this.props.categoryName], (tx, results) => {
-            for (let i = 0; i < results.rows.length; i += 1) {
-              const row = results.rows.item(i);
-              data.push(row);
-            }
-            this.setState({
-              data,
-              loading: false,
-            });
-          },
-        );
-      });
+      this.setState({ loading: false });
     });
   }
 
@@ -67,8 +39,10 @@ export default class MonsterLoot extends PureComponent {
         onPress={() => this.props.navigator.push({
           screen: 'TablessInfoScreen',
           passProps: {
-            item_id: item.item_id,
-            type: 'item',
+            monster_id: this.props.monster_id,
+            categoryName: item.name,
+            type: 'monsterLoot',
+            lowRank: this.state.lowRank,
           },
           animationType: 'slide-horizontal',
           title: item.name,
@@ -77,10 +51,6 @@ export default class MonsterLoot extends PureComponent {
           <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
         </Left>
         <Right>
-          <Text style={{ fontSize: 15.5, color: '#191919' }}>{`x${item.quantity}`}</Text>
-        </Right>
-        <Right>
-          <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.chance}%`}</Text>
         </Right>
       </ListItem>
     );
@@ -109,13 +79,12 @@ export default class MonsterLoot extends PureComponent {
         <FlatList
           initialNumToRender={12}
           data={this.state.data}
-          keyExtractor={item => `${item.name} ${item.quantity} ${item.chance}`}
+          keyExtractor={item => item.name}
           renderItem={this.renderListItems}
           getItemLayout={(data, index) => (
             { length: 52, offset: 52 * index, index }
           )}
         />
-        <AdBanner />
       </View>
     );
   }

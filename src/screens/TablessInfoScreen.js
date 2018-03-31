@@ -7,6 +7,7 @@ import WeaponInfo from '../components/WeaponInfo';
 import QuestInfo from '../components/QuestInfo';
 import DecorationInfo from '../components/DecorationInfo';
 import ItemInfo from '../components/ItemInfo';
+import MonsterLoot from '../components/MonsterLoot';
 
 
 export default class TablessInfoScreen extends PureComponent {
@@ -34,7 +35,11 @@ export default class TablessInfoScreen extends PureComponent {
   }
 
   render() {
-    if (this.props.type === 'item') {
+    if (this.props.type === 'monsterLoot') {
+      return (
+        <MonsterLoot navigator={this.props.navigator} categoryName={this.props.categoryName} lowRank={this.props.lowRank} monster_id={this.props.monster_id}/>
+      )
+    } else if (this.props.type === 'item') {
       return (
         <ItemInfo navigator={this.props.navigator} item_id={this.props.item_id}/>
       );

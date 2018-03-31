@@ -5,7 +5,7 @@ import { Container, Tab, Tabs, ScrollableTab } from 'native-base';
 import _ from 'lodash';
 import MonsterInfo from '../components/MonsterInfo';
 import MonsterWeakness from '../components/MonsterWeakness';
-import MonsterLoot from '../components/MonsterLoot';
+import MonsterLootList from '../components/MonsterLootList';
 import MonsterEquip from '../components/MonsterEquip';
 import MonsterQuest from '../components/MonsterQuest';
 import AdBanner from '../components/AdBanner';
@@ -55,16 +55,8 @@ export default class MonsterInfoScreen extends PureComponent {
           }
         });
         tx.executeSql(
-          `SELECT
-          loot.loot_id,
-          loot.item_id,
-          loot.category_id,
-          loot.chance,
-          cat.rank,
-          cat.name,
-          items.name as item_name,
-          items.rarity,
-          loot.quantity
+          `SELECT DISTINCT
+          cat.name
           FROM monster_loot as loot
           INNER JOIN monster_loot_categories as cat ON loot.category_id = cat.category_id
           INNER JOIN items as items ON loot.item_id = items.item_id
@@ -75,21 +67,11 @@ export default class MonsterInfoScreen extends PureComponent {
               const row = results.rows.item(i);
               monster_loot.push(row);
             }
-            monster_loot = _.groupBy(monster_loot, loot => loot.name);
-            monster_loot = _.values(monster_loot);
           },
         );
         tx.executeSql(
-          `SELECT
-          loot.loot_id,
-          loot.item_id,
-          loot.category_id,
-          loot.chance,
-          cat.rank,
-          cat.name,
-          items.name as item_name,
-          items.rarity,
-          loot.quantity
+          `SELECT DISTINCT
+          cat.name
           FROM monster_loot as loot
           INNER JOIN monster_loot_categories as cat ON loot.category_id = cat.category_id
           INNER JOIN items as items ON loot.item_id = items.item_id
@@ -100,8 +82,6 @@ export default class MonsterInfoScreen extends PureComponent {
               const row = results.rows.item(i);
               monster_loot_high.push(row);
             }
-            monster_loot_high = _.groupBy(monster_loot_high, loot => loot.name);
-            monster_loot_high = _.values(monster_loot_high);
           },
         );
         tx.executeSql(
@@ -192,9 +172,9 @@ export default class MonsterInfoScreen extends PureComponent {
     if (screen === 'tab1') {
       return <MonsterWeakness navigator={this.props.navigator} monster_size={this.props.monster_info.size} monster_hit={this.state.monster_hit}/>;
     } else if (screen === 'tab2') {
-      return <MonsterLoot navigator={this.props.navigator} monster_loot={this.state.monster_loot}/>;
+      return <MonsterLootList navigator={this.props.navigator} lowRank={true} monster_id={this.props.monster_id} monster_loot={this.state.monster_loot}/>;
     } else if (screen === 'tab3') {
-      return <MonsterLoot navigator={this.props.navigator} monster_loot={this.state.monster_loot_high}/>;
+      return <MonsterLootList navigator={this.props.navigator} lowRank={false} monster_id={this.props.monster_id} monster_loot={this.state.monster_loot_high}/>;
     } else if (screen === 'tab4') {
       return <MonsterEquip navigator={this.props.navigator} data={this.state.monster_armor} type={'armor'}/>;
     } else if (screen === 'tab5') {
@@ -247,7 +227,7 @@ export default class MonsterInfoScreen extends PureComponent {
         <Tab
           activeTabStyle={{ backgroundColor: 'white' }}
           tabStyle={{ backgroundColor: 'white' }}
-          activeTextStyle={{ color: '#191919',  }}
+          activeTextStyle={{ color: '#191919' }}
           textStyle={{ color: '#5e5e5e' }}
           heading="Weapon"
           >
