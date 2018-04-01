@@ -26,19 +26,19 @@ export default class WeaponListItem extends PureComponent {
     if (type === 'switch_axe' || type === 'charge_blade') {
       return (
         <View style={{ flex: 1 }}>
-          <Text style={{ fontSize: 14, color: '#191919', textAlign: 'center' }}>{`${phial}`}</Text>
+          <Text style={{ fontSize: 13, color: '#191919', textAlign: 'center' }}>{`${phial}`}</Text>
         </View>
       );
     } else if (type === 'insect_glaive') {
       return (
         <View style={{ flex: 1 }}>
-          <Text style={{ fontSize: 14, color: '#191919', textAlign: 'center' }}>{`${kinsect}`}</Text>
+          <Text style={{ fontSize: 13, color: '#191919', textAlign: 'center' }}>{`${kinsect}`}</Text>
         </View>
       );
     } else if (type === 'gun_lance') {
       return (
         <View style={{ flex: 1 }}>
-          <Text style={{ fontSize: 14, color: '#191919', textAlign: 'center' }}>{`${shelling}`}</Text>
+          <Text style={{ fontSize: 13, color: '#191919', textAlign: 'center' }}>{`${shelling}`}</Text>
         </View>
       );
     } else if (type === 'hunting_horn') {
@@ -52,7 +52,7 @@ export default class WeaponListItem extends PureComponent {
     } else if (type.includes('bowgun')) {
       return (
         <View style={{ flex: 1, flexDirection: 'row' }}>
-          <Text style={{ fontSize: 14, color: '#191919', textAlign: 'right' }}>{`DEV: ${deviation}`}</Text>
+          <Text style={{ fontSize: 13, color: '#191919', textAlign: 'right' }}>{`DEV: ${deviation}`}</Text>
         </View>
       );
     }
@@ -66,7 +66,7 @@ export default class WeaponListItem extends PureComponent {
     if (affinity !== 0) {
       return (
         <View style={{ flex: 1, flexDirection: 'row', borderWidth: 0 }}>
-          <Text style={{ fontSize: 14, color: '#191919' }}>{`AFF: ${affinity}%`}</Text>
+          <Text style={{ fontSize: 13, color: '#191919' }}>{`AFF: ${affinity}%`}</Text>
         </View>
       );
     }
@@ -81,13 +81,15 @@ export default class WeaponListItem extends PureComponent {
     } = item;
     if (element_amount2) {
       return (
-        <View style={{ flexDirection: 'row' }}>
-          <Text style={{ fontSize: 14, color: '#191919' }}>{`${element_amount2}`}</Text>
-          <Image
-            resizeMode="contain"
-            style={{ height: 20, width: 20 }}
-            source={ElementStatusImages[element_type2]}
-          />
+        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'flex-start' }}>
+          <Text style={{ fontSize: 13, color: '#191919' }}>{`${element_amount2}`}</Text>
+          <View style={{ justifyContent: 'center' }}>
+            <Image
+              resizeMode="contain"
+              style={{ height: 20, width: 20, justifyContent: 'center' }}
+              source={ElementStatusImages[element_type2]}
+            />
+          </View>
         </View>
       );
     }
@@ -102,41 +104,49 @@ export default class WeaponListItem extends PureComponent {
     } = item;
     if (element_amount && req_armor_skill) {
       return (
-        <View style={{ flexDirection: 'row', borderWidth: 0 }}>
-          <Text style={{ fontSize: 14, color: '#191919' }}>{`(${element_amount})`}</Text>
-          <Image
-            resizeMode="contain"
-            style={{ height: 20, width: 20 }}
-            source={ElementStatusImages[element_type]}
-          />
+        <View style={{ flex: 1.25, flexDirection: 'row', alignItems: 'flex-start' }}>
+          <Text style={{ fontSize: 13, color: '#191919' }}>{`(${element_amount})`}</Text>
+          <View style={{ justifyContent: 'center' }}>
+            <Image
+              resizeMode="contain"
+              style={{ height: 20, width: 20, justifyContent: 'center' }}
+              source={ElementStatusImages[element_type]}
+            />
+          </View>
         </View>
       );
     } else if (element_amount && type === 'dual_blade') {
       return (
-        <View style={{ flexDirection: 'row', borderWidth: 0 }}>
-          <Text style={{ fontSize: 14, color: '#191919' }}>{`${element_amount}`}</Text>
-          <Image
-            resizeMode="contain"
-            style={{ height: 20, width: 20 }}
-            source={ElementStatusImages[element_type]}
-          />
+        <View style={{ flex: 1.25, flexDirection: 'row' }}>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'flex-start' }}>
+            <Text style={{ fontSize: 13, color: '#191919' }}>{`${element_amount}`}</Text>
+            <View style={{ justifyContent: 'center' }}>
+              <Image
+                resizeMode="contain"
+                style={{ height: 20, width: 20, justifyContent: 'center' }}
+                source={ElementStatusImages[element_type]}
+              />
+            </View>
+          </View>
           {this.renderElement2(item)}
         </View>
       );
     } else if (element_amount) {
       return (
-        <View style={{ flexDirection: 'row', borderWidth: 0 }}>
-          <Text style={{ fontSize: 14, color: '#191919' }}>{`${element_amount}`}</Text>
-          <Image
-            resizeMode="contain"
-            style={{ height: 20, width: 20 }}
-            source={ElementStatusImages[element_type]}
-          />
+        <View style={{ flex: 1.25, flexDirection: 'row', alignItems: 'flex-start' }}>
+          <Text style={{ fontSize: 13, color: '#191919' }}>{`${element_amount}`}</Text>
+          <View style={{ justifyContent: 'center' }}>
+            <Image
+              resizeMode="contain"
+              style={{ height: 20, width: 20, justifyContent: 'center' }}
+              source={ElementStatusImages[element_type]}
+            />
+          </View>
         </View>
       );
     }
     return (
-     <Text />
+      null
     );
   }
 
@@ -220,7 +230,7 @@ export default class WeaponListItem extends PureComponent {
       if (type.includes('gun')) {
         return (
           <View style={{ flex: 1, justifyContent: 'center' }}>
-            <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${special_ammo}`}</Text>
+            <Text style={{ fontSize: 13, color: '#191919' }}>{`${special_ammo}`}</Text>
           </View>
         );
       }
@@ -235,7 +245,7 @@ export default class WeaponListItem extends PureComponent {
       marginBottom = 4.5;
     }
     return (
-      <View style={{ flex: 1, flexDirection: 'row', width: 104, justifyContent: 'center', marginRight: -0.5 }}>
+      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', marginRight: -0.5 }}>
         <View style={{ flex: red, marginTop, marginBottom, height: 10, backgroundColor: '#C4424E', marginRight: -0.5 }}/>
         <View style={{ flex: orange, marginTop, marginBottom, height: 10, backgroundColor: '#DE7A56', marginRight: -0.5 }}/>
         <View style={{ flex: yellow, marginTop, marginBottom, height: 10, backgroundColor: '#D5BF45', marginRight: -0.5 }}/>
@@ -258,39 +268,37 @@ export default class WeaponListItem extends PureComponent {
 
     return (
       <ListItem
-        style={{ marginLeft: 0, marginRight: 0, paddingRight: 8, paddingLeft: 8, height: 87.5 }}
+        style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, height: 87.5 }}
         onPress={() => this.props.navigator.push({
-          screen: 'TablessInfoScreen',
-          passProps: {
-            item_id,
-            type: 'weapons',
-            item: this.props.item,
-            refetch: false,
-          },
-          animationType: 'slide-horizontal',
-          title: name,
-        })}
-        >
-        <Left style={{ flex: 1, flexDirection: 'row', borderWidth: 0, borderColor: 'red' }}>
-          <View style={{ flex: 0.5, alignItems: 'center', justifyContent: 'center', borderWidth: 0 }}>
-            <Image
-              resizeMode="contain"
-              style={{ flex: 1, height: 20, width: 20 }}
-              source={WeaponImages[`${weaponTypes[type]} ${rarity}`]}
-            />
-          </View>
-          <View style={{ flex: 5, flexDirection: 'column'}}>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
-              <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{name}</Text>
-            </View>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
-              <Text style={{ fontSize: 14, color: '#191919' }}>{`DMG: ${damage}`}</Text>
-              {this.renderElement(this.props.item)}
-            </View>
-            {this.renderAffinity(this.props.item)}
-          </View>
+        screen: 'TablessInfoScreen',
+        passProps: {
+          item_id,
+          type: 'weapons',
+          item: this.props.item,
+          refetch: false,
+        },
+        animationType: 'slide-horizontal',
+        title: name,
+      })}>
+        <Left style={{ flex: 0.5, borderWidth: 0 }}>
+          <Image
+            resizeMode="contain"
+            style={{ height: 20, width: 20 }}
+            source={WeaponImages[`${weaponTypes[type]} ${rarity}`]} />
         </Left>
-        <Right style={{ flex: 0.5, borderWidth: 0, borderColor: 'green' }}>
+        <Left style={{ flex: 3, flexDirection: 'row', borderWidth: 0, borderColor: 'red' }}>
+            <View style={{ flex: 5, flexDirection: 'column'}}>
+              <View style={{ flex: 1, flexDirection: 'row' }}>
+                <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{name}</Text>
+              </View>
+              <View style={{ flex: 1, flexDirection: 'row' }}>
+                <Text style={{ flex: 0.75, fontSize: 13, color: '#191919' }}>{`DMG: ${damage}`}</Text>
+                {this.renderElement(this.props.item)}
+              </View>
+              {this.renderAffinity(this.props.item)}
+            </View>
+        </Left>
+        <Right style={{ flex: 1.5, borderWidth: 0, borderColor: 'green' }}>
             {this.renderMeleeRangeInfo(this.props.item)}
           <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'right' }}>{`${slotOne} ${slotTwo} ${slotThree}`}</Text>

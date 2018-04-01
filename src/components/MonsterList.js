@@ -70,7 +70,7 @@ export default class MonsterList extends PureComponent {
         style={{ backgroundColor: 'white' }}
         initialNumToRender={7}
         data={this.props.monsters}
-        keyExtractor={(item) => item.monster_id.toString()}
+        keyExtractor={item => item.monster_id.toString()}
         renderItem={this.renderMonster}
         getItemLayout={(data, index) => (
           { length: 80, offset: 80 * index, index }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Platform, View, FlatList, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
-import { Container, ListItem, Text, Left, Right } from 'native-base';
+import { ListItem, Text, Left, Right } from 'native-base';
 import AdBanner from '../components/AdBanner';
 
 export default class DecorationScreen extends Component {
@@ -31,14 +31,13 @@ export default class DecorationScreen extends Component {
           LEFT JOIN armor_skills_levels AS D ON A.skill = D.armor_skill_level_id
           LEFT JOIN armor_skills AS C ON D.armor_skill_id = C.armor_skill_id`
         , [], (tx, results) => {
-        const len = results.rows.length;
-        for(let i = 0; i < len; i += 1) {
-          const row = results.rows.item(i);
-          items.push(row);
-        }
-        this.setState({ items });
-        // db.close();
-       },
+          const len = results.rows.length;
+          for (let i = 0; i < len; i += 1) {
+            const row = results.rows.item(i);
+            items.push(row);
+          }
+          this.setState({ items });
+        },
       );
     });
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -59,7 +58,7 @@ export default class DecorationScreen extends Component {
   renderListItems = ({ item }) => {
     return (
       <ListItem
-        style={{ height: 60, marginLeft: 0, paddingLeft: 8 }}
+        style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
         passProps: {

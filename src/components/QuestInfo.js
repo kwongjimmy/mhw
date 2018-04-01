@@ -87,7 +87,7 @@ export default class QuestInfo extends PureComponent {
     if (this.state.info.objective !== '') {
       return (
         <View>
-          <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
             <Left style={{ flex: 1 }}>
               <Text style={{ fontSize: 15.5, color: '#191919' }}>
                 Objective
@@ -99,7 +99,7 @@ export default class QuestInfo extends PureComponent {
               </Text>
             </Right>
           </ListItem>
-          <ListItem style={{ marginLeft: 0, paddingLeft: 8 }}>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
             <Left>
               <Text style={{ fontSize: 15.5, color: '#191919' }}>
                 {this.state.info.objective}
@@ -121,7 +121,7 @@ export default class QuestInfo extends PureComponent {
     if (this.state.monsters.length > 0) {
       return (
         <View>
-          <ListItem style={{ marginLeft: 0, paddingLeft: 8}} itemDivider>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
             <Left style={{ flex: 1 }}>
               <Text style={{ fontSize: 15.5, color: '#191919' }}>
                 Monsters
@@ -141,7 +141,7 @@ export default class QuestInfo extends PureComponent {
             return (
               <ListItem
                 key={key}
-                style={{ marginLeft: 0, paddingLeft: 18 }}
+                style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
                 onPress={() => this.props.navigator.push({
                 screen: 'MonsterInfoScreen',
                 passProps: {
@@ -175,7 +175,7 @@ export default class QuestInfo extends PureComponent {
     if (this.state.items.length > 0) {
       return (
         <View>
-          <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
             <Left style={{ flex: 1 }}>
               <Text style={{ fontSize: 15.5, color: '#191919' }}>
                 Items
@@ -188,7 +188,7 @@ export default class QuestInfo extends PureComponent {
             return (
               <ListItem
                 key={key}
-                style={{ marginLeft: 0, paddingLeft: 8 }}
+                style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
                 onPress={() => this.props.navigator.push({
                 screen: 'MonsterInfoScreen',
                 passProps: {
@@ -218,7 +218,7 @@ export default class QuestInfo extends PureComponent {
     return (
       <View>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 8 }}
+          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
           itemDivider>
           <Left style={{ flex: 1 }}>
             <Text style={{ fontSize: 15.5, color: '#191919' }}>
@@ -229,7 +229,7 @@ export default class QuestInfo extends PureComponent {
           </Right>
         </ListItem>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 8 }}
+          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
           onPress={() => this.props.navigator.push({
           screen: 'TabInfoScreen',
           passProps: {
@@ -260,7 +260,7 @@ export default class QuestInfo extends PureComponent {
           content={this.state.rewards.map((item, key) => {
             return (
               <ListItem
-                style={{ marginLeft: 0, paddingLeft: 8 }}
+                style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
                 onPress={() => this.props.navigator.push({
                   screen: 'TablessInfoScreen',
                   passProps: {

@@ -1,14 +1,14 @@
 import React, { PureComponent } from 'react';
-import { FlatList, View, ActivityIndicator, Platform, Image } from 'react-native';
+import { View, ActivityIndicator, Platform } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
-import { Container, Tab, Tabs, ListItem, Text, Left, Body } from 'native-base';
+import { Container, Tab, Tabs } from 'native-base';
 import SplashScreen from 'react-native-splash-screen';
 import MonsterList from '../components/MonsterList';
 import AdBanner from '../components/AdBanner';
 
 export default class MonsterScreen extends PureComponent {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       allMonsters: [],
       smallMonsters: [],
@@ -178,7 +178,7 @@ export default class MonsterScreen extends PureComponent {
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919',  }}
+           activeTextStyle={{ color: '#191919' }}
            textStyle={{ color: '#5e5e5e' }}
            heading="All"
            >
@@ -187,7 +187,7 @@ export default class MonsterScreen extends PureComponent {
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919',  }}
+           activeTextStyle={{ color: '#191919' }}
            textStyle={{ color: '#5e5e5e' }}
            heading="Large"
            >
@@ -196,7 +196,7 @@ export default class MonsterScreen extends PureComponent {
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919',  }}
+           activeTextStyle={{ color: '#191919' }}
            textStyle={{ color: '#5e5e5e' }}
            heading="Small"
            >

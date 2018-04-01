@@ -23,9 +23,6 @@ export default class QuestScreen extends PureComponent {
   }
 
   onNavigatorEvent(event) {
-    if (event.id === 'bottomTabSelected') {
-      // console.log('Tab selected!');
-    }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
         animated: true,
@@ -85,7 +82,7 @@ export default class QuestScreen extends PureComponent {
   renderListItems = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 18, height: 60 }}
+        style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
 				passProps: {
@@ -188,7 +185,7 @@ export default class QuestScreen extends PureComponent {
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919',  }}
+            activeTextStyle={{ color: '#191919' }}
             textStyle={{ color: '#5e5e5e' }}
             heading="Assigned"
             >
@@ -197,7 +194,7 @@ export default class QuestScreen extends PureComponent {
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919',  }}
+            activeTextStyle={{ color: '#191919' }}
             textStyle={{ color: '#5e5e5e' }}
             heading="Optional"
             >
@@ -206,7 +203,7 @@ export default class QuestScreen extends PureComponent {
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919',  }}
+            activeTextStyle={{ color: '#191919' }}
             textStyle={{ color: '#5e5e5e' }}
             heading="Arena"
             >
@@ -215,7 +212,7 @@ export default class QuestScreen extends PureComponent {
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919',  }}
+            activeTextStyle={{ color: '#191919' }}
             textStyle={{ color: '#5e5e5e' }}
             heading="Special Assignment"
             >

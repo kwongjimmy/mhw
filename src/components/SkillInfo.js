@@ -66,7 +66,7 @@ export default class SkillInfo extends PureComponent {
 
   renderLevels() {
     return this.state.levels.map((item, key) => (
-        <ListItem key={key} style={{ marginLeft: 0, paddingLeft: 8 }}>
+        <ListItem key={key} style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
           <Left style={{ flex: 1 }}>
             <Text style={{ fontSize: 15.5, color: '#191919' }}>{`Lv ${item.level}`}</Text>
           </Left>
@@ -89,17 +89,17 @@ export default class SkillInfo extends PureComponent {
       return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
           <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
-            <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
+            <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
               <Left>
                 <Text style={{ fontSize: 15.5, color: '#191919' }}>Description</Text>
               </Left>
             </ListItem>
-            <ListItem style={{ marginLeft: 0, paddingLeft: 8 }}>
+            <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
               <Left>
                 <Text style={{ fontSize: 15.5, color: '#191919' }}>{this.state.info.description}</Text>
               </Left>
             </ListItem>
-            <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
+            <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
               <Left>
                 <Text style={{ fontSize: 15.5, color: '#191919' }}>Level</Text>
               </Left>

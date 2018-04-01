@@ -6,7 +6,6 @@ import AdBanner from './AdBanner';
 export default class MonsterLootList extends PureComponent {
   constructor(props) {
     super(props);
-    console.log(this.props.lowRank)
     this.state = {
       data: this.props.monster_loot,
       lowRank: this.props.lowRank,
@@ -35,7 +34,7 @@ export default class MonsterLootList extends PureComponent {
   renderListItems = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 8 }}
+        style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
         onPress={() => this.props.navigator.push({
           screen: 'TablessInfoScreen',
           passProps: {

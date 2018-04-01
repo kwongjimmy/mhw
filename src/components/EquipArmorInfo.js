@@ -110,19 +110,19 @@ export default class EquipArmorInfo extends PureComponent {
     let slotThree = (slot3 === 0) ? `-` : (slot3 === 1) ? `\u2460` : (slot3 === 2) ? `\u2461` : `\u2462`;
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, borderBottomWidth: 0.0, borderColor: 'red' }} itemDivider>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, borderColor: 'red' }} itemDivider>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Defense</Text>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Slots</Text>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Price</Text>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Rarity</Text>
         </ListItem>
-        <ListItem style={{ marginLeft: 0, backgroundColor: 'white' }} itemDivider>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: 'white' }} itemDivider>
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{min_def}</Text>
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${slotOne} ${slotTwo} ${slotThree}`}</Text>
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${buy_price}z`}</Text>
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{rarity}</Text>
         </ListItem>
-        <ListItem style={{ marginLeft: 0, borderBottomWidth: 0.0, borderColor: 'red' }} itemDivider>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
             <Image
               resizeMode="contain"
@@ -159,7 +159,7 @@ export default class EquipArmorInfo extends PureComponent {
             />
           </View>
         </ListItem>
-        <ListItem style={{ marginLeft: 0, backgroundColor: 'white' }} itemDivider>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: 'white' }} itemDivider>
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{fire}</Text>
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{water}</Text>
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{thunder}</Text>
@@ -174,7 +174,7 @@ export default class EquipArmorInfo extends PureComponent {
     if (this.state.skills[0].skill2_name !== null) {
       return (
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 8 }}
+          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
           onPress={() => this.props.navigator.push({
             screen: 'TabInfoScreen',
             passProps: {
@@ -202,7 +202,7 @@ export default class EquipArmorInfo extends PureComponent {
   renderSkill1() {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 8 }}
+        style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
         onPress={() => this.props.navigator.push({
           screen: 'TabInfoScreen',
           passProps: {
@@ -227,7 +227,7 @@ export default class EquipArmorInfo extends PureComponent {
     if (this.state.skills[0].skill1_name !== null) {
       return (
         <View>
-          <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
             <Left>
               <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>Skill</Text>
             </Left>
@@ -248,7 +248,7 @@ export default class EquipArmorInfo extends PureComponent {
   renderCrafting() {
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
           <Left>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>Material</Text>
           </Left>
@@ -259,7 +259,7 @@ export default class EquipArmorInfo extends PureComponent {
         {this.state.materials.map((item, key) => {
           return (
             <View key={key}>
-              <ListItem style={{ marginLeft: 0, backgroundColor: 'white', paddingLeft: 8 }}
+              <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
                 onPress={() => this.props.navigator.push({
                   screen: 'TablessInfoScreen',
                   passProps: {
@@ -289,7 +289,7 @@ export default class EquipArmorInfo extends PureComponent {
     if (this.state.setBonus.set_bonus !== null) {
       return (
         <View>
-          <ListItem style={{ marginLeft: 0, paddingLeft: 18 }} itemDivider>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`${this.state.setBonus.set_bonus} Set Bonus`}</Text>
           </ListItem>
           {this.renderSetBonus1()}
@@ -304,7 +304,7 @@ export default class EquipArmorInfo extends PureComponent {
     if (this.state.setBonus.skill1 !== null) {
       return (
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18 }}
+          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
           onPress={() => this.props.navigator.push({
           screen: 'TabInfoScreen',
           passProps: {
@@ -327,7 +327,7 @@ export default class EquipArmorInfo extends PureComponent {
     if (this.state.setBonus.skill2 !== null) {
       return (
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18 }}
+          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
           onPress={() => this.props.navigator.push({
           screen: 'TabInfoScreen',
           passProps: {

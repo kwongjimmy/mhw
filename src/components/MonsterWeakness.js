@@ -8,28 +8,12 @@ import { ElementStatusImages } from '../assets';
 export default class MonsterWeakness extends PureComponent {
   constructor(props) {
     super(props);
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-    const firstData = {
-      part_name: '',
-      sever: ElementStatusImages.Sever,
-      blunt: ElementStatusImages.Blunt,
-      shot: ElementStatusImages.Shot,
-      stun: ElementStatusImages.Stun,
-      fire: ElementStatusImages.Fire,
-      water: ElementStatusImages.Water,
-      ice: ElementStatusImages.Ice,
-      thunder: ElementStatusImages.Thunder,
-      dragon: ElementStatusImages.Dragon,
-      extract_color: '',
-      header: true,
-    };
-    let data = this.props.monster_hit;
-    // data = data.splice(0, 0, firstData);
     this.state = {
       stickyHeaderIndices: [0],
       data: this.props.monster_hit,
       loading: true,
     };
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentDidMount() {
@@ -39,9 +23,6 @@ export default class MonsterWeakness extends PureComponent {
   }
 
   onNavigatorEvent(event) {
-    if (event.id === 'bottomTabSelected') {
-      //console.log('Tab selected!');
-    }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
         animated: true,
@@ -52,7 +33,7 @@ export default class MonsterWeakness extends PureComponent {
 
   renderHeader() {
     return (
-      <ListItem style={{ marginLeft: 0, paddingLeft: 18, paddingRight: 5 }} itemDivider>
+      <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
         <Text style={[styles.monsterHitText, { flex: 2.5 }]}>{''}</Text>
         <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
           <Image
@@ -137,7 +118,7 @@ export default class MonsterWeakness extends PureComponent {
 
   renderDamageHeader() {
     return (
-      <ListItem style={{ height: 45, marginLeft: 0, paddingLeft: 18, paddingRight: 5 }} itemDivider>
+      <ListItem style={{ height: 45, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
         <Text style={[styles.monsterHitText, { fontSize: 13, textAlign: 'left' }]}></Text>
         <Text style={styles.monsterHitText}>Flinch</Text>
         <Text style={styles.monsterHitText}>Wound</Text>
@@ -153,7 +134,7 @@ export default class MonsterWeakness extends PureComponent {
         {this.state.data.map((item, key) => {
           if (item.extract_color !== '') {
             return (
-              <ListItem key={key} style={{ marginLeft: 0, paddingLeft: 18, paddingRight: 5 }}>
+              <ListItem key={key} style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
                 <Text style={[styles.monsterHitText, { fontSize: 13, textAlign: 'left' }]}>{item.part_name}</Text>
                 <Text style={styles.monsterHitText}>{item.flinch}</Text>
                 <Text style={styles.monsterHitText}>{item.wound}</Text>
@@ -173,7 +154,7 @@ export default class MonsterWeakness extends PureComponent {
         {this.renderHeader()}
         {this.state.data.map((item, key) => {
           return (
-            <ListItem key={key} style={{ marginLeft: 0, paddingLeft: 18, paddingRight: 5 }}>
+            <ListItem key={key} style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
               <Text style={[styles.monsterHitText, { flex: 2.5, fontSize: 9.5, textAlign: 'left' }]}>{item.part_name}</Text>
               <Text style={styles.monsterHitText}>{item.sever}</Text>
               <Text style={styles.monsterHitText}>{item.blunt}</Text>
@@ -200,30 +181,12 @@ export default class MonsterWeakness extends PureComponent {
         <ScrollView>
           {this.renderWeakness()}
           {this.renderDamage()}
-          {/* <FlatList
-            data={this.state.data}
-            keyExtractor={(item) => item.part_name}
-            renderItem={this.renderListItems}
-            // stickyHeaderIndices={this.state.stickyHeaderIndices}
-          />
-          <FlatList
-            data={this.state.data}
-            keyExtractor={(item) => item.part_name}
-            renderItem={this.renderDamageEffects}
-            // stickyHeaderIndices={this.state.stickyHeaderIndices}
-          /> */}
         </ScrollView>
       );
     }
     return (
       <ScrollView>
         {this.renderWeakness()}
-        {/* <FlatList
-          data={this.state.data}
-          keyExtractor={(item) => item.part_name}
-          renderItem={this.renderListItems}
-          // stickyHeaderIndices={this.state.stickyHeaderIndices}
-        /> */}
       </ScrollView>
     );
   }

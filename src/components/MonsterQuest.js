@@ -35,7 +35,7 @@ export default class MonsterQuest extends Component {
     return (
       <View>
         <ListItem
-          style={{ height: 65, marginLeft: 0, paddingLeft: 8 }}
+          style={{ height: 65, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
           onPress={() => this.props.navigator.push({
           screen: 'TablessInfoScreen',
           passProps: {
@@ -45,9 +45,9 @@ export default class MonsterQuest extends Component {
           animationType: 'slide-horizontal',
           title: item.quest_name,
         })}>
-          <Body>
+          <Left>
             <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.quest_name}</Text>
-          </Body>
+          </Left>
           <Right style={{ justifyContent: 'center' }}>
             <Text style={{ fontSize: 14.5, color: '#5e5e5e', textAlign: 'right' }}>{item.type.replace('Assignment', '')}</Text>
             <Text style={{ fontSize: 14.5, color: '#5e5e5e', textAlign: 'right' }}>{`${item.required_rank} \u2605`}</Text>

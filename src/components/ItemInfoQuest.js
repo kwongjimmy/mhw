@@ -25,7 +25,7 @@ export default class ItemInfoQuest extends PureComponent {
   renderListItems = ({ item }) => {
     return (
       <ListItem
-        style={{ height: 65, marginLeft: 0, paddingLeft: 8 }}
+        style={{ height: 65, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
         passProps: {
@@ -35,9 +35,9 @@ export default class ItemInfoQuest extends PureComponent {
         animationType: 'slide-horizontal',
         title: item.name,
         })}>
-        <Body>
+        <Left>
           <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
-        </Body>
+        </Left>
         <Right>
           <Text style={{ fontSize: 14.5, color: '#5e5e5e' }}>{item.type.replace('Assignment', '')}</Text>
           <Text style={{ fontSize: 14.5, color: '#5e5e5e' }}>{`${item.required_rank} \u2605`}</Text>
@@ -48,7 +48,7 @@ export default class ItemInfoQuest extends PureComponent {
 
   renderListHeader() {
     return (
-      <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
+      <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
         <Left>
           <Text style={{ fontSize: 15.5, color: '#191919' }}>Quests</Text>
         </Left>
@@ -59,10 +59,6 @@ export default class ItemInfoQuest extends PureComponent {
   render() {
     if (this.props.items.length === 0) {
       return (
-        // <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-        //   <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: '#8e8e8e' }} />
-        //   <Text style={{ textAlign: 'center', fontSize: 25, color: '#8e8e8e' }}>No Data</Text>
-        // </View>
         null
       );
     }

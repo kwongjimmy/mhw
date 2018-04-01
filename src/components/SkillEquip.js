@@ -111,12 +111,12 @@ export default class SkillEquip extends PureComponent {
         <View>
           <DropDown
             headerName={'Armor'}
-            hide={false}
+            hide={true}
             content={this.state.armor.map((item, key) => {
             return (
               <ListItem
                 key={key}
-                style={{ marginLeft: 0, paddingLeft: 8 }}
+                style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
                 onPress={() => this.props.navigator.push({
                 screen: 'TablessInfoScreen',
                 passProps: {
@@ -150,12 +150,12 @@ export default class SkillEquip extends PureComponent {
         <View>
           <DropDown
             headerName={'Charms'}
-            hide={false}
+            hide={true}
             content={this.state.charms.map((item, key) => {
             return (
               <ListItem
                 key={key}
-                style={{ marginLeft: 0, paddingLeft: 8 }}
+                style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
                 onPress={() => this.props.navigator.push({
                 screen: 'TablessInfoScreen',
                 passProps: {
@@ -190,12 +190,12 @@ export default class SkillEquip extends PureComponent {
         <View>
           <DropDown
             headerName={`Decorations`}
-            hide={false}
+            hide={true}
             content={this.state.decorations.map((item, key) => {
               return (
                 <ListItem
                   key={key}
-                  style={{ marginLeft: 0, paddingLeft: 8 }}
+                  style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
                   onPress={() => this.props.navigator.push({
                   screen: 'TablessInfoScreen',
                   passProps: {

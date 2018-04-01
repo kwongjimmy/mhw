@@ -52,43 +52,13 @@ export default class ItemScreen extends PureComponent {
   }
 
   renderListItems = ({ item }) => {
-    if (item.category === 'weapon') {
-      return (
-        <ListItem style={{ height: 50, marginLeft: 0, paddingLeft: 18 }} onPress={() => this.props.navigator.push({
-          screen: 'TablessInfoScreen',
-          passProps: {
-            item_id: item.item_id,
-            type: 'weapons',
-            refetch: true,
-          },
-          animationType: 'slide-horizontal',
-          title: item.name,
-        })}>
-          <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'left' }}>{item.name}</Text>
-        </ListItem>
-      );
-    }
-    if (item.category === 'item') {
-      return (
-        <ListItem style={{ height: 50, marginLeft: 0, paddingLeft: 18 }} onPress={() => this.props.navigator.push({
-          screen: 'TablessInfoScreen',
-          passProps: {
-            item_id: item.item_id,
-            type: item.category,
-          },
-          animationType: 'slide-horizontal',
-          title: item.name,
-        })}>
-          <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'left' }}>{item.name}</Text>
-        </ListItem>
-      );
-    }
     return (
-      <ListItem style={{ height: 50, marginLeft: 0, paddingLeft: 18 }} onPress={() => this.props.navigator.push({
+      <ListItem style={{ height: 50, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+        onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
         passProps: {
           item_id: item.item_id,
-          type: `${item.category}s`,
+          type: item.category,
         },
         animationType: 'slide-horizontal',
         title: item.name,

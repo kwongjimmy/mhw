@@ -193,7 +193,7 @@ export default class MonsterInfoScreen extends PureComponent {
         <Tab
           activeTabStyle={{ backgroundColor: 'white' }}
           tabStyle={{ backgroundColor: 'white' }}
-          activeTextStyle={{ color: '#191919',  }}
+          activeTextStyle={{ color: '#191919' }}
           textStyle={{ color: '#5e5e5e' }}
           heading="LR Loot"
           >
@@ -210,7 +210,7 @@ export default class MonsterInfoScreen extends PureComponent {
         <Tab
           activeTabStyle={{ backgroundColor: 'white' }}
           tabStyle={{ backgroundColor: 'white' }}
-          activeTextStyle={{ color: '#191919',  }}
+          activeTextStyle={{ color: '#191919' }}
           textStyle={{ color: '#5e5e5e' }}
           heading="HR Loot"
           >
@@ -244,7 +244,7 @@ export default class MonsterInfoScreen extends PureComponent {
         <Tab
           activeTabStyle={{ backgroundColor: 'white' }}
           tabStyle={{ backgroundColor: 'white' }}
-          activeTextStyle={{ color: '#191919',  }}
+          activeTextStyle={{ color: '#191919' }}
           textStyle={{ color: '#5e5e5e' }}
           heading="Armor"
           >
@@ -261,7 +261,7 @@ export default class MonsterInfoScreen extends PureComponent {
         <Tab
           activeTabStyle={{ backgroundColor: 'white' }}
           tabStyle={{ backgroundColor: 'white' }}
-          activeTextStyle={{ color: '#191919',  }}
+          activeTextStyle={{ color: '#191919' }}
           textStyle={{ color: '#5e5e5e' }}
           heading="Quest"
           >
@@ -288,7 +288,7 @@ export default class MonsterInfoScreen extends PureComponent {
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919',  }}
+            activeTextStyle={{ color: '#191919' }}
             textStyle={{ color: '#5e5e5e' }}
             heading="Info"
             >
@@ -297,7 +297,7 @@ export default class MonsterInfoScreen extends PureComponent {
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919',  }}
+            activeTextStyle={{ color: '#191919' }}
             textStyle={{ color: '#5e5e5e' }}
             heading="Weakness"
             >

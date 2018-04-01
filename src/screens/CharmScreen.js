@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Platform, View, FlatList, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
-import { Container, ListItem, Text, Left, Right } from 'native-base';
+import { ListItem, Text, Left, Right } from 'native-base';
 import AdBanner from '../components/AdBanner';
 
 export default class CharmScreen extends PureComponent {
@@ -16,7 +16,6 @@ export default class CharmScreen extends PureComponent {
     this.state = {
       items: [],
     };
-    // console.log(this.props)
     const db = SQLite.openDatabase({
       name: 'mhworld.db', createFromLocation: 'mhworld.db', location: 'Default',
     });
@@ -83,7 +82,7 @@ export default class CharmScreen extends PureComponent {
   renderListItems = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 8, height: 60 }}
+        style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
         passProps: {

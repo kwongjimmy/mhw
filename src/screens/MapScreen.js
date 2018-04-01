@@ -54,7 +54,7 @@ export default class MapScreen extends PureComponent {
   renderListItems = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 8, height: 50 }}
+        style={{ height: 50, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
         onPress={() => this.props.navigator.push({
         screen: 'TabInfoScreen',
         passProps: {
@@ -67,6 +67,7 @@ export default class MapScreen extends PureComponent {
       <Left>
         <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'left' }}>{item.name}</Text>
       </Left>
+      <Right></Right>
       </ListItem>
     );
   }

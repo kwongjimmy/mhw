@@ -451,7 +451,7 @@ export default class SearchScreen extends Component {
   renderListQuests = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 8, height: 60 }}
+        style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
         passProps: {
@@ -474,7 +474,7 @@ export default class SearchScreen extends Component {
   renderListMaps = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 8 }}
+        style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
         onPress={() => this.props.navigator.push({
         screen: 'TabInfoScreen',
         passProps: {
@@ -492,7 +492,7 @@ export default class SearchScreen extends Component {
   }
   renderListItems = ({ item }) => {
     return (
-      <ListItem style={{ marginLeft: 0, paddingLeft: 18 }} onPress={() => this.props.navigator.push({
+      <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
         passProps: {
           item_id: item.item_id,
@@ -508,7 +508,7 @@ export default class SearchScreen extends Component {
   renderListDecorations = ({ item }) => {
     return (
       <ListItem
-        style={{ height: 60, marginLeft: 0, paddingLeft: 8 }}
+        style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
         passProps: {
@@ -530,7 +530,7 @@ export default class SearchScreen extends Component {
   renderListSkills = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 8 }}
+        style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
         onPress={() => this.props.navigator.push({
         screen: 'TabInfoScreen',
         passProps: {
@@ -553,7 +553,7 @@ export default class SearchScreen extends Component {
   renderListCharms = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 8 }}
+        style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
         passProps: {
@@ -591,33 +591,9 @@ export default class SearchScreen extends Component {
   }
   renderContent(screen) {
     if (this.state.loading) {
-      return (
-        <FlatList
-          data={this.state.skeletonData}
-          keyExtractor={(item) => item.monster_id.toString()}
-          renderItem={({ item }) => {
-            return (
-              <ListItem style={{ marginLeft: 0, paddingLeft: 18 }}>
-              <Left>
-                {/* <Image
-                  resizeMode="contain"
-                  style={styles.monsterImage2}
-                  source={src}
-                /> */}
-                <View style={{ height: 60, width: 60, backgroundColor: '#f0f0f0' }}/>
-              </Left>
-              <Body style={{ flex: 4 }}>
-                <View style= {{ height: 12, width: 180, backgroundColor: '#e6e6e6', marginBottom: 6, marginLeft: 12 }}/>
-                <View style= {{ height: 11, width: 90, backgroundColor: '#f0f0f0', marginTop: 6, marginLeft: 12 }}/>
-              </Body>
-              </ListItem>
-            );
-          }}
-        />
-      );
+      return null;
     }
     if (screen === 'monster') {
-      currentScreen = "monster";
       return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
           <MonsterList navigator={this.props.navigator} monsters={this.state.allMonsters} type={'monster'}/>
@@ -625,7 +601,6 @@ export default class SearchScreen extends Component {
       );
     }
     else if (screen === 'armor') {
-      currentScreen = "armor";
       return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
           <EquipArmorList navigator={this.props.navigator} armor={this.state.lowRank}/>

@@ -69,7 +69,7 @@ export default class ItemInfoLoot extends PureComponent {
       this.currentMap = `${item.name} ${item.rank}`;
       return (
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 8, backgroundColor: '#F8F8F8' }}
+          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: '#F8F8F8' }}
           onPress={() => this.props.navigator.push({
           screen: 'TabInfoScreen',
           passProps: {
@@ -101,7 +101,7 @@ export default class ItemInfoLoot extends PureComponent {
           return (
             <View key={key}>
               {this.renderMapHeader(item)}
-              <ListItem style={{ marginLeft: 0, paddingLeft: 8 }}>
+              <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
                 <Left>
                   <Text style={{ fontSize: 15.5, color: '#191919' }}>{`Area ${item.area}`}</Text>
                 </Left>
@@ -129,7 +129,7 @@ export default class ItemInfoLoot extends PureComponent {
       if (item.rank) {
         return (
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 18, backgroundColor: '#F8F8F8' }}
+            style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: '#F8F8F8' }}
             onPress={() => this.props.navigator.push({
             screen: 'MonsterInfoScreen',
             passProps: {
@@ -158,7 +158,7 @@ export default class ItemInfoLoot extends PureComponent {
       }
       return (
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, backgroundColor: '#F8F8F8' }}
+          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: '#F8F8F8' }}
           onPress={() => this.props.navigator.push({
           screen: 'MonsterInfoScreen',
           passProps: {
@@ -201,7 +201,7 @@ export default class ItemInfoLoot extends PureComponent {
               return (
                 <View key={key}>
                   {this.renderMonsterHeader(item)}
-                  <ListItem style={{ marginLeft: 0, paddingLeft: 8 }}>
+                  <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
                     <Left>
                       <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
                     </Left>
@@ -224,10 +224,6 @@ export default class ItemInfoLoot extends PureComponent {
   render() {
     if (this.props.monsterLoot.length === 0 && this.props.mapLoot.length === 0) {
       return (
-        // <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-        //   <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: '#8e8e8e' }} />
-        //   <Text style={{ textAlign: 'center', fontSize: 25, color: '#8e8e8e' }}>No Data</Text>
-        // </View>
         null
       );
     }

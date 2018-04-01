@@ -147,7 +147,7 @@ export default class EquipArmorContainer extends PureComponent {
     if (this.props.armor.set_bonus !== null) {
       return (
         <View>
-          <ListItem style={{ marginLeft: 0, paddingLeft: 18, backgroundColor: '#F8F8F8' }} itemDivider>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: '#F8F8F8' }} itemDivider>
             <Text style={{ fontSize: 15.5, color: '#191919' }}>
               {`${this.props.armor.set_bonus} Set Bonus`}
             </Text>
@@ -164,7 +164,7 @@ export default class EquipArmorContainer extends PureComponent {
     if (this.props.armor.skill1_name !== null) {
       return (
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18 }}
+          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
           onPress={() => this.props.navigator.push({
           screen: 'TabInfoScreen',
           passProps: {
@@ -187,7 +187,7 @@ export default class EquipArmorContainer extends PureComponent {
     if (this.props.armor.skill2_name !== null) {
       return (
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18 }}
+          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
           onPress={() => this.props.navigator.push({
           screen: 'TabInfoScreen',
           passProps: {
@@ -215,7 +215,7 @@ export default class EquipArmorContainer extends PureComponent {
           return (
             <ListItem
               key={key}
-              style={{ marginLeft: 0, paddingLeft: 8 }}
+              style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
               onPress={() => this.props.navigator.push({
               screen: 'TablessInfoScreen',
               passProps: {
@@ -226,15 +226,17 @@ export default class EquipArmorContainer extends PureComponent {
               title: item.name,
             })}
             >
-              <Left style={{ flex: 1.5 }}>
+              <Left style={{ flex: 0.5 }}>
                 <Image
                   resizeMode="contain"
                   style={{ alignSelf: 'center', width: 20, height: 20 }}
                   source={ArmorImages[`${item.type} ${item.rarity}`]}
                 />
+              </Left>
+              <Left style={{ flex: 1.25 }}>
                 <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
               </Left>
-              <Body style={{ flex: 1.5, flexGrow: 1.75 }}>
+              <Body style={{ flex: 1.5, flexGrow: 2 }}>
                 {this.renderSkills(item)}
               </Body>
               <Right style={{ flex: 0.5, flexGrow: 1 }}>

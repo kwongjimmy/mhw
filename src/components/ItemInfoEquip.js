@@ -46,7 +46,7 @@ export default class ItemInfoEquip extends PureComponent {
             return (
               <ListItem
                 key={key}
-                style={{ marginLeft: 0, paddingLeft: 8 }}
+                style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
                 onPress={() => this.props.navigator.push({
                   screen: 'TablessInfoScreen',
                   passProps: {
@@ -88,7 +88,7 @@ export default class ItemInfoEquip extends PureComponent {
 
   renderArmorHeader() {
     return (
-      <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
+      <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
         <Left>
           <Text style={{ fontSize: 15.5, color: '#191919' }}>Armor</Text>
         </Left>
@@ -109,7 +109,7 @@ export default class ItemInfoEquip extends PureComponent {
             return (
               <ListItem
                 key={key}
-                style={{ marginLeft: 0, paddingLeft: 8 }}
+                style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
                 onPress={() => this.props.navigator.push({
                 screen: 'TablessInfoScreen',
                 passProps: {
@@ -137,7 +137,6 @@ export default class ItemInfoEquip extends PureComponent {
     if (this.props.armor.length > 0) {
       return (
         <View>
-          {/* {this.renderArmorHeader()} */}
           {this.renderArmorListItems()}
         </View>
       );
@@ -150,10 +149,6 @@ export default class ItemInfoEquip extends PureComponent {
   render() {
     if (this.props.armor.length === 0 && this.props.weapons.length === 0) {
       return (
-        // <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-        //   <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: '#8e8e8e' }} />
-        //   <Text style={{ textAlign: 'center', fontSize: 25, color: '#8e8e8e' }}>No Data</Text>
-        // </View>
         null
       );
     }

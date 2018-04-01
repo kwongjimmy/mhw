@@ -68,7 +68,7 @@ export default class MiscScreen extends PureComponent {
   renderListItems = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 18 }}
+        style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
         onPress={() => this.props.navigator.push({
         screen: item.route,
         passProps: {

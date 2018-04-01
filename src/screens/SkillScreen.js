@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Platform, View, FlatList, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
-import { Container, ListItem, Text, Left, Right, Body } from 'native-base';
+import { ListItem, Text, Left, Right, Body } from 'native-base';
 import AdBanner from '../components/AdBanner';
 
 export default class SkillScreen extends PureComponent {
@@ -54,7 +54,7 @@ export default class SkillScreen extends PureComponent {
   renderListItems = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 8 }}
+        style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
         onPress={() => this.props.navigator.push({
         screen: 'TabInfoScreen',
         passProps: {

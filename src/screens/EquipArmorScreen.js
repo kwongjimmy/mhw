@@ -187,7 +187,7 @@ export default class EquipArmorScreen extends PureComponent {
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919',  }}
+            activeTextStyle={{ color: '#191919' }}
             textStyle={{ color: '#5e5e5e' }}
             heading="Low Rank"
             >
@@ -196,7 +196,7 @@ export default class EquipArmorScreen extends PureComponent {
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919',  }}
+            activeTextStyle={{ color: '#191919' }}
             textStyle={{ color: '#5e5e5e' }}
             heading="High Rank"
             >

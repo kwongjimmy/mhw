@@ -68,7 +68,7 @@ export default class DecorationInfo extends Component {
   renderSkills() {
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
           <Left>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>Skill</Text>
           </Left>
@@ -77,7 +77,7 @@ export default class DecorationInfo extends Component {
           </Right>
         </ListItem>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 8 }}
+          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
           onPress={() => this.props.navigator.push({
             screen: 'TabInfoScreen',
             passProps: {
@@ -102,16 +102,16 @@ export default class DecorationInfo extends Component {
   renderFeystones() {
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
           <Left>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>Feystone</Text>
           </Left>
           <Right>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#8e8e8e' }}>Drop%</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: '#8e8e8e' }}>Drop %</Text>
           </Right>
         </ListItem>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 8 }}
+          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
           onPress={() => this.props.navigator.push({
             screen: 'TablessInfoScreen',
             passProps: {
@@ -126,11 +126,11 @@ export default class DecorationInfo extends Component {
             <Text style={{ fontSize: 15.5, color: '#191919' }}>Mysterious Feystone</Text>
           </Left>
           <Right>
-            <Text style={{ fontSize: 15.5, color: '#8e8e8e' }}>{this.state.info.mysterious}%</Text>
+            <Text style={{ fontSize: 15.5, color: '#8e8e8e' }}>{this.state.info.mysterious} %</Text>
           </Right>
         </ListItem>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 8 }}
+          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
           onPress={() => this.props.navigator.push({
             screen: 'TablessInfoScreen',
             passProps: {
@@ -145,11 +145,11 @@ export default class DecorationInfo extends Component {
             <Text style={{ fontSize: 15.5, color: '#191919' }}>Glowing Feystone</Text>
           </Left>
           <Right>
-            <Text style={{ fontSize: 15.5, color: '#8e8e8e' }}>{this.state.info.glowing}%</Text>
+            <Text style={{ fontSize: 15.5, color: '#8e8e8e' }}>{this.state.info.glowing} %</Text>
           </Right>
         </ListItem>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 8 }}
+          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
           onPress={() => this.props.navigator.push({
             screen: 'TablessInfoScreen',
             passProps: {
@@ -164,11 +164,11 @@ export default class DecorationInfo extends Component {
             <Text style={{ fontSize: 15.5, color: '#191919' }}>Worn Feystone</Text>
           </Left>
           <Right>
-            <Text style={{ fontSize: 15.5, color: '#8e8e8e' }}>{this.state.info.worn}%</Text>
+            <Text style={{ fontSize: 15.5, color: '#8e8e8e' }}>{this.state.info.worn} %</Text>
           </Right>
         </ListItem>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 8 }}
+          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
           onPress={() => this.props.navigator.push({
             screen: 'TablessInfoScreen',
             passProps: {
@@ -183,7 +183,7 @@ export default class DecorationInfo extends Component {
             <Text style={{ fontSize: 15.5, color: '#191919' }}>Warped Feystone</Text>
           </Left>
           <Right>
-            <Text style={{ fontSize: 15.5, color: '#8e8e8e' }}>{this.state.info.warped}%</Text>
+            <Text style={{ fontSize: 15.5, color: '#8e8e8e' }}>{this.state.info.warped} %</Text>
           </Right>
         </ListItem>
       </View>

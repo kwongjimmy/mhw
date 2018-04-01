@@ -36,7 +36,7 @@ export default class DropDown extends PureComponent {
     return (
       <View style={{ flex: 1 }}>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 8, borderBottomWidth: 0.5, borderColor: '#d1d1d1' }}
+          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, borderBottomWidth: 0.5, borderColor: '#d1d1d1' }}
           itemDivider
           onPress={() => {
             this.setState({ hide: !this.state.hide });

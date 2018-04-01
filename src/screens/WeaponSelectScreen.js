@@ -103,7 +103,7 @@ export default class WeaponSelectScreen extends PureComponent {
     const src = WeaponImages[item.name];
     return (
       <ListItem
-        style={{ height: 52, marginLeft: 0, paddingLeft: 18 }}
+        style={{ height: 52, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
         onPress={() => this.props.navigator.push({
         screen: 'WeaponSelectedScreen',
         passProps: {

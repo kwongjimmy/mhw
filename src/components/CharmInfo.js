@@ -70,12 +70,12 @@ export default class CharmInfo extends PureComponent {
     } = this.state.info;
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, borderBottomWidth: 0.0, borderColor: 'red' }} itemDivider>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Buy</Text>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Sell</Text>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Rarity</Text>
         </ListItem>
-        <ListItem style={{ marginLeft: 0, backgroundColor: 'white' }} itemDivider>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${buy_price}z`}</Text>
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${sell_price}z`}</Text>
           <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{rarity}</Text>
@@ -89,7 +89,7 @@ export default class CharmInfo extends PureComponent {
       return (
         <View>
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 8 }}
+            style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
             onPress={() => this.props.navigator.push({
               screen: 'TabInfoScreen',
               passProps: {
@@ -108,7 +108,7 @@ export default class CharmInfo extends PureComponent {
             </Right>
           </ListItem>
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 8 }}
+            style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
             onPress={() => this.props.navigator.push({
               screen: 'TabInfoScreen',
               passProps: {
@@ -131,7 +131,7 @@ export default class CharmInfo extends PureComponent {
     } else if (this.state.info.skill1_name !== null && this.state.info.skill2_name === null) {
       return (
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 8 }}
+          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
           onPress={() => this.props.navigator.push({
             screen: 'TabInfoScreen',
             passProps: {
@@ -159,7 +159,7 @@ export default class CharmInfo extends PureComponent {
   renderSkills() {
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
           <Left>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>Skill</Text>
           </Left>
@@ -175,7 +175,7 @@ export default class CharmInfo extends PureComponent {
   renderCrafting() {
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
           <Left>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>Material</Text>
           </Left>
@@ -186,7 +186,7 @@ export default class CharmInfo extends PureComponent {
         {this.state.materials.map((item, key) => {
           return (
             <View key={key}>
-              <ListItem style={{ marginLeft: 0, backgroundColor: 'white', paddingLeft: 8 }}
+              <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
                 onPress={() => this.props.navigator.push({
                   screen: 'TablessInfoScreen',
                   passProps: {
