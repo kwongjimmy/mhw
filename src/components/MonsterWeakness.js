@@ -119,10 +119,18 @@ export default class MonsterWeakness extends PureComponent {
   renderDamageHeader() {
     return (
       <ListItem style={{ height: 45, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
-        <Text style={[styles.monsterHitText, { fontSize: 13, textAlign: 'left' }]}></Text>
-        <Text style={styles.monsterHitText}>Flinch</Text>
-        <Text style={styles.monsterHitText}>Wound</Text>
-        <Text style={styles.monsterHitText}>Sever</Text>
+        <Left style={{ flex: 1 }}>
+          <Text style={styles.monsterHitText}></Text>
+        </Left>
+        <Right style={{ flex: 1 }}>
+          <Text style={styles.monsterHitText}>Flinch</Text>
+        </Right>
+        <Right style={{ flex: 1 }}>
+          <Text style={styles.monsterHitText}>Wound</Text>
+        </Right>
+        <Right style={{ flex: 1 }}>
+          <Text style={styles.monsterHitText}>Sever</Text>
+        </Right>
       </ListItem>
     );
   }
@@ -135,10 +143,18 @@ export default class MonsterWeakness extends PureComponent {
           if (item.extract_color !== '') {
             return (
               <ListItem key={key} style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
-                <Text style={[styles.monsterHitText, { fontSize: 13, textAlign: 'left' }]}>{item.part_name}</Text>
-                <Text style={styles.monsterHitText}>{item.flinch}</Text>
-                <Text style={styles.monsterHitText}>{item.wound}</Text>
-                <Text style={styles.monsterHitText}>{item.sever2}</Text>
+                <Left style={{ flex: 1 }}>
+                  <Text style={[styles.monsterHitText, { fontSize: 13, textAlign: 'left' }]}>{item.part_name}</Text>
+                </Left>
+                <Right style={{ flex: 1 }}>
+                  <Text style={styles.monsterHitText}>{item.flinch}</Text>
+                </Right>
+                <Right style={{ flex: 1 }}>
+                  <Text style={styles.monsterHitText}>{item.wound}</Text>
+                </Right>
+                <Right style={{ flex: 1 }}>
+                  <Text style={styles.monsterHitText}>{item.sever2}</Text>
+                </Right>
               </ListItem>
             );
           }

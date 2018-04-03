@@ -40,7 +40,7 @@ export default class ItemInfoEquip extends PureComponent {
     return (
       <DropDown
         headerName={`Weapon Requirements`}
-        hide={false}
+        hide={true}
         content={
           this.props.weapons.map((item, key) => {
             return (
@@ -103,7 +103,7 @@ export default class ItemInfoEquip extends PureComponent {
     return (
       <DropDown
         headerName={`Armor Requirements`}
-        hide={false}
+        hide={true}
         content={
           this.props.armor.map((item, key) => {
             return (

@@ -8,7 +8,7 @@ import QuestInfo from '../components/QuestInfo';
 import DecorationInfo from '../components/DecorationInfo';
 import ItemInfo from '../components/ItemInfo';
 import MonsterLoot from '../components/MonsterLoot';
-
+import ArmorSetPiecesList from '../components/ArmorSetPiecesList';
 
 export default class TablessInfoScreen extends PureComponent {
   static navigatorStyle = {
@@ -64,6 +64,10 @@ export default class TablessInfoScreen extends PureComponent {
     } else if (this.props.type === 'decorations') {
       return (
         <DecorationInfo navigator={this.props.navigator} item_id={this.props.item_id}/>
+      );
+    } else if (this.props.type === 'set') {
+      return (
+        <ArmorSetPiecesList navigator={this.props.navigator} armor={this.props.armor}/>
       );
     }
     return (

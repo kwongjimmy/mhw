@@ -8,6 +8,8 @@ const MiscImages = {
   'Maps': require('./images/misc/ItemIcon027.png'),
   'About': require('./images/misc/ItemIcon058f.png'),
   'Support Us': require('./images/misc/ItemIcon060e.png'),
+  'android-more': require('./images/misc/android-more.png'),
+  'ios-more': require('./images/misc/ios7-more.png'),
 };
 
 export default MiscImages;

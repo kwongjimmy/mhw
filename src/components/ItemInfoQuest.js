@@ -66,7 +66,7 @@ export default class ItemInfoQuest extends PureComponent {
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <DropDown
           headerName={'Quest Rewards'}
-          hide={false}
+          hide={true}
           content={
             <FlatList
               // ListHeaderComponent={this.renderListHeader()}

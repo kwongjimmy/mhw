@@ -95,7 +95,7 @@ export default class ItemInfoLoot extends PureComponent {
       return (
         <DropDown
           headerName={'Map Loot'}
-          hide={false}
+          hide={true}
           content={
         this.state.mapLoot.map((item, key) => {
           return (
@@ -195,7 +195,7 @@ export default class ItemInfoLoot extends PureComponent {
       return (
         <DropDown
           headerName={'Monster Drops'}
-          hide={false}
+          hide={true}
           content={
             this.props.monsterLoot.map((item, key) => {
               return (
