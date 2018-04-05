@@ -183,7 +183,7 @@ export default class EquipArmorScreen extends PureComponent {
   render() {
     return (
       <Container>
-        <Tabs prerenderingSiblingsNumber={2} scrollWithoutAnimation={false} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
+        <Tabs prerenderingSiblingsNumber={2} scrollWithoutAnimation={false} tabBarUnderlineStyle={{ backgroundColor: '#ff6666', height: 3 }} initialPage={0}>
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}

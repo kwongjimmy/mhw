@@ -281,7 +281,7 @@ export default class MonsterInfoScreen extends PureComponent {
         <Tabs
           prerenderingSiblingsNumber={3}
           scrollWithoutAnimation={false}
-          tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }}
+          tabBarUnderlineStyle={{ backgroundColor: '#ff6666', height: 3 }}
           initialPage={0}
           renderTabBar={() => <ScrollableTab style={{ backgroundColor: 'white', elevation: 2 }}/>}
           >

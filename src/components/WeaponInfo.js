@@ -189,9 +189,9 @@ export default class WeaponInfo extends PureComponent {
       return (
         <Right style={{ flex: 1, alignItems: 'center' }}>
           <View style={{ flex: 1, flexDirection: 'row', paddingLeft: 15, paddingRight: 15 }}>
-            <Text style={{ flex: 1, fontSize: 18, color: info.note1.replace('white', 'gray'), textAlign: 'center' }}>{`\u266b`}</Text>
-            <Text style={{ flex: 1, fontSize: 18, color: info.note2.replace('white', 'gray'), textAlign: 'center' }}>{`\u266b`}</Text>
-            <Text style={{ flex: 1, fontSize: 18, color: info.note3.replace('white', 'gray'), textAlign: 'center' }}>{`\u266b`}</Text>
+            <Text style={{ flex: 1, fontSize: 18, color: info.note1.replace('white', '#5e5e5e'), textAlign: 'center' }}>{`\u266b`}</Text>
+            <Text style={{ flex: 1, fontSize: 18, color: info.note2.replace('white', '#5e5e5e'), textAlign: 'center' }}>{`\u266b`}</Text>
+            <Text style={{ flex: 1, fontSize: 18, color: info.note3.replace('white', '#5e5e5e'), textAlign: 'center' }}>{`\u266b`}</Text>
           </View>
         </Right>
       );
@@ -322,7 +322,7 @@ export default class WeaponInfo extends PureComponent {
         </ListItem>
         {this.state.ammo.map((item, key) => {
           return (
-            <ListItem key={key} style={{ height: 37.5, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
+            <ListItem key={key} style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
               <Text style={{ flex: 3, fontSize: 15.5, color: '#191919' }}>{bulletTypes[item.bullet_type]}</Text>
               <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{item.level_1}</Text>
               <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{item.level_2}</Text>
@@ -499,6 +499,7 @@ export default class WeaponInfo extends PureComponent {
   renderSharpness(info) {
     const {
       red, orange, yellow, green, blue, white, black,
+      red2, orange2, yellow2, green2, blue2, white2, black2,
     } = info;
 
     return (
@@ -511,7 +512,7 @@ export default class WeaponInfo extends PureComponent {
         </ListItem>
         <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
           <Left>
-            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: 'gray' }}>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#5e5e5e' }}>
               <View style={{ flex: red, height: 10, backgroundColor: '#C4424E', marginRight: -0.5 }}/>
               <View style={{ flex: orange, height: 10, backgroundColor: '#DE7A56', marginRight: -0.5 }}/>
               <View style={{ flex: yellow, height: 10, backgroundColor: '#D5BF45', marginRight: -0.5 }}/>
@@ -519,6 +520,19 @@ export default class WeaponInfo extends PureComponent {
               <View style={{ flex: blue, height: 10, backgroundColor: '#465DD1', marginRight: -0.5}}/>
               <View style={{ flex: white, height: 10, backgroundColor: 'white', marginRight: -0.5 }}/>
               <View style={{ flex: black, height: 10, backgroundColor: 'black', marginRight: -0.5 }}/>
+            </View>
+          </Left>
+        </ListItem>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
+          <Left>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#5e5e5e' }}>
+              <View style={{ flex: red2, height: 10, backgroundColor: '#C4424E', marginRight: -0.5 }}/>
+              <View style={{ flex: orange2, height: 10, backgroundColor: '#DE7A56', marginRight: -0.5 }}/>
+              <View style={{ flex: yellow2, height: 10, backgroundColor: '#D5BF45', marginRight: -0.5 }}/>
+              <View style={{ flex: green2, height: 10, backgroundColor: '#94BB46', marginRight: -0.5 }}/>
+              <View style={{ flex: blue2, height: 10, backgroundColor: '#465DD1', marginRight: -0.5}}/>
+              <View style={{ flex: white2, height: 10, backgroundColor: 'white', marginRight: -0.5 }}/>
+              <View style={{ flex: black2, height: 10, backgroundColor: 'black', marginRight: -0.5 }}/>
             </View>
           </Left>
         </ListItem>
@@ -645,7 +659,7 @@ export default class WeaponInfo extends PureComponent {
       return (
         <View>
           <ListItem style={{ marginLeft: 0, paddingLeft: 8, marginRight: 0, paddingRight: 8 }} itemDivider>
-            <View style={{ flex: 0.75, borderWidth: 0, borderColor: 'red' }}>
+            <View style={{ flex: 0.75, borderWidth: 0, borderColor: '#ff6666' }}>
               <Text style={{ flex: 1, fontSize: 9.5, color: '#191919', }}>Notes</Text>
             </View>
             <View style={{ flex: 1, borderWidth: 0, borderColor: 'orange' }}>
@@ -665,7 +679,7 @@ export default class WeaponInfo extends PureComponent {
             return (
               <View key={key}>
                 <ListItem style={{ marginLeft: 0, paddingLeft: 8, marginRight: 0, paddingRight: 8, alignItems: 'center' }}>
-                  <View style={{ flex: 0.75, borderWidth: 0, borderColor: 'red', alignItems: 'center' }}>
+                  <View style={{ flex: 0.75, borderWidth: 0, borderColor: '#ff6666', alignItems: 'center' }}>
                     {this.renderHuntingHornNotes(item)}
                   </View>
                   <View style={{ flex: 1, borderWidth: 0, borderColor: 'orange' }}>

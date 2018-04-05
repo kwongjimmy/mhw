@@ -110,7 +110,7 @@ export default class EquipArmorInfo extends PureComponent {
     let slotThree = (slot3 === 0) ? `-` : (slot3 === 1) ? `\u2460` : (slot3 === 2) ? `\u2461` : `\u2462`;
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, borderColor: 'red' }} itemDivider>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, borderColor: '#ff6666' }} itemDivider>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Defense</Text>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Slots</Text>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Price</Text>

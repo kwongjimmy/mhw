@@ -29,7 +29,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderBottomWidth: 3,
-    borderColor: 'red',
+    borderColor: '#ff6666',
     paddingTop: 5,
   },
   monsterHeaderText: {

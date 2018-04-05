@@ -176,7 +176,7 @@ export default class MonsterWeakness extends PureComponent {
               <Text style={styles.monsterHitText}>{item.blunt}</Text>
               <Text style={styles.monsterHitText}>{item.shot}</Text>
               <Text style={styles.monsterHitText}>{item.stun}</Text>
-              <Text style={[styles.monsterHitText, { color: 'red' }]}>{item.fire}</Text>
+              <Text style={[styles.monsterHitText, { color: '#ff6666' }]}>{item.fire}</Text>
               <Text style={[styles.monsterHitText, { color: 'darkblue' }]}>{item.water}</Text>
               <Text style={[styles.monsterHitText, { color: 'teal' }]}>{item.ice}</Text>
               <Text style={[styles.monsterHitText, { color: '#e5c100' }]}>{item.thunder}</Text>

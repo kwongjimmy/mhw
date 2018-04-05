@@ -41,7 +41,7 @@ export default class ItemInfo extends PureComponent {
         `SELECT A.name as name, B.* from items as A
           JOIN (SELECT B.item_id, quantity from items AS A JOIN crafting as B ON A.item_id = B.item_material_id WHERE A.item_id = ?) as B
           ON A.item_id = B.item_id
-          WHERE A.category = 'armor'
+          WHERE A.type = 'armor'
         `
         , [this.props.item_id], (tx, results) => {
           // Get rows with Web SQL Database spec compliance.
@@ -69,7 +69,7 @@ export default class ItemInfo extends PureComponent {
           LEFT JOIN weapon_phials ON weapons.item_id = weapon_phials.item_id
           LEFT JOIN weapon_sharpness ON weapons.item_id = weapon_sharpness.item_id
           LEFT JOIN weapon_shellings ON weapons.item_id = weapon_shellings.item_id
-          WHERE A.category = 'weapon'`
+          WHERE A.type = 'weapon'`
         , [this.props.item_id], (tx, results) => {
           // Get rows with Web SQL Database spec compliance.
           const len = results.rows.length;

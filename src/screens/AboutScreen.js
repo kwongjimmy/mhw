@@ -5,7 +5,7 @@ import { Text, ListItem, Left, Right, Body } from 'native-base';
 export default class AboutScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
-    topBarBorderColor: 'red',
+    topBarBorderColor: '#ff6666',
     topBarBorderWidth: 17,
   };
 

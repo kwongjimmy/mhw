@@ -176,7 +176,7 @@ export default class SearchScreen extends Component {
           this.renderContent('weapon');
         });
         tx.executeSql(
-          `SELECT item_id, name, category FROM items WHERE category = 'item' AND LOWER(name) LIKE ? ORDER BY name LIMIT 20`,
+          `SELECT item_id, name, type FROM items WHERE type = 'item' AND LOWER(name) LIKE ? ORDER BY name LIMIT 20`,
           [keyW+'%'], (tx, results) => {
             const len = results.rows.length;
             for (let i = 0; i < len; i += 1) {
@@ -359,7 +359,7 @@ export default class SearchScreen extends Component {
           this.renderContent('weapon');
         });
         tx.executeSql(
-          `SELECT item_id, name, category FROM items WHERE category = 'item' AND LOWER(name) LIKE ? ORDER BY SUBSTR(name,1,3)`,
+          `SELECT item_id, name, type FROM items WHERE type = 'item' AND LOWER(name) LIKE ? ORDER BY SUBSTR(name,1,3)`,
           ['%'+keyW+'%'], (tx, results) => {
             const len = results.rows.length;
             for (let i = 0; i < len; i += 1) {
@@ -710,7 +710,7 @@ export default class SearchScreen extends Component {
             <Text>Search</Text>
           </Button>
         </Header>
-        <Tabs tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}
+        <Tabs tabBarUnderlineStyle={{ backgroundColor: '#ff6666', height: 3 }} initialPage={0}
         renderTabBar={() => <ScrollableTab style={{ elevation: 2 }}/>}
         >
          <Tab

@@ -123,7 +123,7 @@ export default class SkillInfo extends PureComponent {
   render() {
     return (
       <Container>
-        <Tabs prerenderingSiblingsNumber={2} tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }} initialPage={0}>
+        <Tabs prerenderingSiblingsNumber={2} tabBarUnderlineStyle={{ backgroundColor: '#ff6666', height: 3 }} initialPage={0}>
           <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}

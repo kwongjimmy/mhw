@@ -7,7 +7,7 @@ import AdBanner from '../components/AdBanner';
 export default class CharmScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
-    topBarBorderColor: 'red',
+    topBarBorderColor: '#ff6666',
     topBarBorderWidth: 17,
   };
 

@@ -225,7 +225,7 @@ export default class MonsterInfo extends PureComponent {
     } = this.props.info;
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, marginRight: 0, borderBottomWidth: 0.0, borderColor: 'red' }} itemDivider>
+        <ListItem style={{ marginLeft: 0, marginRight: 0, borderBottomWidth: 0.0, borderColor: '#ff6666' }} itemDivider>
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
             <Image
               resizeMode="contain"
@@ -279,7 +279,7 @@ export default class MonsterInfo extends PureComponent {
     } = this.props.info;
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, marginRight: 0, borderBottomWidth: 0.0, borderColor: 'red' }} itemDivider>
+        <ListItem style={{ marginLeft: 0, marginRight: 0, borderBottomWidth: 0.0, borderColor: '#ff6666' }} itemDivider>
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
             <Image
               resizeMode="contain"

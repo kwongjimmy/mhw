@@ -77,6 +77,7 @@ export default function startApp() {
       },
     ],
     animationType: 'fade',
+    portraitOnlyMode: true,
     appStyle: {
       // tabFontFamily: 'Avenir-Medium',  // existing font family name or asset file without extension which can be '.ttf' or '.otf' (searched only if '.ttf' asset not found)
       tabFontSize: 10,
@@ -88,25 +89,24 @@ export default function startApp() {
       navBarBackgroundColor: 'white',
       tabBarHidden: false, // make the tab bar hidden
       tabBarButtonColor: '#8e8e8e', // change the color of the tab icons and text (also unselected)
-      tabBarSelectedButtonColor: 'red', // change the color of the selected tab icon and text (only selected)
-      tabBarBackgroundColor: 'white', // change the background color of the tab bar
-      tabBarTranslucent: false, // change the translucent of the tab bar to false
+      tabBarSelectedButtonColor: '#ff6666', // change the color of the selected tab icon and text (only selected)
       // tabBarTextFontFamily: 'Avenir-Medium', //change the tab font family
       tabBarLabelColor: '#8e8e8e', // iOS only. change the color of tab text
-      tabBarSelectedLabelColor: 'red', // iOS only. change the color of the selected tab text
+      tabBarSelectedLabelColor: '#ff6666', // iOS only. change the color of the selected tab text
       // forceTitlesDisplay: true, // Android only. If true - Show all bottom tab labels. If false - only the selected tab's label is visible.
       tabBarHideShadow: false, // iOS only. Remove default tab bar top shadow (hairline)
       forceTitlesDisplay: true,
+      // navBarHideOnScroll: true,
     },
     tabsStyle: { // optional, **iOS Only** add this if you want to style the tab bar beyond the defaults
       tabBarHidden: false, // make the tab bar hidden
       tabBarButtonColor: '#5e5e5e', // change the color of the tab icons and text (also unselected)
-      tabBarSelectedButtonColor: 'red', // change the color of the selected tab icon and text (only selected)
+      tabBarSelectedButtonColor: '#ff6666', // change the color of the selected tab icon and text (only selected)
       tabBarBackgroundColor: 'white', // change the background color of the tab bar
       tabBarTranslucent: false, // change the translucent of the tab bar to false
       // tabBarTextFontFamily: 'Avenir-Medium', //change the tab font family
       tabBarLabelColor: '#5e5e5e', // iOS only. change the color of tab text
-      tabBarSelectedLabelColor: 'red', // iOS only. change the color of the selected tab text
+      tabBarSelectedLabelColor: '#ff6666', // iOS only. change the color of the selected tab text
       // forceTitlesDisplay: true, // Android only. If true - Show all bottom tab labels. If false - only the selected tab's label is visible.
       tabBarHideShadow: false, // iOS only. Remove default tab bar top shadow (hairline)
     }
@@ -184,12 +184,12 @@ export default function startApp() {
 //       navBarBackgroundColor: 'white',
 //       tabBarHidden: false, // make the tab bar hidden
 //       tabBarButtonColor: '#8e8e8e', // change the color of the tab icons and text (also unselected)
-//       tabBarSelectedButtonColor: 'red', // change the color of the selected tab icon and text (only selected)
+//       tabBarSelectedButtonColor: '#ff6666', // change the color of the selected tab icon and text (only selected)
 //       tabBarBackgroundColor: 'white', // change the background color of the tab bar
 //       tabBarTranslucent: false, // change the translucent of the tab bar to false
 //       // tabBarTextFontFamily: 'Avenir-Medium', //change the tab font family
 //       tabBarLabelColor: '#8e8e8e', // iOS only. change the color of tab text
-//       tabBarSelectedLabelColor: 'red', // iOS only. change the color of the selected tab text
+//       tabBarSelectedLabelColor: '#ff6666', // iOS only. change the color of the selected tab text
 //       // forceTitlesDisplay: true, // Android only. If true - Show all bottom tab labels. If false - only the selected tab's label is visible.
 //       tabBarHideShadow: false, // iOS only. Remove default tab bar top shadow (hairline)
 //       forceTitlesDisplay: true,
@@ -197,12 +197,12 @@ export default function startApp() {
 //     tabsStyle: { // optional, **iOS Only** add this if you want to style the tab bar beyond the defaults
 //       tabBarHidden: false, // make the tab bar hidden
 //       tabBarButtonColor: '#5e5e5e', // change the color of the tab icons and text (also unselected)
-//       tabBarSelectedButtonColor: 'red', // change the color of the selected tab icon and text (only selected)
+//       tabBarSelectedButtonColor: '#ff6666', // change the color of the selected tab icon and text (only selected)
 //       tabBarBackgroundColor: 'white', // change the background color of the tab bar
 //       tabBarTranslucent: false, // change the translucent of the tab bar to false
 //       // tabBarTextFontFamily: 'Avenir-Medium', //change the tab font family
 //       tabBarLabelColor: '#5e5e5e', // iOS only. change the color of tab text
-//       tabBarSelectedLabelColor: 'red', // iOS only. change the color of the selected tab text
+//       tabBarSelectedLabelColor: '#ff6666', // iOS only. change the color of the selected tab text
 //       // forceTitlesDisplay: true, // Android only. If true - Show all bottom tab labels. If false - only the selected tab's label is visible.
 //       tabBarHideShadow: false, // iOS only. Remove default tab bar top shadow (hairline)
 //     }

@@ -7,7 +7,7 @@ import AdBanner from '../components/AdBanner';
 export default class WeaponSelectedScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
-    topBarBorderColor: 'red',
+    topBarBorderColor: '#ff6666',
     topBarBorderWidth: 17,
   };
 
@@ -49,7 +49,7 @@ export default class WeaponSelectedScreen extends PureComponent {
           LEFT JOIN weapon_phials ON weapons.item_id = weapon_phials.item_id
           LEFT JOIN weapon_sharpness ON weapons.item_id = weapon_sharpness.item_id
           LEFT JOIN weapon_shellings ON weapons.item_id = weapon_shellings.item_id
-          WHERE type = ?`
+          WHERE weapons.type = ?`
         , [this.props.type], (tx, results) => {
           const len = results.rows.length;
           for (let i = 0; i < len; i += 1) {

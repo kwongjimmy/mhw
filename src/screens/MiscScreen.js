@@ -15,7 +15,7 @@ request.addKeyword('video games');
 export default class MiscScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
-    topBarBorderColor: 'red',
+    topBarBorderColor: '#ff6666',
     topBarBorderWidth: 17,
   };
 

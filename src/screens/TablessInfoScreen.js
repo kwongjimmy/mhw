@@ -13,7 +13,7 @@ import ArmorSetPiecesList from '../components/ArmorSetPiecesList';
 export default class TablessInfoScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
-    topBarBorderColor: 'red',
+    topBarBorderColor: '#ff6666',
     topBarBorderWidth: 17,
   };
 

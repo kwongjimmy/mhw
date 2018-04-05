@@ -178,7 +178,7 @@ export default class QuestScreen extends PureComponent {
       <Container>
         <Tabs
           prerenderingSiblingsNumber={3}
-          tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }}
+          tabBarUnderlineStyle={{ backgroundColor: '#ff6666', height: 3 }}
           initialPage={0}
           renderTabBar={() => <ScrollableTab style={{ backgroundColor: 'white', elevation: 2 }}/>}
           >

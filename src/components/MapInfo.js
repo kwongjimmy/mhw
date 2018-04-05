@@ -168,7 +168,7 @@ export default class MapInfo extends PureComponent {
       <Container>
         <Tabs
           prerenderingSiblingsNumber={2}
-          tabBarUnderlineStyle={{ backgroundColor: 'red', height: 3 }}
+          tabBarUnderlineStyle={{ backgroundColor: '#ff6666', height: 3 }}
           initialPage={0}
           >
           <Tab

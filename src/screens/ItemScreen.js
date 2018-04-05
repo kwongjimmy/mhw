@@ -7,7 +7,7 @@ import AdBanner from '../components/AdBanner';
 export default class ItemScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
-    topBarBorderColor: 'red',
+    topBarBorderColor: '#ff6666',
     topBarBorderWidth: 17,
   };
 
@@ -23,7 +23,7 @@ export default class ItemScreen extends PureComponent {
     db.transaction((tx) => {
       const items = [];
       tx.executeSql(
-        `SELECT item_id, name, category FROM items WHERE category = 'item' ORDER BY name`,
+        `SELECT item_id, name, type FROM items WHERE type = 'item' ORDER BY name`,
         [], (tx, results) => {
         // Get rows with Web SQL Database spec compliance.
           const len = results.rows.length;
@@ -58,7 +58,7 @@ export default class ItemScreen extends PureComponent {
         screen: 'TablessInfoScreen',
         passProps: {
           item_id: item.item_id,
-          type: item.category,
+          type: item.type,
         },
         animationType: 'slide-horizontal',
         title: item.name,

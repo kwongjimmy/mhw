@@ -7,7 +7,7 @@ import AdBanner from '../components/AdBanner';
 export default class DecorationScreen extends Component {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
-    topBarBorderColor: 'red',
+    topBarBorderColor: '#ff6666',
     topBarBorderWidth: 17,
   };
 

@@ -15,11 +15,11 @@ export default class DropDown extends PureComponent {
   renderHeaderIcon() {
     if (!this.state.hide) {
       return (
-        <Icon ios='ios-arrow-down' android="ios-arrow-down" style={{ fontSize: 20, color: 'red' }}/>
+        <Icon ios='ios-arrow-down' android="ios-arrow-down" style={{ fontSize: 20, color: '#ff6666' }}/>
       );
     }
     return (
-      <Icon ios='ios-arrow-up' android="ios-arrow-up" style={{ fontSize: 20, color: 'red' }}/>
+      <Icon ios='ios-arrow-up' android="ios-arrow-up" style={{ fontSize: 20, color: '#ff6666' }}/>
     );
   }
 
