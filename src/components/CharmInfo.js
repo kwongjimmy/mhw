@@ -163,9 +163,6 @@ export default class CharmInfo extends PureComponent {
           <Left>
             <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>Skill</Text>
           </Left>
-          <Right>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#8e8e8e' }}></Text>
-          </Right>
         </ListItem>
         {this.renderSkillBody()}
       </View>

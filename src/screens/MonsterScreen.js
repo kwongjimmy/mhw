@@ -39,16 +39,16 @@ export default class MonsterScreen extends PureComponent {
       data: [],
       modalVisible: false,
     };
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    // this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
-  onNavigatorEvent(event) { // this is the onPress handler for the two buttons together
-    // if (event.type === 'NavBarButtonPress') { // this is the event type for button presses
-    //   if (event.id === 'options') { // this is the same id field from the static navigatorButtons definition
-    //     this.setState({ modalVisible: true });
-    //   }
-    // }
-  }
+  // onNavigatorEvent(event) { // this is the onPress handler for the two buttons together
+  //   if (event.type === 'NavBarButtonPress') { // this is the event type for button presses
+  //     if (event.id === 'options') { // this is the same id field from the static navigatorButtons definition
+  //       this.setState({ modalVisible: true });
+  //     }
+  //   }
+  // }
 
   okCallback(msg) {
     console.log(`okCallback: ${msg}`);
