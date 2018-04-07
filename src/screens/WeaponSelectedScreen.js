@@ -4,10 +4,13 @@ import SQLite from 'react-native-sqlite-storage';
 import WeaponListItem from '../components/WeaponListItem';
 import AdBanner from '../components/AdBanner';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class WeaponSelectedScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
-    topBarBorderColor: '#ff6666',
+    topBarBorderColor: colors.accent,
     topBarBorderWidth: 17,
   };
 
@@ -74,7 +77,7 @@ export default class WeaponSelectedScreen extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }

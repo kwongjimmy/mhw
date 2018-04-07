@@ -6,6 +6,9 @@ import _ from 'lodash';
 import DropDown from './DropDown';
 import AdBanner from './AdBanner';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class MapInfo extends PureComponent {
   constructor(props) {
     super(props);
@@ -98,10 +101,10 @@ export default class MapInfo extends PureComponent {
               })}
               key={key2}>
               <Left>
-                <Text style={{ fontSize: 15.5, color: '#191919' }}>{item2.item_name}</Text>
+                <Text style={{ fontSize: 15.5, color: colors.main }}>{item2.item_name}</Text>
               </Left>
               <Right>
-                <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item2.chance}%`}</Text>
+                <Text style={{ fontSize: 15.5, color: colors.main }}>{`${item2.chance}%`}</Text>
               </Right>
             </ListItem>
           );
@@ -114,15 +117,15 @@ export default class MapInfo extends PureComponent {
     if (!this.state.loading && this.state.low.length === 0 && screen === 'tab1') {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: '#8e8e8e' }} />
-          <Text style={{ textAlign: 'center', fontSize: 25, color: '#8e8e8e' }}>No Data</Text>
+          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: colors.secondary }} />
+          <Text style={{ textAlign: 'center', fontSize: 25, color: colors.secondary }}>No Data</Text>
         </View>
       );
     } else if (!this.state.loading && this.state.high.length === 0 && screen === 'tab2') {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: '#8e8e8e' }} />
-          <Text style={{ textAlign: 'center', fontSize: 25, color: '#8e8e8e' }}>No Data</Text>
+          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: colors.secondary }} />
+          <Text style={{ textAlign: 'center', fontSize: 25, color: colors.secondary }}>No Data</Text>
         </View>
       );
     }
@@ -160,7 +163,7 @@ export default class MapInfo extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }
@@ -168,14 +171,14 @@ export default class MapInfo extends PureComponent {
       <Container>
         <Tabs
           prerenderingSiblingsNumber={2}
-          tabBarUnderlineStyle={{ backgroundColor: '#ff6666', height: 3 }}
+          tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }}
           initialPage={0}
           >
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919',  }}
-            textStyle={{ color: '#5e5e5e' }}
+            activeTextStyle={{ color: colors.main }}
+            textStyle={{ color: colors.secondary }}
             heading="Low Rank"
             >
             {this.renderContent('tab1')}
@@ -183,8 +186,8 @@ export default class MapInfo extends PureComponent {
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919',  }}
-            textStyle={{ color: '#5e5e5e' }}
+            activeTextStyle={{ color: colors.main }}
+            textStyle={{ color: colors.secondary }}
             heading="High Rank"
             >
             {this.renderContent('tab2')}

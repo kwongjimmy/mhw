@@ -5,6 +5,9 @@ import { Container, Tab, Tabs, ListItem, Text, Left, Body } from 'native-base';
 import SkillEquip from './SkillEquip';
 import AdBanner from './AdBanner';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class SkillInfo extends PureComponent {
   constructor(props) {
     super(props);
@@ -68,10 +71,10 @@ export default class SkillInfo extends PureComponent {
     return this.state.levels.map((item, key) => (
         <ListItem key={key} style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
           <Left style={{ flex: 1 }}>
-            <Text style={{ fontSize: 15.5, color: '#191919' }}>{`Lv ${item.level}`}</Text>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>{`Lv ${item.level}`}</Text>
           </Left>
           <Body style={{ flex: 3 }}>
-            <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.description}</Text>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>{item.description}</Text>
           </Body>
         </ListItem>
     ));
@@ -81,7 +84,7 @@ export default class SkillInfo extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }
@@ -91,17 +94,17 @@ export default class SkillInfo extends PureComponent {
           <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
             <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
               <Left>
-                <Text style={{ fontSize: 15.5, color: '#191919' }}>Description</Text>
+                <Text style={{ fontSize: 15.5, color: colors.main }}>Description</Text>
               </Left>
             </ListItem>
             <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
               <Left>
-                <Text style={{ fontSize: 15.5, color: '#191919' }}>{this.state.info.description}</Text>
+                <Text style={{ fontSize: 15.5, color: colors.main }}>{this.state.info.description}</Text>
               </Left>
             </ListItem>
             <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
               <Left>
-                <Text style={{ fontSize: 15.5, color: '#191919' }}>Level</Text>
+                <Text style={{ fontSize: 15.5, color: colors.main }}>Level</Text>
               </Left>
               <Body>
               <Text></Text>
@@ -123,12 +126,12 @@ export default class SkillInfo extends PureComponent {
   render() {
     return (
       <Container>
-        <Tabs prerenderingSiblingsNumber={2} tabBarUnderlineStyle={{ backgroundColor: '#ff6666', height: 3 }} initialPage={0}>
+        <Tabs prerenderingSiblingsNumber={2} tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }} initialPage={0}>
           <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919',  }}
-           textStyle={{ color: '#5e5e5e' }}
+           activeTextStyle={{ color: colors.main,  }}
+           textStyle={{ color: colors.secondary }}
            heading="Info"
            >
            {this.renderContent('Info')}
@@ -136,8 +139,8 @@ export default class SkillInfo extends PureComponent {
           <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919',  }}
-           textStyle={{ color: '#5e5e5e' }}
+           activeTextStyle={{ color: colors.main,  }}
+           textStyle={{ color: colors.secondary }}
            heading="Equip"
            >
            {this.renderContent('Equip')}

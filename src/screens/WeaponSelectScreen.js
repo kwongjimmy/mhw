@@ -4,10 +4,13 @@ import { Container, ListItem, Body, Left, Right, Text } from 'native-base';
 import { WeaponImages } from '../assets';
 import AdBanner from '../components/AdBanner';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class WeaponSelectScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
-    topBarBorderColor: '#ff6666',
+    topBarBorderColor: colors.accent,
     topBarBorderWidth: 17,
   };
 
@@ -121,7 +124,7 @@ export default class WeaponSelectScreen extends PureComponent {
         />
       </Left>
       <Body style={{ flex: 6 }}>
-        <Text style={{ fontSize: 20, color: '#191919' }}>{item.name}</Text>
+        <Text style={{ fontSize: 20, color: colors.main }}>{item.name}</Text>
       </Body>
       </ListItem>
     );
@@ -131,7 +134,7 @@ export default class WeaponSelectScreen extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }

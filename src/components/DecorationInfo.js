@@ -4,6 +4,9 @@ import { ListItem, Text, Right, Left, Body } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
 import AdBanner from './AdBanner';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class DecorationInfo extends Component {
   constructor(props) {
     super(props);
@@ -70,10 +73,10 @@ export default class DecorationInfo extends Component {
       <View>
         <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
           <Left>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>Skill</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>Skill</Text>
           </Left>
           <Right>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#8e8e8e' }}></Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.secondary }}></Text>
           </Right>
         </ListItem>
         <ListItem
@@ -89,10 +92,10 @@ export default class DecorationInfo extends Component {
           })}
           >
           <Left>
-            <Text style={{ fontSize: 15.5, color: '#191919' }}>{this.state.info.name}</Text>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>{this.state.info.name}</Text>
           </Left>
           <Right>
-            <Text style={{ fontSize: 15.5, color: '#191919' }}>+{this.state.info.level}</Text>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>+{this.state.info.level}</Text>
           </Right>
         </ListItem>
       </View>
@@ -104,10 +107,10 @@ export default class DecorationInfo extends Component {
       <View>
         <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
           <Left>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>Feystone</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>Feystone</Text>
           </Left>
           <Right>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#8e8e8e' }}>Drop %</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.secondary }}>Drop %</Text>
           </Right>
         </ListItem>
         <ListItem
@@ -123,10 +126,10 @@ export default class DecorationInfo extends Component {
           })}
           >
           <Left>
-            <Text style={{ fontSize: 15.5, color: '#191919' }}>Mysterious Feystone</Text>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>Mysterious Feystone</Text>
           </Left>
           <Right>
-            <Text style={{ fontSize: 15.5, color: '#8e8e8e' }}>{this.state.info.mysterious} %</Text>
+            <Text style={{ fontSize: 15.5, color: colors.secondary }}>{this.state.info.mysterious} %</Text>
           </Right>
         </ListItem>
         <ListItem
@@ -142,10 +145,10 @@ export default class DecorationInfo extends Component {
           })}
           >
           <Left>
-            <Text style={{ fontSize: 15.5, color: '#191919' }}>Glowing Feystone</Text>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>Glowing Feystone</Text>
           </Left>
           <Right>
-            <Text style={{ fontSize: 15.5, color: '#8e8e8e' }}>{this.state.info.glowing} %</Text>
+            <Text style={{ fontSize: 15.5, color: colors.secondary }}>{this.state.info.glowing} %</Text>
           </Right>
         </ListItem>
         <ListItem
@@ -161,10 +164,10 @@ export default class DecorationInfo extends Component {
           })}
           >
           <Left>
-            <Text style={{ fontSize: 15.5, color: '#191919' }}>Worn Feystone</Text>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>Worn Feystone</Text>
           </Left>
           <Right>
-            <Text style={{ fontSize: 15.5, color: '#8e8e8e' }}>{this.state.info.worn} %</Text>
+            <Text style={{ fontSize: 15.5, color: colors.secondary }}>{this.state.info.worn} %</Text>
           </Right>
         </ListItem>
         <ListItem
@@ -180,10 +183,10 @@ export default class DecorationInfo extends Component {
           })}
           >
           <Left>
-            <Text style={{ fontSize: 15.5, color: '#191919' }}>Warped Feystone</Text>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>Warped Feystone</Text>
           </Left>
           <Right>
-            <Text style={{ fontSize: 15.5, color: '#8e8e8e' }}>{this.state.info.warped} %</Text>
+            <Text style={{ fontSize: 15.5, color: colors.secondary }}>{this.state.info.warped} %</Text>
           </Right>
         </ListItem>
       </View>
@@ -194,7 +197,7 @@ export default class DecorationInfo extends Component {
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }

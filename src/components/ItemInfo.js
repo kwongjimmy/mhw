@@ -8,6 +8,9 @@ import ItemInfoLoot from './ItemInfoLoot';
 import AdBanner from './AdBanner';
 import DropDown from './DropDown';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class ItemInfo extends PureComponent {
   constructor(props) {
     super(props);
@@ -149,16 +152,16 @@ export default class ItemInfo extends PureComponent {
     return (
       <View style={{ flex: 1 }}>
         <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
-            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Buy</Text>
-            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Sell</Text>
-            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Carry</Text>
-            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>Rarity</Text>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: colors.main }}>Buy</Text>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: colors.main }}>Sell</Text>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: colors.main }}>Carry</Text>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: colors.main }}>Rarity</Text>
         </ListItem>
         <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
-            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{`${this.state.item.buy_price}z`}</Text>
-            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{`${this.state.item.sell_price}z`}</Text>
-            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{this.state.item.carry}</Text>
-            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: '#191919' }}>{this.state.item.rarity}</Text>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: colors.main }}>{`${this.state.item.buy_price}z`}</Text>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: colors.main }}>{`${this.state.item.sell_price}z`}</Text>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: colors.main }}>{this.state.item.carry}</Text>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: colors.main }}>{this.state.item.rarity}</Text>
         </ListItem>
       </View>
     );
@@ -167,7 +170,7 @@ export default class ItemInfo extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }

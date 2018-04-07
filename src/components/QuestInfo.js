@@ -6,6 +6,9 @@ import DropDown from './DropDown';
 import AdBanner from './AdBanner';
 import { MonsterImages } from '../assets';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class QuestInfo extends PureComponent {
   constructor(props) {
     super(props);
@@ -89,24 +92,24 @@ export default class QuestInfo extends PureComponent {
         <View>
           <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
             <Left style={{ flex: 1 }}>
-              <Text style={{ fontSize: 15.5, color: '#191919' }}>
+              <Text style={{ fontSize: 15.5, color: colors.main }}>
                 Objective
               </Text>
             </Left>
             <Right style={{ flex: 1 }}>
-              <Text style={{ fontSize: 15.5, color: '#191919' }}>
+              <Text style={{ fontSize: 15.5, color: colors.main }}>
                 Zeny Reward
               </Text>
             </Right>
           </ListItem>
           <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
             <Left>
-              <Text style={{ fontSize: 15.5, color: '#191919' }}>
+              <Text style={{ fontSize: 15.5, color: colors.main }}>
                 {this.state.info.objective}
               </Text>
             </Left>
             <Right>
-              <Text style={{ fontSize: 15.5, color: '#191919' }}>
+              <Text style={{ fontSize: 15.5, color: colors.main }}>
                 {`${zeny}z`}
               </Text>
             </Right>
@@ -123,7 +126,7 @@ export default class QuestInfo extends PureComponent {
         <View>
           <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
             <Left style={{ flex: 1 }}>
-              <Text style={{ fontSize: 15.5, color: '#191919' }}>
+              <Text style={{ fontSize: 15.5, color: colors.main }}>
                 Monsters
               </Text>
             </Left>
@@ -159,8 +162,8 @@ export default class QuestInfo extends PureComponent {
                   />
                 </Left>
                 <Body style={{ flex: 6 }}>
-                  <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.monster_name}</Text>
-                  <Text style={{ fontSize: 15.5, color: '#8e8e8e' }}>{item.type}</Text>
+                  <Text style={{ fontSize: 15.5, color: colors.main }}>{item.monster_name}</Text>
+                  <Text style={{ fontSize: 15.5, color: colors.secondary }}>{item.type}</Text>
                 </Body>
               </ListItem>
             );
@@ -177,7 +180,7 @@ export default class QuestInfo extends PureComponent {
         <View>
           <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
             <Left style={{ flex: 1 }}>
-              <Text style={{ fontSize: 15.5, color: '#191919' }}>
+              <Text style={{ fontSize: 15.5, color: colors.main }}>
                 Items
               </Text>
             </Left>
@@ -199,7 +202,7 @@ export default class QuestInfo extends PureComponent {
                 title: item.monster_name,
                 })}>
                 <Left>
-                  <Text style={{ fontSize: 15.5, color: '#191919' }}>
+                  <Text style={{ fontSize: 15.5, color: colors.main }}>
                     {item.monster_name}
                   </Text>
                 </Left>
@@ -221,7 +224,7 @@ export default class QuestInfo extends PureComponent {
           style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
           itemDivider>
           <Left style={{ flex: 1 }}>
-            <Text style={{ fontSize: 15.5, color: '#191919' }}>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>
               Map
             </Text>
           </Left>
@@ -240,7 +243,7 @@ export default class QuestInfo extends PureComponent {
           title: this.state.info.map_name,
           })}>
           <Left style={{ flex: 1 }}>
-            <Text style={{ fontSize: 15.5, color: '#191919' }}>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>
               {this.state.info.map_name}
             </Text>
           </Left>
@@ -272,10 +275,10 @@ export default class QuestInfo extends PureComponent {
                 })}
                 key={key}>
                 <Left>
-                  <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+                  <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
                 </Left>
                 <Right>
-                  <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.chance}%`}</Text>
+                  <Text style={{ fontSize: 15.5, color: colors.main }}>{`${item.chance}%`}</Text>
                 </Right>
               </ListItem>
             );
@@ -290,15 +293,15 @@ export default class QuestInfo extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }
     if (!this.state.loading && this.state.rewards.length === 0 && this.state.info.objective === '' && (this.state.monsters.length === 0)) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: '#8e8e8e' }} />
-          <Text style={{ textAlign: 'center', fontSize: 25, color: '#8e8e8e' }}>No Data</Text>
+          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: colors.secondary }} />
+          <Text style={{ textAlign: 'center', fontSize: 25, color: colors.secondary }}>No Data</Text>
         </View>
       );
     }

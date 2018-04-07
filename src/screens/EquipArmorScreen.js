@@ -5,6 +5,9 @@ import { Container, Tab, Tabs } from 'native-base';
 import EquipArmorList from '../components/EquipArmorList';
 import AdBanner from '../components/AdBanner';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class EquipArmorScreen extends PureComponent {
   constructor(props) {
     super(props);
@@ -162,7 +165,7 @@ export default class EquipArmorScreen extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }
@@ -183,12 +186,12 @@ export default class EquipArmorScreen extends PureComponent {
   render() {
     return (
       <Container>
-        <Tabs prerenderingSiblingsNumber={2} scrollWithoutAnimation={false} tabBarUnderlineStyle={{ backgroundColor: '#ff6666', height: 3 }} initialPage={0}>
+        <Tabs prerenderingSiblingsNumber={2} scrollWithoutAnimation={false} tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }} initialPage={0}>
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919' }}
-            textStyle={{ color: '#5e5e5e' }}
+            activeTextStyle={{ color: colors.main }}
+            textStyle={{ color: colors.secondary }}
             heading="Low Rank"
             >
             {this.renderContent('low')}
@@ -196,8 +199,8 @@ export default class EquipArmorScreen extends PureComponent {
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919' }}
-            textStyle={{ color: '#5e5e5e' }}
+            activeTextStyle={{ color: colors.main }}
+            textStyle={{ color: colors.secondary }}
             heading="High Rank"
             >
             {this.renderContent('high')}

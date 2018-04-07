@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import SkillInfo from '../components/SkillInfo';
 import MapInfo from '../components/MapInfo';
 
+// Styles
+import colors from '../styles/colors';
 
 export default class TabInfoScreen extends PureComponent {
   constructor(props) {

@@ -71,14 +71,14 @@ export default class CharmInfo extends PureComponent {
     return (
       <View>
         <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Buy</Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Sell</Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Rarity</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>Buy</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>Sell</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>Rarity</Text>
         </ListItem>
         <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${buy_price}z`}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${sell_price}z`}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{rarity}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{`${buy_price}z`}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{`${sell_price}z`}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{rarity}</Text>
         </ListItem>
       </View>
     );
@@ -101,10 +101,10 @@ export default class CharmInfo extends PureComponent {
             })}
             >
             <Left>
-              <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`${this.state.info.skill1_name}`}</Text>
+              <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`${this.state.info.skill1_name}`}</Text>
             </Left>
             <Right>
-              <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`${this.state.info.skill1_level}`}</Text>
+              <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`${this.state.info.skill1_level}`}</Text>
             </Right>
           </ListItem>
           <ListItem
@@ -120,10 +120,10 @@ export default class CharmInfo extends PureComponent {
             })}
             >
             <Left>
-              <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`${this.state.info.skill2_name}`}</Text>
+              <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`${this.state.info.skill2_name}`}</Text>
             </Left>
             <Right>
-              <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`${this.state.info.skill2_level}`}</Text>
+              <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`${this.state.info.skill2_level}`}</Text>
             </Right>
           </ListItem>
       </View>
@@ -143,10 +143,10 @@ export default class CharmInfo extends PureComponent {
           })}
           >
           <Left>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`${this.state.info.skill1_name}`}</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`${this.state.info.skill1_name}`}</Text>
           </Left>
           <Right>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`+${this.state.info.skill1_level}`}</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`+${this.state.info.skill1_level}`}</Text>
           </Right>
         </ListItem>
       );
@@ -161,7 +161,7 @@ export default class CharmInfo extends PureComponent {
       <View>
         <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
           <Left>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>Skill</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>Skill</Text>
           </Left>
         </ListItem>
         {this.renderSkillBody()}
@@ -174,10 +174,10 @@ export default class CharmInfo extends PureComponent {
       <View>
         <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
           <Left>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>Material</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>Material</Text>
           </Left>
           <Right>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#8e8e8e' }}>Quantity</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.secondary }}>Quantity</Text>
           </Right>
         </ListItem>
         {this.state.materials.map((item, key) => {
@@ -195,10 +195,10 @@ export default class CharmInfo extends PureComponent {
                 })}
                 >
                 <Left>
-                  <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+                  <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{item.name}</Text>
                 </Left>
                 <Right>
-                  <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.quantity}</Text>
+                  <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{item.quantity}</Text>
                 </Right>
               </ListItem>
             </View>
@@ -213,7 +213,7 @@ export default class CharmInfo extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }

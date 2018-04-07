@@ -5,6 +5,9 @@ import firebase from 'react-native-firebase';
 import { MiscImages } from '../assets';
 import AdBanner from '../components/AdBanner';
 
+// Styles
+import colors from '../styles/colors';
+
 const Banner = firebase.admob.Banner;
 const AdRequest = firebase.admob.AdRequest;
 const request = new AdRequest();
@@ -15,7 +18,7 @@ request.addKeyword('video games');
 export default class MiscScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
-    topBarBorderColor: '#ff6666',
+    topBarBorderColor: colors.accent,
     topBarBorderWidth: 17,
   };
 
@@ -85,7 +88,7 @@ export default class MiscScreen extends PureComponent {
           />
         </Left>
         <Body style={{ flex: 6 }}>
-          <Text style={{ fontSize: 20, color: '#191919' }}>{item.title}</Text>
+          <Text style={{ fontSize: 20, color: colors.main }}>{item.title}</Text>
         </Body>
       </ListItem>
     );
@@ -95,7 +98,7 @@ export default class MiscScreen extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }

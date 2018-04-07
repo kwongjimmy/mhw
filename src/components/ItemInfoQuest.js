@@ -4,6 +4,9 @@ import { ListItem, Body, Right, Left, Text, Icon } from 'native-base';
 import AdBanner from './AdBanner';
 import DropDown from './DropDown';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class ItemInfoQuest extends PureComponent {
   constructor(props) {
     super(props);
@@ -36,11 +39,11 @@ export default class ItemInfoQuest extends PureComponent {
         title: item.name,
         })}>
         <Left>
-          <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+          <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
         </Left>
         <Right>
-          <Text style={{ fontSize: 14.5, color: '#5e5e5e' }}>{item.type.replace('Assignment', '')}</Text>
-          <Text style={{ fontSize: 14.5, color: '#5e5e5e' }}>{`${item.required_rank} \u2605`}</Text>
+          <Text style={{ fontSize: 14.5, color: colors.secondary }}>{item.type.replace('Assignment', '')}</Text>
+          <Text style={{ fontSize: 14.5, color: colors.secondary }}>{`${item.required_rank} \u2605`}</Text>
         </Right>
       </ListItem>
     );
@@ -50,7 +53,7 @@ export default class ItemInfoQuest extends PureComponent {
     return (
       <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
         <Left>
-          <Text style={{ fontSize: 15.5, color: '#191919' }}>Quests</Text>
+          <Text style={{ fontSize: 15.5, color: colors.main }}>Quests</Text>
         </Left>
         <Right />
       </ListItem>

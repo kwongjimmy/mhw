@@ -3,6 +3,9 @@ import { View, FlatList, InteractionManager, ActivityIndicator } from 'react-nat
 import { Text, ListItem, Left, Right, Body, Icon } from 'native-base';
 import AdBanner from './AdBanner';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class MonsterQuest extends Component {
   constructor(props) {
     super(props);
@@ -46,11 +49,11 @@ export default class MonsterQuest extends Component {
           title: item.quest_name,
         })}>
           <Left>
-            <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.quest_name}</Text>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>{item.quest_name}</Text>
           </Left>
           <Right style={{ justifyContent: 'center' }}>
-            <Text style={{ fontSize: 14.5, color: '#5e5e5e', textAlign: 'right' }}>{item.type.replace('Assignment', '')}</Text>
-            <Text style={{ fontSize: 14.5, color: '#5e5e5e', textAlign: 'right' }}>{`${item.required_rank} \u2605`}</Text>
+            <Text style={{ fontSize: 14.5, color: colors.secondary, textAlign: 'right' }}>{item.type.replace('Assignment', '')}</Text>
+            <Text style={{ fontSize: 14.5, color: colors.secondary, textAlign: 'right' }}>{`${item.required_rank} \u2605`}</Text>
           </Right>
         </ListItem>
       </View>
@@ -63,15 +66,15 @@ export default class MonsterQuest extends Component {
         <View style={{
           flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white',
         }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }
     if (!this.state.loading && this.state.data.length === 0) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: '#8e8e8e' }} />
-          <Text style={{ textAlign: 'center', fontSize: 25, color: '#8e8e8e' }}>No Data</Text>
+          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: colors.secondary }} />
+          <Text style={{ textAlign: 'center', fontSize: 25, color: colors.secondary }}>No Data</Text>
         </View>
       );
     }

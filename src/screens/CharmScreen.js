@@ -4,10 +4,13 @@ import SQLite from 'react-native-sqlite-storage';
 import { ListItem, Text, Left, Right } from 'native-base';
 import AdBanner from '../components/AdBanner';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class CharmScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
-    topBarBorderColor: '#ff6666',
+    topBarBorderColor: colors.accent,
     topBarBorderWidth: 17,
   };
 
@@ -63,14 +66,14 @@ export default class CharmScreen extends PureComponent {
     if (item.skill1_name !== null && item.skill2_name !== null) {
       return (
         <Right style={{ flex: 2, justifyContent: 'center' }}>
-          <Text style={{ fontSize: 14, color: '#8e8e8e' }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
-          <Text style={{ fontSize: 14, color: '#8e8e8e' }}>{`${item.skill2_name} +${item.skill2_level}`}</Text>
+          <Text style={{ fontSize: 14, color: colors.secondary }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
+          <Text style={{ fontSize: 14, color: colors.secondary }}>{`${item.skill2_name} +${item.skill2_level}`}</Text>
         </Right>
       );
     } else if (item.skill1_name !== null && item.skill2_name === null) {
       return (
         <Right style={{ flex: 2, justifyContent: 'center' }}>
-          <Text style={{ fontSize: 14, color: '#8e8e8e' }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
+          <Text style={{ fontSize: 14, color: colors.secondary }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
         </Right>
       );
     }
@@ -93,7 +96,7 @@ export default class CharmScreen extends PureComponent {
         title: item.name,
       })}>
       <Left style={{ flex: 2 }}>
-        <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+        <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
       </Left>
       {this.renderSkills(item)}
       </ListItem>
@@ -104,7 +107,7 @@ export default class CharmScreen extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }

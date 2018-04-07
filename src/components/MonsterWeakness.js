@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react'
 import { ScrollView, Image, View, FlatList, InteractionManager, ActivityIndicator } from 'react-native'
 import { Text, ListItem, Left, Right, Body } from 'native-base';
-import AdBanner from './AdBanner';
-import styles from './Styles/MonsterInfoScreenStyles';
 import { ElementStatusImages } from '../assets';
+
+// Styles
+import colors from '../styles/colors';
 
 export default class MonsterWeakness extends PureComponent {
   constructor(props) {
@@ -34,7 +35,7 @@ export default class MonsterWeakness extends PureComponent {
   renderHeader() {
     return (
       <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
-        <Text style={[styles.monsterHitText, { flex: 2.5 }]}>{''}</Text>
+        <Text style={[{ fontSize: 13, color: colors.main, flex: 2.5 }]}>{''}</Text>
         <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
           <Image
             resizeMode="contain"
@@ -113,23 +114,23 @@ export default class MonsterWeakness extends PureComponent {
     if (item.extract_color === '') {
       return <Text></Text>;
     }
-    return <View style={[styles.monsterExtractContainer, { backgroundColor: item.extract_color }]} />;
+    return <View style={[{ borderRadius: 25, borderWidth: 1, borderColor: colors.main, height: 15, width: 15, backgroundColor: item.extract_color }]} />;
   }
 
   renderDamageHeader() {
     return (
       <ListItem style={{ height: 45, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
         <Left style={{ flex: 1 }}>
-          <Text style={styles.monsterHitText}></Text>
+          <Text style={{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'center' }}></Text>
         </Left>
         <Right style={{ flex: 1 }}>
-          <Text style={styles.monsterHitText}>Flinch</Text>
+          <Text style={{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'center' }}>Flinch</Text>
         </Right>
         <Right style={{ flex: 1 }}>
-          <Text style={styles.monsterHitText}>Wound</Text>
+          <Text style={{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'center' }}>Wound</Text>
         </Right>
         <Right style={{ flex: 1 }}>
-          <Text style={styles.monsterHitText}>Sever</Text>
+          <Text style={{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'center' }}>Sever</Text>
         </Right>
       </ListItem>
     );
@@ -144,16 +145,16 @@ export default class MonsterWeakness extends PureComponent {
             return (
               <ListItem key={key} style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
                 <Left style={{ flex: 1 }}>
-                  <Text style={[styles.monsterHitText, { fontSize: 13, textAlign: 'left' }]}>{item.part_name}</Text>
+                  <Text style={[{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'left' }]}>{item.part_name}</Text>
                 </Left>
                 <Right style={{ flex: 1 }}>
-                  <Text style={styles.monsterHitText}>{item.flinch}</Text>
+                  <Text style={{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'center' }}>{item.flinch}</Text>
                 </Right>
                 <Right style={{ flex: 1 }}>
-                  <Text style={styles.monsterHitText}>{item.wound}</Text>
+                  <Text style={{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'center' }}>{item.wound}</Text>
                 </Right>
                 <Right style={{ flex: 1 }}>
-                  <Text style={styles.monsterHitText}>{item.sever2}</Text>
+                  <Text style={{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'center' }}>{item.sever2}</Text>
                 </Right>
               </ListItem>
             );
@@ -171,16 +172,16 @@ export default class MonsterWeakness extends PureComponent {
         {this.state.data.map((item, key) => {
           return (
             <ListItem key={key} style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
-              <Text style={[styles.monsterHitText, { flex: 2.5, fontSize: 9.5, textAlign: 'left' }]}>{item.part_name}</Text>
-              <Text style={styles.monsterHitText}>{item.sever}</Text>
-              <Text style={styles.monsterHitText}>{item.blunt}</Text>
-              <Text style={styles.monsterHitText}>{item.shot}</Text>
-              <Text style={styles.monsterHitText}>{item.stun}</Text>
-              <Text style={[styles.monsterHitText, { color: '#ff6666' }]}>{item.fire}</Text>
-              <Text style={[styles.monsterHitText, { color: 'darkblue' }]}>{item.water}</Text>
-              <Text style={[styles.monsterHitText, { color: 'teal' }]}>{item.ice}</Text>
-              <Text style={[styles.monsterHitText, { color: '#e5c100' }]}>{item.thunder}</Text>
-              <Text style={[styles.monsterHitText, { color: 'purple' }]}>{item.dragon}</Text>
+              <Text style={[{ color: colors.main, flex: 2.5, fontSize: 9.5, textAlign: 'left' }]}>{item.part_name}</Text>
+              <Text style={{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'center' }}>{item.sever}</Text>
+              <Text style={{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'center' }}>{item.blunt}</Text>
+              <Text style={{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'center' }}>{item.shot}</Text>
+              <Text style={{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'center' }}>{item.stun}</Text>
+              <Text style={[{ flex: 1, fontSize: 13, textAlign: 'center', color: colors.accent }]}>{item.fire}</Text>
+              <Text style={[{ flex: 1, fontSize: 13, textAlign: 'center', color: 'darkblue' }]}>{item.water}</Text>
+              <Text style={[{ flex: 1, fontSize: 13, textAlign: 'center', color: 'teal' }]}>{item.ice}</Text>
+              <Text style={[{ flex: 1, fontSize: 13, textAlign: 'center', color: '#e5c100' }]}>{item.thunder}</Text>
+              <Text style={[{ flex: 1, fontSize: 13, textAlign: 'center', color: 'purple' }]}>{item.dragon}</Text>
               <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
                 {this.renderExtractColor(item)}
               </View>
@@ -213,7 +214,7 @@ export default class MonsterWeakness extends PureComponent {
         <View style={{
           flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white',
         }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }

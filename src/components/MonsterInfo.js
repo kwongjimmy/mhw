@@ -3,6 +3,9 @@ import { ScrollView, Image, View, InteractionManager, ActivityIndicator } from '
 import { Text, ListItem, Left, Right, Body } from 'native-base';
 import { ElementStatusImages } from '../assets';
 
+// Styles
+import colors from '../styles/colors';
+
 const effectiveness = {
   true: `\u25ef`,
   false: `\u2573`,
@@ -54,24 +57,24 @@ export default class MonsterInfo extends PureComponent {
     return (
       <View>
         <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
             Type
           </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
             Size
           </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
             Health
           </Text>
         </ListItem>
         <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
             {this.props.info.type}
           </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
             {this.props.info.size}
           </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
             {this.props.info.hp}
           </Text>
         </ListItem>
@@ -84,24 +87,24 @@ export default class MonsterInfo extends PureComponent {
       return (
         <View>
           <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
               Small Crown
             </Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
               Silver Crown
             </Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
               Gold Crown
             </Text>
           </ListItem>
           <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
               {this.props.info.small_crown}
             </Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
               {this.props.info.silver_crown}
             </Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
               {this.props.info.gold_crown}
             </Text>
           </ListItem>
@@ -115,58 +118,58 @@ export default class MonsterInfo extends PureComponent {
     return (
       <View>
         <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
             Shock Trap
           </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
             Pitfall Trap
           </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
             Ivy Trap
           </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
             Capture
           </Text>
         </ListItem>
         <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
             {`${effectiveness[this.props.tool[6].works]}`}
           </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
             {`${effectiveness[this.props.tool[4].works]}`}
           </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
             {`${effectiveness[this.props.tool[3].works]}`}
           </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
             {`${this.props.info.capture_hp_percentage}%`}
           </Text>
         </ListItem>
         <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
             Flash
           </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
             Dung
           </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
             Screamer
           </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
             Meat
           </Text>
         </ListItem>
         <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
             {`${effectiveness[this.props.tool[2].works]}`}
           </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
             {`${effectiveness[this.props.tool[1].works]}`}
           </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
             {`${effectiveness[this.props.tool[5].works]}`}
           </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
             {`${effectiveness[this.props.tool[0].works]}`}
           </Text>
         </ListItem>
@@ -180,17 +183,17 @@ export default class MonsterInfo extends PureComponent {
         <View>
           <ListItem style={{ marginLeft: 0, marginRight: 0, paddingLeft: 18, paddingRight: 18 }} itemDivider>
             <Left style={{ flex: 1.5 }}>
-              <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+              <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
                 Aliment
               </Text>
             </Left>
             <Right style={{ flex: 1 }}>
-              <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+              <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
                 Resistance
               </Text>
             </Right>
             <Right style={{ flex: 1 }}>
-              <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+              <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
                 Duration
               </Text>
             </Right>
@@ -198,17 +201,17 @@ export default class MonsterInfo extends PureComponent {
         {this.props.ailment.map((item, key) =>
           <ListItem key={key} style={{ marginLeft: 0, marginRight: 0, paddingLeft: 18, paddingRight: 18 }}>
             <Left style={{ flex: 1.5 }}>
-              <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+              <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
                 {`${ailment[item.element]}`}
               </Text>
             </Left>
             <Right style={{ flex: 1 }}>
-              <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+              <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
                 {`${effectiveness[item.resistance]}`}
               </Text>
             </Right>
             <Right style={{ flex: 1 }}>
-              <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'center' }}>
+              <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
                 {`${effectiveness[item.duration]}`}
               </Text>
             </Right>
@@ -225,7 +228,7 @@ export default class MonsterInfo extends PureComponent {
     } = this.props.info;
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, marginRight: 0, borderBottomWidth: 0.0, borderColor: '#ff6666' }} itemDivider>
+        <ListItem style={{ marginLeft: 0, marginRight: 0, borderBottomWidth: 0.0, borderColor: colors.accent }} itemDivider>
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
             <Image
               resizeMode="contain"
@@ -263,11 +266,11 @@ export default class MonsterInfo extends PureComponent {
           </View>
         </ListItem>
         <ListItem style={{ marginLeft: 0, marginRight: 0, backgroundColor: 'white' }} itemDivider>
-          <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{fire}</Text>
-          <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{water}</Text>
-          <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{thunder}</Text>
-          <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{ice}</Text>
-          <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{dragon}</Text>
+          <Text style={{ flex: 1, fontSize: 12.5, color: colors.main, textAlign: 'center' }}>{fire}</Text>
+          <Text style={{ flex: 1, fontSize: 12.5, color: colors.main, textAlign: 'center' }}>{water}</Text>
+          <Text style={{ flex: 1, fontSize: 12.5, color: colors.main, textAlign: 'center' }}>{thunder}</Text>
+          <Text style={{ flex: 1, fontSize: 12.5, color: colors.main, textAlign: 'center' }}>{ice}</Text>
+          <Text style={{ flex: 1, fontSize: 12.5, color: colors.main, textAlign: 'center' }}>{dragon}</Text>
         </ListItem>
       </View>
     );
@@ -279,7 +282,7 @@ export default class MonsterInfo extends PureComponent {
     } = this.props.info;
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, marginRight: 0, borderBottomWidth: 0.0, borderColor: '#ff6666' }} itemDivider>
+        <ListItem style={{ marginLeft: 0, marginRight: 0, borderBottomWidth: 0.0, borderColor: colors.accent }} itemDivider>
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
             <Image
               resizeMode="contain"
@@ -317,11 +320,11 @@ export default class MonsterInfo extends PureComponent {
           </View>
         </ListItem>
         <ListItem style={{ marginLeft: 0, marginRight: 0, backgroundColor: 'white'}} itemDivider>
-          <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{poison}</Text>
-          <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{sleep}</Text>
-          <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{paralysis}</Text>
-          <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{blast}</Text>
-          <Text style={{ flex: 1, fontSize: 12.5, color: '#191919', textAlign: 'center' }}>{stun}</Text>
+          <Text style={{ flex: 1, fontSize: 12.5, color: colors.main, textAlign: 'center' }}>{poison}</Text>
+          <Text style={{ flex: 1, fontSize: 12.5, color: colors.main, textAlign: 'center' }}>{sleep}</Text>
+          <Text style={{ flex: 1, fontSize: 12.5, color: colors.main, textAlign: 'center' }}>{paralysis}</Text>
+          <Text style={{ flex: 1, fontSize: 12.5, color: colors.main, textAlign: 'center' }}>{blast}</Text>
+          <Text style={{ flex: 1, fontSize: 12.5, color: colors.main, textAlign: 'center' }}>{stun}</Text>
         </ListItem>
       </View>
     );
@@ -353,7 +356,7 @@ export default class MonsterInfo extends PureComponent {
         <View style={{
           flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white',
         }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }

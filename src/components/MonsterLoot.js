@@ -4,6 +4,9 @@ import { Text, ListItem, Left, Right, Icon } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
 import AdBanner from './AdBanner';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class MonsterLoot extends PureComponent {
   constructor(props) {
     super(props);
@@ -74,13 +77,13 @@ export default class MonsterLoot extends PureComponent {
           title: item.name,
         })}>
         <Left>
-          <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+          <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
         </Left>
         <Right>
-          <Text style={{ fontSize: 15.5, color: '#191919' }}>{`x${item.quantity}`}</Text>
+          <Text style={{ fontSize: 15.5, color: colors.main }}>{`x${item.quantity}`}</Text>
         </Right>
         <Right>
-          <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.chance}%`}</Text>
+          <Text style={{ fontSize: 15.5, color: colors.main }}>{`${item.chance}%`}</Text>
         </Right>
       </ListItem>
     );
@@ -92,15 +95,15 @@ export default class MonsterLoot extends PureComponent {
         <View style={{
           flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white',
         }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }
     if (!this.state.loading && this.state.data.length === 0) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: '#8e8e8e' }} />
-          <Text style={{ textAlign: 'center', fontSize: 25, color: '#8e8e8e' }}>No Data</Text>
+          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: colors.secondary }} />
+          <Text style={{ textAlign: 'center', fontSize: 25, color: colors.secondary }}>No Data</Text>
         </View>
       );
     }

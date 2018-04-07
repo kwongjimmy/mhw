@@ -2,10 +2,13 @@ import React, { PureComponent } from 'react';
 import { View, Linking, Platform } from 'react-native';
 import { Text, ListItem, Left, Right, Body } from 'native-base';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class AboutScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
-    topBarBorderColor: '#ff6666',
+    topBarBorderColor: colors.accent,
     topBarBorderWidth: 17,
   };
 
@@ -36,7 +39,7 @@ export default class AboutScreen extends PureComponent {
           style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
           onPress={() => Linking.openURL('mailto:chingoosat242@gmail.com?subject=[MHW DB] Suggestions and Feedback')}>
           <Left>
-            <Text style={{ fontSize: 15.5, color: '#191919' }}>chingoosat242@gmail.com</Text>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>chingoosat242@gmail.com</Text>
           </Left>
         </ListItem>
         <ListItem itemDivider>

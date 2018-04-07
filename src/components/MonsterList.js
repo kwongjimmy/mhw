@@ -4,7 +4,7 @@ import { Text, Left, Body, Right, ListItem } from 'native-base';
 import { MonsterImages } from '../assets';
 
 // Styles
-import styles from '../screens/Styles/MonsterScreenStyles';
+import colors from '../styles/colors';
 
 export default class MonsterList extends PureComponent {
   constructor(props) {
@@ -48,8 +48,8 @@ export default class MonsterList extends PureComponent {
         />
       </Left>
       <Body style={{ flex: 4 }}>
-        <Text style={styles.monsterText}>{item.monster_name}</Text>
-        <Text style={styles.monsterTypeText}>{item.type}</Text>
+        <Text style={{ fontSize: 18, color: colors.main }}>{item.monster_name}</Text>
+        <Text style={{ fontSize: 15.5, color: colors.secondary }}>{item.type}</Text>
       </Body>
       </ListItem>
     );
@@ -61,7 +61,7 @@ export default class MonsterList extends PureComponent {
         <View style={{
           flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white',
         }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }

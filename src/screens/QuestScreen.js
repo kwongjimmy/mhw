@@ -4,6 +4,9 @@ import SQLite from 'react-native-sqlite-storage';
 import { ScrollableTab, Container, Tab, Tabs, ListItem, Left, Right, Body } from 'native-base';
 import AdBanner from '../components/AdBanner';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class QuestScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: false,
@@ -94,10 +97,10 @@ export default class QuestScreen extends PureComponent {
       })}
       >
         <Left>
-          <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+          <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
         </Left>
         <Right>
-          <Text style={{ fontSize: 14.5, color: '#5e5e5e' }}>{`${item.required_rank} \u2605`}</Text>
+          <Text style={{ fontSize: 14.5, color: colors.secondary }}>{`${item.required_rank} \u2605`}</Text>
         </Right>
       </ListItem>
     );
@@ -107,7 +110,7 @@ export default class QuestScreen extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }
@@ -178,15 +181,15 @@ export default class QuestScreen extends PureComponent {
       <Container>
         <Tabs
           prerenderingSiblingsNumber={3}
-          tabBarUnderlineStyle={{ backgroundColor: '#ff6666', height: 3 }}
+          tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }}
           initialPage={0}
           renderTabBar={() => <ScrollableTab style={{ backgroundColor: 'white', elevation: 2 }}/>}
           >
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919' }}
-            textStyle={{ color: '#5e5e5e' }}
+            activeTextStyle={{ color: colors.main }}
+            textStyle={{ color: colors.secondary }}
             heading="Assigned"
             >
             {this.renderContent('tab1')}
@@ -194,8 +197,8 @@ export default class QuestScreen extends PureComponent {
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919' }}
-            textStyle={{ color: '#5e5e5e' }}
+            activeTextStyle={{ color: colors.main }}
+            textStyle={{ color: colors.secondary }}
             heading="Optional"
             >
             {this.renderContent('tab2')}
@@ -203,8 +206,8 @@ export default class QuestScreen extends PureComponent {
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919' }}
-            textStyle={{ color: '#5e5e5e' }}
+            activeTextStyle={{ color: colors.main }}
+            textStyle={{ color: colors.secondary }}
             heading="Arena"
             >
             {this.renderContent('tab3')}
@@ -212,8 +215,8 @@ export default class QuestScreen extends PureComponent {
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919' }}
-            textStyle={{ color: '#5e5e5e' }}
+            activeTextStyle={{ color: colors.main }}
+            textStyle={{ color: colors.secondary }}
             heading="Special Assignment"
             >
             {this.renderContent('tab4')}

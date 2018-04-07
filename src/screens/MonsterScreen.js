@@ -8,6 +8,9 @@ import MonsterList from '../components/MonsterList';
 import AdBanner from '../components/AdBanner';
 import { MiscImages } from '../assets/';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class MonsterScreen extends PureComponent {
   // static navigatorButtons = {
   //   rightButtons: [
@@ -17,7 +20,7 @@ export default class MonsterScreen extends PureComponent {
   //     //   disabled: false, // optional, used to disable the button (appears faded and doesn't interact)
   //     //   disableIconTint: false, // optional, by default the image colors are overridden and tinted to navBarButtonColor, set to true to keep the original image colors
   //     //   showAsAction: 'ifRoom', // optional, Android only. Control how the button is displayed in the Toolbar. Accepted valued: 'ifRoom' (default) - Show this item as a button in an Action Bar if the system decides there is room for it. 'always' - Always show this item as a button in an Action Bar. 'withText' - When this item is in the action bar, always show it with a text label even if it also has an icon specified. 'never' - Never show this item as a button in an Action Bar.
-  //     //   buttonColor: '#ff6666', // Optional, iOS only. Set color for the button (can also be used in setButtons function to set different button style programatically)
+  //     //   buttonColor: colors.accent, // Optional, iOS only. Set color for the button (can also be used in setButtons function to set different button style programatically)
   //     //   buttonFontSize: 14, // Set font size for the button (can also be used in setButtons function to set different button style programatically)
   //     //   buttonFontWeight: '600', // Set font weight for the button (can also be used in setButtons function to set different button style programatically)
   //     // },
@@ -175,7 +178,7 @@ export default class MonsterScreen extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }
@@ -230,11 +233,11 @@ export default class MonsterScreen extends PureComponent {
                    style={{ flex: 1 }}
                    onPress={() => this.setModalVisible(!this.state.modalVisible)}
                    >
-                   <Icon ios='ios-close' android="md-close" style={{ fontSize: 25, color: '#191919' }} />
+                   <Icon ios='ios-close' android="md-close" style={{ fontSize: 25, color: colors.main }} />
                  </Button>
                  <View style={{ flex: 2.5 }} />
                  <Button style={{ flex: 1 }} transparent>
-                   <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', texAlign: 'right' }}>{`Clear`}</Text>
+                   <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, texAlign: 'right' }}>{`Clear`}</Text>
                  </Button>
              </View>
              <View style={{ flex: 14 }}>
@@ -248,7 +251,7 @@ export default class MonsterScreen extends PureComponent {
              }}>
               <Button
                 block
-                style={{ backgroundColor: '#ff6666', alignItems: 'center', shadowOpacity: 0, elevation: 0, marginLeft: 15, marginRight: 15 }}
+                style={{ backgroundColor: colors.accent, alignItems: 'center', shadowOpacity: 0, elevation: 0, marginLeft: 15, marginRight: 15 }}
                 onPress={() => this.setModalVisible(!this.state.modalVisible)}
                 >
                 <Text style={{ fontSize: 15.5, color: 'white' }}>{`Apply`}</Text>
@@ -259,13 +262,13 @@ export default class MonsterScreen extends PureComponent {
           <Tabs
             prerenderingSiblingsNumber={3}
             scrollWithoutAnimation={false}
-            tabBarUnderlineStyle={{ backgroundColor: '#ff6666', height: 3 }}
+            tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }}
             initialPage={0}>
            <Tab
              activeTabStyle={{ backgroundColor: 'white' }}
              tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919' }}
-             textStyle={{ color: '#5e5e5e' }}
+             activeTextStyle={{ color: colors.main }}
+             textStyle={{ color: colors.secondary }}
              heading="All"
              >
              {this.renderContent('all')}
@@ -273,8 +276,8 @@ export default class MonsterScreen extends PureComponent {
            <Tab
              activeTabStyle={{ backgroundColor: 'white' }}
              tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919' }}
-             textStyle={{ color: '#5e5e5e' }}
+             activeTextStyle={{ color: colors.main }}
+             textStyle={{ color: colors.secondary }}
              heading="Large"
              >
              {this.renderContent('large')}
@@ -282,8 +285,8 @@ export default class MonsterScreen extends PureComponent {
            <Tab
              activeTabStyle={{ backgroundColor: 'white' }}
              tabStyle={{ backgroundColor: 'white' }}
-             activeTextStyle={{ color: '#191919' }}
-             textStyle={{ color: '#5e5e5e' }}
+             activeTextStyle={{ color: colors.main }}
+             textStyle={{ color: colors.secondary }}
              heading="Small"
              >
              {this.renderContent('small')}

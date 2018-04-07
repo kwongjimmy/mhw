@@ -4,6 +4,9 @@ import { Text, ListItem, Right, Left, Body, Icon } from 'native-base';
 import WeaponListItem from './WeaponListItem'
 import AdBanner from './AdBanner';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class MonsterEquip extends PureComponent {
   constructor(props) {
     super(props);
@@ -45,7 +48,7 @@ export default class MonsterEquip extends PureComponent {
     let slot3 = (item.slot3 === 0) ? `-` : (item.slot3 === 1) ? `\u2460` : (item.slot3 === 2) ? `\u2461` : `\u2462`;
     return (
       <View style={{ justifyContent: 'center' }}>
-        <Text style={{ fontSize: 14, fontWeight: '500', color: '#8e8e8e', textAlign: 'center' }}>{`${slot1} ${slot2} ${slot3}`}</Text>
+        <Text style={{ fontSize: 14, fontWeight: '500', color: colors.secondary, textAlign: 'center' }}>{`${slot1} ${slot2} ${slot3}`}</Text>
       </View>
     );
   }
@@ -54,14 +57,14 @@ export default class MonsterEquip extends PureComponent {
     if (item.skill1_name !== null && item.skill2_name !== null) {
       return (
         <View style={{ justifyContent: 'center' }}>
-          <Text style={{ fontSize: 11, color: '#8e8e8e' }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
-          <Text style={{ fontSize: 11, color: '#8e8e8e' }}>{`${item.skill2_name} +${item.skill2_level}`}</Text>
+          <Text style={{ fontSize: 11, color: colors.secondary }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
+          <Text style={{ fontSize: 11, color: colors.secondary }}>{`${item.skill2_name} +${item.skill2_level}`}</Text>
         </View>
       );
     } else if (item.skill1_name !== null && item.skill2_name === null) {
       return (
         <View style={{ justifyContent: 'center' }}>
-          <Text style={{ fontSize: 11, color: '#8e8e8e' }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
+          <Text style={{ fontSize: 11, color: colors.secondary }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
         </View>
       );
     }
@@ -85,7 +88,7 @@ export default class MonsterEquip extends PureComponent {
       })}
       >
         <Left style={{ flex: 1.5 }}>
-          <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+          <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
         </Left>
         <Body style={{ flex: 1.5, flexGrow: 2 }}>
           {this.renderSkills(item)}
@@ -103,15 +106,15 @@ export default class MonsterEquip extends PureComponent {
         <View style={{
           flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white',
         }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }
     if (!this.state.loading && this.state.data.length === 0) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: '#8e8e8e' }} />
-          <Text style={{ textAlign: 'center', fontSize: 25, color: '#8e8e8e' }}>No Data</Text>
+          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: colors.secondary }} />
+          <Text style={{ textAlign: 'center', fontSize: 25, color: colors.secondary }}>No Data</Text>
         </View>
       );
     }

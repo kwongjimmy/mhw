@@ -10,6 +10,9 @@ import MonsterEquip from '../components/MonsterEquip';
 import MonsterQuest from '../components/MonsterQuest';
 import AdBanner from '../components/AdBanner';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class MonsterInfoScreen extends PureComponent {
   constructor(props) {
     super(props);
@@ -165,7 +168,7 @@ export default class MonsterInfoScreen extends PureComponent {
         <View style={{
           flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white',
         }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }
@@ -193,8 +196,8 @@ export default class MonsterInfoScreen extends PureComponent {
         <Tab
           activeTabStyle={{ backgroundColor: 'white' }}
           tabStyle={{ backgroundColor: 'white' }}
-          activeTextStyle={{ color: '#191919' }}
-          textStyle={{ color: '#5e5e5e' }}
+          activeTextStyle={{ color: colors.main }}
+          textStyle={{ color: colors.secondary }}
           heading="LR Loot"
           >
           {this.renderContent('tab2')}
@@ -210,8 +213,8 @@ export default class MonsterInfoScreen extends PureComponent {
         <Tab
           activeTabStyle={{ backgroundColor: 'white' }}
           tabStyle={{ backgroundColor: 'white' }}
-          activeTextStyle={{ color: '#191919' }}
-          textStyle={{ color: '#5e5e5e' }}
+          activeTextStyle={{ color: colors.main }}
+          textStyle={{ color: colors.secondary }}
           heading="HR Loot"
           >
           {this.renderContent('tab3')}
@@ -227,8 +230,8 @@ export default class MonsterInfoScreen extends PureComponent {
         <Tab
           activeTabStyle={{ backgroundColor: 'white' }}
           tabStyle={{ backgroundColor: 'white' }}
-          activeTextStyle={{ color: '#191919' }}
-          textStyle={{ color: '#5e5e5e' }}
+          activeTextStyle={{ color: colors.main }}
+          textStyle={{ color: colors.secondary }}
           heading="Weapon"
           >
           {this.renderContent('tab5')}
@@ -244,8 +247,8 @@ export default class MonsterInfoScreen extends PureComponent {
         <Tab
           activeTabStyle={{ backgroundColor: 'white' }}
           tabStyle={{ backgroundColor: 'white' }}
-          activeTextStyle={{ color: '#191919' }}
-          textStyle={{ color: '#5e5e5e' }}
+          activeTextStyle={{ color: colors.main }}
+          textStyle={{ color: colors.secondary }}
           heading="Armor"
           >
           {this.renderContent('tab4')}
@@ -261,8 +264,8 @@ export default class MonsterInfoScreen extends PureComponent {
         <Tab
           activeTabStyle={{ backgroundColor: 'white' }}
           tabStyle={{ backgroundColor: 'white' }}
-          activeTextStyle={{ color: '#191919' }}
-          textStyle={{ color: '#5e5e5e' }}
+          activeTextStyle={{ color: colors.main }}
+          textStyle={{ color: colors.secondary }}
           heading="Quest"
           >
           {this.renderContent('tab7')}
@@ -281,15 +284,15 @@ export default class MonsterInfoScreen extends PureComponent {
         <Tabs
           prerenderingSiblingsNumber={3}
           scrollWithoutAnimation={false}
-          tabBarUnderlineStyle={{ backgroundColor: '#ff6666', height: 3 }}
+          tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }}
           initialPage={0}
           renderTabBar={() => <ScrollableTab style={{ backgroundColor: 'white', elevation: 2 }}/>}
           >
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919' }}
-            textStyle={{ color: '#5e5e5e' }}
+            activeTextStyle={{ color: colors.main }}
+            textStyle={{ color: colors.secondary }}
             heading="Info"
             >
             {this.renderContent('tab6')}
@@ -297,8 +300,8 @@ export default class MonsterInfoScreen extends PureComponent {
           <Tab
             activeTabStyle={{ backgroundColor: 'white' }}
             tabStyle={{ backgroundColor: 'white' }}
-            activeTextStyle={{ color: '#191919' }}
-            textStyle={{ color: '#5e5e5e' }}
+            activeTextStyle={{ color: colors.main }}
+            textStyle={{ color: colors.secondary }}
             heading="Weakness"
             >
             {this.renderContent('tab1')}

@@ -3,6 +3,9 @@ import { FlatList } from 'react-native';
 import { ListItem, Left, Right, Body, Text } from 'native-base';
 import EquipArmorContainer from './EquipArmorContainer';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class EquipArmorList extends PureComponent {
   renderArmorSet = ({ item }) => {
     return (
@@ -19,7 +22,7 @@ export default class EquipArmorList extends PureComponent {
         title: item.name,
         })}>
         <Left>
-          <Text style={{ fontSize: 15.5, color: '#191919' }}>
+          <Text style={{ fontSize: 15.5, color: colors.main }}>
             {item.name}
           </Text>
         </Left>

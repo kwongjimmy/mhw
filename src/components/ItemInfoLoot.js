@@ -5,6 +5,9 @@ import AdBanner from './AdBanner';
 import DropDown from './DropDown';
 import { MonsterImages } from '../assets';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class ItemInfoLoot extends PureComponent {
   constructor(props) {
     super(props);
@@ -80,7 +83,7 @@ export default class ItemInfoLoot extends PureComponent {
           title: item.name,
           })}>
           <Left>
-            <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.name}`} <Text style={{ fontSize: 15.5, color: '#5e5e5e' }}>{` ${item.rank} Rank`}</Text> </Text>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>{`${item.name}`} <Text style={{ fontSize: 15.5, color: colors.secondary }}>{` ${item.rank} Rank`}</Text> </Text>
           </Left>
         </ListItem>
       );
@@ -103,7 +106,7 @@ export default class ItemInfoLoot extends PureComponent {
               {this.renderMapHeader(item)}
               <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
                 <Left>
-                  <Text style={{ fontSize: 15.5, color: '#191919' }}>{`Area ${item.area}`}</Text>
+                  <Text style={{ fontSize: 15.5, color: colors.main }}>{`Area ${item.area}`}</Text>
                 </Left>
               </ListItem>
             </View>
@@ -147,11 +150,11 @@ export default class ItemInfoLoot extends PureComponent {
               />
             </Left>
             <Body style={{ flex: 3 }}>
-              <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.monster_name}`}</Text>
-              <Text style={{ fontSize: 15.5, color: '#5e5e5e' }}>{`High Rank`}</Text>
+              <Text style={{ fontSize: 15.5, color: colors.main }}>{`${item.monster_name}`}</Text>
+              <Text style={{ fontSize: 15.5, color: colors.secondary }}>{`High Rank`}</Text>
             </Body>
             <Right style={{ flex: 3 }}>
-              <Text style={{ fontSize: 15.5, color: '#5e5e5e' }}>{``}</Text>
+              <Text style={{ fontSize: 15.5, color: colors.secondary }}>{``}</Text>
             </Right>
           </ListItem>
         );
@@ -176,11 +179,11 @@ export default class ItemInfoLoot extends PureComponent {
             />
           </Left>
           <Body style={{ flex: 3 }}>
-            <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.monster_name}`}</Text>
-            <Text style={{ fontSize: 15.5, color: '#5e5e5e' }}>{`Low Rank`}</Text>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>{`${item.monster_name}`}</Text>
+            <Text style={{ fontSize: 15.5, color: colors.secondary }}>{`Low Rank`}</Text>
           </Body>
           <Right style={{ flex: 3 }}>
-            <Text style={{ fontSize: 15.5, color: '#5e5e5e' }}>{``}</Text>
+            <Text style={{ fontSize: 15.5, color: colors.secondary }}>{``}</Text>
           </Right>
         </ListItem>
       );
@@ -203,10 +206,10 @@ export default class ItemInfoLoot extends PureComponent {
                   {this.renderMonsterHeader(item)}
                   <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
                     <Left>
-                      <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+                      <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
                     </Left>
                     <Right>
-                      <Text style={{ fontSize: 15.5, color: '#191919' }}>{`${item.chance}%`}</Text>
+                      <Text style={{ fontSize: 15.5, color: colors.main }}>{`${item.chance}%`}</Text>
                     </Right>
                   </ListItem>
                 </View>

@@ -4,6 +4,9 @@ import SQLite from 'react-native-sqlite-storage';
 import { Container, ListItem, Text, Left, Body, Right } from 'native-base';
 import DropDown from './DropDown';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class SkillEquip extends PureComponent {
   constructor(props) {
     super(props);
@@ -127,10 +130,10 @@ export default class SkillEquip extends PureComponent {
                 title: item.name,
                 })}>
                 <Left>
-                  <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+                  <Text style={{ flex: 1, fontSize: 15.5, color: colors.secondary }}>{item.name}</Text>
                 </Left>
                 <Right>
-                  <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`+${item.level}`}</Text>
+                  <Text style={{ flex: 1, fontSize: 15.5, color: colors.secondary }}>{`+${item.level}`}</Text>
                 </Right>
               </ListItem>
             );
@@ -167,10 +170,10 @@ export default class SkillEquip extends PureComponent {
                 })}
                 >
                 <Left>
-                  <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+                  <Text style={{ flex: 1, fontSize: 15.5, color: colors.secondary }}>{item.name}</Text>
                 </Left>
                 <Right>
-                  <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`+${item.level}`}</Text>
+                  <Text style={{ flex: 1, fontSize: 15.5, color: colors.secondary }}>{`+${item.level}`}</Text>
                 </Right>
               </ListItem>
             );
@@ -207,10 +210,10 @@ export default class SkillEquip extends PureComponent {
                   })}
                   >
                   <Left>
-                    <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+                    <Text style={{ flex: 1, fontSize: 15.5, color: colors.secondary }}>{item.name}</Text>
                   </Left>
                   <Right>
-                    <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`+${item.level}`}</Text>
+                    <Text style={{ flex: 1, fontSize: 15.5, color: colors.secondary }}>{`+${item.level}`}</Text>
                   </Right>
                 </ListItem>
               );

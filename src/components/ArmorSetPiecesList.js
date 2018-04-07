@@ -4,6 +4,9 @@ import { Text, Left, Body, Right, ListItem } from 'native-base';
 import { ArmorImages } from '../assets';
 import AdBanner from './AdBanner';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class ArmorSetPiecesList extends PureComponent {
   constructor(props) {
     super(props);
@@ -93,14 +96,14 @@ export default class ArmorSetPiecesList extends PureComponent {
     if (item.skill1 !== null && item.skill2 !== null) {
       return (
         <View style={{ justifyContent: 'center' }}>
-          <Text style={{ fontSize: 11, color: '#8e8e8e' }}>{`${item.skill1} +${item.skill1_level}`}</Text>
-          <Text style={{ fontSize: 11, color: '#8e8e8e' }}>{`${item.skill2} +${item.skill2_level}`}</Text>
+          <Text style={{ fontSize: 11, color: colors.secondary }}>{`${item.skill1} +${item.skill1_level}`}</Text>
+          <Text style={{ fontSize: 11, color: colors.secondary }}>{`${item.skill2} +${item.skill2_level}`}</Text>
         </View>
       );
     } else if (item.skill1 !== null && item.skill2 === null) {
       return (
         <View style={{ justifyContent: 'center' }}>
-          <Text style={{ fontSize: 11, color: '#8e8e8e' }}>{`${item.skill1} +${item.skill1_level}`}</Text>
+          <Text style={{ fontSize: 11, color: colors.secondary }}>{`${item.skill1} +${item.skill1_level}`}</Text>
         </View>
       );
     }
@@ -115,7 +118,7 @@ export default class ArmorSetPiecesList extends PureComponent {
     let slot3 = (item.slot3 === 0) ? `-` : (item.slot3 === 1) ? `\u2460` : (item.slot3 === 2) ? `\u2461` : `\u2462`;
     return (
       <View style={{ justifyContent: 'center' }}>
-        <Text style={{ fontSize: 14, fontWeight: '500', color: '#8e8e8e', textAlign: 'center' }}>{`${slot1} ${slot2} ${slot3}`}</Text>
+        <Text style={{ fontSize: 14, fontWeight: '500', color: colors.secondary, textAlign: 'center' }}>{`${slot1} ${slot2} ${slot3}`}</Text>
       </View>
     );
   }
@@ -125,7 +128,7 @@ export default class ArmorSetPiecesList extends PureComponent {
       return (
         <View>
           <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: '#F8F8F8' }} itemDivider>
-            <Text style={{ fontSize: 15.5, color: '#191919' }}>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>
               {`${this.props.armor.set_bonus} Set Bonus`}
             </Text>
           </ListItem>
@@ -151,7 +154,7 @@ export default class ArmorSetPiecesList extends PureComponent {
           animationType: 'slide-horizontal',
           title: this.props.armor.skill1_name,
           })}>
-          <Text style={{ fontSize: 15.5, color: '#191919' }}>
+          <Text style={{ fontSize: 15.5, color: colors.main }}>
             {`(${this.props.armor.pieces} pieces) ${this.props.armor.skill1_name}`}
           </Text>
         </ListItem>
@@ -174,7 +177,7 @@ export default class ArmorSetPiecesList extends PureComponent {
           animationType: 'slide-horizontal',
           title: this.props.armor.skill2_name,
           })}>
-          <Text style={{ fontSize: 15.5, color: '#191919' }}>
+          <Text style={{ fontSize: 15.5, color: colors.main }}>
             {`(${this.props.armor.pieces2} pieces) ${this.props.armor.skill2_name}`}
           </Text>
         </ListItem>
@@ -210,7 +213,7 @@ export default class ArmorSetPiecesList extends PureComponent {
               />
             </Left>
             <Left style={{ flex: 1.25 }}>
-              <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+              <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{item.name}</Text>
             </Left>
             <Body style={{ flex: 1.5, flexGrow: 2 }}>
               {this.renderSkills(item)}

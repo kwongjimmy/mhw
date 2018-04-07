@@ -2,6 +2,9 @@ import React, { PureComponent } from 'react';
 import { View } from 'react-native';
 import { Text, Icon, Left, Right, ListItem } from 'native-base';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class DropDown extends PureComponent {
   constructor(props) {
     super(props);
@@ -15,11 +18,11 @@ export default class DropDown extends PureComponent {
   renderHeaderIcon() {
     if (!this.state.hide) {
       return (
-        <Icon ios='ios-arrow-down' android="ios-arrow-down" style={{ fontSize: 20, color: '#ff6666' }}/>
+        <Icon ios='ios-arrow-down' android="ios-arrow-down" style={{ fontSize: 20, color: colors.accent }}/>
       );
     }
     return (
-      <Icon ios='ios-arrow-up' android="ios-arrow-up" style={{ fontSize: 20, color: '#ff6666' }}/>
+      <Icon ios='ios-arrow-up' android="ios-arrow-up" style={{ fontSize: 20, color: colors.accent }}/>
     );
   }
 
@@ -42,7 +45,7 @@ export default class DropDown extends PureComponent {
             this.setState({ hide: !this.state.hide });
           }}>
           <Left>
-            <Text style={{ fontSize: 15.5, color: '#191919' }}>{this.state.headerName}</Text>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>{this.state.headerName}</Text>
           </Left>
           <Right>
             {this.renderHeaderIcon()}

@@ -10,10 +10,13 @@ import ItemInfo from '../components/ItemInfo';
 import MonsterLoot from '../components/MonsterLoot';
 import ArmorSetPiecesList from '../components/ArmorSetPiecesList';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class TablessInfoScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
-    topBarBorderColor: '#ff6666',
+    topBarBorderColor: colors.accent,
     topBarBorderWidth: 17,
   };
 

@@ -5,6 +5,9 @@ import SQLite from 'react-native-sqlite-storage';
 import AdBanner from './AdBanner';
 import { ElementStatusImages } from '../assets';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class EquipArmorInfo extends PureComponent {
 
   constructor(props) {
@@ -110,17 +113,17 @@ export default class EquipArmorInfo extends PureComponent {
     let slotThree = (slot3 === 0) ? `-` : (slot3 === 1) ? `\u2460` : (slot3 === 2) ? `\u2461` : `\u2462`;
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, borderColor: '#ff6666' }} itemDivider>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Defense</Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Slots</Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Price</Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>Rarity</Text>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, borderColor: colors.accent }} itemDivider>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>Defense</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>Slots</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>Price</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>Rarity</Text>
         </ListItem>
         <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: 'white' }} itemDivider>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{min_def}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${slotOne} ${slotTwo} ${slotThree}`}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{`${buy_price}z`}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{rarity}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{min_def}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{`${slotOne} ${slotTwo} ${slotThree}`}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{`${buy_price}z`}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{rarity}</Text>
         </ListItem>
         <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
@@ -160,11 +163,11 @@ export default class EquipArmorInfo extends PureComponent {
           </View>
         </ListItem>
         <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: 'white' }} itemDivider>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{fire}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{water}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{thunder}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{ice}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919', textAlign: 'center' }}>{dragon}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{fire}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{water}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{thunder}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{ice}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{dragon}</Text>
         </ListItem>
       </View>
     );
@@ -186,10 +189,10 @@ export default class EquipArmorInfo extends PureComponent {
           })}
           >
           <Left>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{this.state.skills[0].skill2_name}</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{this.state.skills[0].skill2_name}</Text>
           </Left>
           <Right>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`+${this.state.skills[0].skill2_level}`}</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`+${this.state.skills[0].skill2_level}`}</Text>
           </Right>
         </ListItem>
       );
@@ -214,10 +217,10 @@ export default class EquipArmorInfo extends PureComponent {
         })}
         >
         <Left>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{this.state.skills[0].skill1_name}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{this.state.skills[0].skill1_name}</Text>
         </Left>
         <Right>
-          <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`+${this.state.skills[0].skill1_level}`}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`+${this.state.skills[0].skill1_level}`}</Text>
         </Right>
       </ListItem>
     );
@@ -229,10 +232,10 @@ export default class EquipArmorInfo extends PureComponent {
         <View>
           <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
             <Left>
-              <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>Skill</Text>
+              <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>Skill</Text>
             </Left>
             <Right>
-              <Text style={{ flex: 1, fontSize: 15.5, color: '#8e8e8e' }}></Text>
+              <Text style={{ flex: 1, fontSize: 15.5, color: colors.secondary }}></Text>
             </Right>
           </ListItem>
           {this.renderSkill1()}
@@ -250,10 +253,10 @@ export default class EquipArmorInfo extends PureComponent {
       <View>
         <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
           <Left>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>Material</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>Material</Text>
           </Left>
           <Right>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#8e8e8e' }}>Quantity</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.secondary }}>Quantity</Text>
           </Right>
         </ListItem>
         {this.state.materials.map((item, key) => {
@@ -271,10 +274,10 @@ export default class EquipArmorInfo extends PureComponent {
                 })}
                 >
                 <Left>
-                  <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+                  <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{item.name}</Text>
                 </Left>
                 <Right>
-                  <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{item.quantity}</Text>
+                  <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{item.quantity}</Text>
                 </Right>
               </ListItem>
             </View>
@@ -290,7 +293,7 @@ export default class EquipArmorInfo extends PureComponent {
       return (
         <View>
           <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
-            <Text style={{ flex: 1, fontSize: 15.5, color: '#191919' }}>{`${this.state.setBonus.set_bonus} Set Bonus`}</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`${this.state.setBonus.set_bonus} Set Bonus`}</Text>
           </ListItem>
           {this.renderSetBonus1()}
           {this.renderSetBonus2()}
@@ -314,7 +317,7 @@ export default class EquipArmorInfo extends PureComponent {
           animationType: 'slide-horizontal',
           title: this.state.setBonus.skill1,
           })}>
-          <Text style={{ fontSize: 15.5, color: '#191919' }}>
+          <Text style={{ fontSize: 15.5, color: colors.main }}>
             {`(${this.state.setBonus.pieces} pieces) ${this.state.setBonus.skill1}`}
           </Text>
         </ListItem>
@@ -337,7 +340,7 @@ export default class EquipArmorInfo extends PureComponent {
           animationType: 'slide-horizontal',
           title: this.state.setBonus.skill2,
           })}>
-          <Text style={{ fontSize: 15.5, color: '#191919' }}>
+          <Text style={{ fontSize: 15.5, color: colors.main }}>
             {`(${this.state.setBonus.pieces_2} pieces) ${this.state.setBonus.skill2}`}
           </Text>
         </ListItem>
@@ -350,7 +353,7 @@ export default class EquipArmorInfo extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }

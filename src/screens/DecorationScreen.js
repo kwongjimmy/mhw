@@ -4,10 +4,13 @@ import SQLite from 'react-native-sqlite-storage';
 import { ListItem, Text, Left, Right } from 'native-base';
 import AdBanner from '../components/AdBanner';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class DecorationScreen extends Component {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
-    topBarBorderColor: '#ff6666',
+    topBarBorderColor: colors.accent,
     topBarBorderWidth: 17,
   };
 
@@ -69,10 +72,10 @@ export default class DecorationScreen extends Component {
         title: item.name,
       })}>
       <Left style= {{ flex: 1 }}>
-        <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+        <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
       </Left>
       <Right style= {{ flex: 1, justifyContent: 'center' }}>
-        <Text style={{ fontSize: 14, color: '#8e8e8e' }}>{item.skill_name} +{item.skill_level}</Text>
+        <Text style={{ fontSize: 14, color: colors.secondary }}>{item.skill_name} +{item.skill_level}</Text>
       </Right>
       </ListItem>
     );
@@ -82,7 +85,7 @@ export default class DecorationScreen extends Component {
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }

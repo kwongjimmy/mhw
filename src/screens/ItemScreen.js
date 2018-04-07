@@ -4,10 +4,13 @@ import SQLite from 'react-native-sqlite-storage';
 import { Container, Header, Content, List, ListItem, Text } from 'native-base';
 import AdBanner from '../components/AdBanner';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class ItemScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
-    topBarBorderColor: '#ff6666',
+    topBarBorderColor: colors.accent,
     topBarBorderWidth: 17,
   };
 
@@ -63,7 +66,7 @@ export default class ItemScreen extends PureComponent {
         animationType: 'slide-horizontal',
         title: item.name,
       })}>
-        <Text style={{ fontSize: 15.5, color: '#191919', textAlign: 'left' }}>{item.name}</Text>
+        <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'left' }}>{item.name}</Text>
       </ListItem>
     );
   }
@@ -72,7 +75,7 @@ export default class ItemScreen extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }

@@ -4,6 +4,8 @@ import { Text, Left, Right, ListItem, Icon } from 'native-base';
 import AdBanner from './AdBanner';
 import DropDown from './DropDown';
 
+// Styles
+import colors from '../styles/colors';
 
 export default class ItemInfoEquip extends PureComponent {
   constructor(props) {
@@ -27,10 +29,10 @@ export default class ItemInfoEquip extends PureComponent {
     return (
       <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
         <Left>
-          <Text style={{ fontSize: 15.5, color: '#191919' }}>Weapons</Text>
+          <Text style={{ fontSize: 15.5, color: colors.main }}>Weapons</Text>
         </Left>
         <Right>
-          <Text style={{ fontSize: 15.5, color: '#5e5e5e' }}>Cost</Text>
+          <Text style={{ fontSize: 15.5, color: colors.secondary }}>Cost</Text>
         </Right>
       </ListItem>
     );
@@ -59,10 +61,10 @@ export default class ItemInfoEquip extends PureComponent {
                 })}
                 >
                 <Left>
-                  <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+                  <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
                 </Left>
                 <Right>
-                  <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.quantity}</Text>
+                  <Text style={{ fontSize: 15.5, color: colors.main }}>{item.quantity}</Text>
                 </Right>
               </ListItem>
             );
@@ -90,10 +92,10 @@ export default class ItemInfoEquip extends PureComponent {
     return (
       <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
         <Left>
-          <Text style={{ fontSize: 15.5, color: '#191919' }}>Armor</Text>
+          <Text style={{ fontSize: 15.5, color: colors.main }}>Armor</Text>
         </Left>
         <Right>
-          <Text style={{ fontSize: 15.5, color: '#5e5e5e' }}>Cost</Text>
+          <Text style={{ fontSize: 15.5, color: colors.secondary }}>Cost</Text>
         </Right>
       </ListItem>
     );
@@ -120,10 +122,10 @@ export default class ItemInfoEquip extends PureComponent {
                 title: item.name
                 })}>
                 <Left>
-                  <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+                  <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
                 </Left>
                 <Right>
-                  <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.quantity}</Text>
+                  <Text style={{ fontSize: 15.5, color: colors.main }}>{item.quantity}</Text>
                 </Right>
               </ListItem>
             );

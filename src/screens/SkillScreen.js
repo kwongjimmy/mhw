@@ -4,10 +4,13 @@ import SQLite from 'react-native-sqlite-storage';
 import { ListItem, Text, Left, Right, Body } from 'native-base';
 import AdBanner from '../components/AdBanner';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class SkillScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
-    topBarBorderColor: '#ff6666',
+    topBarBorderColor: colors.accent,
     topBarBorderWidth: 17,
   };
 
@@ -66,10 +69,10 @@ export default class SkillScreen extends PureComponent {
       })}
       >
       <Left>
-        <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+        <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
       </Left>
       <Body>
-        <Text style={{ fontSize: 13, color: '#8e8e8e' }}>{item.description}</Text>
+        <Text style={{ fontSize: 13, color: colors.secondary }}>{item.description}</Text>
       </Body>
       </ListItem>
     );
@@ -79,7 +82,7 @@ export default class SkillScreen extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }

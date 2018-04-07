@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
-import { FlatList, View, ActivityIndicator, Platform, Image } from 'react-native';
+import { FlatList, View, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
-import { Container, Tab,Header,Button, Icon, Tabs, Title,Right,Item,Input, ListItem, Text, Left, Body, ScrollableTab} from 'native-base';
+import { Container, Tab, Header, Button, Icon, Tabs, Title, Right, Item, Input, ListItem, Text, Left, Body, ScrollableTab } from 'native-base';
 import MonsterList from '../components/MonsterList';
-import SearchList from '../components/SearchList';
 import WeaponListItem from '../components/WeaponListItem';
 import EquipArmorList from '../components/EquipArmorList';
 import AdBanner from '../components/AdBanner';
+
+// Styles
+import colors from '../styles/colors';
 
 currentScreen = "monster";
 currentWord = "";
 
 export default class SearchScreen extends Component {
   static navigatorStyle = {
-    navBarHidden: true
-};
+    navBarHidden: true,
+  };
+
   constructor(props) {
-    super(props)
-    const skeletonData = [];
+    super(props);
     this.state = {
       allMonsters: [],
       lowRank: [],
@@ -30,7 +32,6 @@ export default class SearchScreen extends Component {
       weapons: [],
       loading: true,
       data: [],
-      skeletonData,
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
@@ -463,10 +464,10 @@ export default class SearchScreen extends Component {
       })}
       >
         <Left>
-          <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+          <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
         </Left>
         <Right>
-          <Text style={{ fontSize: 14.5, color: '#5e5e5e' }}>{`${item.required_rank} \u2605`}</Text>
+          <Text style={{ fontSize: 14.5, color: colors.secondary }}>{`${item.required_rank} \u2605`}</Text>
         </Right>
       </ListItem>
     );
@@ -485,7 +486,7 @@ export default class SearchScreen extends Component {
         title: item.name,
       })}>
       <Left>
-        <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+        <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
       </Left>
       </ListItem>
     );
@@ -501,7 +502,7 @@ export default class SearchScreen extends Component {
         animationType: 'slide-horizontal',
         title: item.name,
       })}>
-        <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+        <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
       </ListItem>
     );
   }
@@ -519,10 +520,10 @@ export default class SearchScreen extends Component {
         title: item.name,
       })}>
       <Left style= {{ flex: 1 }}>
-        <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+        <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
       </Left>
       <Right style= {{ flex: 1, justifyContent: 'center' }}>
-        <Text style={{ fontSize: 14, color: '#8e8e8e' }}>{item.skill_name} +{item.skill_level}</Text>
+        <Text style={{ fontSize: 14, color: colors.secondary }}>{item.skill_name} +{item.skill_level}</Text>
       </Right>
       </ListItem>
     );
@@ -542,10 +543,10 @@ export default class SearchScreen extends Component {
       })}
       >
       <Left>
-        <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+        <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
       </Left>
       <Body>
-        <Text style={{ fontSize: 13, color: '#8e8e8e' }}>{item.description}</Text>
+        <Text style={{ fontSize: 13, color: colors.secondary }}>{item.description}</Text>
       </Body>
       </ListItem>
     );
@@ -564,7 +565,7 @@ export default class SearchScreen extends Component {
         title: item.name,
       })}>
       <Left style={{ flex: 2 }}>
-        <Text style={{ fontSize: 15.5, color: '#191919' }}>{item.name}</Text>
+        <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
       </Left>
       {this.renderSkills(item)}
       </ListItem>
@@ -574,14 +575,14 @@ export default class SearchScreen extends Component {
     if (item.skill1_name !== null && item.skill2_name !== null) {
       return (
         <Right style={{ flex: 2 }}>
-          <Text style={{ flex: 1, fontSize: 14, color: '#8e8e8e' }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
-          <Text style={{ flex: 1, fontSize: 14, color: '#8e8e8e' }}>{`${item.skill2_name} +${item.skill2_level}`}</Text>
+          <Text style={{ flex: 1, fontSize: 14, color: colors.secondary }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
+          <Text style={{ flex: 1, fontSize: 14, color: colors.secondary }}>{`${item.skill2_name} +${item.skill2_level}`}</Text>
         </Right>
       );
     } else if (item.skill1_name !== null && item.skill2_name === null) {
       return (
         <Right style={{ flex: 2 }}>
-          <Text style={{ flex: 1, fontSize: 14, color: '#8e8e8e' }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
+          <Text style={{ flex: 1, fontSize: 14, color: colors.secondary }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
         </Right>
       );
     }
@@ -691,7 +692,7 @@ export default class SearchScreen extends Component {
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <ActivityIndicator size="large" color="#5e5e5e"/>
+          <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }
@@ -710,14 +711,14 @@ export default class SearchScreen extends Component {
             <Text>Search</Text>
           </Button>
         </Header>
-        <Tabs tabBarUnderlineStyle={{ backgroundColor: '#ff6666', height: 3 }} initialPage={0}
+        <Tabs tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }} initialPage={0}
         renderTabBar={() => <ScrollableTab style={{ elevation: 2 }}/>}
         >
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919',  }}
-           textStyle={{ color: '#5e5e5e' }}
+           activeTextStyle={{ color: colors.main }}
+           textStyle={{ color: colors.secondary }}
            heading="Monster"
            >
            {this.renderContent('monster')}
@@ -725,8 +726,8 @@ export default class SearchScreen extends Component {
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919',  }}
-           textStyle={{ color: '#5e5e5e' }}
+           activeTextStyle={{ color: colors.main }}
+           textStyle={{ color: colors.secondary }}
            heading="Armor"
            >
            {this.renderContent('armor')}
@@ -734,8 +735,8 @@ export default class SearchScreen extends Component {
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919',  }}
-           textStyle={{ color: '#5e5e5e' }}
+           activeTextStyle={{ color: colors.main }}
+           textStyle={{ color: colors.secondary }}
            heading="Weapon"
            >
            {this.renderContent('weapon')}
@@ -743,8 +744,8 @@ export default class SearchScreen extends Component {
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919',  }}
-           textStyle={{ color: '#5e5e5e' }}
+           activeTextStyle={{ color: colors.main }}
+           textStyle={{ color: colors.secondary }}
            heading="Item"
            >
            {this.renderContent('item')}
@@ -752,8 +753,8 @@ export default class SearchScreen extends Component {
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919',  }}
-           textStyle={{ color: '#5e5e5e' }}
+           activeTextStyle={{ color: colors.main }}
+           textStyle={{ color: colors.secondary }}
            heading="Quests"
            >
            {this.renderContent('quest')}
@@ -761,8 +762,8 @@ export default class SearchScreen extends Component {
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919',  }}
-           textStyle={{ color: '#5e5e5e' }}
+           activeTextStyle={{ color: colors.main }}
+           textStyle={{ color: colors.secondary }}
            heading="Charms"
            >
            {this.renderContent('charm')}
@@ -770,8 +771,8 @@ export default class SearchScreen extends Component {
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919',  }}
-           textStyle={{ color: '#5e5e5e' }}
+           activeTextStyle={{ color: colors.main }}
+           textStyle={{ color: colors.secondary }}
            heading="Decorations"
            >
            {this.renderContent('decoration')}
@@ -779,8 +780,8 @@ export default class SearchScreen extends Component {
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919',  }}
-           textStyle={{ color: '#5e5e5e' }}
+           activeTextStyle={{ color: colors.main }}
+           textStyle={{ color: colors.secondary }}
            heading="Skills"
            >
            {this.renderContent('skill')}
@@ -788,8 +789,8 @@ export default class SearchScreen extends Component {
          <Tab
            activeTabStyle={{ backgroundColor: 'white' }}
            tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: '#191919',  }}
-           textStyle={{ color: '#5e5e5e' }}
+           activeTextStyle={{ color: colors.main }}
+           textStyle={{ color: colors.secondary }}
            heading="Maps"
            >
            {this.renderContent('map')}
