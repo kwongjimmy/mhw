@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { ScrollView, View, ActivityIndicator, Image } from 'react-native';
-import { Container, ListItem, Text, Right, Left, Body } from 'native-base';
+import { Container, ListItem, Text, Right, Left, Body, Tabs, Tab } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
 import { ElementStatusImages, BowCoatings } from '../assets';
 import WeaponListItem from './WeaponListItem';
@@ -43,6 +43,8 @@ export default class WeaponInfo extends PureComponent {
       upgradeFrom: [],
       ammo: [],
       melodies: [],
+      recoil: [],
+      reload: [],
     };
     const db = SQLite.openDatabase({
       name: 'mhworld.db', location: 'Default',
@@ -53,24 +55,52 @@ export default class WeaponInfo extends PureComponent {
       const upgradeTo = [];
       let ammo = [];
       let melodies = [];
+      let recoil = [];
+      let reload = [];
       let info = this.props.item;
-      if (this.props.refetch) {
+      // if (this.props.refetch) {
+      //   tx.executeSql(
+      //     `SELECT weapon_sharpness.*,
+      //       weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
+      //       weapons.*, items.name as name, items.rarity as rarity
+      //       FROM weapons
+      //       JOIN items on weapons.item_id = items.item_id
+      //       LEFT JOIN weapon_bowgun_chars ON weapons.item_id = weapon_bowgun_chars.item_id
+      //       LEFT JOIN weapon_coatings ON weapons.item_id = weapon_coatings.item_id
+      //       LEFT JOIN weapon_kinsects ON weapons.item_id = weapon_kinsects.item_id
+      //       LEFT JOIN weapon_notes ON weapons.item_id = weapon_notes.item_id
+      //       LEFT JOIN weapon_phials ON weapons.item_id = weapon_phials.item_id
+      //       LEFT JOIN weapon_sharpness ON weapons.item_id = weapon_sharpness.item_id
+      //       LEFT JOIN weapon_shellings ON weapons.item_id = weapon_shellings.item_id
+      //       WHERE items.item_id = ?`
+      //     , [this.props.item_id], (tx, results) => {
+      //       info = results.rows.item(0);
+      //     },
+      //   );
+      // }
+      if (this.props.item.type.includes('bowgun')) {
         tx.executeSql(
-          `SELECT weapon_sharpness.*,
-            weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
-            weapons.*, items.name as name, items.rarity as rarity
-            FROM weapons
-            JOIN items on weapons.item_id = items.item_id
-            LEFT JOIN weapon_bowgun_chars ON weapons.item_id = weapon_bowgun_chars.item_id
-            LEFT JOIN weapon_coatings ON weapons.item_id = weapon_coatings.item_id
-            LEFT JOIN weapon_kinsects ON weapons.item_id = weapon_kinsects.item_id
-            LEFT JOIN weapon_notes ON weapons.item_id = weapon_notes.item_id
-            LEFT JOIN weapon_phials ON weapons.item_id = weapon_phials.item_id
-            LEFT JOIN weapon_sharpness ON weapons.item_id = weapon_sharpness.item_id
-            LEFT JOIN weapon_shellings ON weapons.item_id = weapon_shellings.item_id
-            WHERE items.item_id = ?`
-          , [this.props.item_id], (tx, results) => {
-            info = results.rows.item(0);
+          `SELECT A.*, B.name
+            FROM recoil_mod_speed as A
+            JOIN items as B on A.ammo_id = B.item_id
+            WHERE A.table_id = ?`
+          , [this.props.item.recoil_table_id], (tx, results) => {
+            const len = results.rows.length;
+            for (let i = 0; i < len; i += 1) {
+              recoil.push(results.rows.item(i));
+            }
+          },
+        );
+        tx.executeSql(
+          `SELECT A.*, B.name
+            FROM reload_mod_speed as A
+            JOIN items as B on A.ammo_id = B.item_id
+            WHERE A.table_id = ?`
+          , [this.props.item.reload_table_id], (tx, results) => {
+            const len = results.rows.length;
+            for (let i = 0; i < len; i += 1) {
+              reload.push(results.rows.item(i));
+            }
           },
         );
       }
@@ -156,8 +186,9 @@ export default class WeaponInfo extends PureComponent {
             upgradeTo.push(results.rows.item(i));
           }
           this.setState({
-            info, ammo, craftMaterials, upgradeMaterials, upgradeTo, melodies, loading: false,
+            info, ammo, craftMaterials, upgradeMaterials, upgradeTo, melodies, recoil, reload, loading: false,
           });
+          console.log(this.state);
         },
       );
     });
@@ -663,19 +694,19 @@ export default class WeaponInfo extends PureComponent {
         <View>
           <ListItem style={{ marginLeft: 0, paddingLeft: 8, marginRight: 0, paddingRight: 8 }} itemDivider>
             <View style={{ flex: 0.75, borderWidth: 0, borderColor: colors.accent }}>
-              <Text style={{ flex: 1, fontSize: 9.5, color: colors.main, }}>Notes</Text>
+              <Text style={{ flex: 1, fontSize: 9.5, color: colors.main }}>Notes</Text>
             </View>
             <View style={{ flex: 1, borderWidth: 0, borderColor: 'orange' }}>
-              <Text style={{ flex: 1, fontSize: 9.5, color: colors.main, }}>Effect</Text>
+              <Text style={{ flex: 1, fontSize: 9.5, color: colors.main }}>Effect</Text>
             </View>
             <View style={{ flex: 1, borderWidth: 0, borderColor: 'yellow' }}>
-              <Text style={{ flex: 1, fontSize: 9.5, color: colors.main, }}>Effect 2</Text>
+              <Text style={{ flex: 1, fontSize: 9.5, color: colors.main }}>Effect 2</Text>
             </View>
             <View style={{ flex: 0.65, borderWidth: 0, borderColor: 'green' }}>
-              <Text style={{ flex: 1, fontSize: 9.5, color: colors.secondary, }}>Duration</Text>
+              <Text style={{ flex: 1, fontSize: 9.5, color: colors.secondary }}>Duration</Text>
             </View>
             <View style={{ flex: 0.65, borderWidth: 0, borderColor: 'blue' }}>
-              <Text style={{ flex: 1, fontSize: 9.5, color: colors.secondary, }}>Extension</Text>
+              <Text style={{ flex: 1, fontSize: 9.5, color: colors.secondary }}>Extension</Text>
             </View>
           </ListItem>
           {this.state.melodies.map((item, key) => {
@@ -735,6 +766,100 @@ export default class WeaponInfo extends PureComponent {
     );
   }
 
+  renderRecoil() {
+    return (
+      <View>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+          <Left style={{ flex: 1.5 }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>Ammo</Text>
+          </Left>
+          <Right style={{ flex: 1 }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>Lv 0</Text>
+          </Right>
+          <Right style={{ flex: 1 }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>Lv 1</Text>
+          </Right>
+          <Right style={{ flex: 1 }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>Lv 2</Text>
+          </Right>
+          <Right style={{ flex: 1 }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>Lv 3</Text>
+          </Right>
+        </ListItem>
+        {this.state.recoil.map((item, key) => {
+          return (
+            <View key={key}>
+              <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, alignItems: 'center' }}>
+                <Left style={{ flex: 1.5 }}>
+                  <Text style={{ flex: 1, fontSize: 10, color: colors.main }}>{item.name}</Text>
+                </Left>
+                <Right style={{ flex: 1 }}>
+                  <Text style={{ flex: 1, fontSize: 10, color: colors.main }}>{item.mods_0.replace('h', 'High').replace('a', 'Avg').replace('l', 'Low')}</Text>
+                </Right>
+                <Right style={{ flex: 1 }}>
+                  <Text style={{ flex: 1, fontSize: 10, color: colors.main }}>{item.mods_1.replace('h', 'High').replace('a', 'Avg').replace('l', 'Low')}</Text>
+                </Right>
+                <Right style={{ flex: 1 }}>
+                  <Text style={{ flex: 1, fontSize: 10, color: colors.main }}>{item.mods_2.replace('h', 'High').replace('a', 'Avg').replace('l', 'Low')}</Text>
+                </Right>
+                <Right style={{ flex: 1 }}>
+                  <Text style={{ flex: 1, fontSize: 10, color: colors.main }}>{item.mods_3.replace('h', 'High').replace('a', 'Avg').replace('l', 'Low')}</Text>
+                </Right>
+              </ListItem>
+            </View>
+          );
+        })}
+      </View>
+    );
+  }
+
+  renderReload() {
+    return (
+      <View>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+          <Left style={{ flex: 1.5 }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>Ammo</Text>
+          </Left>
+          <Right style={{ flex: 1 }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>Lv 0</Text>
+          </Right>
+          <Right style={{ flex: 1 }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>Lv 1</Text>
+          </Right>
+          <Right style={{ flex: 1 }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>Lv 2</Text>
+          </Right>
+          <Right style={{ flex: 1 }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>Lv 3</Text>
+          </Right>
+        </ListItem>
+        {this.state.reload.map((item, key) => {
+          return (
+            <View key={key}>
+              <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, alignItems: 'center' }}>
+                <Left style={{ flex: 1.5 }}>
+                  <Text style={{ flex: 1, fontSize: 10, color: colors.main }}>{item.name}</Text>
+                </Left>
+                <Right style={{ flex: 1 }}>
+                  <Text style={{ flex: 1, fontSize: 10, color: colors.main }}>{item.mods_0.replace('s', 'Slow').replace('vs', 'Very Slow').replace('f', 'Fast').replace('n', 'Normal')}</Text>
+                </Right>
+                <Right style={{ flex: 1 }}>
+                  <Text style={{ flex: 1, fontSize: 10, color: colors.main }}>{item.mods_1.replace('s', 'Slow').replace('vs', 'Very Slow').replace('f', 'Fast').replace('n', 'Normal')}</Text>
+                </Right>
+                <Right style={{ flex: 1 }}>
+                  <Text style={{ flex: 1, fontSize: 10, color: colors.main }}>{item.mods_2.replace('s', 'Slow').replace('vs', 'Very Slow').replace('f', 'Fast').replace('n', 'Normal')}</Text>
+                </Right>
+                <Right style={{ flex: 1 }}>
+                  <Text style={{ flex: 1, fontSize: 10, color: colors.main }}>{item.mods_3.replace('s', 'Slow').replace('vs', 'Very Slow').replace('f', 'Fast').replace('n', 'Normal')}</Text>
+                </Right>
+              </ListItem>
+            </View>
+          );
+        })}
+      </View>
+    );
+  }
+
   renderContent() {
     if (this.state.loading) {
       return (
@@ -745,7 +870,6 @@ export default class WeaponInfo extends PureComponent {
     } else if (this.state.info.type === 'bow') {
       return (
         <ScrollView style={{ backgroundColor: 'white' }}>
-          {/* {this.renderBowInfo(this.state.info)} */}
           {this.renderInfo(this.state.info)}
           {this.renderSecondaryInfo(this.state.info)}
           {this.renderUpgrading()}
@@ -755,15 +879,50 @@ export default class WeaponInfo extends PureComponent {
       );
     } else if (this.state.info.type.includes('bowgun')) {
       return (
-        <ScrollView style={{ backgroundColor: 'white' }}>
-          {this.renderInfo(this.state.info)}
-          {this.renderBowGunSecondaryInfo(this.state.info)}
-          {/* {this.renderBowGunInfo(this.state.info)} */}
-          {this.renderUpgrading()}
-          {this.renderCrafting()}
-          {this.renderUpgradeTo()}
-          {this.renderAmmo(this.state.info)}
-        </ScrollView>
+        <Tabs
+          prerenderingSiblingsNumber={3}
+          scrollWithoutAnimation={false}
+          tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }}
+          initialPage={0}>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: colors.main }}
+           textStyle={{ color: colors.secondary }}
+           heading="Info"
+           >
+           <ScrollView style={{ backgroundColor: 'white' }}>
+             {this.renderInfo(this.state.info)}
+             {this.renderBowGunSecondaryInfo(this.state.info)}
+             {this.renderUpgrading()}
+             {this.renderCrafting()}
+             {this.renderUpgradeTo()}
+             {this.renderAmmo(this.state.info)}
+           </ScrollView>
+         </Tab>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: colors.main }}
+           textStyle={{ color: colors.secondary }}
+           heading="Recoil"
+           >
+           <ScrollView style={{ backgroundColor: 'white' }}>
+             {this.renderRecoil()}
+           </ScrollView>
+         </Tab>
+         <Tab
+           activeTabStyle={{ backgroundColor: 'white' }}
+           tabStyle={{ backgroundColor: 'white' }}
+           activeTextStyle={{ color: colors.main }}
+           textStyle={{ color: colors.secondary }}
+           heading="Reload"
+           >
+           <ScrollView style={{ backgroundColor: 'white' }}>
+             {this.renderReload()}
+           </ScrollView>
+         </Tab>
+       </Tabs>
       );
     }
     return (

@@ -84,13 +84,13 @@ export default class WeaponSelectedScreen extends PureComponent {
     return (
       <FlatList
         style={{ backgroundColor: 'white' }}
-        initialNumToRender={8}
+        initialNumToRender={16}
         data={this.state.weapons}
         keyExtractor={(item) => item.item_id.toString()}
         renderItem={this.renderListItems}
-        getItemLayout={(data, index) => (
-          { length: 87.5, offset: 87.5 * index, index }
-        )}
+        // getItemLayout={(data, index) => (
+        //   { length: 87.5, offset: 87.5 * index, index }
+        // )}
       />
     );
   }

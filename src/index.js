@@ -93,7 +93,7 @@ export default function startApp() {
       // forceTitlesDisplay: true, // Android only. If true - Show all bottom tab labels. If false - only the selected tab's label is visible.
       tabBarHideShadow: false, // iOS only. Remove default tab bar top shadow (hairline)
       forceTitlesDisplay: true,
-      // navBarHideOnScroll: true,
+      navBarHideOnScroll: false,
       tabBarButtonColor: colors.secondary, // change the color of the tab icons and text (also unselected)
       tabBarSelectedButtonColor: colors.accent, // change the color of the selected tab icon and text (only selected)
       tabBarSelectedLabelColor: colors.accent, // iOS only. change the color of the selected tab text

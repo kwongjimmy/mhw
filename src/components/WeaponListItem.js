@@ -289,19 +289,45 @@ export default class WeaponListItem extends PureComponent {
     const slotThree = (slot3 === 0) ? `-` : (slot3 === 1) ? `\u2460` : (slot3 === 2) ? `\u2461` : `\u2462`;
 
     return (
+      // <ListItem
+      //   style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+      //   onPress={() => this.props.navigator.push({
+      //   screen: 'TablessInfoScreen',
+      //   passProps: {
+      //     item_id,
+      //     type: 'weapons',
+      //     item: this.props.item,
+      //   },
+      //   animationType: 'slide-horizontal',
+      //   title: name,
+      // })}>
       <ListItem
         style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
-        onPress={() => this.props.navigator.push({
-        screen: 'TablessInfoScreen',
-        passProps: {
-          item_id,
-          type: 'weapons',
-          item: this.props.item,
-          refetch: false,
-        },
-        animationType: 'slide-horizontal',
-        title: name,
-      })}>
+        onPress={() => {
+          if (type.includes('bowgun')) {
+            this.props.navigator.push({
+              screen: 'TabInfoScreen',
+              passProps: {
+                item_id,
+                type: 'weapons',
+                item: this.props.item,
+              },
+              animationType: 'slide-horizontal',
+              title: name,
+            });
+          } else {
+            this.props.navigator.push({
+              screen: 'TablessInfoScreen',
+              passProps: {
+                item_id,
+                type: 'weapons',
+                item: this.props.item,
+              },
+              animationType: 'slide-horizontal',
+              title: name,
+            });
+          }
+        }}>
         <Left style={{ flex: 0.5 }}>
           <Image
             resizeMode="contain"

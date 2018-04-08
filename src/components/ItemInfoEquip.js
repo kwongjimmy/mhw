@@ -1,11 +1,29 @@
 import React, { PureComponent } from 'react';
-import { View, ScrollView } from 'react-native';
-import { Text, Left, Right, ListItem, Icon } from 'native-base';
+import { View, Image } from 'react-native';
+import { Text, Left, Right, ListItem } from 'native-base';
 import AdBanner from './AdBanner';
 import DropDown from './DropDown';
+import { WeaponImages } from '../assets/';
 
 // Styles
 import colors from '../styles/colors';
+
+const weaponTypes = {
+  great_sword: 'Great Sword',
+  long_sword: 'Long Sword',
+  sword_and_shield: 'Sword and Shield',
+  dual_blade: 'Dual Blades',
+  hammer: 'Hammer',
+  hunting_horn: 'Hunting Horn',
+  lance: 'Lance',
+  gun_lance: 'Gunlance',
+  switch_axe: 'Switch Axe',
+  charge_blade: 'Charge Blade',
+  insect_glaive: 'Insect Glaive',
+  bow: 'Bow',
+  light_bowgun: 'Light Bowgun',
+  heavy_bowgun: 'Heavy Bowgun',
+};
 
 export default class ItemInfoEquip extends PureComponent {
   constructor(props) {
@@ -49,21 +67,41 @@ export default class ItemInfoEquip extends PureComponent {
               <ListItem
                 key={key}
                 style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
-                onPress={() => this.props.navigator.push({
-                  screen: 'TablessInfoScreen',
-                  passProps: {
-                    item_id: item.item_id,
-                    type: 'weapons',
-                    item: item,
-                  },
-                  animationType: 'slide-horizontal',
-                  title: item.name,
-                })}
-                >
-                <Left>
+                onPress={() => {
+                  if (item.type.includes('bowgun')) {
+                    this.props.navigator.push({
+                      screen: 'TabInfoScreen',
+                      passProps: {
+                        item_id: item.item_id,
+                        type: 'weapons',
+                        item,
+                      },
+                      animationType: 'slide-horizontal',
+                      title: item.name,
+                    });
+                  } else {
+                    this.props.navigator.push({
+                      screen: 'TablessInfoScreen',
+                      passProps: {
+                        item_id: item.item_id,
+                        type: 'weapons',
+                        item,
+                      },
+                      animationType: 'slide-horizontal',
+                      title: item.name,
+                    });
+                  }
+                }}>
+                <Left style={{ flex: 0.5 }}>
+                  <Image
+                    resizeMode="contain"
+                    style={{ height: 20, width: 20 }}
+                    source={WeaponImages[`${weaponTypes[item.type]} ${item.rarity}`]} />
+                </Left>
+                <Left style={{ flex: 2 }}>
                   <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
                 </Left>
-                <Right>
+                <Right style={{ flex: 2 }}>
                   <Text style={{ fontSize: 15.5, color: colors.main }}>{item.quantity}</Text>
                 </Right>
               </ListItem>

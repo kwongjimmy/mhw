@@ -72,8 +72,26 @@ export default class ItemInfo extends PureComponent {
           LEFT JOIN weapon_phials ON weapons.item_id = weapon_phials.item_id
           LEFT JOIN weapon_sharpness ON weapons.item_id = weapon_sharpness.item_id
           LEFT JOIN weapon_shellings ON weapons.item_id = weapon_shellings.item_id
+          WHERE A.type = 'weapon'
+        UNION
+        SELECT
+          A.name as name, A.rarity as rarity, B.*,
+		      weapon_sharpness.*,
+          weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
+          weapons.*
+          FROM items as A
+          JOIN (SELECT B.item_id, quantity from items AS A JOIN weapon_upgrade_items as B ON A.item_id = B.material_item_id WHERE A.item_id = ?) as B
+          ON A.item_id = B.item_id
+		      JOIN weapons ON A.item_id = weapons.item_id
+		      LEFT JOIN weapon_bowgun_chars ON weapons.item_id = weapon_bowgun_chars.item_id
+          LEFT JOIN weapon_coatings ON weapons.item_id = weapon_coatings.item_id
+          LEFT JOIN weapon_kinsects ON weapons.item_id = weapon_kinsects.item_id
+          LEFT JOIN weapon_notes ON weapons.item_id = weapon_notes.item_id
+          LEFT JOIN weapon_phials ON weapons.item_id = weapon_phials.item_id
+          LEFT JOIN weapon_sharpness ON weapons.item_id = weapon_sharpness.item_id
+          LEFT JOIN weapon_shellings ON weapons.item_id = weapon_shellings.item_id
           WHERE A.type = 'weapon'`
-        , [this.props.item_id], (tx, results) => {
+        , [this.props.item_id, this.props.item_id], (tx, results) => {
           // Get rows with Web SQL Database spec compliance.
           const len = results.rows.length;
           for (let i = 0; i < len; i += 1) {
@@ -166,6 +184,7 @@ export default class ItemInfo extends PureComponent {
       </View>
     );
   }
+
   renderContent(screen) {
     if (this.state.loading) {
       return (

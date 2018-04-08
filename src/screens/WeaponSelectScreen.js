@@ -142,7 +142,7 @@ export default class WeaponSelectScreen extends PureComponent {
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <FlatList
           style={{ backgroundColor: 'white' }}
-          initialNumToRender={10}
+          initialNumToRender={14}
           data={this.state.weapons}
           keyExtractor={(item) => item.name}
           renderItem={this.renderListItems}
