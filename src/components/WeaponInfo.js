@@ -604,7 +604,7 @@ export default class WeaponInfo extends PureComponent {
                     <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{item.name}</Text>
                   </Left>
                   <Right>
-                    <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{item.quantity}</Text>
+                    <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`x${item.quantity}`}</Text>
                   </Right>
                 </ListItem>
               </View>
@@ -649,7 +649,7 @@ export default class WeaponInfo extends PureComponent {
                     <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{item.name}</Text>
                   </Left>
                   <Right>
-                    <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{item.quantity}</Text>
+                    <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`x${item.quantity}`}</Text>
                   </Right>
                 </ListItem>
               </View>

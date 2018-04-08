@@ -102,7 +102,7 @@ export default class ItemInfoEquip extends PureComponent {
                   <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
                 </Left>
                 <Right style={{ flex: 2 }}>
-                  <Text style={{ fontSize: 15.5, color: colors.main }}>{item.quantity}</Text>
+                  <Text style={{ fontSize: 15.5, color: colors.main }}>{`x${item.quantity}`}</Text>
                 </Right>
               </ListItem>
             );
@@ -163,7 +163,7 @@ export default class ItemInfoEquip extends PureComponent {
                   <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
                 </Left>
                 <Right>
-                  <Text style={{ fontSize: 15.5, color: colors.main }}>{item.quantity}</Text>
+                  <Text style={{ fontSize: 15.5, color: colors.main }}>{`x${item.quantity}`}</Text>
                 </Right>
               </ListItem>
             );

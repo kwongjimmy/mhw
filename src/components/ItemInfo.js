@@ -5,6 +5,7 @@ import { Text, Left, Body, Right, ListItem, Tab, Tabs } from 'native-base';
 import ItemInfoEquip from './ItemInfoEquip';
 import ItemInfoQuest from './ItemInfoQuest';
 import ItemInfoLoot from './ItemInfoLoot';
+import ItemInfoCrafting from './ItemInfoCrafting';
 import AdBanner from './AdBanner';
 import DropDown from './DropDown';
 
@@ -21,6 +22,7 @@ export default class ItemInfo extends PureComponent {
       itemMapLoot: [],
       itemMonsterLoot: [],
       itemQuest: [],
+      itemCrafting: [],
       loading: true,
     };
     const db = SQLite.openDatabase({
@@ -35,6 +37,7 @@ export default class ItemInfo extends PureComponent {
       const itemMapLoot = [];
       const itemMonsterLoot = [];
       const itemQuest = [];
+      let itemCrafting = [];
 
       tx.executeSql('SELECT * FROM items WHERE item_id=?', [this.props.item_id], (tx, results) => {
         // Get rows with Web SQL Database spec compliance.
@@ -53,6 +56,23 @@ export default class ItemInfo extends PureComponent {
             const row = results.rows.item(i);
             itemArmor.push(row);
           }
+        },
+      );
+      tx.executeSql(
+        `SELECT A.*, B.name as name, C.name as material_name
+          FROM crafting as A
+          JOIN items as B ON A.item_id = B.item_id
+          JOIN items as C on A.item_material_id = C.item_id
+          WHERE craft_id NOT NULL AND A.item_id = ?`
+        , [this.props.item_id], (tx, results) => {
+          // Get rows with Web SQL Database spec compliance.
+          const len = results.rows.length;
+          for (let i = 0; i < len; i += 1) {
+            const row = results.rows.item(i);
+            itemCrafting.push(row);
+          }
+          itemCrafting = _.groupBy(itemCrafting, craftItem => craftItem.craft_id);
+          itemCrafting = _.values(itemCrafting);
         },
       );
       tx.executeSql(
@@ -111,7 +131,6 @@ export default class ItemInfo extends PureComponent {
             const row = results.rows.item(i);
             itemMapLoot.push(row);
           }
-          console.log(itemMapLoot);
         },
       );
       tx.executeSql(
@@ -146,7 +165,7 @@ export default class ItemInfo extends PureComponent {
             itemQuest.push(row);
           }
           this.setState({
-            item, itemArmor, itemWeapons, itemMapLoot, itemMonsterLoot, itemQuest, loading: false,
+            item, itemArmor, itemWeapons, itemMapLoot, itemMonsterLoot, itemQuest, itemCrafting, loading: false,
           });
         },
       );
@@ -201,6 +220,7 @@ export default class ItemInfo extends PureComponent {
             navigator={this.props.navigator}
             mapLoot={this.state.itemMapLoot}
             monsterLoot={this.state.itemMonsterLoot} />
+          <ItemInfoCrafting navigator={this.props.navigator} crafting={this.state.itemCrafting} />
           <ItemInfoEquip navigator={this.props.navigator} armor={this.state.itemArmor} weapons={this.state.itemWeapons}/>
           <ItemInfoQuest navigator={this.props.navigator} items={this.state.itemQuest}/>
         </ScrollView>

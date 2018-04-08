@@ -72,7 +72,7 @@ export default class ItemInfoLoot extends PureComponent {
       this.currentMap = `${item.name} ${item.rank}`;
       return (
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: '#F8F8F8' }}
+          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: colors.divider }}
           onPress={() => this.props.navigator.push({
           screen: 'TabInfoScreen',
           passProps: {
@@ -132,7 +132,7 @@ export default class ItemInfoLoot extends PureComponent {
       if (item.rank) {
         return (
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: '#F8F8F8' }}
+            style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: colors.divider }}
             onPress={() => this.props.navigator.push({
             screen: 'MonsterInfoScreen',
             passProps: {
@@ -161,7 +161,7 @@ export default class ItemInfoLoot extends PureComponent {
       }
       return (
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: '#F8F8F8' }}
+          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: colors.divider }}
           onPress={() => this.props.navigator.push({
           screen: 'MonsterInfoScreen',
           passProps: {

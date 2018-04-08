@@ -31,6 +31,10 @@ export default class MiscScreen extends PureComponent {
           title: 'Items',
         },
         {
+          route: 'CombinationScreen',
+          title: 'Combination List'
+        },
+        {
           route: 'QuestScreen',
           title: 'Quests',
         },

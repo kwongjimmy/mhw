@@ -15,6 +15,7 @@ import SkillScreen from './screens/SkillScreen';
 import MapScreen from './screens/MapScreen';
 import DecorationScreen from './screens/DecorationScreen';
 import AboutScreen from './screens/AboutScreen';
+import CombinationScreen from './screens/CombinationScreen';
 
 import MonsterInfoScreen from './screens/MonsterInfoScreen';
 import TabInfoScreen from './screens/TabInfoScreen';
@@ -33,6 +34,7 @@ export default function startApp() {
   Navigation.registerComponent('MapScreen', () => MapScreen);
   Navigation.registerComponent('DecorationScreen', () => DecorationScreen);
   Navigation.registerComponent('AboutScreen', () => AboutScreen);
+  Navigation.registerComponent('CombinationScreen', () => CombinationScreen);
 
   Navigation.registerComponent('WeaponSelectedScreen', () => WeaponSelectedScreen);
   Navigation.registerComponent('MonsterInfoScreen', () => MonsterInfoScreen);

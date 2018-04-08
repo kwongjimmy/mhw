@@ -4,6 +4,9 @@ import { ListItem, Text, Right, Left } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
 import AdBanner from './AdBanner';
 
+// Styles
+import colors from '../styles/colors';
+
 export default class CharmInfo extends PureComponent {
   constructor(props) {
     super(props);
@@ -198,7 +201,7 @@ export default class CharmInfo extends PureComponent {
                   <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{item.name}</Text>
                 </Left>
                 <Right>
-                  <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{item.quantity}</Text>
+                  <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`x${item.quantity}`}</Text>
                 </Right>
               </ListItem>
             </View>
