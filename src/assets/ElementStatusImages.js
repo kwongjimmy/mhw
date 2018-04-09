@@ -13,8 +13,15 @@ const ElementStatusImages = {
   Poison: require('./images/aliments/Poison.png'),
   Sleep: require('./images/aliments/Sleep.png'),
   Blast: require('./images/aliments/Blastblight.png'),
-  Effluvial: require('./images/aliments/EffluvialBuildup.png'),
+  Miasma: require('./images/aliments/EffluvialBuildup.png'),
   Paralysis: require('./images/aliments/Paralysis.png'),
+  Dragonblight: require('./images/elements/DragonBlight.png'),
+  Fireblight: require('./images/elements/FireBlight.png'),
+  Iceblight: require('./images/elements/IceBlight.png'),
+  Thunderblight: require('./images/elements/ThunderBlight.png'),
+  Waterblight: require('./images/elements/WaterBlight.png'),
+  Bleeding: require('./images/aliments/Bleeding.png'),
+  Blastblight: require('./images/aliments/Blastblight.png'),
 };
 
 export default ElementStatusImages;

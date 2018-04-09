@@ -330,12 +330,118 @@ export default class MonsterInfo extends PureComponent {
     );
   }
 
+  renderInflictType(type) {
+    if (type !== null) {
+      return (
+        <Image
+          resizeMode="contain"
+          style={{ flex: 1, height: 20, width: 20, alignSelf: 'center' }}
+          source={ElementStatusImages[type]}
+        />
+      );
+    }
+    return null;
+  }
+
+  renderInflictsHeader() {
+    if (this.props.inflicts[0].element === null) {
+      return (
+        <ListItem style={{ marginLeft: 0, marginRight: 0, paddingLeft: 18, paddingRight: 18 }} itemDivider>
+          <View style={{ flex: 1 }}>
+            <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+              Ailment Inflict
+            </Text>
+          </View>
+        </ListItem>
+      );
+    } else if (this.props.inflicts[0].ailment1 === null) {
+      return (
+        <ListItem style={{ marginLeft: 0, marginRight: 0, paddingLeft: 18, paddingRight: 18 }} itemDivider>
+          <View style={{ flex: 1 }}>
+            <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+              Element Damage
+            </Text>
+          </View>
+        </ListItem>
+      );
+    }
+    return (
+      <ListItem style={{ marginLeft: 0, marginRight: 0, paddingLeft: 18, paddingRight: 18 }} itemDivider>
+        <View style={{ flex: 1 }}>
+          <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+            Elemental Damage
+          </Text>
+        </View>
+        <View style={{ flex: 1 }}>
+          <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+            Ailment Inflict
+          </Text>
+        </View>
+      </ListItem>
+    );
+  }
+
+  renderInflictsBody() {
+    if (this.props.inflicts[0].element === null) {
+      return (
+        <ListItem style={{ marginLeft: 0, marginRight: 0, paddingLeft: 18, paddingRight: 18 }} >
+          <View style={{ flex: 1, flexDirection: 'row' }}>
+            {this.renderInflictType(this.props.inflicts[0].ailment1)}
+            {this.renderInflictType(this.props.inflicts[0].ailment2)}
+            {this.renderInflictType(this.props.inflicts[0].ailment3)}
+          </View>
+        </ListItem>
+      );
+    } else if (this.props.inflicts[0].ailment1 === null) {
+      return (
+        <ListItem style={{ marginLeft: 0, marginRight: 0, paddingLeft: 18, paddingRight: 18 }} >
+          <View style={{ flex: 1 }}>
+            <Image
+              resizeMode="contain"
+              style={{ flex: 1, height: 20, width: 20, alignSelf: 'center' }}
+              source={ElementStatusImages[this.props.inflicts[0].element]}
+            />
+          </View>
+        </ListItem>
+      );
+    }
+    return (
+      <ListItem style={{ marginLeft: 0, marginRight: 0, paddingLeft: 18, paddingRight: 18 }} >
+        <View style={{ flex: 1 }}>
+          <Image
+            resizeMode="contain"
+            style={{ flex: 1, height: 20, width: 20, alignSelf: 'center' }}
+            source={ElementStatusImages[this.props.inflicts[0].element]}
+          />
+        </View>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          {this.renderInflictType(this.props.inflicts[0].ailment1)}
+          {this.renderInflictType(this.props.inflicts[0].ailment2)}
+          {this.renderInflictType(this.props.inflicts[0].ailment3)}
+        </View>
+      </ListItem>
+    );
+  }
+
+  renderInflicts() {
+    if (this.props.inflicts[0].element !== null || this.props.inflicts[0].ailment1 !== null) {
+      return (
+        <View>
+          {this.renderInflictsHeader()}
+          {this.renderInflictsBody()}
+        </View>
+      );
+    }
+    return null;
+  }
+
   renderInfo() {
     if (this.props.info.size === 'Large') {
       return (
         <ScrollView>
           {this.renderTypeSize()}
           {this.renderCapture()}
+          {this.renderInflicts()}
           {this.renderElement()}
           {this.renderStatus()}
           {this.renderTools()}

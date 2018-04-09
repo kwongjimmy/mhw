@@ -23,6 +23,7 @@ export default class MonsterInfoScreen extends PureComponent {
       monster_armor: [],
       monster_weapons: [],
       monster_quest: [],
+      monster_inflicts: {},
       loading: true,
     };
     InteractionManager.runAfterInteractions(() => {
@@ -39,6 +40,13 @@ export default class MonsterInfoScreen extends PureComponent {
         const monster_armor = [];
         const monster_weapons = [];
         const monster_quest = [];
+        let monster_inflicts = [];
+        tx.executeSql('SELECT * FROM monster_inflicts WHERE monster_id = ?', [this.props.monster_id], (tx, results) => {
+          for (let i = 0; i < results.rows.length; i += 1) {
+            const row = results.rows.item(i);
+            monster_inflicts.push(row);
+          }
+        });
         tx.executeSql('SELECT * FROM monster_hit WHERE monster_id = ?', [this.props.monster_id], (tx, results) => {
           for (let i = 0; i < results.rows.length; i += 1) {
             const row = results.rows.item(i);
@@ -152,6 +160,7 @@ export default class MonsterInfoScreen extends PureComponent {
               monster_armor,
               monster_weapons,
               monster_quest,
+              monster_inflicts,
               loading: false,
             });
             // let end = new Date().getTime();
@@ -183,7 +192,7 @@ export default class MonsterInfoScreen extends PureComponent {
     } else if (screen === 'tab5') {
       return <MonsterEquip navigator={this.props.navigator} data={this.state.monster_weapons} type={'weapon'}/>;
     } else if (screen === 'tab6') {
-      return <MonsterInfo navigator={this.props.navigator} info={this.props.monster_info} tool={this.state.monster_tool} ailment={this.state.monster_ailment}/>;
+      return <MonsterInfo navigator={this.props.navigator} info={this.props.monster_info} tool={this.state.monster_tool} ailment={this.state.monster_ailment} inflicts={this.state.monster_inflicts}/>;
     }
     return (
       <MonsterQuest navigator={this.props.navigator} monster_quest={this.state.monster_quest}/>
