@@ -21,6 +21,7 @@ export default class QuestScreen extends PureComponent {
       optional: [],
       arena: [],
       special: [],
+      event: [],
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
@@ -43,6 +44,7 @@ export default class QuestScreen extends PureComponent {
       const optional = [];
       const arena = [];
       const special = [];
+      const event = [];
       tx.executeSql('SELECT * FROM quests WHERE type=?', ['Assigned'], (tx, results) => {
         // Get rows with Web SQL Database spec compliance.
         const len = results.rows.length;
@@ -67,6 +69,14 @@ export default class QuestScreen extends PureComponent {
           special.push(row);
         }
       });
+      tx.executeSql('SELECT * FROM quests WHERE type=? ORDER BY required_rank ASC', ['Event'], (tx, results) => {
+        // Get rows with Web SQL Database spec compliance.
+        const len = results.rows.length;
+        for (let i = 0; i < len; i += 1) {
+          const row = results.rows.item(i);
+          event.push(row);
+        }
+      });
       tx.executeSql('SELECT * FROM quests WHERE type=?', ['Arena'], (tx, results) => {
         // Get rows with Web SQL Database spec compliance.
         const len = results.rows.length;
@@ -75,7 +85,7 @@ export default class QuestScreen extends PureComponent {
           arena.push(row);
         }
         this.setState({
-          assigned, optional, arena, special, loading: false,
+          assigned, optional, arena, special, event, loading: false,
         });
         // db.close();
       });
@@ -159,13 +169,28 @@ export default class QuestScreen extends PureComponent {
           />
         </View>
       );
+    } else if (screen === 'tab4') {
+      return (
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+          <FlatList
+            style={{ backgroundColor: 'white' }}
+            initialNumToRender={11}
+            data={this.state.special}
+            keyExtractor={(item) => item.quest_id.toString()}
+            renderItem={this.renderListItems}
+            getItemLayout={(data, index) => (
+              { length: 60, offset: 60 * index, index }
+            )}
+          />
+        </View>
+      );
     }
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <FlatList
           style={{ backgroundColor: 'white' }}
           initialNumToRender={11}
-          data={this.state.special}
+          data={this.state.event}
           keyExtractor={(item) => item.quest_id.toString()}
           renderItem={this.renderListItems}
           getItemLayout={(data, index) => (
@@ -220,6 +245,15 @@ export default class QuestScreen extends PureComponent {
             heading="Special Assignment"
             >
             {this.renderContent('tab4')}
+          </Tab>
+          <Tab
+            activeTabStyle={{ backgroundColor: 'white' }}
+            tabStyle={{ backgroundColor: 'white' }}
+            activeTextStyle={{ color: colors.main }}
+            textStyle={{ color: colors.secondary }}
+            heading="Event"
+            >
+            {this.renderContent('tab5')}
           </Tab>
         </Tabs>
         <AdBanner />
