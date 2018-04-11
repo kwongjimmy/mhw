@@ -12,7 +12,6 @@ target 'MHW' do
   target 'MHW-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
-    pod 'RNIap', :path => '../node_modules/react-native-iap'
 
   end
 

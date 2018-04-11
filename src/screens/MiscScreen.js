@@ -20,7 +20,8 @@ const itemSkus = Platform.select({
   ios: [
     // 'prod.consume.santi.099', 'prod.consume.santi.199', 'prod.nonconsume.santi.only',
     // 'scrip.auto.santi', 'scrip.non.auto.santi', // com.kretone.santiago
-    'com.cooni.point1000', 'com.cooni.point5000', 'non.consumable.product', // dooboolab
+    // 'com.cooni.point1000', 'com.cooni.point5000', 'non.consumable.product', // dooboolab
+    'com.chingoo.mhw.removeads', 'remove_ads'
   ],
   android: [
     'android.test.purchased',
@@ -72,6 +73,10 @@ export default class MiscScreen extends PureComponent {
           route: 'AboutScreen',
           title: 'About',
         },
+        {
+          route: 'Remove',
+          title: 'Remove Ads',
+        }
       ],
       loading: true,
     };
@@ -96,6 +101,24 @@ export default class MiscScreen extends PureComponent {
   }
 
   renderListItems = ({ item }) => {
+    if (item.route === 'Remove') {
+      return (
+        <ListItem
+          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          onPress={() => this.buyItem()}>
+          <Left>
+            <Image
+              resizeMode="contain"
+              style={{ width: 35, height: 35 }}
+              source={MiscImages[item.title]}
+            />
+          </Left>
+          <Body style={{ flex: 6 }}>
+            <Text style={{ fontSize: 20, color: colors.main }}>{item.title}</Text>
+          </Body>
+        </ListItem>
+      );
+    }
     return (
       <ListItem
         style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}

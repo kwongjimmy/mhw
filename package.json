@@ -13,7 +13,7 @@
     "react": "^16.3.1",
     "react-native": "^0.55.2",
     "react-native-firebase": "^3.3.1",
-    "react-native-iap": "^0.3.4",
+    "react-native-iap": "^0.3.5",
     "react-native-modal": "^5.4.0",
     "react-native-navigation": "^1.1.428",
     "react-native-splash-screen": "^3.0.6",

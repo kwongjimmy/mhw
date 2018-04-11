@@ -57,6 +57,8 @@
 		938EE631204A173800411176 /* mhworld.db in Resources */ = {isa = PBXBuildFile; fileRef = 938EE630204A173800411176 /* mhworld.db */; };
 		938EE639204A187500411176 /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 938EE637204A17EA00411176 /* libReactNativeNavigation.a */; };
 		938EE7332052223F00411176 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 938EE7322052222900411176 /* libSplashScreen.a */; };
+		93FF4852207DD8CE0062D34E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93FF4851207DD8CE0062D34E /* StoreKit.framework */; };
+		93FF485A207DDBFB0062D34E /* libRNIap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93FF4858207DDBD50062D34E /* libRNIap.a */; };
 		ABA6186326614C54ADD0B462 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 00AE53B46E464284A6A99F35 /* Zocial.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		C68C11EBF7CE56F0BB5CC1FF /* libPods-MHWTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A483471FEFD69D695563D0D /* libPods-MHWTests.a */; };
@@ -366,6 +368,13 @@
 			remoteGlobalIDString = 3D7682761D8E76B80014119E;
 			remoteInfo = SplashScreen;
 		};
+		93FF4857207DDBD50062D34E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 93FF4853207DDBD50062D34E /* RNIap.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNIap;
+		};
 		ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
@@ -422,6 +431,8 @@
 		938EE62B204A170A00411176 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		938EE630204A173800411176 /* mhworld.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = mhworld.db; sourceTree = "<group>"; };
 		938EE632204A17EA00411176 /* ReactNativeNavigation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeNavigation.xcodeproj; path = "../node_modules/react-native-navigation/ios/ReactNativeNavigation.xcodeproj"; sourceTree = "<group>"; };
+		93FF4851207DD8CE0062D34E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		93FF4853207DDBD50062D34E /* RNIap.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNIap.xcodeproj; path = "../node_modules/react-native-iap/ios/RNIap.xcodeproj"; sourceTree = "<group>"; };
 		942E50E3BCC7AB29AD99008D /* Pods-MHW.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MHW.release.xcconfig"; path = "Pods/Target Support Files/Pods-MHW/Pods-MHW.release.xcconfig"; sourceTree = "<group>"; };
 		95CDD560DC7C42B689302790 /* SQLite.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = "../node_modules/react-native-sqlite-storage/src/ios/SQLite.xcodeproj"; sourceTree = "<group>"; };
 		97997A5252234A7D9517A10B /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -451,9 +462,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93FF485A207DDBFB0062D34E /* libRNIap.a in Frameworks */,
 				938EE639204A187500411176 /* libReactNativeNavigation.a in Frameworks */,
 				938EE62C204A170A00411176 /* libsqlite3.tbd in Frameworks */,
 				938EE62D204A170A00411176 /* libsqlite3.0.tbd in Frameworks */,
+				93FF4852207DD8CE0062D34E /* StoreKit.framework in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -624,6 +637,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				93FF4851207DD8CE0062D34E /* StoreKit.framework */,
 				938EE62B204A170A00411176 /* libsqlite3.0.tbd */,
 				938EE603204A170A00411176 /* libsqlite3.tbd */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
@@ -668,6 +682,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				93FF4853207DDBD50062D34E /* RNIap.xcodeproj */,
 				938EE632204A17EA00411176 /* ReactNativeNavigation.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -782,6 +797,14 @@
 			isa = PBXGroup;
 			children = (
 				938EE7322052222900411176 /* libSplashScreen.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		93FF4854207DDBD50062D34E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				93FF4858207DDBD50062D34E /* libRNIap.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -913,6 +936,11 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 9T8454TFH2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -992,6 +1020,10 @@
 				{
 					ProductGroup = 9377E1FF2059FD69002ED25E /* Products */;
 					ProjectRef = 45EF9A70DE954711928312F6 /* RNFirebase.xcodeproj */;
+				},
+				{
+					ProductGroup = 93FF4854207DDBD50062D34E /* Products */;
+					ProjectRef = 93FF4853207DDBD50062D34E /* RNIap.xcodeproj */;
 				},
 				{
 					ProductGroup = 938EE5F0204A163000411176 /* Products */;
@@ -1302,6 +1334,13 @@
 			fileType = archive.ar;
 			path = libSplashScreen.a;
 			remoteRef = 938EE7312052222900411176 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		93FF4858207DDBD50062D34E /* libRNIap.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNIap.a;
+			remoteRef = 93FF4857207DDBD50062D34E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */ = {
