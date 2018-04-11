@@ -4,6 +4,7 @@ import { Container, ListItem, Text, Left, Body } from 'native-base';
 import firebase from 'react-native-firebase';
 import { MiscImages } from '../assets';
 import AdBanner from '../components/AdBanner';
+import * as RNIap from 'react-native-iap';
 
 // Styles
 import colors from '../styles/colors';
@@ -14,6 +15,18 @@ const request = new AdRequest();
 request.addKeyword('games');
 request.addKeyword('monster hunter');
 request.addKeyword('video games');
+
+const itemSkus = Platform.select({
+  ios: [
+    // 'prod.consume.santi.099', 'prod.consume.santi.199', 'prod.nonconsume.santi.only',
+    // 'scrip.auto.santi', 'scrip.non.auto.santi', // com.kretone.santiago
+    'com.cooni.point1000', 'com.cooni.point5000', 'non.consumable.product', // dooboolab
+  ],
+  android: [
+    'android.test.purchased',
+    'remove_ads',
+  ],
+});
 
 export default class MiscScreen extends PureComponent {
   static navigatorStyle = {
@@ -72,6 +85,15 @@ export default class MiscScreen extends PureComponent {
     }
   }
 
+  async componentDidMount(){
+    try {
+      await RNIap.prepare();
+    }
+    catch (err) {
+      console.warn(err.code, err.message);
+    }
+  }
+
   renderListItems = ({ item }) => {
     return (
       <ListItem
@@ -98,6 +120,27 @@ export default class MiscScreen extends PureComponent {
     );
   }
 
+  getItems = async() => {
+    try {
+      const products = await RNIap.getProducts(itemSkus);
+      console.log('Products', products);
+    } catch (err) {
+      console.warn(err.code, err.message);
+    }
+  }
+
+  buyItem = async(sku) => {
+    try {
+      console.info('buyItem: ' + sku);
+      const purchase = await RNIap.buyProduct(sku);
+      console.info(purchase);
+      // this.setState({ receipt: purchase.transactionReceipt }, () => this.goToNext());
+    } catch (err) {
+      console.warn(err.code, err.message);
+      Alert.alert(err.message);
+    }
+  }
+
   render() {
     if (this.state.loading) {
       return (
@@ -114,6 +157,12 @@ export default class MiscScreen extends PureComponent {
           keyExtractor={item => item.route}
           renderItem={this.renderListItems}
         />
+        <ListItem onPress={() => this.getItems()}>
+          <Text>List</Text>
+        </ListItem>
+        <ListItem onPress={() => this.buyItem('android.test.purchased')}>
+          <Text>Buy</Text>
+        </ListItem>
        <AdBanner />
      </View>
     );
