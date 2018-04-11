@@ -25,6 +25,7 @@ const itemSkus = Platform.select({
   android: [
     'android.test.purchased',
     'remove_ads',
+    'android.test.canceled',
   ],
 });
 
@@ -141,6 +142,21 @@ export default class MiscScreen extends PureComponent {
     }
   }
 
+  getAvailablePurchases = async() => {
+    try {
+      console.info('Get available purchases (non-consumable or unconsumed consumable)');
+      const purchases = await RNIap.getAvailablePurchases();
+      console.info('Available purchases :: ', purchases);
+      // this.setState({
+      //   availableItemsMessage: `Got ${purchases.length} items.`,
+      //   receipt: purchases[0].transactionReceipt
+      // });
+    } catch(err) {
+      console.warn(err.code, err.message);
+      Alert.alert(err.message);
+    }
+  }
+
   render() {
     if (this.state.loading) {
       return (
@@ -160,8 +176,12 @@ export default class MiscScreen extends PureComponent {
         <ListItem onPress={() => this.getItems()}>
           <Text>List</Text>
         </ListItem>
-        <ListItem onPress={() => this.buyItem('android.test.purchased')}>
+        {/* <ListItem onPress={() => this.buyItem('android.test.purchased')}> */}
+        <ListItem onPress={() => this.buyItem('remove_ads')}>
           <Text>Buy</Text>
+        </ListItem>
+        <ListItem onPress={() => this.getAvailablePurchases()}>
+          <Text>Check</Text>
         </ListItem>
        <AdBanner />
      </View>
