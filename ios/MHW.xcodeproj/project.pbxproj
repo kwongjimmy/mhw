@@ -50,6 +50,7 @@
 		84B6A31FB47047888F780000 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80BC135033474A48BA9629A5 /* FontAwesome.ttf */; };
 		8A4C82FCF2B64C10B112421E /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A5948DDF8AFB46C49CE45610 /* Octicons.ttf */; };
 		8F7286F8AC6345F19F55783E /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AEF18DC839A042F0841978C5 /* SimpleLineIcons.ttf */; };
+		93578500207ECD5800663810 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 935784FF207ECD5800663810 /* StoreKit.framework */; };
 		9377E2512059FFFE002ED25E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9377E2502059FFFE002ED25E /* GoogleService-Info.plist */; };
 		938EE62C204A170A00411176 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 938EE603204A170A00411176 /* libsqlite3.tbd */; };
 		938EE62D204A170A00411176 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 938EE62B204A170A00411176 /* libsqlite3.0.tbd */; };
@@ -57,6 +58,7 @@
 		938EE631204A173800411176 /* mhworld.db in Resources */ = {isa = PBXBuildFile; fileRef = 938EE630204A173800411176 /* mhworld.db */; };
 		938EE639204A187500411176 /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 938EE637204A17EA00411176 /* libReactNativeNavigation.a */; };
 		938EE7332052223F00411176 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 938EE7322052222900411176 /* libSplashScreen.a */; };
+		93FF485A207DDBFB0062D34E /* libRNIap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93FF4858207DDBD50062D34E /* libRNIap.a */; };
 		ABA6186326614C54ADD0B462 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 00AE53B46E464284A6A99F35 /* Zocial.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		C68C11EBF7CE56F0BB5CC1FF /* libPods-MHWTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A483471FEFD69D695563D0D /* libPods-MHWTests.a */; };
@@ -366,6 +368,13 @@
 			remoteGlobalIDString = 3D7682761D8E76B80014119E;
 			remoteInfo = SplashScreen;
 		};
+		93FF4857207DDBD50062D34E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 93FF4853207DDBD50062D34E /* RNIap.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNIap;
+		};
 		ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
@@ -417,11 +426,13 @@
 		80BC135033474A48BA9629A5 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8C34FCC8601F4E9A88D82733 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		935784FF207ECD5800663810 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		9377E2502059FFFE002ED25E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "MHW/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		938EE603204A170A00411176 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		938EE62B204A170A00411176 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		938EE630204A173800411176 /* mhworld.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = mhworld.db; sourceTree = "<group>"; };
 		938EE632204A17EA00411176 /* ReactNativeNavigation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeNavigation.xcodeproj; path = "../node_modules/react-native-navigation/ios/ReactNativeNavigation.xcodeproj"; sourceTree = "<group>"; };
+		93FF4853207DDBD50062D34E /* RNIap.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNIap.xcodeproj; path = "../node_modules/react-native-iap/ios/RNIap.xcodeproj"; sourceTree = "<group>"; };
 		942E50E3BCC7AB29AD99008D /* Pods-MHW.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MHW.release.xcconfig"; path = "Pods/Target Support Files/Pods-MHW/Pods-MHW.release.xcconfig"; sourceTree = "<group>"; };
 		95CDD560DC7C42B689302790 /* SQLite.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = "../node_modules/react-native-sqlite-storage/src/ios/SQLite.xcodeproj"; sourceTree = "<group>"; };
 		97997A5252234A7D9517A10B /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -451,6 +462,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93FF485A207DDBFB0062D34E /* libRNIap.a in Frameworks */,
 				938EE639204A187500411176 /* libReactNativeNavigation.a in Frameworks */,
 				938EE62C204A170A00411176 /* libsqlite3.tbd in Frameworks */,
 				938EE62D204A170A00411176 /* libsqlite3.0.tbd in Frameworks */,
@@ -467,6 +479,7 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+				93578500207ECD5800663810 /* StoreKit.framework in Frameworks */,
 				938EE62E204A171300411176 /* libSQLite.a in Frameworks */,
 				FE1AC1812831470CBA625FA2 /* libSQLite.a in Frameworks */,
 				211122D8B49649389EF99E82 /* libRNVectorIcons.a in Frameworks */,
@@ -624,6 +637,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				935784FF207ECD5800663810 /* StoreKit.framework */,
 				938EE62B204A170A00411176 /* libsqlite3.0.tbd */,
 				938EE603204A170A00411176 /* libsqlite3.tbd */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
@@ -668,6 +682,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				93FF4853207DDBD50062D34E /* RNIap.xcodeproj */,
 				938EE632204A17EA00411176 /* ReactNativeNavigation.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -782,6 +797,14 @@
 			isa = PBXGroup;
 			children = (
 				938EE7322052222900411176 /* libSplashScreen.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		93FF4854207DDBD50062D34E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				93FF4858207DDBD50062D34E /* libRNIap.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -913,6 +936,11 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 9T8454TFH2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -992,6 +1020,10 @@
 				{
 					ProductGroup = 9377E1FF2059FD69002ED25E /* Products */;
 					ProjectRef = 45EF9A70DE954711928312F6 /* RNFirebase.xcodeproj */;
+				},
+				{
+					ProductGroup = 93FF4854207DDBD50062D34E /* Products */;
+					ProjectRef = 93FF4853207DDBD50062D34E /* RNIap.xcodeproj */;
 				},
 				{
 					ProductGroup = 938EE5F0204A163000411176 /* Products */;
@@ -1302,6 +1334,13 @@
 			fileType = archive.ar;
 			path = libSplashScreen.a;
 			remoteRef = 938EE7312052222900411176 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		93FF4858207DDBD50062D34E /* libRNIap.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNIap.a;
+			remoteRef = 93FF4857207DDBD50062D34E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */ = {

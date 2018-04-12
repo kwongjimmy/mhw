@@ -3,6 +3,7 @@ package com.chingoo.mhw;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.dooboolab.RNIap.RNIapPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.admob.RNFirebaseAdMobPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -33,7 +34,8 @@ public class MainApplication extends NavigationApplication {
             new SplashScreenReactPackage(),
             new SQLitePluginPackage(),  // register SQLite Plugin here
             new RNFirebasePackage(),
-            new RNFirebaseAdMobPackage()
+            new RNFirebaseAdMobPackage(),
+            new RNIapPackage()
     );
   }
 

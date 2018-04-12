@@ -12,6 +12,7 @@ target 'MHW' do
   target 'MHW-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
+
   end
 
   target 'MHWTests' do
