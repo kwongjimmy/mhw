@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, FlatList, Platform, Image, ActivityIndicator } from 'react-native';
+import { View, FlatList, Platform, Image, ActivityIndicator, Alert } from 'react-native';
 import { Container, ListItem, Text, Left, Body } from 'native-base';
 import firebase from 'react-native-firebase';
 import { MiscImages } from '../assets';
@@ -24,8 +24,8 @@ const itemSkus = Platform.select({
     'com.chingoo.mhw.removeads', 'non_consumable_product',
   ],
   android: [
-    // 'android.test.purchased',
     'remove_ads',
+    'android.test.purchased',
     // 'android.test.canceled',
   ],
 });
@@ -115,6 +115,8 @@ export default class MiscScreen extends PureComponent {
           </Left>
           <Body style={{ flex: 6 }}>
             <Text style={{ fontSize: 20, color: colors.main }}>{item.title}</Text>
+            <Text style={{ fontSize: 12, color: colors.secondary }}>{'Restart application after purchase.'}</Text>
+
           </Body>
         </ListItem>
       );
@@ -155,6 +157,7 @@ export default class MiscScreen extends PureComponent {
 
   buyItem = async() => {
     let sku = itemSkus[0];
+    // let sku = 'android.test.purchased';
     try {
       console.info('buyItem: ' + sku);
       const purchase = await RNIap.buyProduct(sku);
@@ -201,11 +204,11 @@ export default class MiscScreen extends PureComponent {
         {/* <ListItem onPress={() => this.getItems()}>
           <Text>List</Text>
         </ListItem> */}
-        {/* <ListItem onPress={() => this.buyItem('android.test.purchased')}> */}
-        {/* <ListItem onPress={() => this.buyItem('com.chingoo.mhw.removeads')}>
+        {/* <ListItem onPress={() => this.buyItem('android.test.purchased')}>
+        <ListItem onPress={() => this.buyItem('com.chingoo.mhw.removeads')}>
           <Text>Buy</Text>
-        </ListItem>
-        <ListItem onPress={() => this.getAvailablePurchases()}>
+        </ListItem> */}
+        {/* <ListItem onPress={() => this.getAvailablePurchases()}>
           <Text>Check</Text>
         </ListItem> */}
        <AdBanner />
