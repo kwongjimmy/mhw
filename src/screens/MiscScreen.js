@@ -250,13 +250,14 @@ export default class MiscScreen extends PureComponent {
     try {
       const purchases = await RNIap.getAvailablePurchases();
       console.log(purchases);
+      if (purchases.length < 1) Alert.alert('Restore Error', 'You do not own any in app purchases.');
       purchases.forEach((purchase) => {
         if (purchase.productId === itemSkus[0]) {
           // console.log('hi');
           AsyncStorage.setItem('@receipt', purchase.transactionReceipt);
+          Alert.alert('Restore Successful', 'Restart Application to fully remove ads');
         }
       })
-      Alert.alert('Restore Successful');
     } catch(err) {
       console.warn(err);
       Alert.alert(err.message);
@@ -282,6 +283,7 @@ export default class MiscScreen extends PureComponent {
       </View>
     );
   }
+
   render() {
     if (this.state.loading) {
       return (
