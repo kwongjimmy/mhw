@@ -18,35 +18,30 @@ export default class AdBanner extends PureComponent {
       unitId: Platform.OS === 'ios' ? 'ca-app-pub-9661316023859369/8743467790' : 'ca-app-pub-9661316023859369/7600878725',
       purchases: [],
     };
-    InteractionManager.runAfterInteractions(() => {
-      this.setState({
-        loading: false
-      });
-    });
-    // console.log(this.state);
   }
 
-  // async componentDidMount() {
-  //   try {
-  //     await RNIap.prepare();
-  //   }
-  //   catch (err) {
-  //     console.warn(err.code, err.message);
-  //   }
-  //   try {
-  //     console.info('Get available purchases (non-consumable or unconsumed consumable)');
-  //     const purchases = await RNIap.getAvailablePurchases();
-  //     console.info('Available purchases :: ', purchases);
-  //     this.setState({
-  //       // availableItemsMessage: `Got ${purchases.length} items.`,
-  //       // receipt: purchases[0].transactionReceipt
-  //       purchases
-  //     });
-  //   } catch(err) {
-  //     console.warn(err.code, err.message);
-  //     Alert.alert(err.message);
-  //   }
-  // }
+  async componentDidMount() {
+    try {
+      await RNIap.prepare();
+    }
+    catch (err) {
+      console.warn(err.code, err.message);
+    }
+    try {
+      console.info('Get available purchases (non-consumable or unconsumed consumable)');
+      const purchases = await RNIap.getAvailablePurchases();
+      console.info('Available purchases :: ', purchases);
+      this.setState({
+        // availableItemsMessage: `Got ${purchases.length} items.`,
+        // receipt: purchases[0].transactionReceipt
+        purchases,
+        loading: false
+      });
+    } catch(err) {
+      console.warn(err.code, err.message);
+      Alert.alert(err.message);
+    }
+  }
 
   render() {
     if (this.state.loading || this.state.purchases.length > 0) {

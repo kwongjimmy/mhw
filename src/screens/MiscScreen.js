@@ -21,12 +21,12 @@ const itemSkus = Platform.select({
     // 'prod.consume.santi.099', 'prod.consume.santi.199', 'prod.nonconsume.santi.only',
     // 'scrip.auto.santi', 'scrip.non.auto.santi', // com.kretone.santiago
     // 'com.cooni.point1000', 'com.cooni.point5000', 'non.consumable.product', // dooboolab
-    'com.chingoo.mhw.removeads', 'remove_ads'
+    'com.chingoo.mhw.removeads', 'non_consumable_product',
   ],
   android: [
-    'android.test.purchased',
+    // 'android.test.purchased',
     'remove_ads',
-    'android.test.canceled',
+    // 'android.test.canceled',
   ],
 });
 
@@ -153,7 +153,8 @@ export default class MiscScreen extends PureComponent {
     }
   }
 
-  buyItem = async(sku) => {
+  buyItem = async() => {
+    let sku = itemSkus[0];
     try {
       console.info('buyItem: ' + sku);
       const purchase = await RNIap.buyProduct(sku);
@@ -181,6 +182,7 @@ export default class MiscScreen extends PureComponent {
   }
 
   render() {
+    // console.log(itemSkus);
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
@@ -196,16 +198,16 @@ export default class MiscScreen extends PureComponent {
           keyExtractor={item => item.route}
           renderItem={this.renderListItems}
         />
-        <ListItem onPress={() => this.getItems()}>
+        {/* <ListItem onPress={() => this.getItems()}>
           <Text>List</Text>
-        </ListItem>
+        </ListItem> */}
         {/* <ListItem onPress={() => this.buyItem('android.test.purchased')}> */}
-        <ListItem onPress={() => this.buyItem('remove_ads')}>
+        {/* <ListItem onPress={() => this.buyItem('com.chingoo.mhw.removeads')}>
           <Text>Buy</Text>
         </ListItem>
         <ListItem onPress={() => this.getAvailablePurchases()}>
           <Text>Check</Text>
-        </ListItem>
+        </ListItem> */}
        <AdBanner />
      </View>
     );
