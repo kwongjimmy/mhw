@@ -11,6 +11,7 @@ const MiscImages = {
   'Combination List': require('./images/misc/ItemIcon026c.png'),
   'android-more': require('./images/misc/android-more.png'),
   'ios-more': require('./images/misc/ios7-more.png'),
+  'Rate Our App!': require('./images/misc/VillageIcon08.png'),
 };
 
 export default MiscImages;

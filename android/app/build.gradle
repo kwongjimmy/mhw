@@ -101,7 +101,7 @@ android {
         applicationId "com.chingoo.mhw"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 10
+        versionCode 12
         versionName "1.6"
         ndk {
             abiFilters "armeabi-v7a", "x86"
@@ -127,10 +127,10 @@ android {
     }
     buildTypes {
         debug {
-            manifestPlaceholders = [excludeSystemAlertWindowPermission: "false"]
+//            manifestPlaceholders = [excludeSystemAlertWindowPermission: "false"]
         }
         release {
-            manifestPlaceholders = [excludeSystemAlertWindowPermission: "true"]
+//            manifestPlaceholders = [excludeSystemAlertWindowPermission: "true"]
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             signingConfig signingConfigs.release

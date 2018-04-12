@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, FlatList, Platform, Image, ActivityIndicator, Alert } from 'react-native';
+import { View, FlatList, Platform, Image, ActivityIndicator, Alert, AsyncStorage, Linking } from 'react-native';
 import { Container, ListItem, Text, Left, Body } from 'native-base';
 import firebase from 'react-native-firebase';
 import { MiscImages } from '../assets';
@@ -21,11 +21,12 @@ const itemSkus = Platform.select({
     // 'prod.consume.santi.099', 'prod.consume.santi.199', 'prod.nonconsume.santi.only',
     // 'scrip.auto.santi', 'scrip.non.auto.santi', // com.kretone.santiago
     // 'com.cooni.point1000', 'com.cooni.point5000', 'non.consumable.product', // dooboolab
-    'com.chingoo.mhw.removeads', 'non_consumable_product',
+    'com.chingoo.mhw.removeads',
+    // 'non_consumable_product',
   ],
   android: [
     'remove_ads',
-    'android.test.purchased',
+    // 'android.test.purchased',
     // 'android.test.canceled',
   ],
 });
@@ -74,9 +75,17 @@ export default class MiscScreen extends PureComponent {
           title: 'About',
         },
         {
+          route: 'Rate',
+          title: 'Rate Our App!',
+        },
+        {
           route: 'Remove',
           title: 'Remove Ads',
-        }
+        },
+        {
+          route: 'Restore',
+          title: 'Restore Purchase',
+        },
       ],
       loading: true,
     };
@@ -91,14 +100,14 @@ export default class MiscScreen extends PureComponent {
     }
   }
 
-  async componentDidMount(){
-    try {
-      await RNIap.prepare();
-    }
-    catch (err) {
-      console.warn(err.code, err.message);
-    }
-  }
+  // async componentDidMount(){
+  //   try {
+  //     await RNIap.prepare();
+  //   }
+  //   catch (err) {
+  //     console.warn(err.code, err.message);
+  //   }
+  // }
 
   renderListItems = ({ item }) => {
     if (item.route === 'Remove') {
@@ -116,7 +125,42 @@ export default class MiscScreen extends PureComponent {
           <Body style={{ flex: 6 }}>
             <Text style={{ fontSize: 20, color: colors.main }}>{item.title}</Text>
             <Text style={{ fontSize: 12, color: colors.secondary }}>{'Restart application after purchase.'}</Text>
-
+          </Body>
+        </ListItem>
+      );
+    } else if (item.route === 'Restore') {
+      return (
+        <ListItem
+          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          onPress={() => this.restore()}>
+          <Left>
+            <Image
+              resizeMode="contain"
+              style={{ width: 35, height: 35 }}
+              source={MiscImages['Remove Ads']}
+            />
+          </Left>
+          <Body style={{ flex: 6 }}>
+            <Text style={{ fontSize: 20, color: colors.main }}>{item.title}</Text>
+            <Text style={{ fontSize: 12, color: colors.secondary }}>{'Restart application after restore.'}</Text>
+            {/* <Text style={{ fontSize: 12, color: colors.secondary }}>{''}</Text> */}
+          </Body>
+        </ListItem>
+      );
+    } else if (item.route === 'Rate') {
+      return (
+        <ListItem
+          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          onPress={() => this.rate()}>
+          <Left>
+            <Image
+              resizeMode="contain"
+              style={{ width: 35, height: 35 }}
+              source={MiscImages[item.title]}
+            />
+          </Left>
+          <Body style={{ flex: 6 }}>
+            <Text style={{ fontSize: 20, color: colors.main }}>{item.title}</Text>
           </Body>
         </ListItem>
       );
@@ -146,7 +190,14 @@ export default class MiscScreen extends PureComponent {
     );
   }
 
+  rate() {
+    const url = Platform.ios === 'ios' ? 'itms://itunes.apple.com/us/app/mhworld-database-guide/id1358053843?mt=8' : 'market://details?id=com.chingoo.mhw';
+    Linking.openURL(url);
+  }
+
   getItems = async() => {
+    let item = await AsyncStorage.getItem('@receipt');
+    console.log(item);
     try {
       const products = await RNIap.getProducts(itemSkus);
       console.log('Products', products);
@@ -156,12 +207,18 @@ export default class MiscScreen extends PureComponent {
   }
 
   buyItem = async() => {
+    try {
+      await RNIap.prepare();
+    } catch (err) {
+      console.warn(err.code, err.message);
+    }
     let sku = itemSkus[0];
     // let sku = 'android.test.purchased';
     try {
       console.info('buyItem: ' + sku);
       const purchase = await RNIap.buyProduct(sku);
       console.info(purchase);
+      AsyncStorage.setItem('@receipt', purchase.transactionReceipt);
       // this.setState({ receipt: purchase.transactionReceipt }, () => this.goToNext());
     } catch (err) {
       console.warn(err.code, err.message);
@@ -184,8 +241,48 @@ export default class MiscScreen extends PureComponent {
     }
   }
 
+  restore = async () => {
+    try {
+      await RNIap.prepare();
+    } catch (err) {
+      console.warn(err.code, err.message);
+    }
+    try {
+      const purchases = await RNIap.getAvailablePurchases();
+      console.log(purchases);
+      purchases.forEach((purchase) => {
+        if (purchase.productId === itemSkus[0]) {
+          // console.log('hi');
+          AsyncStorage.setItem('@receipt', purchase.transactionReceipt);
+        }
+      })
+      Alert.alert('Restore Successful');
+    } catch(err) {
+      console.warn(err);
+      Alert.alert(err.message);
+    }
+  }
+
+  renderTester() {
+    return (
+      <View>
+        <ListItem onPress={() => this.restore()}>
+          <Text>Restore</Text>
+        </ListItem>
+        <ListItem onPress={() => this.getItems()}>
+          <Text>List</Text>
+        </ListItem>
+        <ListItem onPress={() => this.buyItem('android.test.purchased')}>
+        {/* <ListItem onPress={() => this.buyItem('com.chingoo.mhw.removeads')}> */}
+          <Text>Buy</Text>
+        </ListItem>
+        <ListItem onPress={() => this.getAvailablePurchases()}>
+          <Text>Check</Text>
+        </ListItem>
+      </View>
+    );
+  }
   render() {
-    // console.log(itemSkus);
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
@@ -196,21 +293,13 @@ export default class MiscScreen extends PureComponent {
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <FlatList
+          initialNumToRender={15}
           style={{ backgroundColor: 'white' }}
           data={this.state.screens}
           keyExtractor={item => item.route}
           renderItem={this.renderListItems}
         />
-        {/* <ListItem onPress={() => this.getItems()}>
-          <Text>List</Text>
-        </ListItem> */}
-        {/* <ListItem onPress={() => this.buyItem('android.test.purchased')}>
-        <ListItem onPress={() => this.buyItem('com.chingoo.mhw.removeads')}>
-          <Text>Buy</Text>
-        </ListItem> */}
-        {/* <ListItem onPress={() => this.getAvailablePurchases()}>
-          <Text>Check</Text>
-        </ListItem> */}
+        {/* {this.renderTester()} */}
        <AdBanner />
      </View>
     );
