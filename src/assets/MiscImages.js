@@ -12,6 +12,7 @@ const MiscImages = {
   'android-more': require('./images/misc/android-more.png'),
   'ios-more': require('./images/misc/ios7-more.png'),
   'Rate Our App!': require('./images/misc/VillageIcon08.png'),
+  'Hunter Tools': require('./images/misc/placeholder_mantle.png')
 };
 
 export default MiscImages;

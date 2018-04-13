@@ -9,6 +9,7 @@ import DecorationInfo from '../components/DecorationInfo';
 import ItemInfo from '../components/ItemInfo';
 import MonsterLoot from '../components/MonsterLoot';
 import ArmorSetPiecesList from '../components/ArmorSetPiecesList';
+import ToolInfo from '../components/ToolInfo';
 
 // Styles
 import colors from '../styles/colors';
@@ -71,6 +72,10 @@ export default class TablessInfoScreen extends PureComponent {
     } else if (this.props.type === 'set') {
       return (
         <ArmorSetPiecesList navigator={this.props.navigator} armor={this.props.armor}/>
+      );
+    } else if (this.props.type === 'tools') {
+      return (
+        <ToolInfo navigator={this.props.navigator} item={this.props.item}/>
       );
     }
     return (

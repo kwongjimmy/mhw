@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Platform, View, InteractionManager, AsyncStorage } from 'react-native';
+import { Platform, View, InteractionManager, AsyncStorage, Alert } from 'react-native';
 import firebase from 'react-native-firebase';
 import * as RNIap from 'react-native-iap';
 
@@ -16,50 +16,61 @@ export default class AdBanner extends PureComponent {
     this.state = {
       loading: true,
       unitId: Platform.OS === 'ios' ? 'ca-app-pub-9661316023859369/8743467790' : 'ca-app-pub-9661316023859369/7600878725',
-      // purchases: [],
       remove: true,
+      receipt: null,
     };
   }
 
   async componentDidMount() {
-    // try {
-    //   await RNIap.prepare();
-    // }
-    // catch (err) {
-    //   console.warn(err.code, err.message);
-    // }
-    // try {
-    //   console.info('Get available purchases (non-consumable or unconsumed consumable)');
-    //   const purchases = await RNIap.getAvailablePurchases();
-    //   console.info('Available purchases :: ', purchases);
-    //   this.setState({
-    //     // availableItemsMessage: `Got ${purchases.length} items.`,
-    //     // receipt: purchases[0].transactionReceipt
-    //     purchases,
-    //     loading: false
-    //   });
-    // } catch(err) {
-    //   console.warn(err.code, err.message);
-    //   Alert.alert(err.message);
-    // }
-    try {
-      const value = await AsyncStorage.getItem('@receipt');
-      if (value !== null) {
-        // We have data!!
-        console.log(value);
-        this.setState({
-          loading: false, remove: true,
+    if (Platform.OS === 'android') {
+      try {
+        await RNIap.prepare();
+      } catch (err) {
+        console.warn(err.code, err.message);
+      }
+      try {
+        let remove = false;
+        AsyncStorage.setItem('@receipt', null);
+        const purchases = await RNIap.getAvailablePurchases();
+        // const purchases = [{ productId: 'remove_ads' }]; // TEST
+        purchases.forEach((purchase) => {
+          if (purchase.productId === 'remove_ads') {
+            remove = true;
+            AsyncStorage.setItem('@receipt', purchase.transactionReceipt);
+          }
         });
-      } else {
+        this.setState({
+          loading: false,
+          remove,
+        });
+      } catch (err) {
+        this.setState({
+          loading: false,
+          remove: false,
+        });
+        console.warn(err.code, err.message);
+        Alert.alert(err.message);
+      }
+    } else {
+      try {
+        const value = await AsyncStorage.getItem('@receipt');
+        if (value !== null) {
+          // We have data!!
+          console.log(value);
+          this.setState({
+            loading: false, remove: true,
+          });
+        } else {
+          this.setState({
+            loading: false, remove: false,
+          });
+        }
+      } catch (error) {
+        console.log(error);
         this.setState({
           loading: false, remove: false,
         });
       }
-    } catch (error) {
-      console.log(error);
-      this.setState({
-        loading: false, remove: false,
-      });
     }
   }
 

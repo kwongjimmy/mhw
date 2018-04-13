@@ -71,6 +71,10 @@ export default class MiscScreen extends PureComponent {
           title: 'Maps',
         },
         {
+          route: 'ToolScreen',
+          title: 'Hunter Tools',
+        },
+        {
           route: 'AboutScreen',
           title: 'About',
         },
@@ -196,6 +200,12 @@ export default class MiscScreen extends PureComponent {
   }
 
   getItems = async() => {
+    try {
+      await RNIap.prepare();
+    } catch (err) {
+      console.warn(err.code, err.message);
+    }
+
     // let item = await AsyncStorage.getItem('@receipt');
     // console.log(item);
     try {
@@ -228,6 +238,12 @@ export default class MiscScreen extends PureComponent {
 
   getAvailablePurchases = async() => {
     try {
+      await RNIap.prepare();
+    } catch (err) {
+      console.warn(err.code, err.message);
+    }
+
+    try {
       console.info('Get available purchases (non-consumable or unconsumed consumable)');
       const purchases = await RNIap.getAvailablePurchases();
       console.info('Available purchases :: ', purchases);
@@ -248,6 +264,7 @@ export default class MiscScreen extends PureComponent {
       console.warn(err.code, err.message);
     }
     try {
+      AsyncStorage.setItem('@receipt', null);
       const purchases = await RNIap.getAvailablePurchases();
       console.log(purchases);
       if (purchases.length < 1) Alert.alert('Restore Error', 'You do not own any in app purchases.');
