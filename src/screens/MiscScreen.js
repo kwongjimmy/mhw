@@ -191,13 +191,13 @@ export default class MiscScreen extends PureComponent {
   }
 
   rate() {
-    const url = Platform.ios === 'ios' ? 'itms://itunes.apple.com/us/app/mhworld-database-guide/id1358053843?mt=8' : 'market://details?id=com.chingoo.mhw';
+    const url = Platform.OS === 'ios' ? 'itms-apps://itunes.apple.com/us/app/mhworld-database-guide/id1358053843?mt=8' : 'market://details?id=com.chingoo.mhw';
     Linking.openURL(url);
   }
 
   getItems = async() => {
-    let item = await AsyncStorage.getItem('@receipt');
-    console.log(item);
+    // let item = await AsyncStorage.getItem('@receipt');
+    // console.log(item);
     try {
       const products = await RNIap.getProducts(itemSkus);
       console.log('Products', products);
