@@ -223,6 +223,7 @@ export default class MiscScreen extends PureComponent {
       console.warn(err.code, err.message);
     }
     let sku = itemSkus[0];
+    const test = await RNIap.getProducts(itemSkus);
     // let sku = 'android.test.purchased';
     try {
       console.info('buyItem: ' + sku);
@@ -264,13 +265,13 @@ export default class MiscScreen extends PureComponent {
       console.warn(err.code, err.message);
     }
     try {
-      AsyncStorage.setItem('@receipt', null);
+      AsyncStorage.removeItem('@receipt');
       const purchases = await RNIap.getAvailablePurchases();
       console.log(purchases);
       if (purchases.length < 1) Alert.alert('Restore Error', 'You do not own any in app purchases.');
       purchases.forEach((purchase) => {
         if (purchase.productId === itemSkus[0]) {
-          // console.log('hi');
+          console.log(purchase);
           AsyncStorage.setItem('@receipt', purchase.transactionReceipt);
           Alert.alert('Restore Successful', 'Restart Application to fully remove ads');
         }

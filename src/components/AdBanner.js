@@ -30,7 +30,7 @@ export default class AdBanner extends PureComponent {
       }
       try {
         let remove = false;
-        AsyncStorage.setItem('@receipt', null);
+        AsyncStorage.removeItem('@receipt');
         const purchases = await RNIap.getAvailablePurchases();
         // const purchases = [{ productId: 'remove_ads' }]; // TEST
         purchases.forEach((purchase) => {
@@ -54,9 +54,9 @@ export default class AdBanner extends PureComponent {
     } else {
       try {
         const value = await AsyncStorage.getItem('@receipt');
+        // console.log(value);
         if (value !== null) {
           // We have data!!
-          console.log(value);
           this.setState({
             loading: false, remove: true,
           });
