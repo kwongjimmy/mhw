@@ -287,7 +287,45 @@ export default class WeaponListItem extends PureComponent {
     const slotOne = (slot1 === 0) ? `-` : (slot1 === 1) ? `\u2460` : (slot1 === 2) ? `\u2461` : `\u2462`;
     const slotTwo = (slot2 === 0) ? `-` : (slot2 === 1) ? `\u2460` : (slot2 === 2) ? `\u2461` : `\u2462`;
     const slotThree = (slot3 === 0) ? `-` : (slot3 === 1) ? `\u2460` : (slot3 === 2) ? `\u2461` : `\u2462`;
-
+    
+    // For SetBuilder
+    if (this.props.setSelected) {
+      return (
+        <View
+          style={{ marginLeft: 0, marginRight: 0, marginTop: 0, marginBottom: 0, paddingTop: 0, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, borderWidth: 0, flexDirection: 'row' }}
+          >
+          <Left style={{ flex: 0.5 }}>
+            <Image
+              resizeMode="contain"
+              style={{ height: 20, width: 20 }}
+              source={WeaponImages[`${weaponTypes[type]} ${rarity}`]} />
+          </Left>
+          <Body style={{ flex: 4.5 }}>
+            <View style={{ flex: 1, flexDirection: 'row', borderWidth: 0, borderColor: colors.accent }}>
+              <Text style={{ flex: 1.5, fontSize: 15.5, color: colors.main, justifyContent: 'center', lineHeight: 17.5 }}>{name}</Text>
+              <View style={{ flex: 0.75, justifyContent: 'center' }}>
+                {this.renderMeleeRangeInfo(this.props.item)}
+                {this.renderSharpness2(this.props.item)}
+              </View>
+            </View>
+            <View style={{ flex: 1, flexDirection: 'row', borderWidth: 0, borderColor: 'blue' }}>
+              <View style={{ flex: 2, flexDirection: 'row' }}>
+                <Text style={{ flex: 1, fontSize: 12.5, color: colors.main }}>{`DMG: ${damage}`}</Text>
+                {this.renderElement(this.props.item)}
+              </View>
+              <Text style={{ flex: 1, fontSize: 12.5, color: colors.main, textAlign: 'right' }}>{`${slotOne} ${slotTwo} ${slotThree}`}</Text>
+            </View>
+            <View style={{ flex: 1, flexDirection: 'row', borderWidth: 0, borderColor: 'green' }}>
+              <View style={{ flex: 2, flexDirection: 'row' }}>
+                {this.renderAffinity(this.props.item)}
+                {this.renderDefense(this.props.item)}
+              </View>
+              {this.renderSpecial(this.props.item)}
+            </View>
+          </Body>
+        </View>
+      );
+    }
     return (
       // <ListItem
       //   style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
@@ -304,7 +342,12 @@ export default class WeaponListItem extends PureComponent {
       <ListItem
         style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
         onPress={() => {
-          if (type.includes('bowgun')) {
+          if (this.props.setBuilder) {
+            this.props.onPassProp(this.props.item);
+            this.props.navigator.dismissModal({
+              animationType: 'slide-down' // 'none' / 'slide-down' , dismiss animation for the modal (optional, default 'slide-down')});
+            });
+          } else if (type.includes('bowgun')) {
             this.props.navigator.push({
               screen: 'TabInfoScreen',
               passProps: {

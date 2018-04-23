@@ -17,7 +17,9 @@ import DecorationScreen from './screens/DecorationScreen';
 import AboutScreen from './screens/AboutScreen';
 import CombinationScreen from './screens/CombinationScreen';
 import ToolScreen from './screens/ToolScreen';
-
+import SetBuilderScreen from './screens/SetBuilderScreen';
+import SetBuilderSelect from './screens/SetBuilderSelect';
+import SetSelectScreen from './screens/SetSelectScreen';
 
 import MonsterInfoScreen from './screens/MonsterInfoScreen';
 import TabInfoScreen from './screens/TabInfoScreen';
@@ -38,7 +40,9 @@ export default function startApp() {
   Navigation.registerComponent('AboutScreen', () => AboutScreen);
   Navigation.registerComponent('CombinationScreen', () => CombinationScreen);
   Navigation.registerComponent('ToolScreen', () => ToolScreen);
-
+  Navigation.registerComponent('SetBuilderScreen', () => SetBuilderScreen);
+  Navigation.registerComponent('SetBuilderSelect', () => SetBuilderSelect);
+  Navigation.registerComponent('SetSelectScreen', () => SetSelectScreen);
 
   Navigation.registerComponent('WeaponSelectedScreen', () => WeaponSelectedScreen);
   Navigation.registerComponent('MonsterInfoScreen', () => MonsterInfoScreen);

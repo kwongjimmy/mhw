@@ -3,7 +3,7 @@ import { View, Image } from 'react-native';
 import { Text, Left, Right, ListItem } from 'native-base';
 import AdBanner from './AdBanner';
 import DropDown from './DropDown';
-import { WeaponImages } from '../assets/';
+import { WeaponImages, ArmorImages } from '../assets/';
 
 // Styles
 import colors from '../styles/colors';
@@ -95,8 +95,9 @@ export default class ItemInfoEquip extends PureComponent {
                 <Left style={{ flex: 0.5 }}>
                   <Image
                     resizeMode="contain"
-                    style={{ height: 20, width: 20 }}
-                    source={WeaponImages[`${weaponTypes[item.type]} ${item.rarity}`]} />
+                    style={{ alignSelf: 'center', height: 20, width: 20 }}
+                    source={WeaponImages[`${weaponTypes[item.type]} ${item.rarity}`]}
+                  />
                 </Left>
                 <Left style={{ flex: 2 }}>
                   <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
@@ -114,12 +115,7 @@ export default class ItemInfoEquip extends PureComponent {
 
   renderWeapons() {
     if (this.props.weapons.length > 0) {
-      return (
-        <View>
-          {/* {this.renderWeaponHeader()} */}
-          {this.renderWeaponListItems()}
-        </View>
-      );
+      return this.renderWeaponListItems();
     }
     return (
       null
@@ -159,10 +155,17 @@ export default class ItemInfoEquip extends PureComponent {
                 animationType: 'slide-horizontal',
                 title: item.name
                 })}>
-                <Left>
+                <Left style={{ flex: 0.5 }}>
+                  <Image
+                    resizeMode="contain"
+                    style={{ alignSelf: 'center', height: 20, width: 20 }}
+                    source={ArmorImages[`${item.type.toLowerCase()} ${item.rarity}`]}
+                  />
+                </Left>
+                <Left style={{ flex: 2 }}>
                   <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
                 </Left>
-                <Right>
+                <Right style={{ flex: 2 }}>
                   <Text style={{ fontSize: 15.5, color: colors.main }}>{`x${item.quantity}`}</Text>
                 </Right>
               </ListItem>
@@ -175,11 +178,7 @@ export default class ItemInfoEquip extends PureComponent {
 
   renderArmor() {
     if (this.props.armor.length > 0) {
-      return (
-        <View>
-          {this.renderArmorListItems()}
-        </View>
-      );
+      return this.renderArmorListItems();
     }
     return (
       null

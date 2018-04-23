@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { ScrollView, Image, View } from 'react-native';
 import { Text, Left, Body, Right, ListItem } from 'native-base';
+import ArmorListItem from './ArmorListItem';
 import { ArmorImages } from '../assets';
 import AdBanner from './AdBanner';
 
@@ -24,6 +25,12 @@ export default class ArmorSetPiecesList extends PureComponent {
         skill2_level: this.props.armor.head_skill2_level,
         rarity: this.props.armor.head_rarity,
         type: 'head',
+        min_def: this.props.armor.head_def,
+        fire: this.props.armor.head_fire,
+        water: this.props.armor.head_water,
+        thunder: this.props.armor.head_thunder,
+        ice: this.props.armor.head_ice,
+        dragon: this.props.armor.head_dragon,
       });
     }
     if (this.props.armor.armor_item_id !== null) {
@@ -38,7 +45,13 @@ export default class ArmorSetPiecesList extends PureComponent {
         skill1_level: this.props.armor.armor_skill1_level,
         skill2_level: this.props.armor.armor_skill2_level,
         rarity: this.props.armor.armor_rarity,
-        type: 'armor',
+        type: 'chest',
+        min_def: this.props.armor.armor_def,
+        fire: this.props.armor.armor_fire,
+        water: this.props.armor.armor_water,
+        thunder: this.props.armor.armor_thunder,
+        ice: this.props.armor.armor_ice,
+        dragon: this.props.armor.armor_dragon,
       });
     }
     if (this.props.armor.gloves_item_id !== null) {
@@ -53,7 +66,13 @@ export default class ArmorSetPiecesList extends PureComponent {
         skill1_level: this.props.armor.gloves_skill1_level,
         skill2_level: this.props.armor.gloves_skill2_level,
         rarity: this.props.armor.gloves_rarity,
-        type: 'gloves',
+        type: 'arm',
+        min_def: this.props.armor.gloves_def,
+        fire: this.props.armor.gloves_fire,
+        water: this.props.armor.gloves_water,
+        thunder: this.props.armor.gloves_thunder,
+        ice: this.props.armor.gloves_ice,
+        dragon: this.props.armor.gloves_dragon,
       });
     }
     if (this.props.armor.belt_item_id !== null) {
@@ -68,7 +87,13 @@ export default class ArmorSetPiecesList extends PureComponent {
         skill1_level: this.props.armor.belt_skill1_level,
         skill2_level: this.props.armor.belt_skill2_level,
         rarity: this.props.armor.belt_rarity,
-        type: 'belt',
+        type: 'waist',
+        min_def: this.props.armor.belt_def,
+        fire: this.props.armor.belt_fire,
+        water: this.props.armor.belt_water,
+        thunder: this.props.armor.belt_thunder,
+        ice: this.props.armor.belt_ice,
+        dragon: this.props.armor.belt_dragon,
       });
     }
     if (this.props.armor.pants_item_id !== null) {
@@ -83,7 +108,13 @@ export default class ArmorSetPiecesList extends PureComponent {
         skill1_level: this.props.armor.pants_skill1_level,
         skill2_level: this.props.armor.pants_skill2_level,
         rarity: this.props.armor.pants_rarity,
-        type: 'pants',
+        type: 'legs',
+        min_def: this.props.armor.pants_def,
+        fire: this.props.armor.pants_fire,
+        water: this.props.armor.pants_water,
+        thunder: this.props.armor.pants_thunder,
+        ice: this.props.armor.pants_ice,
+        dragon: this.props.armor.pants_dragon,
       });
     }
     this.state = {
@@ -192,36 +223,37 @@ export default class ArmorSetPiecesList extends PureComponent {
       {this.renderSetBonus()}
       {this.state.armor.map((item, key) => {
         return (
-          <ListItem
-            key={key}
-            style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
-            onPress={() => this.props.navigator.push({
-            screen: 'TablessInfoScreen',
-            passProps: {
-              item_id: item.item_id,
-              type: 'armor',
-            },
-            animationType: 'slide-horizontal',
-            title: item.name,
-          })}
-          >
-            <Left style={{ flex: 0.5 }}>
-              <Image
-                resizeMode="contain"
-                style={{ alignSelf: 'center', width: 20, height: 20 }}
-                source={ArmorImages[`${item.type} ${item.rarity}`]}
-              />
-            </Left>
-            <Left style={{ flex: 1.25 }}>
-              <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{item.name}</Text>
-            </Left>
-            <Body style={{ flex: 1.5, flexGrow: 2 }}>
-              {this.renderSkills(item)}
-            </Body>
-            <Right style={{ flex: 0.5, flexGrow: 1 }}>
-              {this.renderSlots(item)}
-            </Right>
-          </ListItem>
+          <ArmorListItem key={key} item={item} navigator={this.props.navigator} />
+          // <ListItem
+          //   key={key}
+          //   style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          //   onPress={() => this.props.navigator.push({
+          //   screen: 'TablessInfoScreen',
+          //   passProps: {
+          //     item_id: item.item_id,
+          //     type: 'armor',
+          //   },
+          //   animationType: 'slide-horizontal',
+          //   title: item.name,
+          // })}
+          // >
+          //   <Left style={{ flex: 0.5 }}>
+          //     <Image
+          //       resizeMode="contain"
+          //       style={{ alignSelf: 'center', width: 20, height: 20 }}
+          //       source={ArmorImages[`${item.type} ${item.rarity}`]}
+          //     />
+          //   </Left>
+          //   <Left style={{ flex: 1.25 }}>
+          //     <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+          //   </Left>
+          //   <Body style={{ flex: 1.5, flexGrow: 2 }}>
+          //     {this.renderSkills(item)}
+          //   </Body>
+          //   <Right style={{ flex: 0.5, flexGrow: 1 }}>
+          //     {this.renderSlots(item)}
+          //   </Right>
+          // </ListItem>
         );
       })}
       </View>

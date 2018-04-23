@@ -7,30 +7,30 @@
     "test": "jest"
   },
   "dependencies": {
-    "babel-plugin-transform-remove-console": "^6.9.0",
+    "babel-plugin-transform-remove-console": "^6.9.1",
     "lodash": "^4.17.5",
-    "native-base": "2.4.1",
-    "react": "^16.3.1",
+    "native-base": "2.4.2",
+    "react": "^16.3.2",
     "react-native": "^0.55.2",
-    "react-native-firebase": "^3.3.1",
-    "react-native-iap": "^0.3.9",
+    "react-native-firebase": "3.3.1",
+    "react-native-iap": "^0.3.13",
     "react-native-modal": "^5.4.0",
-    "react-native-navigation": "^1.1.439",
+    "react-native-navigation": "^1.1.443",
     "react-native-splash-screen": "^3.0.6",
     "react-native-sqlite-storage": "^3.3.4",
     "react-native-vector-icons": "^4.6.0"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.2",
+    "babel-eslint": "^8.2.3",
     "babel-jest": "^22.4.3",
     "babel-preset-react-native": "^4.0.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-react": "^7.7.0",
     "eslint-plugin-react-native": "^3.2.1",
     "jest": "22.4.3",
-    "react-test-renderer": "16.3.1"
+    "react-test-renderer": "16.3.2"
   },
   "jest": {
     "preset": "react-native"

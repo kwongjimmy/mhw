@@ -22,6 +22,7 @@ const ElementStatusImages = {
   Waterblight: require('./images/elements/WaterBlight.png'),
   Bleeding: require('./images/aliments/Bleeding.png'),
   Blastblight: require('./images/aliments/Blastblight.png'),
+  Defense: require('./images/elements/defense.png'),
 };
 
 export default ElementStatusImages;

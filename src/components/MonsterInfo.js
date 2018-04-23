@@ -436,6 +436,7 @@ export default class MonsterInfo extends PureComponent {
   }
 
   renderInfo() {
+    console.log(this.props);
     if (this.props.info.size === 'Large') {
       return (
         <ScrollView>

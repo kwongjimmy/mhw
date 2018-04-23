@@ -97,10 +97,10 @@ export default class MonsterInfoScreen extends PureComponent {
         );
         tx.executeSql(
           `SELECT
-            C.name, C.item_id,
-            D.slot1, D.slot2, D.slot3,
-            E1.level as skill1_level, E1S.name as skill1_name,
-            E2.level as skill2_level, E2S.name as skill2_name
+            C.name, C.item_id, C.rarity,
+            D.slot1, D.slot2, D.slot3, D.type as type, D.fire, D.water, D.thunder, D.ice, D.dragon, D.min_def,
+            E1.level as skill1_level, E1S.name as skill1,
+            E2.level as skill2_level, E2S.name as skill2
             FROM monster_loot as A
             JOIN monster_loot_categories as B on A.category_id = B.category_id
             JOIN items as C ON A.item_id = C.item_id
@@ -115,6 +115,7 @@ export default class MonsterInfoScreen extends PureComponent {
               const row = results.rows.item(i);
               monster_armor.push(row);
             }
+                      console.log(monster_armor);
           },
         );
         tx.executeSql(

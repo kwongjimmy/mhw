@@ -21,6 +21,7 @@ const MonsterImages = {
   Kelbi: require('./images/monsters/MHW-Kelbi_Icon.png'),
   Kestodon: require('./images/monsters/MHW-Kestodon_Icon.png'),
   Kirin: require('./images/monsters/MHW-Kirin_Icon.png'),
+  KulveTaroth: require('./images/monsters/MHW-Kulve_Taroth_Icon.png'),
   KuluYaKu: require('./images/monsters/MHW-Kulu-Ya-Ku_Icon.png'),
   KushalaDaora: require('./images/monsters/MHW-Kushala_Daora_Icon.png'),
   Lavasioth: require('./images/monsters/MHW-Lavasioth_Icon.png'),

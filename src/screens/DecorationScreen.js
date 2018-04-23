@@ -3,6 +3,7 @@ import { Platform, View, FlatList, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { ListItem, Text, Left, Right } from 'native-base';
 import AdBanner from '../components/AdBanner';
+import DecorationListItem from '../components/DecorationListItem';
 
 // Styles
 import colors from '../styles/colors';
@@ -28,7 +29,7 @@ export default class DecorationScreen extends Component {
       const items = [];
       tx.executeSql(
         `SELECT
-          A.item_id as item_id, B.name as name, C.name as skill_name, D.level as skill_level
+          A.item_id as item_id, B.name as name, C.name as skill_name, D.level as skill_level, B.rarity as rarity
           FROM decorations AS A
           JOIN items AS B ON A.item_id = B.item_id
           LEFT JOIN armor_skills_levels AS D ON A.skill = D.armor_skill_level_id
@@ -60,25 +61,8 @@ export default class DecorationScreen extends Component {
 
   renderListItems = ({ item }) => {
     return (
-      <ListItem
-        style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
-        onPress={() => this.props.navigator.push({
-        screen: 'TablessInfoScreen',
-        passProps: {
-          item_id: item.item_id,
-          type: 'decorations'
-        },
-        animationType: 'slide-horizontal',
-        title: item.name,
-      })}>
-      <Left style= {{ flex: 1 }}>
-        <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
-      </Left>
-      <Right style= {{ flex: 1, justifyContent: 'center' }}>
-        <Text style={{ fontSize: 14, color: colors.secondary }}>{item.skill_name} +{item.skill_level}</Text>
-      </Right>
-      </ListItem>
-    );
+      <DecorationListItem navigator={this.props.navigator} item={item}/>
+    )
   }
 
   renderContent() {

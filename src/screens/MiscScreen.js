@@ -75,6 +75,10 @@ export default class MiscScreen extends PureComponent {
           title: 'Hunter Tools',
         },
         {
+          route: 'SetSelectScreen',
+          title: 'Set Builder',
+        },
+        {
           route: 'AboutScreen',
           title: 'About',
         },

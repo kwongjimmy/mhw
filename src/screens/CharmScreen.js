@@ -3,7 +3,7 @@ import { Platform, View, FlatList, ActivityIndicator } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { ListItem, Text, Left, Right } from 'native-base';
 import AdBanner from '../components/AdBanner';
-
+import CharmListItem from '../components/CharmListItem';
 // Styles
 import colors from '../styles/colors';
 
@@ -26,7 +26,7 @@ export default class CharmScreen extends PureComponent {
       const items = [];
       tx.executeSql(
         `SELECT
-          A.item_id as item_id, B.name as name,
+          A.item_id as item_id, B.name as name, B.rarity as rarity,
           CL1.name as skill1_name, C1.level as skill1_level,
           CL2.name as skill2_name, C2.level as skill2_level
           FROM charms AS A
@@ -62,44 +62,9 @@ export default class CharmScreen extends PureComponent {
     }
   }
 
-  renderSkills(item) {
-    if (item.skill1_name !== null && item.skill2_name !== null) {
-      return (
-        <Right style={{ flex: 2, justifyContent: 'center' }}>
-          <Text style={{ fontSize: 14, color: colors.secondary }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
-          <Text style={{ fontSize: 14, color: colors.secondary }}>{`${item.skill2_name} +${item.skill2_level}`}</Text>
-        </Right>
-      );
-    } else if (item.skill1_name !== null && item.skill2_name === null) {
-      return (
-        <Right style={{ flex: 2, justifyContent: 'center' }}>
-          <Text style={{ fontSize: 14, color: colors.secondary }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
-        </Right>
-      );
-    }
-    return (
-      null
-    );
-  }
-
   renderListItems = ({ item }) => {
     return (
-      <ListItem
-        style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
-        onPress={() => this.props.navigator.push({
-        screen: 'TablessInfoScreen',
-        passProps: {
-          item_id: item.item_id,
-          type: 'charms'
-        },
-        animationType: 'slide-horizontal',
-        title: item.name,
-      })}>
-      <Left style={{ flex: 2 }}>
-        <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
-      </Left>
-      {this.renderSkills(item)}
-      </ListItem>
+      <CharmListItem navigator={this.props.navigator} item={item} />
     );
   }
 

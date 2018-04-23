@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
-import { ScrollView, View, ActivityIndicator } from 'react-native';
+import { ScrollView, View, ActivityIndicator, Image } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, ListItem, Text, Left, Body, Right } from 'native-base';
 import DropDown from './DropDown';
+import { ArmorImages } from '../assets/';
 
 // Styles
 import colors from '../styles/colors';
@@ -27,9 +28,9 @@ export default class SkillEquip extends PureComponent {
       let decorations = [];
       tx.executeSql(
         `SELECT
-          A.item_id as item_id, A.rank as rank,
+          A.item_id as item_id, A.rank as rank, A.type as type,
           A.slot1, A.slot2, A.slot3,
-          C.name as name,
+          C.name as name, C.rarity as rarity,
           B1.level as level
           FROM armor AS A
           JOIN items AS C ON A.item_id = C.item_id
@@ -37,9 +38,9 @@ export default class SkillEquip extends PureComponent {
           WHERE B1.armor_skill_id = ?
           UNION
           SELECT
-          A.item_id as item_id, A.rank as rank,
+          A.item_id as item_id, A.rank as rank, A.type as type,
           A.slot1, A.slot2, A.slot3,
-          C.name as name,
+          C.name as name, C.rarity as rarity,
           B1.level as level
           FROM armor as A
           JOIN items AS C ON A.item_id = C.item_id
@@ -129,11 +130,18 @@ export default class SkillEquip extends PureComponent {
                 animationType: 'slide-horizontal',
                 title: item.name,
                 })}>
-                <Left>
-                  <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+                <Left style={{ flex: 0.5 }}>
+                  <Image
+                    resizeMode="contain"
+                    style={{ alignSelf: 'center', height: 20, width: 20 }}
+                    source={ArmorImages[`${item.type.toLowerCase()} ${item.rarity}`]}
+                  />
                 </Left>
-                <Right>
-                  <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`+${item.level}`}</Text>
+                <Left style={{ flex: 2 }}>
+                  <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+                </Left>
+                <Right style={{ flex: 2 }}>
+                  <Text style={{ fontSize: 15.5, color: colors.main }}>{`+${item.level}`}</Text>
                 </Right>
               </ListItem>
             );

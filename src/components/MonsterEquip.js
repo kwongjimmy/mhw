@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react';
-import { View, FlatList, InteractionManager, ActivityIndicator } from 'react-native';
+import { View, FlatList, InteractionManager, ActivityIndicator, Image } from 'react-native';
 import { Text, ListItem, Right, Left, Body, Icon } from 'native-base';
-import WeaponListItem from './WeaponListItem'
+import WeaponListItem from './WeaponListItem';
+import ArmorListItem from './ArmorListItem';
 import AdBanner from './AdBanner';
+import { ArmorImages } from '../assets';
 
 // Styles
 import colors from '../styles/colors';
@@ -75,28 +77,36 @@ export default class MonsterEquip extends PureComponent {
 
   renderListItems = ({ item }) => {
     return (
-      <ListItem
-        style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
-        onPress={() => this.props.navigator.push({
-        screen: 'TablessInfoScreen',
-        passProps: {
-          item_id: item.item_id,
-          type: 'armor',
-        },
-        animationType: 'slide-horizontal',
-        title: item.name,
-      })}
-      >
-        <Left style={{ flex: 1.5 }}>
-          <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
-        </Left>
-        <Body style={{ flex: 1.5, flexGrow: 2 }}>
-          {this.renderSkills(item)}
-        </Body>
-        <Right style={{ flex: 0.5, flexGrow: 1 }}>
-          {this.renderSlots(item)}
-        </Right>
-      </ListItem>
+      <ArmorListItem item={item} navigator={this.props.navigator} />
+      // <ListItem
+      //   style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+      //   onPress={() => this.props.navigator.push({
+      //   screen: 'TablessInfoScreen',
+      //   passProps: {
+      //     item_id: item.item_id,
+      //     type: 'armor',
+      //   },
+      //   animationType: 'slide-horizontal',
+      //   title: item.name,
+      // })}
+      // >
+      //   <Left style={{ flex: 0.5 }}>
+      //     <Image
+      //       resizeMode="contain"
+      //       style={{ alignSelf: 'center', width: 20, height: 20 }}
+      //       source={ArmorImages[`${item.type.toLowerCase()} ${item.rarity}`]}
+      //     />
+      //   </Left>
+      //   <Left style={{ flex: 1.25 }}>
+      //     <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+      //   </Left>
+      //   <Body style={{ flex: 1.5, flexGrow: 2 }}>
+      //     {this.renderSkills(item)}
+      //   </Body>
+      //   <Right style={{ flex: 0.5, flexGrow: 1 }}>
+      //     {this.renderSlots(item)}
+      //   </Right>
+      // </ListItem>
     );
   }
 

@@ -44,11 +44,19 @@ export default class ItemInfo extends PureComponent {
         item = results.rows.item(0);
       });
       tx.executeSql(
-        `SELECT A.name as name, B.* from items as A
-          JOIN (SELECT B.item_id, quantity from items AS A JOIN crafting as B ON A.item_id = B.item_material_id WHERE A.item_id = ?) as B
-          ON A.item_id = B.item_id
-          WHERE A.type = 'armor'
-        `
+        `SELECT A.name as name, A.rarity as rarity, B.*, C.*,
+          D.level as skill1_level,
+          E.level as skill2_level,
+          G.name as skill1,
+          F.name as skill2
+          FROM items as A
+          JOIN (SELECT B.item_id, quantity from items AS A JOIN crafting as B ON A.item_id = B.item_material_id WHERE A.item_id = ?) as B ON A.item_id = B.item_id
+          JOIN armor as C ON B.item_id = C.item_id
+          LEFT JOIN armor_skills_levels as D ON C.skill1 = D.armor_skill_level_id
+          LEFT JOIN armor_skills_levels as E ON C.skill2 = E.armor_skill_level_id
+          LEFT JOIN armor_skills as F ON D.armor_skill_id = F.armor_skill_id
+          LEFT JOIN armor_skills as G ON E.armor_skill_id = G.armor_skill_id
+          WHERE A.type = 'armor'`
         , [this.props.item_id], (tx, results) => {
           // Get rows with Web SQL Database spec compliance.
           const len = results.rows.length;
