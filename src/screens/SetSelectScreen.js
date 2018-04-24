@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Platform, FlatList, ActivityIndicator, AsyncStorage, TouchableOpacity, TextInput } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
-import { ListItem, Text, Left, Right, Body, Button, Icon, View, SwipeRow } from 'native-base';
+import { ListItem, Text, Left, Right, Body, Button, Icon, View, SwipeRow, Container } from 'native-base';
 import Modal from 'react-native-modal';
 import AdBanner from '../components/AdBanner';
 import { MiscImages } from '../assets/';
@@ -154,7 +154,6 @@ export default class SetSelectScreen extends PureComponent {
           keyExtractor={(item, index) => index.toString()}
           renderItem={this.renderListItems.bind(this)}
         />
-        <AdBanner />
       </View>
     );
   }
@@ -233,6 +232,7 @@ export default class SetSelectScreen extends PureComponent {
             waist: null,
             legs: null,
             charm: null,
+            kinsect: null,
           },
           h_slot1: null,
           h_slot2: null,
@@ -440,12 +440,15 @@ export default class SetSelectScreen extends PureComponent {
   render() {
     console.log(this.state);
     return (
-      <View style={{ flex: 1 }}>
-      {this.renderCreateSetModal()}
-      {this.renderRenameModal()}
-      {this.renderDeleteModal()}
-      {this.renderContent()}
-      </View>
+      <Container>
+        <View style={{ flex: 1 }}>
+        {this.renderCreateSetModal()}
+        {this.renderRenameModal()}
+        {this.renderDeleteModal()}
+        {this.renderContent()}
+        </View>
+        <AdBanner />
+      </Container>
     );
   }
 }

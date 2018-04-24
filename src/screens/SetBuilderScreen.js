@@ -3,9 +3,11 @@ import { View, Linking, Platform, ScrollView, Image, AsyncStorage } from 'react-
 import { Text, ListItem, Left, Right, Body, Container, Tabs, Tab } from 'native-base';
 import { WeaponImages, ArmorImages, ElementStatusImages } from '../assets';
 import WeaponListItem from '../components/WeaponListItem';
+import KinsectListItem from '../components/KinsectListItem';
 import CharmListItem from '../components/CharmListItem';
 import DecorationListItem from '../components/DecorationListItem';
 import ArmorListItem from '../components/ArmorListItem';
+import AdBanner from '../components/AdBanner';
 
 
 // Styles
@@ -47,6 +49,7 @@ export default class SetBuilderScreen extends PureComponent {
         waist: null,
         legs: null,
         charm: null,
+        kinsect: null,
       },
       h_slot1: null,
       h_slot2: null,
@@ -132,6 +135,7 @@ export default class SetBuilderScreen extends PureComponent {
             waist: null,
             legs: null,
             charm: null,
+            kinsect: null,
           },
           h_slot1: null,
           h_slot2: null,
@@ -263,6 +267,7 @@ export default class SetBuilderScreen extends PureComponent {
                     waist: this.state.equipment.waist,
                     legs: this.state.equipment.legs,
                     charm: this.state.equipment.charm,
+                    kinsect: this.state.equipment.kinsect,
                   },
                   h_slot1: null,
                   h_slot2: null,
@@ -373,6 +378,7 @@ export default class SetBuilderScreen extends PureComponent {
                     waist: this.state.equipment.waist,
                     legs: this.state.equipment.legs,
                     charm: this.state.equipment.charm,
+                    kinsect: this.state.equipment.kinsect,
                   },
                   c_slot1: null,
                   c_slot2: null,
@@ -482,6 +488,7 @@ export default class SetBuilderScreen extends PureComponent {
                     waist: this.state.equipment.waist,
                     legs: this.state.equipment.legs,
                     charm: this.state.equipment.charm,
+                    kinsect: this.state.equipment.kinsect,
                   },
                   a_slot1: null,
                   a_slot2: null,
@@ -591,6 +598,7 @@ export default class SetBuilderScreen extends PureComponent {
                     waist: data,
                     legs: this.state.equipment.legs,
                     charm: this.state.equipment.charm,
+                    kinsect: this.state.equipment.kinsect,
                   },
                   w_slot1: null,
                   w_slot2: null,
@@ -700,6 +708,7 @@ export default class SetBuilderScreen extends PureComponent {
                     waist: this.state.equipment.waist,
                     legs: data,
                     charm: this.state.equipment.charm,
+                    kinsect: this.state.equipment.kinsect,
                   },
                   l_slot1: null,
                   l_slot2: null,
@@ -788,6 +797,51 @@ export default class SetBuilderScreen extends PureComponent {
     return null;
   }
 
+  renderKinsectItem(item) {
+    console.log(item);
+    if (this.state.equipment.kinsect !== null) {
+      return (
+        <KinsectListItem setSelected={true} item={item} navigator={this.props.navigator} />
+      );
+    }
+    return (
+      <Text>{`Kinsect`}</Text>
+    );
+  }
+
+  renderKinsect() {
+    if (this.state.equipment.weapon === null) return null;
+    if (this.state.equipment.weapon.type === 'insect_glaive') {
+      return (
+        <ListItem
+          style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18 }}
+          onPress={() => this.props.navigator.showModal({
+            screen: 'SetBuilderSelect',
+            title: 'Select Kinsect',
+            passProps: {
+              type: 'kinsect',
+              onPassProp: data =>
+                this.setState({
+                  equipment: {
+                    weapon: this.state.equipment.weapon,
+                    helm: this.state.equipment.helm,
+                    chest: this.state.equipment.chest,
+                    arms: this.state.equipment.arms,
+                    waist: this.state.equipment.waist,
+                    legs: this.state.equipment.legs,
+                    charm: this.state.equipment.charm,
+                    kinsect: data,
+                  },
+                }),
+              },
+            })}>
+            {this.renderKinsectItem(this.state.equipment.kinsect)}
+        </ListItem>
+      );
+    }
+    return null;
+  }
+
   renderWeapon() {
     return (
       <View style={{ flex: 1 }}>
@@ -808,6 +862,7 @@ export default class SetBuilderScreen extends PureComponent {
                     waist: this.state.equipment.waist,
                     legs: this.state.equipment.legs,
                     charm: this.state.equipment.charm,
+                    kinsect: this.state.equipment.kinsect,
                   },
                   w_slot1: null,
                   w_slot2: null,
@@ -817,6 +872,7 @@ export default class SetBuilderScreen extends PureComponent {
             })}>
           {this.renderEquipment(this.state.equipment.weapon, 'Weapon')}
         </ListItem>
+        {this.renderKinsect()}
         {this.renderWeaponDecoration(1)}
         {this.renderWeaponDecoration(2)}
         {this.renderWeaponDecoration(3)}
@@ -844,6 +900,7 @@ export default class SetBuilderScreen extends PureComponent {
                     waist: this.state.equipment.waist,
                     legs: this.state.equipment.legs,
                     charm: data,
+                    kinsect: this.state.equipment.kinsect,
                   },
                 }),
               },
@@ -1307,85 +1364,87 @@ export default class SetBuilderScreen extends PureComponent {
     //   );
     // });
     const array = Object.keys(setBonus);
-    console.log(array);
-    return (
-      <View>
-        <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
-          <Left>
-            <Text style={{ fontSize: 15.5 }}>Set Bonus</Text>
-          </Left>
-        </ListItem>
-        {array.map((key) => {
-          let setBonus2 = null;
-          if (setBonus[key].set_bonus_skill2 !== null) {
-            setBonus2 =
-              <ListItem
-                style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
-                onPress={() => this.props.navigator.push({
-                screen: 'TabInfoScreen',
-                passProps: {
-                  armor_skill_id: setBonus[key].set_bonus_skill2_id,
-                  type: 'skill',
-                },
-                animationType: 'slide-horizontal',
-                title: setBonus[key].set_bonus_skill2,
-              })}
-              >
-              <Left>
-                <Text style={{ fontSize: 15.5 }}>{setBonus[key].set_bonus_skill2}</Text>
-              </Left>
-              <Right>
-                <Text style={{ fontSize: 11 }}>{`(${setBonus[key].set_pieces2}) Set`}</Text>
-              </Right>
-            </ListItem>;
-          }
-          return (
-            <View key={key}>
-              <ListItem
-                style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: '#F8F8F8' }}
-              //   onPress={() => this.props.navigator.push({
-              //   screen: 'TabInfoScreen',
-              //   passProps: {
-              //     armor_skill_id: setBonus[key].skill_id,
-              //     type: 'skill',
-              //   },
-              //   animationType: 'slide-horizontal',
-              //   title: setBonus[key].name,
-              // })}
-              >
-              <Left>
-                <Text style={{ fontSize: 15.5 }}>{setBonus[key].name}</Text>
-              </Left>
-              <Right>
-                <Text style={{ fontSize: 11 }}>{`${setBonus[key].pieces} Equipped`}</Text>
-              </Right>
-              </ListItem>
-              <ListItem
-                style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
-                onPress={() => this.props.navigator.push({
-                screen: 'TabInfoScreen',
-                passProps: {
-                  armor_skill_id: setBonus[key].set_bonus_skill1_id,
-                  type: 'skill',
-                },
-                animationType: 'slide-horizontal',
-                title: setBonus[key].set_bonus_skill1,
-              })}
-              >
-              <Left>
-                <Text style={{ fontSize: 15.5 }}>{setBonus[key].set_bonus_skill1}</Text>
-              </Left>
-              <Right>
-                <Text style={{ fontSize: 11 }}>{`(${setBonus[key].set_pieces}) Set`}</Text>
-              </Right>
-              </ListItem>
-              {setBonus2}
-            </View>
-          );
-        })}
-      </View>
-    );
+    if (array.length > 0) {
+      return (
+        <View>
+          <ListItem
+            style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+            <Left>
+              <Text style={{ fontSize: 15.5 }}>Set Bonus</Text>
+            </Left>
+          </ListItem>
+          {array.map((key) => {
+            let setBonus2 = null;
+            if (setBonus[key].set_bonus_skill2 !== null) {
+              setBonus2 =
+                <ListItem
+                  style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+                  onPress={() => this.props.navigator.push({
+                  screen: 'TabInfoScreen',
+                  passProps: {
+                    armor_skill_id: setBonus[key].set_bonus_skill2_id,
+                    type: 'skill',
+                  },
+                  animationType: 'slide-horizontal',
+                  title: setBonus[key].set_bonus_skill2,
+                })}
+                >
+                <Left>
+                  <Text style={{ fontSize: 15.5 }}>{setBonus[key].set_bonus_skill2}</Text>
+                </Left>
+                <Right>
+                  <Text style={{ fontSize: 11 }}>{`(${setBonus[key].set_pieces2}) Set`}</Text>
+                </Right>
+              </ListItem>;
+            }
+            return (
+              <View key={key}>
+                <ListItem
+                  style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: '#F8F8F8' }}
+                //   onPress={() => this.props.navigator.push({
+                //   screen: 'TabInfoScreen',
+                //   passProps: {
+                //     armor_skill_id: setBonus[key].skill_id,
+                //     type: 'skill',
+                //   },
+                //   animationType: 'slide-horizontal',
+                //   title: setBonus[key].name,
+                // })}
+                >
+                <Left>
+                  <Text style={{ fontSize: 15.5 }}>{setBonus[key].name}</Text>
+                </Left>
+                <Right>
+                  <Text style={{ fontSize: 11 }}>{`${setBonus[key].pieces} Equipped`}</Text>
+                </Right>
+                </ListItem>
+                <ListItem
+                  style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+                  onPress={() => this.props.navigator.push({
+                  screen: 'TabInfoScreen',
+                  passProps: {
+                    armor_skill_id: setBonus[key].set_bonus_skill1_id,
+                    type: 'skill',
+                  },
+                  animationType: 'slide-horizontal',
+                  title: setBonus[key].set_bonus_skill1,
+                })}
+                >
+                <Left>
+                  <Text style={{ fontSize: 15.5 }}>{setBonus[key].set_bonus_skill1}</Text>
+                </Left>
+                <Right>
+                  <Text style={{ fontSize: 11 }}>{`(${setBonus[key].set_pieces}) Set`}</Text>
+                </Right>
+                </ListItem>
+                {setBonus2}
+              </View>
+            );
+          })}
+        </View>
+      );
+    }
+    return null;
   }
 
   renderStats() {
@@ -1476,6 +1535,7 @@ export default class SetBuilderScreen extends PureComponent {
             </ScrollView>
           </Tab>
         </Tabs>
+        <AdBanner />
       </Container>
     );
   }

@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { FlatList, Platform, ActivityIndicator, View } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import WeaponListItem from '../components/WeaponListItem';
+import KinsectListItem from '../components/KinsectListItem';
 import AdBanner from '../components/AdBanner';
 
 // Styles
@@ -38,8 +39,24 @@ export default class WeaponSelectedScreen extends PureComponent {
     });
     db.transaction((tx) => {
       const weapons = [];
-      tx.executeSql(
-        `SELECT
+      if (this.props.type === 'kinsect') {
+        tx.executeSql(
+          `SELECT A.*, B.name as name, B.rarity as rarity FROM kinsects AS A JOIN items AS B on A.item_id = B.item_id`
+          , [], (tx, results) => {
+            const len = results.rows.length;
+            for (let i = 0; i < len; i += 1) {
+              weapons.push(results.rows.item(i));
+            }
+            console.log(weapons);
+            this.setState({
+              loading: false,
+              weapons,
+            });
+          },
+        );
+      } else {
+        tx.executeSql(
+          `SELECT
           weapon_sharpness.*,
           weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
           weapons.*, items.name as name, items.rarity as rarity
@@ -53,21 +70,27 @@ export default class WeaponSelectedScreen extends PureComponent {
           LEFT JOIN weapon_sharpness ON weapons.item_id = weapon_sharpness.item_id
           LEFT JOIN weapon_shellings ON weapons.item_id = weapon_shellings.item_id
           WHERE weapons.type = ?`
-        , [this.props.type], (tx, results) => {
-          const len = results.rows.length;
-          for (let i = 0; i < len; i += 1) {
-            weapons.push(results.rows.item(i));
-          }
-          this.setState({
-            loading: false,
-            weapons,
-          });
-        },
-      );
+          , [this.props.type], (tx, results) => {
+            const len = results.rows.length;
+            for (let i = 0; i < len; i += 1) {
+              weapons.push(results.rows.item(i));
+            }
+            this.setState({
+              loading: false,
+              weapons,
+            });
+          },
+        );
+      }
     });
   }
 
   renderListItems = ({ item }) => {
+    if (this.props.type === 'kinsect') {
+      return (
+        <KinsectListItem navigator={this.props.navigator} item={item}/>
+      );
+    }
     return (
       <WeaponListItem navigator={this.props.navigator} item={item} />
     );

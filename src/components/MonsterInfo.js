@@ -115,66 +115,69 @@ export default class MonsterInfo extends PureComponent {
   }
 
   renderTools() {
-    return (
-      <View>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
-            Shock Trap
-          </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
-            Pitfall Trap
-          </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
-            Ivy Trap
-          </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
-            Capture
-          </Text>
-        </ListItem>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
-            {`${effectiveness[this.props.tool[6].works]}`}
-          </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
-            {`${effectiveness[this.props.tool[4].works]}`}
-          </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
-            {`${effectiveness[this.props.tool[3].works]}`}
-          </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
-            {`${this.props.info.capture_hp_percentage}%`}
-          </Text>
-        </ListItem>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
-            Flash
-          </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
-            Dung
-          </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
-            Screamer
-          </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
-            Meat
-          </Text>
-        </ListItem>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
-            {`${effectiveness[this.props.tool[2].works]}`}
-          </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
-            {`${effectiveness[this.props.tool[1].works]}`}
-          </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
-            {`${effectiveness[this.props.tool[5].works]}`}
-          </Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
-            {`${effectiveness[this.props.tool[0].works]}`}
-          </Text>
-        </ListItem>
-      </View>
-    );
+    if (this.props.tool.length > 0) {
+      return (
+        <View>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+              Shock Trap
+            </Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+              Pitfall Trap
+            </Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+              Ivy Trap
+            </Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+              Capture
+            </Text>
+          </ListItem>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+              {`${effectiveness[this.props.tool[6].works]}`}
+            </Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+              {`${effectiveness[this.props.tool[4].works]}`}
+            </Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+              {`${effectiveness[this.props.tool[3].works]}`}
+            </Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+              {`${this.props.info.capture_hp_percentage}%`}
+            </Text>
+          </ListItem>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+              Flash
+            </Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+              Dung
+            </Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+              Screamer
+            </Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+              Meat
+            </Text>
+          </ListItem>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+              {`${effectiveness[this.props.tool[2].works]}`}
+            </Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+              {`${effectiveness[this.props.tool[1].works]}`}
+            </Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+              {`${effectiveness[this.props.tool[5].works]}`}
+            </Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+              {`${effectiveness[this.props.tool[0].works]}`}
+            </Text>
+          </ListItem>
+        </View>
+      );
+    }
+    return null;
   }
 
   renderAilment() {

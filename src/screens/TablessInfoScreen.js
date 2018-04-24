@@ -58,6 +58,7 @@ export default class TablessInfoScreen extends PureComponent {
           navigator={this.props.navigator}
           item_id={this.props.item_id}
           item={this.props.item}
+          type={this.props.weaponType}
           // refetch={this.props.refetch}
         />
       );

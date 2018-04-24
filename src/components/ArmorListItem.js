@@ -38,35 +38,6 @@ export default class ArmorListItem extends PureComponent {
     );
   }
 
-  renderDefense(item) {
-    return (
-      <View style={{ justifyContent: 'center' }}>
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-          <Image
-            resizeMode="contain"
-            style={{ width: 20, height: 20 }}
-            source={ElementStatusImages['Defense']}
-          />
-          <Text style={{ fontSize: 11, color: colors.secondary }}>{`${item.min_def}`}</Text>
-          <Image
-            resizeMode="contain"
-            style={{ width: 20, height: 20 }}
-            source={ElementStatusImages['Defense']}
-          />
-          <Text style={{ fontSize: 11, color: colors.secondary }}>{`${item.fire}`}</Text>
-        </View>
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-          <Text style={{ fontSize: 11, color: colors.secondary }}>{`${item.water}`}</Text>
-          <Text style={{ fontSize: 11, color: colors.secondary }}>{`${item.thunder}`}</Text>
-        </View>
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-          <Text style={{ fontSize: 11, color: colors.secondary }}>{`${item.ice}`}</Text>
-          <Text style={{ fontSize: 11, color: colors.secondary }}>{`${item.dragon}`}</Text>
-        </View>
-      </View>
-    );
-  }
-
   renderBody(item) {
     if (this.props.setSelected) {
       return (

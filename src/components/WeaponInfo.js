@@ -4,6 +4,7 @@ import { Container, ListItem, Text, Right, Left, Body, Tabs, Tab } from 'native-
 import SQLite from 'react-native-sqlite-storage';
 import { ElementStatusImages, BowCoatings } from '../assets';
 import WeaponListItem from './WeaponListItem';
+import KinsectListItem from './KinsectListItem';
 import AdBanner from './AdBanner';
 
 // Styles
@@ -35,6 +36,7 @@ const bulletTypes = {
 export default class WeaponInfo extends PureComponent {
   constructor(props) {
     super(props);
+    console.log(props);
     this.state = {
       loading: true,
       info: this.props.item,
@@ -128,69 +130,101 @@ export default class WeaponInfo extends PureComponent {
           },
         );
       }
-      tx.executeSql(
-        `SELECT A.bullet_type, A.level_1, A.level_2, A.level_3
-          FROM weapon_bowgun_ammo as A
-          WHERE A.item_id = ?`
-        , [this.props.item_id], (tx, results) => {
-          const len = results.rows.length;
-          for (let i = 0; i < len; i += 1) {
-            ammo.push(results.rows.item(i));
-          }
-        },
-      );
-      tx.executeSql(
-        `SELECT D.item_id, D.name, C.quantity
-        FROM weapons as A
-        JOIN items AS B ON A.item_id = B.item_id
-        JOIN crafting AS C ON A.item_id = C.item_id
-        JOIN items as D ON C.item_material_id = D.item_id WHERE A.item_id = ?`
-        , [this.props.item_id], (tx, results) => {
-          const len = results.rows.length;
-          for (let i = 0; i < len; i += 1) {
-            craftMaterials.push(results.rows.item(i));
-          }
-        },
-      );
-      tx.executeSql(
-        `SELECT D.item_id, D.name, C.quantity
-        FROM weapons as A
-        JOIN items AS B ON A.item_id = B.item_id
-        JOIN weapon_upgrade_items AS C ON A.item_id = C.item_id
-        JOIN items as D ON C.material_item_id = D.item_id WHERE A.item_id = ?`
-        , [this.props.item_id], (tx, results) => {
-          const len = results.rows.length;
-          for (let i = 0; i < len; i += 1) {
-            upgradeMaterials.push(results.rows.item(i));
-          }
-        },
-      );
-      tx.executeSql(
-        `SELECT
-          weapon_sharpness.*,
-          weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
-          weapons.*, items.name as name, items.rarity as rarity
-          FROM weapons
-          JOIN items on weapons.item_id = items.item_id
-          LEFT JOIN weapon_bowgun_chars ON weapons.item_id = weapon_bowgun_chars.item_id
-          LEFT JOIN weapon_coatings ON weapons.item_id = weapon_coatings.item_id
-          LEFT JOIN weapon_kinsects ON weapons.item_id = weapon_kinsects.item_id
-          LEFT JOIN weapon_notes ON weapons.item_id = weapon_notes.item_id
-          LEFT JOIN weapon_phials ON weapons.item_id = weapon_phials.item_id
-          LEFT JOIN weapon_sharpness ON weapons.item_id = weapon_sharpness.item_id
-          LEFT JOIN weapon_shellings ON weapons.item_id = weapon_shellings.item_id
-  		    WHERE weapons.upgrade_from = ?`
-        , [this.props.item_id], (tx, results) => {
-          const len = results.rows.length;
-          for (let i = 0; i < len; i += 1) {
-            upgradeTo.push(results.rows.item(i));
-          }
-          this.setState({
-            info, ammo, craftMaterials, upgradeMaterials, upgradeTo, melodies, recoil, reload, loading: false,
-          });
-          console.log(this.state);
-        },
-      );
+      if (this.props.type !== 'kinsect') {
+        tx.executeSql(
+          `SELECT A.bullet_type, A.level_1, A.level_2, A.level_3
+            FROM weapon_bowgun_ammo as A
+            WHERE A.item_id = ?`
+          , [this.props.item_id], (tx, results) => {
+            const len = results.rows.length;
+            for (let i = 0; i < len; i += 1) {
+              ammo.push(results.rows.item(i));
+            }
+          },
+        );
+        tx.executeSql(
+          `SELECT D.item_id, D.name, C.quantity
+          FROM weapons as A
+          JOIN items AS B ON A.item_id = B.item_id
+          JOIN crafting AS C ON A.item_id = C.item_id
+          JOIN items as D ON C.item_material_id = D.item_id WHERE A.item_id = ?`
+          , [this.props.item_id], (tx, results) => {
+            const len = results.rows.length;
+            for (let i = 0; i < len; i += 1) {
+              craftMaterials.push(results.rows.item(i));
+            }
+          },
+        );
+        tx.executeSql(
+          `SELECT D.item_id, D.name, C.quantity
+          FROM weapons as A
+          JOIN items AS B ON A.item_id = B.item_id
+          JOIN weapon_upgrade_items AS C ON A.item_id = C.item_id
+          JOIN items as D ON C.material_item_id = D.item_id WHERE A.item_id = ?`
+          , [this.props.item_id], (tx, results) => {
+            const len = results.rows.length;
+            for (let i = 0; i < len; i += 1) {
+              upgradeMaterials.push(results.rows.item(i));
+            }
+          },
+        );
+        tx.executeSql(
+          `SELECT
+            weapon_sharpness.*,
+            weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
+            weapons.*, items.name as name, items.rarity as rarity
+            FROM weapons
+            JOIN items on weapons.item_id = items.item_id
+            LEFT JOIN weapon_bowgun_chars ON weapons.item_id = weapon_bowgun_chars.item_id
+            LEFT JOIN weapon_coatings ON weapons.item_id = weapon_coatings.item_id
+            LEFT JOIN weapon_kinsects ON weapons.item_id = weapon_kinsects.item_id
+            LEFT JOIN weapon_notes ON weapons.item_id = weapon_notes.item_id
+            LEFT JOIN weapon_phials ON weapons.item_id = weapon_phials.item_id
+            LEFT JOIN weapon_sharpness ON weapons.item_id = weapon_sharpness.item_id
+            LEFT JOIN weapon_shellings ON weapons.item_id = weapon_shellings.item_id
+    		    WHERE weapons.upgrade_from = ?`
+          , [this.props.item_id], (tx, results) => {
+            const len = results.rows.length;
+            for (let i = 0; i < len; i += 1) {
+              upgradeTo.push(results.rows.item(i));
+            }
+            this.setState({
+              info, ammo, craftMaterials, upgradeMaterials, upgradeTo, melodies, recoil, reload, loading: false,
+            });
+            console.log(this.state);
+          },
+        );
+      } else {
+        tx.executeSql(
+          `SELECT D.item_id, D.name, C.quantity
+          FROM kinsects as A
+          JOIN items AS B ON A.item_id = B.item_id
+          JOIN weapon_upgrade_items AS C ON A.item_id = C.item_id
+          JOIN items as D ON C.material_item_id = D.item_id WHERE A.item_id = ?`
+          , [this.props.item_id], (tx, results) => {
+            const len = results.rows.length;
+            for (let i = 0; i < len; i += 1) {
+              upgradeMaterials.push(results.rows.item(i));
+            }
+          },
+        );
+        tx.executeSql(
+          `SELECT A.*, B.name as name, B.rarity as rarity
+            FROM kinsects as A
+            JOIN items as B on A.item_id = B.item_id
+    		    WHERE A.upgrade_from = ?`
+          , [this.props.item_id], (tx, results) => {
+            const len = results.rows.length;
+            for (let i = 0; i < len; i += 1) {
+              upgradeTo.push(results.rows.item(i));
+            }
+            this.setState({
+              info, upgradeMaterials, upgradeTo, loading: false,
+            });
+            console.log(this.state);
+          },
+        );
+      }
     });
   }
 
@@ -480,6 +514,32 @@ export default class WeaponInfo extends PureComponent {
     );
   }
 
+  renderKinsectInfo() {
+    const {
+       type, power, speed, heal, rarity
+    } = this.state.info;
+    return (
+      <View>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>Type</Text>
+          </Body>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 0.5, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>Rarity</Text>
+          </Body>
+        </ListItem>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{`${type}`}</Text>
+          </Body>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 0.5, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{`${rarity}`}</Text>
+          </Body>
+        </ListItem>
+      </View>
+    );
+  }
+
   renderInfo(info) {
     const {
       damage, true_damage, req_armor_skill, element_amount, element_type, defense, affinity, rarity, slot1, slot2, slot3,
@@ -676,6 +736,9 @@ export default class WeaponInfo extends PureComponent {
             </Right>
           </ListItem>
           {this.state.upgradeTo.map((item, key) => {
+            if (this.props.type === 'kinsect') {
+              return <KinsectListItem key={key} navigator={this.props.navigator} item={item} />;
+            }
             return (
               <WeaponListItem key={key} navigator={this.props.navigator} item={item} />
             );
@@ -923,6 +986,14 @@ export default class WeaponInfo extends PureComponent {
            </ScrollView>
          </Tab>
        </Tabs>
+      );
+    } else if (this.props.type === 'kinsect') {
+      return (
+        <ScrollView style={{ backgroundColor: 'white' }}>
+          {this.renderKinsectInfo()}
+          {this.renderUpgrading()}
+          {this.renderUpgradeTo()}
+        </ScrollView>
       );
     }
     return (

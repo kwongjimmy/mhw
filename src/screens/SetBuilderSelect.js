@@ -5,6 +5,7 @@ import SQLite from 'react-native-sqlite-storage';
 import AdBanner from '../components/AdBanner';
 import { WeaponImages, ArmorImages } from '../assets';
 import WeaponListItem from '../components/WeaponListItem';
+import KinsectListItem from '../components/KinsectListItem';
 import CharmListItem from '../components/CharmListItem';
 import DecorationListItem from '../components/DecorationListItem';
 import ArmorListItem from '../components/ArmorListItem';
@@ -239,6 +240,21 @@ export default class SetBuilderScreen extends PureComponent {
               console.log(this.state);
             },
           );
+        } else if (this.props.type === 'kinsect') {
+          tx.executeSql(
+            `SELECT A.*, B.name as name, B.rarity as rarity FROM kinsects AS A JOIN items AS B on A.item_id = B.item_id`
+            , [], (tx, results) => {
+              const len = results.rows.length;
+              data.push({ item_id: '0' });
+              for (let i = 0; i < len; i += 1) {
+                data.push(results.rows.item(i));
+              }
+              this.setState({
+                data,
+                loading: false,
+              });
+            },
+          );
         } else {
           this.setState({
             loading: false,
@@ -393,6 +409,29 @@ export default class SetBuilderScreen extends PureComponent {
     });
   }
 
+  renderKinsect = ({ item }) => {
+    if (item.item_id === '0') {
+      return (
+        <ListItem
+          style={{ height: 52, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          onPress={() => {
+            this.props.onPassProp(null);
+            this.props.navigator.dismissModal({
+              animationType: 'slide-down' // 'none' / 'slide-down' , dismiss animation for the modal (optional, default 'slide-down')});
+            });
+          }
+          }>
+          <Text>
+            Clear Selected
+          </Text>
+        </ListItem>
+      );
+    }
+    return (
+      <KinsectListItem setBuilder={true} onPassProp={this.props.onPassProp} navigator={this.props.navigator} item={item} />
+    );
+  }
+
   renderWeapons = ({ item }) => {
     if (item.item_id === '0') {
       return (
@@ -489,6 +528,7 @@ export default class SetBuilderScreen extends PureComponent {
                 </View>
             </Tab>
           </Tabs>
+          <AdBanner />
         </Container>
       );
     } else if (this.props.type === 'decoration') {
@@ -504,6 +544,7 @@ export default class SetBuilderScreen extends PureComponent {
             //   { length: 52, offset: 52 * index, index }
             // )}
           />
+          <AdBanner />
         </View>
       );
     } else if (this.props.type === 'charm') {
@@ -519,6 +560,7 @@ export default class SetBuilderScreen extends PureComponent {
             //   { length: 52, offset: 52 * index, index }
             // )}
           />
+          <AdBanner />
         </View>
       );
     } else if (this.props.type === 'weapon') {
@@ -535,6 +577,7 @@ export default class SetBuilderScreen extends PureComponent {
                 { length: 52, offset: 52 * index, index }
               )}
             />
+            <AdBanner />
           </View>
         );
       }
@@ -550,11 +593,20 @@ export default class SetBuilderScreen extends PureComponent {
             //   { length: 52, offset: 52 * index, index }
             // )}
           />
+          <AdBanner />
         </View>
       );
     }
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <FlatList
+          style={{ backgroundColor: 'white' }}
+          initialNumToRender={14}
+          data={this.state.data}
+          keyExtractor={item => item.item_id.toString()}
+          renderItem={this.renderKinsect}
+        />
+        <AdBanner />
       </View>
     );
   }

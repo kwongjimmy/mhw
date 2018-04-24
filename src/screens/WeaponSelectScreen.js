@@ -74,6 +74,10 @@ export default class WeaponSelectScreen extends PureComponent {
           type: 'insect_glaive',
         },
         {
+          name: 'Kinsect',
+          type: 'kinsect',
+        },
+        {
           name: 'Bow',
           table: 'weapon_bows',
           type: 'bow',
@@ -142,9 +146,9 @@ export default class WeaponSelectScreen extends PureComponent {
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <FlatList
           style={{ backgroundColor: 'white' }}
-          initialNumToRender={14}
+          initialNumToRender={20}
           data={this.state.weapons}
-          keyExtractor={(item) => item.name}
+          keyExtractor={item => item.name}
           renderItem={this.renderListItems}
           getItemLayout={(data, index) => (
             { length: 52, offset: 52 * index, index }
