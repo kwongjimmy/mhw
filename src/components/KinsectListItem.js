@@ -54,7 +54,7 @@ export default class KinsectListItem extends PureComponent {
             <Image
               resizeMode="contain"
               style={{ width: 12.5, height: 12.5 }}
-              source={WeaponImages['Kinsect Heal']}
+              source={WeaponImages['Kinsect Power']}
             />
           </View>
           <Text style={{ flex: 1, fontSize: 11, color: colors.main }}>{`LV ${item.power}`}</Text>
@@ -64,7 +64,7 @@ export default class KinsectListItem extends PureComponent {
             <Image
               resizeMode="contain"
               style={{ width: 12.5, height: 12.5 }}
-              source={WeaponImages['Kinsect Power']}
+              source={WeaponImages['Kinsect Heal']}
             />
           </View>
           <Text style={{ flex: 1, fontSize: 11, color: colors.main }}>{`LV ${item.heal}`}</Text>

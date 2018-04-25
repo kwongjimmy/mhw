@@ -354,7 +354,7 @@ export default class SetSelectScreen extends PureComponent {
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderBottomWidth: 1, borderColor: colors.accent }}>
               <Text style={{ fontSize: 18, color: colors.main }}>Input Set Name</Text>
             </View>
-            <View style={{ flex: 3, justifyContent: 'center', marginLeft: 5, marginRight: 5, borderWidth: 0, borderColor: 'blue' }}>
+            <View style={{ flex: 3, justifyContent: 'center', marginLeft: 15, marginRight: 15, borderWidth: 0, borderColor: 'blue' }}>
               <TextInput
                 autoFocus={true}
                 style={{ color: colors.main }}
@@ -405,7 +405,7 @@ export default class SetSelectScreen extends PureComponent {
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderBottomWidth: 1, borderColor: colors.accent }}>
               <Text style={{ fontSize: 18, color: colors.main }}>Edit Set Name</Text>
             </View>
-            <View style={{ flex: 3, justifyContent: 'center', marginLeft: 5, marginRight: 5, borderWidth: 0, borderColor: 'blue' }}>
+            <View style={{ flex: 3, justifyContent: 'center', marginLeft: 15, marginRight: 15, borderWidth: 0, borderColor: 'blue' }}>
               <TextInput
                 autoFocus={true}
                 style={{ color: colors.main }}
