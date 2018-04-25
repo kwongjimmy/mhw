@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
-import { Text, ActivityIndicator, InteractionManager, ScrollView } from 'react-native';
+import { Text, View, ActivityIndicator, InteractionManager } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
-import { Container, Tab, Tabs, ScrollableTab, ListItem, Left, Body, Right, Icon, View } from 'native-base';
+import { Container, Tab, Tabs, ScrollableTab } from 'native-base';
 import _ from 'lodash';
 import MonsterInfo from '../components/MonsterInfo';
 import MonsterWeakness from '../components/MonsterWeakness';
@@ -9,8 +9,6 @@ import MonsterLootList from '../components/MonsterLootList';
 import MonsterEquip from '../components/MonsterEquip';
 import MonsterQuest from '../components/MonsterQuest';
 import AdBanner from '../components/AdBanner';
-import Accordion from 'react-native-collapsible/Accordion';
-
 
 // Styles
 import colors from '../styles/colors';
@@ -68,65 +66,35 @@ export default class MonsterInfoScreen extends PureComponent {
           }
         });
         tx.executeSql(
-          `SELECT A.item_id, A.quantity, A.chance, B.name, C.name as loot_name, C.rank as rank
-            FROM monster_loot AS A
-            JOIN items AS B ON A.item_id = B.item_id
-            JOIN monster_loot_categories as C ON A.category_id = C.category_id
-            WHERE A.monster_id = ? AND B.type = 'item' AND C.rank = 0`,
+          `SELECT DISTINCT
+          cat.name
+          FROM monster_loot as loot
+          INNER JOIN monster_loot_categories as cat ON loot.category_id = cat.category_id
+          INNER JOIN items as items ON loot.item_id = items.item_id
+          WHERE loot.monster_id = ? AND cat.rank = 0
+          ORDER BY cat.name`,
           [this.props.monster_id], (tx, results) => {
             for (let i = 0; i < results.rows.length; i += 1) {
               const row = results.rows.item(i);
               monster_loot.push(row);
             }
-            monster_loot = _.groupBy(monster_loot, loot => loot.item_id);
-            monster_loot = _.values(monster_loot);
           },
         );
         tx.executeSql(
-          `SELECT A.item_id, A.quantity, A.chance, B.name, C.name as loot_name, C.rank as rank
-            FROM monster_loot AS A
-            JOIN items AS B ON A.item_id = B.item_id
-            JOIN monster_loot_categories as C ON A.category_id = C.category_id
-            WHERE A.monster_id = ? AND B.type = 'item' AND C.rank = 1`,
+          `SELECT DISTINCT
+          cat.name
+          FROM monster_loot as loot
+          INNER JOIN monster_loot_categories as cat ON loot.category_id = cat.category_id
+          INNER JOIN items as items ON loot.item_id = items.item_id
+          WHERE loot.monster_id = ? AND cat.rank = 1
+          ORDER BY cat.name`,
           [this.props.monster_id], (tx, results) => {
             for (let i = 0; i < results.rows.length; i += 1) {
               const row = results.rows.item(i);
               monster_loot_high.push(row);
             }
-            monster_loot_high = _.groupBy(monster_loot_high, loot => loot.item_id);
-            monster_loot_high = _.values(monster_loot_high);
           },
         );
-        // tx.executeSql(
-        //   `SELECT DISTINCT
-        //   cat.name
-        //   FROM monster_loot as loot
-        //   INNER JOIN monster_loot_categories as cat ON loot.category_id = cat.category_id
-        //   INNER JOIN items as items ON loot.item_id = items.item_id
-        //   WHERE loot.monster_id = ? AND cat.rank = 0
-        //   ORDER BY cat.name`,
-        //   [this.props.monster_id], (tx, results) => {
-        //     for (let i = 0; i < results.rows.length; i += 1) {
-        //       const row = results.rows.item(i);
-        //       monster_loot.push(row);
-        //     }
-        //   },
-        // );
-        // tx.executeSql(
-        //   `SELECT DISTINCT
-        //   cat.name
-        //   FROM monster_loot as loot
-        //   INNER JOIN monster_loot_categories as cat ON loot.category_id = cat.category_id
-        //   INNER JOIN items as items ON loot.item_id = items.item_id
-        //   WHERE loot.monster_id = ? AND cat.rank = 1
-        //   ORDER BY cat.name`,
-        //   [this.props.monster_id], (tx, results) => {
-        //     for (let i = 0; i < results.rows.length; i += 1) {
-        //       const row = results.rows.item(i);
-        //       monster_loot_high.push(row);
-        //     }
-        //   },
-        // );
         tx.executeSql(
           `SELECT
             C.name, C.item_id, C.rarity,
@@ -147,6 +115,7 @@ export default class MonsterInfoScreen extends PureComponent {
               const row = results.rows.item(i);
               monster_armor.push(row);
             }
+                      console.log(monster_armor);
           },
         );
         tx.executeSql(
@@ -195,59 +164,12 @@ export default class MonsterInfoScreen extends PureComponent {
               monster_inflicts,
               loading: false,
             });
-            console.log(this.state);
             // let end = new Date().getTime();
             // console.log(end - start);
           },
         );
       });
     });
-  }
-
-  _renderSectionTitle(items) {
-    return (
-      <View>
-        <Text>{items[0].lootName}</Text>
-      </View>
-    );
-  }
-
-  _renderHeader(items) {
-    return (
-      <View style={{ flexDirection: 'row', padding: 18, borderBottomWidth: 0.33, borderColor: colors.border, backgroundColor: colors.background}}>
-          <Text style={{ flex: 3, fontSize: 15.5, color: colors.main }}>{items[0].name}</Text>
-          <Icon style={{ flex: 1 }} ios='ios-arrow-down' android="ios-arrow-down" style={{ fontSize: 20, color: colors.accent }}/>
-      </View>
-    );
-  }
-
-  _renderContent(items) {
-    return items.map((item, key) => {
-      return (
-        <ListItem
-          key={key}
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
-          onPress={() => this.props.navigator.push({
-            screen: 'TablessInfoScreen',
-            passProps: {
-              item_id: item.item_id,
-              type: 'item',
-            },
-            animationType: 'slide-horizontal',
-            title: item.name,
-          })}>
-          <Left>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>{item.loot_name}</Text>
-          </Left>
-          <Right>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>{`x${item.quantity}`}</Text>
-          </Right>
-          <Right>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>{`${item.chance}%`}</Text>
-          </Right>
-        </ListItem>
-      );
-    })
   }
 
   renderContent(screen) {
@@ -263,33 +185,9 @@ export default class MonsterInfoScreen extends PureComponent {
     if (screen === 'tab1') {
       return <MonsterWeakness navigator={this.props.navigator} monster_size={this.props.monster_info.size} monster_hit={this.state.monster_hit}/>;
     } else if (screen === 'tab2') {
-      return (
-        <ScrollView>
-          <Accordion
-            underlayColor={colors.border}
-            sections={this.state.monster_loot}
-            // renderSectionTitle={this._renderSectionTitle}
-            renderHeader={this._renderHeader.bind(this)}
-            renderContent={this._renderContent.bind(this)}
-            duration={400}
-          />
-        </ScrollView>
-      );
-      // return <MonsterLootList navigator={this.props.navigator} lowRank={true} monster_id={this.props.monster_id} monster_loot={this.state.monster_loot}/>;
+      return <MonsterLootList navigator={this.props.navigator} lowRank={true} monster_id={this.props.monster_id} monster_loot={this.state.monster_loot}/>;
     } else if (screen === 'tab3') {
-      return (
-        <ScrollView>
-          <Accordion
-            underlayColor={colors.border}
-            sections={this.state.monster_loot_high}
-            // renderSectionTitle={this._renderSectionTitle}
-            renderHeader={this._renderHeader.bind(this)}
-            renderContent={this._renderContent.bind(this)}
-            duration={400}
-          />
-        </ScrollView>
-      );
-      // return <MonsterLootList navigator={this.props.navigator} lowRank={false} monster_id={this.props.monster_id} monster_loot={this.state.monster_loot_high}/>;
+      return <MonsterLootList navigator={this.props.navigator} lowRank={false} monster_id={this.props.monster_id} monster_loot={this.state.monster_loot_high}/>;
     } else if (screen === 'tab4') {
       return <MonsterEquip navigator={this.props.navigator} data={this.state.monster_armor} type={'armor'}/>;
     } else if (screen === 'tab5') {
