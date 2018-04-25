@@ -31,8 +31,8 @@ export default class SetSelectScreen extends PureComponent {
       // },
       {
         // icon: require('../assets/images/misc/ItemIcon007.png'), // for icon button, provide the local image asset name
-        icon: Platform.OS === 'ios' ? MiscImages['plus'] : MiscImages['plus'],
-        id: 'options', // id for this button, given in onNavigatorEvent(event) to help understand which button was clicked
+        icon: Platform.OS === 'ios' ? MiscImages['ios-back'] : MiscImages['android-back'],
+        id: 'back', // id for this button, given in onNavigatorEvent(event) to help understand which button was clicked
       },
     ],
   };
@@ -300,7 +300,7 @@ export default class SetSelectScreen extends PureComponent {
     return (
       <Modal
         animationType="fade"
-        useNativeDriver
+        // useNativeDriver
         backdropColor={colors.main}
         backdropOpacity={0.7}
         avoidKeyboard
@@ -309,7 +309,7 @@ export default class SetSelectScreen extends PureComponent {
           this.setDeleteModalVisible(!this.state.deleteModalVisible);
         }}>
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-          <View style={{ width: 300, height: 200, backgroundColor: 'white', borderRadius: 3 }}>
+          <View style={{ width: 300, height: 200, backgroundColor: 'white', borderRadius: 4 }}>
             <View style={{ flex: 4, justifyContent: 'center', alignItems: 'center', borderBottomWidth: 0, borderColor: colors.accent }}>
               <Text style={{ fontSize: 18, color: colors.main }}>{`Delete ${this.state.setName}?`}</Text>
             </View>
@@ -340,8 +340,8 @@ export default class SetSelectScreen extends PureComponent {
   renderCreateSetModal() {
     return (
       <Modal
-        animationType="fade"
-        useNativeDriver
+        animationType="slide"
+        // useNativeDriver
         backdropColor={colors.main}
         backdropOpacity={0.7}
         avoidKeyboard
@@ -350,12 +350,13 @@ export default class SetSelectScreen extends PureComponent {
           this.setModalVisible(!this.state.modalVisible);
         }}>
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-          <View style={{ width: 300, height: 200, backgroundColor: 'white', borderRadius: 3 }}>
+          <View style={{ width: 300, height: 200, backgroundColor: 'white', borderRadius: 4 }}>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderBottomWidth: 1, borderColor: colors.accent }}>
               <Text style={{ fontSize: 18, color: colors.main }}>Input Set Name</Text>
             </View>
             <View style={{ flex: 3, justifyContent: 'center', marginLeft: 5, marginRight: 5, borderWidth: 0, borderColor: 'blue' }}>
               <TextInput
+                autoFocus={true}
                 style={{ color: colors.main }}
                 placeholder={'EX: Set #1'}
                 placeholderTextColor={colors.secondary}
@@ -390,7 +391,7 @@ export default class SetSelectScreen extends PureComponent {
   renderRenameModal() {
     return (
       <Modal
-        animationType="fade"
+        animationType="slide"
         useNativeDriver
         backdropColor={colors.main}
         backdropOpacity={0.7}
@@ -400,12 +401,13 @@ export default class SetSelectScreen extends PureComponent {
           this.setEditModalVisible(!this.state.editModalVisible);
         }}>
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-          <View style={{ width: 300, height: 200, backgroundColor: 'white', borderRadius: 3 }}>
+          <View style={{ width: 300, height: 200, backgroundColor: 'white', borderRadius: 4 }}>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderBottomWidth: 1, borderColor: colors.accent }}>
               <Text style={{ fontSize: 18, color: colors.main }}>Edit Set Name</Text>
             </View>
             <View style={{ flex: 3, justifyContent: 'center', marginLeft: 5, marginRight: 5, borderWidth: 0, borderColor: 'blue' }}>
               <TextInput
+                autoFocus={true}
                 style={{ color: colors.main }}
                 placeholder={'EX: Set #1'}
                 placeholderTextColor={colors.secondary}
