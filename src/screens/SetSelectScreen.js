@@ -31,8 +31,8 @@ export default class SetSelectScreen extends PureComponent {
       // },
       {
         // icon: require('../assets/images/misc/ItemIcon007.png'), // for icon button, provide the local image asset name
-        icon: Platform.OS === 'ios' ? MiscImages['ios-back'] : MiscImages['android-back'],
-        id: 'back', // id for this button, given in onNavigatorEvent(event) to help understand which button was clicked
+        icon: Platform.OS === 'ios' ? MiscImages['plus'] : MiscImages['plus'],
+        id: 'options', // id for this button, given in onNavigatorEvent(event) to help understand which button was clicked
       },
     ],
   };
@@ -440,7 +440,6 @@ export default class SetSelectScreen extends PureComponent {
   }
 
   render() {
-    console.log(this.state);
     return (
       <Container>
         <View style={{ flex: 1 }}>
