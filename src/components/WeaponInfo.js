@@ -36,6 +36,7 @@ const bulletTypes = {
 export default class WeaponInfo extends PureComponent {
   constructor(props) {
     super(props);
+    console.log(props);
     this.state = {
       loading: true,
       info: this.props.item,
@@ -190,6 +191,7 @@ export default class WeaponInfo extends PureComponent {
             this.setState({
               info, ammo, craftMaterials, upgradeMaterials, upgradeTo, melodies, recoil, reload, loading: false,
             });
+            console.log(this.state);
           },
         );
       } else {
@@ -219,6 +221,7 @@ export default class WeaponInfo extends PureComponent {
             this.setState({
               info, upgradeMaterials, upgradeTo, loading: false,
             });
+            console.log(this.state);
           },
         );
       }
