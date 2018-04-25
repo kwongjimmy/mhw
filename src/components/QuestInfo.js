@@ -136,11 +136,9 @@ export default class QuestInfo extends PureComponent {
           {this.state.monsters.map((item, key) => {
             let src = MonsterImages['Unknown'];
             let name = item.monster_name;
-            if (name !== 'Gajalaka' && name !== 'Grimalkyne') {
-              name = name.replace(/["'-]/g, '');
-              name = name.replace(' ', '');
-              src = MonsterImages[name];
-            }
+            name = name.replace(/["'-]/g, '');
+            name = name.replace(' ', '');
+            src = MonsterImages[name];
             return (
               <ListItem
                 key={key}

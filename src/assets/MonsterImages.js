@@ -49,6 +49,8 @@ const MonsterImages = {
   ZorahMagdaros: require('./images/monsters/MHW-Zorah_Magdaros_Icon.png'),
   Unknown: require('./images/monsters/MHW-Unknown_Monster_Icon.png'),
   Deviljho: require('./images/monsters/MHW-Deviljho_Icon.png'),
+  Gajalaka: require('./images/monsters/MHW-Gajalaka_Icon.png'),
+  Grimalkyne: require('./images/monsters/MHW-Grimalkyne_Icon.png'),
 };
 
 export default MonsterImages;

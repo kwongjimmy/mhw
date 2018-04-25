@@ -40,7 +40,7 @@ export default class SetSelectScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false,
+      loading: true,
       sets: [],
       modalVisible: false,
       editModalVisible: false,
@@ -72,7 +72,7 @@ export default class SetSelectScreen extends PureComponent {
         }
       } else {
         // If set data exist; place into state.
-        this.setState({ sets: value });
+        this.setState({ sets: value, loading: false });
         console.log(this.state);
       }
     } catch (error) {
@@ -309,7 +309,7 @@ export default class SetSelectScreen extends PureComponent {
           this.setDeleteModalVisible(!this.state.deleteModalVisible);
         }}>
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-          <View style={{ width: 300, height: 200, backgroundColor: 'white', borderRadius: 4 }}>
+          <View style={{ width: 300, height: 200, backgroundColor: 'white', borderRadius: 10 }}>
             <View style={{ flex: 4, justifyContent: 'center', alignItems: 'center', borderBottomWidth: 0, borderColor: colors.accent }}>
               <Text style={{ fontSize: 18, color: colors.main }}>{`Delete ${this.state.setName}?`}</Text>
             </View>
@@ -350,7 +350,7 @@ export default class SetSelectScreen extends PureComponent {
           this.setModalVisible(!this.state.modalVisible);
         }}>
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-          <View style={{ width: 300, height: 200, backgroundColor: 'white', borderRadius: 4 }}>
+          <View style={{ width: 300, height: 200, backgroundColor: 'white', borderRadius: 10 }}>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderBottomWidth: 1, borderColor: colors.accent }}>
               <Text style={{ fontSize: 18, color: colors.main }}>Input Set Name</Text>
             </View>
@@ -401,7 +401,7 @@ export default class SetSelectScreen extends PureComponent {
           this.setEditModalVisible(!this.state.editModalVisible);
         }}>
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-          <View style={{ width: 300, height: 200, backgroundColor: 'white', borderRadius: 4 }}>
+          <View style={{ width: 300, height: 200, backgroundColor: 'white', borderRadius: 10 }}>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderBottomWidth: 1, borderColor: colors.accent }}>
               <Text style={{ fontSize: 18, color: colors.main }}>Edit Set Name</Text>
             </View>

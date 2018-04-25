@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { ScrollView, View, ActivityIndicator, Image } from 'react-native';
 import { Container, ListItem, Text, Right, Left, Body, Tabs, Tab } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
-import { ElementStatusImages, BowCoatings } from '../assets';
+import { ElementStatusImages, BowCoatings, WeaponImages } from '../assets';
 import WeaponListItem from './WeaponListItem';
 import KinsectListItem from './KinsectListItem';
 import AdBanner from './AdBanner';
@@ -512,8 +512,9 @@ export default class WeaponInfo extends PureComponent {
   }
 
   renderKinsectInfo() {
+    console.log(this.state.info);
     const {
-       type, power, speed, heal, rarity
+       type, power, speed, heal, dust, rarity
     } = this.state.info;
     return (
       <View>
@@ -531,6 +532,62 @@ export default class WeaponInfo extends PureComponent {
           </Body>
           <Body style={{ flex: 1, alignItems: 'center' }}>
             <Text style={{ flex: 0.5, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{`${rarity}`}</Text>
+          </Body>
+        </ListItem>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <View style={{ flexDirection: 'row' }}>
+              <Image
+                resizeMode="contain"
+                style={{ width: 12.5, height: 12.5 }}
+                source={WeaponImages['Kinsect Dust']}
+              />
+              <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'center' }}>Dust</Text>
+            </View>
+          </Body>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+              <Image
+                resizeMode="contain"
+                style={{ width: 12.5, height: 12.5 }}
+                source={WeaponImages['Kinsect Power']}
+              />
+              <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'center' }}>Power</Text>
+            </View>
+          </Body>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+              <Image
+                resizeMode="contain"
+                style={{ width: 12.5, height: 12.5 }}
+                source={WeaponImages['Kinsect Heal']}
+              />
+              <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'center' }}>Heal</Text>
+            </View>
+          </Body>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+              <Image
+                resizeMode="contain"
+                style={{ width: 12.5, height: 12.5 }}
+                source={WeaponImages['Kinsect Speed']}
+              />
+              <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'center' }}>Speed</Text>
+            </View>
+          </Body>
+        </ListItem>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{`${dust}`}</Text>
+          </Body>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 0.5, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{`LV ${power}`}</Text>
+          </Body>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 0.5, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{`LV ${heal}`}</Text>
+          </Body>
+          <Body style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={{ flex: 0.5, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{`LV ${speed}`}</Text>
           </Body>
         </ListItem>
       </View>

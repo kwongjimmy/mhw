@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import { View, Linking, Platform, ScrollView, Image, AsyncStorage } from 'react-native';
-import { Text, ListItem, Left, Right, Body, Container, Tabs, Tab } from 'native-base';
+import { View, ScrollView, Image, AsyncStorage, ActivityIndicator } from 'react-native';
+import { Text, ListItem, Left, Right, Body, Container, Tabs, Tab, Button } from 'native-base';
 import { WeaponImages, ArmorImages, ElementStatusImages } from '../assets';
 import WeaponListItem from '../components/WeaponListItem';
 import KinsectListItem from '../components/KinsectListItem';
@@ -8,18 +8,13 @@ import CharmListItem from '../components/CharmListItem';
 import DecorationListItem from '../components/DecorationListItem';
 import ArmorListItem from '../components/ArmorListItem';
 import AdBanner from '../components/AdBanner';
+import Modal from 'react-native-modal';
 
 
 // Styles
 import colors from '../styles/colors';
 
 export default class SetBuilderScreen extends PureComponent {
-  // static navigatorStyle = {
-  //   topBarElevationShadowEnabled: Platform.OS !== 'ios',
-  //   topBarBorderColor: colors.accent,
-  //   topBarBorderWidth: 17,
-  // };
-
   static navigatorButtons = {
     rightButtons: [
       {
@@ -77,6 +72,8 @@ export default class SetBuilderScreen extends PureComponent {
       dragon: 0,
       skills: {},
       setBonus: {},
+      loading: true,
+      clearModal: false,
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
@@ -119,6 +116,7 @@ export default class SetBuilderScreen extends PureComponent {
           dragon: currentSet.dragon,
           skills: currentSet.skills,
           setBonus: currentSet.setBonus,
+          loading: false,
         });
       });
   }
@@ -127,42 +125,7 @@ export default class SetBuilderScreen extends PureComponent {
     if (event.type === 'NavBarButtonPress') { // this is the event type for button presses
       if (event.id === 'Clear') { // this is the same id field from the static navigatorButtons definition
         this.setState({
-          equipment: {
-            weapon: null,
-            helm: null,
-            chest: null,
-            arms: null,
-            waist: null,
-            legs: null,
-            charm: null,
-            kinsect: null,
-          },
-          h_slot1: null,
-          h_slot2: null,
-          h_slot3: null,
-          c_slot1: null,
-          c_slot2: null,
-          c_slot3: null,
-          a_slot1: null,
-          a_slot2: null,
-          a_slot3: null,
-          w_slot1: null,
-          w_slot2: null,
-          w_slot3: null,
-          l_slot1: null,
-          l_slot2: null,
-          l_slot3: null,
-          wep_slot1: null,
-          wep_slot2: null,
-          wep_slot3: null,
-          defense: 0,
-          fire: 0,
-          water: 0,
-          thunder: 0,
-          ice: 0,
-          dragon: 0,
-          skills: {},
-          setBonus: {},
+          clearModal: true,
         });
       }
     }
@@ -172,6 +135,95 @@ export default class SetBuilderScreen extends PureComponent {
         animationType: 'slide-horizontal',
       });
     }
+  }
+
+  cancelClear() {
+    this.setState({
+      clearModal: false,
+    });
+  }
+
+  confirmClear() {
+    this.setState({
+      clearModal: false,
+      equipment: {
+        weapon: null,
+        helm: null,
+        chest: null,
+        arms: null,
+        waist: null,
+        legs: null,
+        charm: null,
+        kinsect: null,
+      },
+      h_slot1: null,
+      h_slot2: null,
+      h_slot3: null,
+      c_slot1: null,
+      c_slot2: null,
+      c_slot3: null,
+      a_slot1: null,
+      a_slot2: null,
+      a_slot3: null,
+      w_slot1: null,
+      w_slot2: null,
+      w_slot3: null,
+      l_slot1: null,
+      l_slot2: null,
+      l_slot3: null,
+      wep_slot1: null,
+      wep_slot2: null,
+      wep_slot3: null,
+      defense: 0,
+      fire: 0,
+      water: 0,
+      thunder: 0,
+      ice: 0,
+      dragon: 0,
+      skills: {},
+      setBonus: {},
+    });
+  }
+
+  renderClearModal() {
+    return (
+      <Modal
+        animationType="fade"
+        // useNativeDriver
+        backdropColor={colors.main}
+        backdropOpacity={0.7}
+        avoidKeyboard
+        isVisible={this.state.clearModal}
+        onRequestClose={() => {
+          this.setState({ clearModal: false });
+        }}>
+        <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+          <View style={{ width: 300, height: 200, backgroundColor: 'white', borderRadius: 10 }}>
+            <View style={{ flex: 4, justifyContent: 'center', alignItems: 'center', borderBottomWidth: 0, borderColor: colors.accent }}>
+              <Text style={{ fontSize: 18, color: colors.main }}>{`Clear all equipments?`}</Text>
+            </View>
+            <View style={{ flex: 2, flexDirection: 'row', borderWidth: 0, borderColor: 'green', justifyContent: 'center', alignItems: 'center' }}>
+              <Button
+                block
+                style={{ flex: 1, backgroundColor: colors.secondary, alignItems: 'center', shadowOpacity: 0, elevation: 0, marginLeft: 15, marginRight: 15 }}
+                onPress={() => {
+                  this.cancelClear();
+                }}>
+                <Text style={{ fontSize: 15.5, color: 'white' }}>{`Cancel`}</Text>
+              </Button>
+              <Button
+                block
+                style={{ flex: 1, backgroundColor: colors.accent, alignItems: 'center', shadowOpacity: 0, elevation: 0, marginLeft: 15, marginRight: 15 }}
+                onPress={() => {
+                  this.confirmClear();
+                }}>
+                <Text style={{ fontSize: 15.5, color: 'white' }}>{`Confirm`}</Text>
+              </Button>
+            </View>
+          </View>
+        </View>
+      </Modal>
+    );
   }
 
   renderHelmDecoration(slotNum) {
@@ -1497,8 +1549,16 @@ export default class SetBuilderScreen extends PureComponent {
 
   render() {
     this.saveSet();
+    if (this.state.loading) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+          <ActivityIndicator size="large" color={colors.main}/>
+        </View>
+      );
+    }
     return (
       <Container>
+        {this.renderClearModal()}
         <Tabs
           prerenderingSiblingsNumber={3}
           scrollWithoutAnimation={false}

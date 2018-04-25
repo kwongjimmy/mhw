@@ -3,7 +3,7 @@ import { View, Platform, InteractionManager, FlatList, Image, ActivityIndicator 
 import { Text, ListItem, Left, Right, Body, Tabs, Tab, Container } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
 import AdBanner from '../components/AdBanner';
-import { WeaponImages, ArmorImages } from '../assets';
+import { WeaponImages, ArmorImages, MiscImages } from '../assets';
 import WeaponListItem from '../components/WeaponListItem';
 import KinsectListItem from '../components/KinsectListItem';
 import CharmListItem from '../components/CharmListItem';
@@ -19,6 +19,17 @@ export default class SetBuilderSelect extends PureComponent {
     topBarBorderColor: colors.accent,
     topBarBorderWidth: 17,
   };
+
+  static navigatorButtons = {
+    leftButtons: [
+      {
+        // icon: require('../assets/images/misc/ItemIcon007.png'), // for icon button, provide the local image asset name
+        icon: Platform.OS === 'ios' ? MiscImages['ios-back'] : MiscImages['android-back'],
+        id: 'back', // id for this button, given in onNavigatorEvent(event) to help understand which button was clicked
+      },
+    ],
+  };
+
 
   constructor(props) {
     super(props);
@@ -279,8 +290,12 @@ export default class SetBuilderSelect extends PureComponent {
     }
   }
   onNavigatorEvent(event) {
-    if (event.id === 'bottomTabSelected') {
-      // console.log('Tab selected!');
+    if (event.type === 'NavBarButtonPress') { // this is the event type for button presses
+      if (event.id === 'back') { // this is the same id field from the static navigatorButtons definition
+        this.props.navigator.dismissModal({
+          animationType: 'slide-down',
+        });
+      }
     }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
@@ -332,20 +347,7 @@ export default class SetBuilderSelect extends PureComponent {
       );
     }
     return (
-      // <ListItem
-      //   style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
-      //   onPress={() => {
-      //     this.props.onPassProp(item);
-      //     this.props.navigator.dismissModal({
-      //       animationType: 'slide-down' // 'none' / 'slide-down' , dismiss animation for the modal (optional, default 'slide-down')});
-      //     });
-      //   }
-      //   }>
-      //   {/* <Text>
-      //     {item.name}
-      //   </Text> */}
-        <ArmorListItem setBuilder={true} navigator={this.props.navigator} onPassProp={this.props.onPassProp} item={item}/>
-      // </ListItem>
+      <ArmorListItem setBuilder={true} navigator={this.props.navigator} onPassProp={this.props.onPassProp} item={item}/>
     );
   }
 

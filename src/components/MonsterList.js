@@ -23,11 +23,9 @@ export default class MonsterList extends PureComponent {
   renderMonster = ({ item }) => {
     let src = MonsterImages['Unknown'];
     let name = item.monster_name;
-    if (name !== 'Gajalaka' && name !== 'Grimalkyne') {
-      name = name.replace(/["'-]/g, '');
-      name = name.replace(' ', '');
-      src = MonsterImages[name];
-    }
+    name = name.replace(/["'-]/g, '');
+    name = name.replace(' ', '');
+    src = MonsterImages[name];
     return (
       <ListItem
         style={{ height: 80, marginLeft: 0, paddingLeft: 18 }}
