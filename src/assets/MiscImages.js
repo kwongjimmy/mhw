@@ -11,8 +11,6 @@ const MiscImages = {
   'Combination List': require('./images/misc/ItemIcon026c.png'),
   'android-more': require('./images/misc/android-more.png'),
   'ios-more': require('./images/misc/ios7-more.png'),
-  // 'ios-back': require('./images/misc/ios7-arrow-left.png'),
-  // 'android-back': require('./images/misc/android-arrow-back.png'),
   'plus': require('./images/misc/plus-round.png'),
   'Rate Our App!': require('./images/misc/VillageIcon08.png'),
   'Hunter Tools': require('./images/misc/placeholder_mantle.png'),
