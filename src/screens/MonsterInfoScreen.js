@@ -195,7 +195,6 @@ export default class MonsterInfoScreen extends PureComponent {
               monster_inflicts,
               loading: false,
             });
-            console.log(this.state);
             // let end = new Date().getTime();
             // console.log(end - start);
           },
@@ -212,7 +211,8 @@ export default class MonsterInfoScreen extends PureComponent {
     );
   }
 
-  _renderHeader(items) {
+  _renderHeader(items, index, isActive) {
+    console.log(isActive);
     return (
       <View style={{ flexDirection: 'row', padding: 18, borderBottomWidth: 0.33, borderColor: colors.border, backgroundColor: colors.background}}>
           <Text style={{ flex: 3, fontSize: 15.5, color: colors.main }}>{items[0].name}</Text>

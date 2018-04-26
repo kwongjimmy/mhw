@@ -52,9 +52,6 @@ export default class MonsterLoot extends PureComponent {
   }
 
   onNavigatorEvent(event) {
-    if (event.id === 'bottomTabSelected') {
-      //console.log('Tab selected!');
-    }
     if (event.id === 'bottomTabReselected') {
       this.props.navigator.popToRoot({
         animated: true,
