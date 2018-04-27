@@ -30,18 +30,18 @@ export default class SearchScreen extends Component {
       decorations: [],
       charms: [],
       weapons: [],
-      loading: true,
+      loading: false,
       data: [],
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   onNavigatorEvent(event) {
-    if (event.id === 'willAppear' && this.state.loading) {
-      this.setState({
-        loading: false,
-      });
-    }
+    // if (event.id === 'willAppear' && this.state.loading) {
+    //   this.setState({
+    //     loading: false,
+    //   });
+    // }
   }
 
   searchMatchingWords(keyWord) {

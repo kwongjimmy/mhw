@@ -43,6 +43,10 @@ export default class MiscScreen extends PureComponent {
     this.state = {
       screens: [
         {
+          route: 'SetSelectScreen',
+          title: 'Set Builder',
+        },
+        {
           route: 'ItemScreen',
           title: 'Items',
         },
@@ -75,10 +79,6 @@ export default class MiscScreen extends PureComponent {
           title: 'Hunter Tools',
         },
         {
-          route: 'SetSelectScreen',
-          title: 'Set Builder',
-        },
-        {
           route: 'AboutScreen',
           title: 'About',
         },
@@ -95,17 +95,17 @@ export default class MiscScreen extends PureComponent {
           title: 'Restore Purchase',
         },
       ],
-      loading: true,
+      loading: false,
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   onNavigatorEvent(event) {
-    if (event.id === 'willAppear' && this.state.loading) {
-      this.setState({
-        loading: false,
-      });
-    }
+    // if (event.id === 'willAppear' && this.state.loading) {
+    //   this.setState({
+    //     loading: false,
+    //   });
+    // }
   }
 
   // async componentDidMount(){

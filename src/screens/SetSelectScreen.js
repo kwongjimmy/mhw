@@ -98,7 +98,7 @@ export default class SetSelectScreen extends PureComponent {
     let { item, index } = data;
     return (
       <SwipeRow
-        style={{ height: 50, marginTop: 0, marginBottom: 0, marginLeft: 0, marginRight: 0, paddingTop: 0, paddingBottom: 0, paddingLeft: 0, paddingRight: 0 }}
+        style={{ height: 65, marginTop: 0, marginBottom: 0, marginLeft: 0, marginRight: 0, paddingTop: 0, paddingBottom: 0, paddingLeft: 0, paddingRight: 0 }}
         leftOpenValue={75}
         rightOpenValue={-75}
         left={

@@ -10,7 +10,6 @@ import ArmorListItem from '../components/ArmorListItem';
 import AdBanner from '../components/AdBanner';
 import Modal from 'react-native-modal';
 
-
 // Styles
 import colors from '../styles/colors';
 
@@ -32,7 +31,6 @@ export default class SetBuilderScreen extends PureComponent {
 
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       sets: [],
       setName: '',
@@ -82,10 +80,8 @@ export default class SetBuilderScreen extends PureComponent {
     AsyncStorage.getItem('@sets')
       .then(data => JSON.parse(data))
       .then((jsonData) => {
-        console.log(jsonData);
         let sets = jsonData;
         let currentSet = sets[this.props.index];
-        console.log(currentSet);
         this.setState({
           sets,
           setName: currentSet.setName,
@@ -850,7 +846,6 @@ export default class SetBuilderScreen extends PureComponent {
   }
 
   renderKinsectItem(item) {
-    console.log(item);
     if (this.state.equipment.kinsect !== null) {
       return (
         <KinsectListItem setSelected={true} item={item} navigator={this.props.navigator} />
@@ -916,9 +911,9 @@ export default class SetBuilderScreen extends PureComponent {
                     charm: this.state.equipment.charm,
                     kinsect: this.state.equipment.kinsect,
                   },
-                  w_slot1: null,
-                  w_slot2: null,
-                  w_slot3: null,
+                  wep_slot1: null,
+                  wep_slot2: null,
+                  wep_slot3: null,
                 }),
               },
             })}>
@@ -1354,8 +1349,6 @@ export default class SetBuilderScreen extends PureComponent {
       }
     }
     this.setState({ skills, setBonus });
-    console.log(skills);
-    console.log(setBonus);
   }
 
   calculateStats() {
@@ -1371,8 +1364,6 @@ export default class SetBuilderScreen extends PureComponent {
     //   );
     // });
     const array = Object.keys(skills);
-    console.log(array);
-
     return (
       <View>
         <ListItem
