@@ -110,7 +110,7 @@ export default class WeaponSelectScreen extends PureComponent {
     const src = WeaponImages[item.name];
     return (
       <ListItem
-        style={{ height: 52, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+        style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
         onPress={() => this.props.navigator.push({
         screen: 'WeaponSelectedScreen',
         passProps: {
@@ -151,7 +151,7 @@ export default class WeaponSelectScreen extends PureComponent {
           keyExtractor={item => item.name}
           renderItem={this.renderListItems}
           getItemLayout={(data, index) => (
-            { length: 52, offset: 52 * index, index }
+            { length: 60, offset: 60 * index, index }
           )}
         />
         <AdBanner />

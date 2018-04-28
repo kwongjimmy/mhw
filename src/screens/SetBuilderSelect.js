@@ -310,7 +310,7 @@ export default class SetBuilderSelect extends PureComponent {
     if (item.item_id === '0') {
       return (
         <ListItem
-          style={{ height: 52, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
           onPress={() => {
             this.props.onPassProp(null);
             this.props.navigator.dismissModal({
@@ -333,7 +333,7 @@ export default class SetBuilderSelect extends PureComponent {
     if (item.item_id === '0') {
       return (
         <ListItem
-          style={{ height: 52, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
           onPress={() => {
             this.props.onPassProp(null);
             this.props.navigator.dismissModal({
@@ -356,7 +356,7 @@ export default class SetBuilderSelect extends PureComponent {
     if (item.item_id === '0') {
       return (
         <ListItem
-          style={{ height: 52, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
           onPress={() => {
             this.props.onPassProp(null);
             this.props.navigator.dismissModal({
@@ -416,7 +416,7 @@ export default class SetBuilderSelect extends PureComponent {
     if (item.item_id === '0') {
       return (
         <ListItem
-          style={{ height: 52, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
           onPress={() => {
             this.props.onPassProp(null);
             this.props.navigator.dismissModal({
@@ -439,7 +439,7 @@ export default class SetBuilderSelect extends PureComponent {
     if (item.item_id === '0') {
       return (
         <ListItem
-          style={{ height: 52, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
           onPress={() => {
             this.props.onPassProp(null);
             this.props.navigator.dismissModal({
@@ -462,7 +462,7 @@ export default class SetBuilderSelect extends PureComponent {
     const src = WeaponImages[item.name];
     return (
       <ListItem
-        style={{ height: 52, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+        style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
         onPress={() => {
           this.getWeaponList(item.type);
           this.setState({ loading: true });
@@ -698,13 +698,13 @@ export default class SetBuilderSelect extends PureComponent {
         backgroundColor: 'white',
       };
     }
-    if (this.state.weapon === null) {
+    if (this.state.weapon === null && this.props.type === 'weapon') {
       return (
         <Header
           style={style}
           androidStatusBarColor='white'
           noShadow={noShadow}>
-          <Left style={{ flex: 1, marginLeft: 0, paddingLeft: 5, borderWidth: 0 }}>
+          <Left style={{ flex: 1, marginLeft: 0, paddingLeft: 0, borderWidth: 0 }}>
             <Button rounded transparent
               onPress={() => this.props.navigator.dismissModal({
                 animationType: 'slide-down',
@@ -724,7 +724,7 @@ export default class SetBuilderSelect extends PureComponent {
         androidStatusBarColor='white'
         noShadow={noShadow}
         searchBar rounded>
-        <Left style={{ flex: 1, marginLeft: 0, paddingLeft: 5, borderWidth: 0 }}>
+        <Left style={{ flex: 1, marginLeft: 0, paddingLeft: 0, borderWidth: 0 }}>
           <Button rounded transparent
             onPress={() => this.props.navigator.dismissModal({
               animationType: 'slide-down',
@@ -801,14 +801,10 @@ export default class SetBuilderSelect extends PureComponent {
         <Container style={{ backgroundColor: 'white' }}>
           {this.renderHeader()}
           <FlatList
-            // style={{ backgroundColor: 'white' }}
             initialNumToRender={24}
             data={this.state.data}
             keyExtractor={item => item.item_id.toString()}
             renderItem={this.renderDecorations}
-            // getItemLayout={(data, index) => (
-            //   { length: 52, offset: 52 * index, index }
-            // )}
           />
           <AdBanner />
         </Container>
@@ -818,14 +814,10 @@ export default class SetBuilderSelect extends PureComponent {
         <View style={{ flex: 1, backgroundColor: 'white' }}>
           {this.renderHeader()}
           <FlatList
-            // style={{ backgroundColor: 'white' }}
             initialNumToRender={24}
             data={this.state.data}
             keyExtractor={item => item.item_id.toString()}
             renderItem={this.renderCharms}
-            // getItemLayout={(data, index) => (
-            //   { length: 52, offset: 52 * index, index }
-            // )}
           />
           <AdBanner />
         </View>
@@ -842,7 +834,7 @@ export default class SetBuilderSelect extends PureComponent {
               keyExtractor={item => item.name.toString()}
               renderItem={this.renderWeaponSelect}
               getItemLayout={(data, index) => (
-                { length: 52, offset: 52 * index, index }
+                { length: 60, offset: 60 * index, index }
               )}
             />
             <AdBanner />
@@ -858,9 +850,6 @@ export default class SetBuilderSelect extends PureComponent {
             data={this.state.data}
             keyExtractor={item => item.item_id.toString()}
             renderItem={this.renderWeapons}
-            // getItemLayout={(data, index) => (
-            //   { length: 52, offset: 52 * index, index }
-            // )}
           />
           <AdBanner />
         </View>
