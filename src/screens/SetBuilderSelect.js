@@ -735,7 +735,7 @@ export default class SetBuilderSelect extends PureComponent {
         <Body style={{ flex: 7, borderWidth: 0 }}>
           <Item>
             <Icon active name="search" />
-            <Input underline={false} placeholder="Search" onChangeText={text => this.searchQuery(text)}/>
+            <Input autoCorrect={false} underline={false} placeholder="Search" onChangeText={text => this.searchQuery(text)}/>
           </Item>
         </Body>
       </Header>
