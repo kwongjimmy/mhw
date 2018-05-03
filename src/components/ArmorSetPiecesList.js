@@ -31,6 +31,15 @@ export default class ArmorSetPiecesList extends PureComponent {
         thunder: this.props.armor.head_thunder,
         ice: this.props.armor.head_ice,
         dragon: this.props.armor.head_dragon,
+        set_bonus_name: this.props.armor.set_bonus_name,
+        pieces: this.props.armor.pieces,
+        pieces_2: this.props.armor.pieces_2,
+        set_bonus_skill1_level: this.props.armor.set_bonus_skill1_level,
+        set_bonus_skill2_level: this.props.armor.set_bonus_skill2_level,
+        set_bonus_skill1_id: this.props.armor.set_bonus_skill1_id,
+        set_bonus_skill2_id: this.props.armor.set_bonus_skill2_id,
+        set_bonus_skill1: this.props.armor.set_bonus_skill1,
+        set_bonus_skill2: this.props.armor.set_bonus_skill2,
       });
     }
     if (this.props.armor.armor_item_id !== null) {
@@ -52,6 +61,15 @@ export default class ArmorSetPiecesList extends PureComponent {
         thunder: this.props.armor.armor_thunder,
         ice: this.props.armor.armor_ice,
         dragon: this.props.armor.armor_dragon,
+        set_bonus_name: this.props.armor.set_bonus_name,
+        pieces: this.props.armor.pieces,
+        pieces_2: this.props.armor.pieces_2,
+        set_bonus_skill1_level: this.props.armor.set_bonus_skill1_level,
+        set_bonus_skill2_level: this.props.armor.set_bonus_skill2_level,
+        set_bonus_skill1_id: this.props.armor.set_bonus_skill1_id,
+        set_bonus_skill2_id: this.props.armor.set_bonus_skill2_id,
+        set_bonus_skill1: this.props.armor.set_bonus_skill1,
+        set_bonus_skill2: this.props.armor.set_bonus_skill2,
       });
     }
     if (this.props.armor.gloves_item_id !== null) {
@@ -73,6 +91,15 @@ export default class ArmorSetPiecesList extends PureComponent {
         thunder: this.props.armor.gloves_thunder,
         ice: this.props.armor.gloves_ice,
         dragon: this.props.armor.gloves_dragon,
+        set_bonus_name: this.props.armor.set_bonus_name,
+        pieces: this.props.armor.pieces,
+        pieces_2: this.props.armor.pieces_2,
+        set_bonus_skill1_level: this.props.armor.set_bonus_skill1_level,
+        set_bonus_skill2_level: this.props.armor.set_bonus_skill2_level,
+        set_bonus_skill1_id: this.props.armor.set_bonus_skill1_id,
+        set_bonus_skill2_id: this.props.armor.set_bonus_skill2_id,
+        set_bonus_skill1: this.props.armor.set_bonus_skill1,
+        set_bonus_skill2: this.props.armor.set_bonus_skill2,
       });
     }
     if (this.props.armor.belt_item_id !== null) {
@@ -94,6 +121,15 @@ export default class ArmorSetPiecesList extends PureComponent {
         thunder: this.props.armor.belt_thunder,
         ice: this.props.armor.belt_ice,
         dragon: this.props.armor.belt_dragon,
+        set_bonus_name: this.props.armor.set_bonus_name,
+        pieces: this.props.armor.pieces,
+        pieces_2: this.props.armor.pieces_2,
+        set_bonus_skill1_level: this.props.armor.set_bonus_skill1_level,
+        set_bonus_skill2_level: this.props.armor.set_bonus_skill2_level,
+        set_bonus_skill1_id: this.props.armor.set_bonus_skill1_id,
+        set_bonus_skill2_id: this.props.armor.set_bonus_skill2_id,
+        set_bonus_skill1: this.props.armor.set_bonus_skill1,
+        set_bonus_skill2: this.props.armor.set_bonus_skill2,
       });
     }
     if (this.props.armor.pants_item_id !== null) {
@@ -115,6 +151,15 @@ export default class ArmorSetPiecesList extends PureComponent {
         thunder: this.props.armor.pants_thunder,
         ice: this.props.armor.pants_ice,
         dragon: this.props.armor.pants_dragon,
+        set_bonus_name: this.props.armor.set_bonus_name,
+        pieces: this.props.armor.pieces,
+        pieces_2: this.props.armor.pieces_2,
+        set_bonus_skill1_level: this.props.armor.set_bonus_skill1_level,
+        set_bonus_skill2_level: this.props.armor.set_bonus_skill2_level,
+        set_bonus_skill1_id: this.props.armor.set_bonus_skill1_id,
+        set_bonus_skill2_id: this.props.armor.set_bonus_skill2_id,
+        set_bonus_skill1: this.props.armor.set_bonus_skill1,
+        set_bonus_skill2: this.props.armor.set_bonus_skill2,
       });
     }
     this.state = {
@@ -155,12 +200,12 @@ export default class ArmorSetPiecesList extends PureComponent {
   }
 
   renderSetBonus() {
-    if (this.props.armor.set_bonus !== null) {
+    if (this.props.armor.set_bonus_name !== null) {
       return (
         <View>
           <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: '#F8F8F8' }} itemDivider>
             <Text style={{ fontSize: 15.5, color: colors.main }}>
-              {`${this.props.armor.set_bonus} Set Bonus`}
+              {`${this.props.armor.set_bonus_name} Set Bonus`}
             </Text>
           </ListItem>
           {this.renderSetBonus1()}
@@ -172,22 +217,29 @@ export default class ArmorSetPiecesList extends PureComponent {
   }
 
   renderSetBonus1() {
-    if (this.props.armor.skill1_name !== null) {
+    if (this.props.armor.set_bonus_skill1 !== null) {
       return (
         <ListItem
           style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
           onPress={() => this.props.navigator.push({
           screen: 'TabInfoScreen',
           passProps: {
-            armor_skill_id: this.props.armor.skill1_id,
+            armor_skill_id: this.props.armor.set_bonus_skill1_id,
             type: 'skill',
           },
           animationType: 'slide-horizontal',
-          title: this.props.armor.skill1_name,
+          title: this.props.armor.set_bonus_skill1,
           })}>
-          <Text style={{ fontSize: 15.5, color: colors.main }}>
-            {`(${this.props.armor.pieces} pieces) ${this.props.armor.skill1_name}`}
-          </Text>
+          <Left>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>
+              {`(${this.props.armor.pieces} pieces) ${this.props.armor.set_bonus_skill1}`}
+            </Text>
+          </Left>
+          <Right>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>
+              {`+${this.props.armor.set_bonus_skill1_level}`}
+            </Text>
+          </Right>
         </ListItem>
       );
     }
@@ -195,22 +247,29 @@ export default class ArmorSetPiecesList extends PureComponent {
   }
 
   renderSetBonus2() {
-    if (this.props.armor.skill2_name !== null) {
+    if (this.props.armor.set_bonus_skill2 !== null) {
       return (
         <ListItem
           style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
           onPress={() => this.props.navigator.push({
           screen: 'TabInfoScreen',
           passProps: {
-            armor_skill_id: this.props.armor.skill2_id,
+            armor_skill_id: this.props.armor.set_bonus_skill2_id,
             type: 'skill',
           },
           animationType: 'slide-horizontal',
-          title: this.props.armor.skill2_name,
+          title: this.props.armor.set_bonus_skill2,
           })}>
-          <Text style={{ fontSize: 15.5, color: colors.main }}>
-            {`(${this.props.armor.pieces2} pieces) ${this.props.armor.skill2_name}`}
-          </Text>
+          <Left>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>
+              {`(${this.props.armor.pieces_2} pieces) ${this.props.armor.set_bonus_skill2}`}
+            </Text>
+          </Left>
+          <Right>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>
+              {`+${this.props.armor.set_bonus_skill2_level}`}
+            </Text>
+          </Right>
         </ListItem>
       );
     }
@@ -224,36 +283,6 @@ export default class ArmorSetPiecesList extends PureComponent {
       {this.state.armor.map((item, key) => {
         return (
           <ArmorListItem key={key} item={item} navigator={this.props.navigator} />
-          // <ListItem
-          //   key={key}
-          //   style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
-          //   onPress={() => this.props.navigator.push({
-          //   screen: 'TablessInfoScreen',
-          //   passProps: {
-          //     item_id: item.item_id,
-          //     type: 'armor',
-          //   },
-          //   animationType: 'slide-horizontal',
-          //   title: item.name,
-          // })}
-          // >
-          //   <Left style={{ flex: 0.5 }}>
-          //     <Image
-          //       resizeMode="contain"
-          //       style={{ alignSelf: 'center', width: 20, height: 20 }}
-          //       source={ArmorImages[`${item.type} ${item.rarity}`]}
-          //     />
-          //   </Left>
-          //   <Left style={{ flex: 1.25 }}>
-          //     <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{item.name}</Text>
-          //   </Left>
-          //   <Body style={{ flex: 1.5, flexGrow: 2 }}>
-          //     {this.renderSkills(item)}
-          //   </Body>
-          //   <Right style={{ flex: 0.5, flexGrow: 1 }}>
-          //     {this.renderSlots(item)}
-          //   </Right>
-          // </ListItem>
         );
       })}
       </View>

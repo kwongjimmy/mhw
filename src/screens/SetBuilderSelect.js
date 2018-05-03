@@ -494,9 +494,9 @@ export default class SetBuilderSelect extends PureComponent {
           if (this.props.level === 1) whereCondition = `WHERE B.name LIKE '%1%'`
           else if (this.props.level === 2) whereCondition = `WHERE B.name LIKE '%1%' OR B.name LIKE '%2%'`
         } else {
-          if (this.props.level === 1) whereCondition = `WHERE B.name LIKE '%1%' AND B.name LIKE '%${text}%'`
-          else if (this.props.level === 2) whereCondition = `WHERE (B.name LIKE '%1%' OR B.name LIKE '%2%') AND B.name LIKE '%${text}%`
-          else whereCondition = `WHERE B.name LIKE '%${text}%'`
+          if (this.props.level === 1) whereCondition = `WHERE B.name LIKE '%1%' AND B.name LIKE '%${text}%' OR (B.name LIKE '%1%' AND C.name LIKE '%${text}%') LIMIT 20`
+          else if (this.props.level === 2) whereCondition = `WHERE (B.name LIKE '%1%' OR B.name LIKE '%2%') AND (B.name LIKE '%${text}%' OR C.name LIKE '%${text}%') LIMIT 20`
+          else whereCondition = `WHERE B.name LIKE '%${text}%' OR C.name LIKE '%${text}%' LIMIT 20`
         }
         tx.executeSql(
           `SELECT
@@ -519,7 +519,7 @@ export default class SetBuilderSelect extends PureComponent {
         );
       } else if (this.props.type === 'charm') {
         if (text.length > 0) {
-          whereCondition = `WHERE D.name LIKE '%${text}%'`;
+          whereCondition = `WHERE D.name LIKE '%${text}%' OR E.name LIKE '%${text}%' OR F.name LIKE '%${text}%' LIMIT 20`;
         }
         tx.executeSql(
           `SELECT
@@ -548,7 +548,7 @@ export default class SetBuilderSelect extends PureComponent {
         );
       } else if (this.props.type === 'kinsect') {
         if (text.length > 0) {
-          whereCondition = `WHERE B.name LIKE '%${text}%'`;
+          whereCondition = `WHERE B.name LIKE '%${text}%' LIMIT 20`;
         }
         tx.executeSql(
           `SELECT A.*, B.name as name, B.rarity as rarity FROM kinsects AS A JOIN items AS B on A.item_id = B.item_id ${whereCondition}`
@@ -566,7 +566,7 @@ export default class SetBuilderSelect extends PureComponent {
       } else if (this.props.type === 'armor') {
         let setType = '';
         if (text.length > 0) {
-          whereCondition = `AND B.name LIKE '%${text}%'`;
+          whereCondition = `AND (B.name LIKE '%${text}%' OR E.name LIKE '%${text}%' OR F.name LIKE '%${text}%' OR H.name LIKE '%${text}%' OR K.name LIKE '%${text}%' OR L.name LIKE '%${text}%') LIMIT 20`;
         }
         if (this.props.type2 === 'Head') setType = 'G.item_1';
         else if (this.props.type2 === 'Chest') setType = 'G.item_2';
@@ -649,7 +649,7 @@ export default class SetBuilderSelect extends PureComponent {
         );
       } else {
         if (text.length > 0) {
-          whereCondition = `AND items.name LIKE '%${text}%'`;
+          whereCondition = `AND items.name LIKE '%${text}%' LIMIT 20`;
         }
         tx.executeSql(
           `SELECT

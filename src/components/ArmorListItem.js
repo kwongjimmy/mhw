@@ -11,14 +11,36 @@ export default class ArmorListItem extends PureComponent {
     if (item.skill1 !== null && item.skill2 !== null) {
       return (
         <View style={{ flex: 1, flexDirection: 'column' }}>
-          <Text style={{ flex: 1, fontSize: 10, color: colors.main, textAlign: 'left' }}>{`${item.skill1} +${item.skill1_level}`}</Text>
-          <Text style={{ flex: 1, fontSize: 10, color: colors.main, textAlign: 'left' }}>{`${item.skill2} +${item.skill2_level}`}</Text>
+          <Text style={{ fontSize: 10, color: colors.main, textAlign: 'left' }}>{`${item.skill1} +${item.skill1_level}`}</Text>
+          <Text style={{ fontSize: 10, color: colors.main, textAlign: 'left' }}>{`${item.skill2} +${item.skill2_level}`}</Text>
         </View>
       );
     } else if (item.skill1 !== null && item.skill2 === null) {
       return (
         <View style={{ flex: 1, flexDirection: 'column' }}>
-          <Text style={{ flex: 1, fontSize: 10, color: colors.main, textAlign: 'left' }}>{`${item.skill1} +${item.skill1_level}`}</Text>
+          <Text style={{ fontSize: 10, color: colors.main, textAlign: 'left' }}>{`${item.skill1} +${item.skill1_level}`}</Text>
+        </View>
+      );
+    }
+    return (
+      null
+    );
+  }
+
+  renderSkills2(item) {
+    if (item.set_bonus_skill1 !== null && item.set_bonus_skill2 !== null) {
+      return (
+        <View style={{ flex: 1, flexDirection: 'column' }}>
+          <Text style={{ flex: 1, fontSize: 10, color: colors.main, textAlign: 'left' }}>{`${item.set_bonus_name}`}</Text>
+          <Text style={{ flex: 1, fontSize: 10, color: colors.main, textAlign: 'left' }}>{`(${item.pieces}) ${item.set_bonus_skill1} +${item.set_bonus_skill1_level}`}</Text>
+          <Text style={{ flex: 1, fontSize: 10, color: colors.main, textAlign: 'left' }}>{`(${item.pieces_2}) ${item.set_bonus_skill2} +${item.set_bonus_skill2_level}`}</Text>
+        </View>
+      );
+    } else if (item.set_bonus_skill1 !== null && item.set_bonus_skill2 === null) {
+      return (
+        <View style={{ flex: 1, flexDirection: 'column' }}>
+          <Text style={{ flex: 1, fontSize: 10, color: colors.main, textAlign: 'left' }}>{`${item.set_bonus_name}`}</Text>
+          <Text style={{ flex: 1, fontSize: 10, color: colors.main, textAlign: 'left' }}>{`(${item.pieces}) ${item.set_bonus_skill1} +${item.set_bonus_skill1_level}`}</Text>
         </View>
       );
     }
@@ -120,6 +142,7 @@ export default class ArmorListItem extends PureComponent {
             </View>
             <View style={{ flex: 1, flexDirection: 'row', borderWidth: 0, borderColor: 'green' }}>
               {this.renderSkills(item)}
+              {this.renderSkills2(item)}
             </View>
           </Left>
         </View>
@@ -223,64 +246,12 @@ export default class ArmorListItem extends PureComponent {
           </View>
           <View style={{ flex: 1, flexDirection: 'row', borderWidth: 0, borderColor: 'green' }}>
             {this.renderSkills(item)}
+            {this.renderSkills2(item)}
           </View>
         </Left>
       </ListItem>
     );
   }
-
-  // renderBody2(item) {
-  //   return (
-  //     <View style={{ flex: 1, flexDirection: 'row' }}>
-  //       <Left style={{ flex: 0.5 }}>
-  //         <Image
-  //           resizeMode="contain"
-  //           style={{ width: 20, height: 20 }}
-  //           source={ArmorImages[`${item.type.toLowerCase()} ${item.rarity}`]}
-  //         />
-  //       </Left>
-  //       <Body style={{ flex: 4.5, flexDirection: 'row' }}>
-  //         <View style={{ flex: 3, borderWidth: 1 }}>
-  //           <Text style={{ flex: 1.5, fontSize: 15.5, color: colors.main, justifyContent: 'center', lineHeight: 17.5 }}>{item.name}</Text>
-  //         </View>
-  //         <View style={{ flex: 1, borderWidth: 1 }}>
-  //           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-  //             <View style={{ flex: 1, flexDirection: 'row' }}>
-  //               <View style={{ flex: 0.5 }}>
-  //                 <Image
-  //                   resizeMode="contain"
-  //                   style={{ width: 10, height: 10 }}
-  //                   source={ElementStatusImages['Defense']}
-  //                 />
-  //               </View>
-  //               <Text style={{ flex: 1, fontSize: 11, color: colors.main }}>{`${item.min_def}`}</Text>
-  //             </View>
-  //             <View style={{ flex: 1, flexDirection: 'row' }}>
-  //               <View style={{ flex: 0.5 }}>
-  //                 <Image
-  //                   resizeMode="contain"
-  //                   style={{ width: 10, height: 10 }}
-  //                   source={ElementStatusImages['Fire']}
-  //                 />
-  //               </View>
-  //               <Text style={{ flex: 1, fontSize: 11, color: colors.main }}>{`${item.fire}`}</Text>
-  //             </View>
-  //             <View style={{ flex: 1, flexDirection: 'row' }}>
-  //               <View style={{ flex: 0.5 }}>
-  //                 <Image
-  //                   resizeMode="contain"
-  //                   style={{ width: 10, height: 10 }}
-  //                   source={ElementStatusImages['Water']}
-  //                 />
-  //               </View>
-  //               <Text style={{ flex: 1, fontSize: 11, color: colors.main }}>{`${item.water}`}</Text>
-  //             </View>
-  //           </View>
-  //         </View>
-  //       </Body>
-  //     </View>
-  //   );
-  // }
 
   render() {
     return this.renderBody(this.props.item);

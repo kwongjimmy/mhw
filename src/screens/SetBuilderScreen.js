@@ -1045,7 +1045,7 @@ export default class SetBuilderScreen extends PureComponent {
             />
           </View>
         </ListItem>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, borderBottomWidth: 0 }}>
           <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{this.state.defense}</Text>
           <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{this.state.fire}</Text>
           <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{this.state.water}</Text>
@@ -1156,6 +1156,8 @@ export default class SetBuilderScreen extends PureComponent {
               set_bonus_skill2_id: helm.set_bonus_skill2_id,
               set_bonus_skill1: helm.set_bonus_skill1,
               set_bonus_skill2: helm.set_bonus_skill2,
+              set_bonus_skill1_level: helm.set_bonus_skill1_level,
+              set_bonus_skill2_level: helm.set_bonus_skill2_level,
               name: helm.set_bonus_name,
               pieces: 0,
               set_pieces: helm.pieces,
@@ -1182,6 +1184,8 @@ export default class SetBuilderScreen extends PureComponent {
               set_bonus_skill2_id: chest.set_bonus_skill2_id,
               set_bonus_skill1: chest.set_bonus_skill1,
               set_bonus_skill2: chest.set_bonus_skill2,
+              set_bonus_skill1_level: chest.set_bonus_skill1_level,
+              set_bonus_skill2_level: chest.set_bonus_skill2_level,
               name: chest.set_bonus_name,
               pieces: 0,
               set_pieces: chest.pieces,
@@ -1209,6 +1213,8 @@ export default class SetBuilderScreen extends PureComponent {
             set_bonus_skill2_id: arms.set_bonus_skill2_id,
             set_bonus_skill1: arms.set_bonus_skill1,
             set_bonus_skill2: arms.set_bonus_skill2,
+            set_bonus_skill1_level: arms.set_bonus_skill1_level,
+            set_bonus_skill2_level: arms.set_bonus_skill2_level,
             name: arms.set_bonus_name,
             pieces: 0,
             set_pieces: arms.pieces,
@@ -1234,6 +1240,8 @@ export default class SetBuilderScreen extends PureComponent {
               set_bonus_skill2_id: waist.set_bonus_skill2_id,
               set_bonus_skill1: waist.set_bonus_skill1,
               set_bonus_skill2: waist.set_bonus_skill2,
+              set_bonus_skill1_level: waist.set_bonus_skill1_level,
+              set_bonus_skill2_level: waist.set_bonus_skill2_level,
               name: waist.set_bonus_name,
               pieces: 0,
               set_pieces: waist.pieces,
@@ -1260,6 +1268,8 @@ export default class SetBuilderScreen extends PureComponent {
               set_bonus_skill2_id: legs.set_bonus_skill2_id,
               set_bonus_skill1: legs.set_bonus_skill1,
               set_bonus_skill2: legs.set_bonus_skill2,
+              set_bonus_skill1_level: legs.set_bonus_skill1_level,
+              set_bonus_skill2_level: legs.set_bonus_skill2_level,
               name: legs.set_bonus_name,
               pieces: 0,
               set_pieces: legs.pieces,
@@ -1358,18 +1368,13 @@ export default class SetBuilderScreen extends PureComponent {
 
   renderSkills() {
     const { skills } = this.state;
-    // Object.keys(skills).forEach((key) => {
-    //   return (
-    //     <Text>hi</Text>
-    //   );
-    // });
     const array = Object.keys(skills);
     return (
       <View>
         <ListItem
           style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
           <Left>
-            <Text style={{ fontSize: 15.5 }}>Skills</Text>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>Skills</Text>
           </Left>
         </ListItem>
         {array.map((key) => {
@@ -1387,10 +1392,10 @@ export default class SetBuilderScreen extends PureComponent {
               title: skills[key].name,
             })}>
             <Left>
-              <Text style={{ fontSize: 15.5 }}>{skills[key].name}</Text>
+              <Text style={{ fontSize: 15.5, color: colors.main }}>{skills[key].name}</Text>
             </Left>
             <Right>
-              <Text style={{ fontSize: 15.5 }}>{`+${skills[key].level}`}</Text>
+              <Text style={{ fontSize: 15.5, color: colors.main }}>{`+${skills[key].level}`}</Text>
             </Right>
             </ListItem>
           );
@@ -1411,9 +1416,9 @@ export default class SetBuilderScreen extends PureComponent {
       return (
         <View>
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+            style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, borderBottomWidth: 0.333 }} itemDivider>
             <Left>
-              <Text style={{ fontSize: 15.5 }}>Set Bonus</Text>
+              <Text style={{ fontSize: 15.5, color: colors.main }}>Set Bonus</Text>
             </Left>
           </ListItem>
           {array.map((key) => {
@@ -1433,10 +1438,10 @@ export default class SetBuilderScreen extends PureComponent {
                 })}
                 >
                 <Left>
-                  <Text style={{ fontSize: 15.5 }}>{setBonus[key].set_bonus_skill2}</Text>
+                  <Text style={{ fontSize: 15.5, color: colors.main }}>{`(${setBonus[key].set_pieces2}) ${setBonus[key].set_bonus_skill2}`}</Text>
                 </Left>
                 <Right>
-                  <Text style={{ fontSize: 11 }}>{`(${setBonus[key].set_pieces2}) Set`}</Text>
+                  <Text style={{ fontSize: 15.5, color: colors.main }}>{`+${setBonus[key].set_bonus_skill2_level}`}</Text>
                 </Right>
               </ListItem>;
             }
@@ -1444,21 +1449,12 @@ export default class SetBuilderScreen extends PureComponent {
               <View key={key}>
                 <ListItem
                   style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: '#F8F8F8' }}
-                //   onPress={() => this.props.navigator.push({
-                //   screen: 'TabInfoScreen',
-                //   passProps: {
-                //     armor_skill_id: setBonus[key].skill_id,
-                //     type: 'skill',
-                //   },
-                //   animationType: 'slide-horizontal',
-                //   title: setBonus[key].name,
-                // })}
                 >
                 <Left>
-                  <Text style={{ fontSize: 15.5 }}>{setBonus[key].name}</Text>
+                  <Text style={{ fontSize: 15.5, color: colors.main }}>{setBonus[key].name}</Text>
                 </Left>
                 <Right>
-                  <Text style={{ fontSize: 11 }}>{`${setBonus[key].pieces} Equipped`}</Text>
+                  <Text style={{ fontSize: 11, color: colors.main }}>{`${setBonus[key].pieces} Equipped`}</Text>
                 </Right>
                 </ListItem>
                 <ListItem
@@ -1473,12 +1469,12 @@ export default class SetBuilderScreen extends PureComponent {
                   title: setBonus[key].set_bonus_skill1,
                 })}
                 >
-                <Left>
-                  <Text style={{ fontSize: 15.5 }}>{setBonus[key].set_bonus_skill1}</Text>
-                </Left>
-                <Right>
-                  <Text style={{ fontSize: 11 }}>{`(${setBonus[key].set_pieces}) Set`}</Text>
-                </Right>
+                  <Left>
+                    <Text style={{ fontSize: 15.5, color: colors.main }}>{`(${setBonus[key].set_pieces}) ${setBonus[key].set_bonus_skill1}`}</Text>
+                  </Left>
+                  <Right>
+                    <Text style={{ fontSize: 15.5, color: colors.main }}>{`+${setBonus[key].set_bonus_skill1_level}`}</Text>
+                  </Right>
                 </ListItem>
                 {setBonus2}
               </View>

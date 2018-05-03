@@ -67,7 +67,7 @@ export default class MonsterInfo extends PureComponent {
             Health
           </Text>
         </ListItem>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, borderBottomWidth: 0 }}>
           <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
             {this.props.info.type}
           </Text>
@@ -97,7 +97,7 @@ export default class MonsterInfo extends PureComponent {
               Gold Crown
             </Text>
           </ListItem>
-          <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, borderBottomWidth: 0 }}>
             <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
               {this.props.info.small_crown}
             </Text>
@@ -132,7 +132,7 @@ export default class MonsterInfo extends PureComponent {
               Capture
             </Text>
           </ListItem>
-          <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, borderBottomWidth: 0 }}>
             <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
               {`${effectiveness[this.props.tool[6].works]}`}
             </Text>
@@ -160,7 +160,7 @@ export default class MonsterInfo extends PureComponent {
               Meat
             </Text>
           </ListItem>
-          <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, borderBottomWidth: 0 }}>
             <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
               {`${effectiveness[this.props.tool[2].works]}`}
             </Text>
@@ -387,7 +387,7 @@ export default class MonsterInfo extends PureComponent {
   renderInflictsBody() {
     if (this.props.inflicts[0].element === null) {
       return (
-        <ListItem style={{ marginLeft: 0, marginRight: 0, paddingLeft: 18, paddingRight: 18 }} >
+        <ListItem style={{ marginLeft: 0, marginRight: 0, paddingLeft: 18, paddingRight: 18, borderBottomWidth: 0 }} >
           <View style={{ flex: 1, flexDirection: 'row' }}>
             {this.renderInflictType(this.props.inflicts[0].ailment1)}
             {this.renderInflictType(this.props.inflicts[0].ailment2)}
@@ -397,7 +397,7 @@ export default class MonsterInfo extends PureComponent {
       );
     } else if (this.props.inflicts[0].ailment1 === null) {
       return (
-        <ListItem style={{ marginLeft: 0, marginRight: 0, paddingLeft: 18, paddingRight: 18 }} >
+        <ListItem style={{ marginLeft: 0, marginRight: 0, paddingLeft: 18, paddingRight: 18, borderBottomWidth: 0 }} >
           <View style={{ flex: 1 }}>
             <Image
               resizeMode="contain"
@@ -409,7 +409,7 @@ export default class MonsterInfo extends PureComponent {
       );
     }
     return (
-      <ListItem style={{ marginLeft: 0, marginRight: 0, paddingLeft: 18, paddingRight: 18 }} >
+      <ListItem style={{ marginLeft: 0, marginRight: 0, paddingLeft: 18, paddingRight: 18, borderBottomWidth: 0 }} >
         <View style={{ flex: 1 }}>
           <Image
             resizeMode="contain"

@@ -37,13 +37,15 @@ export default class EquipArmorScreen extends PureComponent {
         I3.name AS gloves_name, I3.rarity as gloves_rarity,
         I4.name AS belt_name, I4.rarity as belt_rarity,
         I5.name AS pants_name, I5.rarity as pants_rarity,
-		    SB.name AS set_bonus,
+		    SB.name AS set_bonus_name,
 		    SB.pieces AS pieces,
-		    SB.pieces_2 AS pieces2,
-        SS1.armor_skill_id AS skill1_id,
-        SS2.armor_skill_id AS skill2_id,
-	      SS1.name AS skill1_name,
-		    SS2.name AS skill2_name
+		    SB.pieces_2 AS pieces_2,
+        SB1.level as set_bonus_skill1_level,
+        SB2.level as set_bonus_skill2_level,
+        SS1.armor_skill_id AS set_bonus_skill1_id,
+        SS2.armor_skill_id AS set_bonus_skill2_id,
+	      SS1.name AS set_bonus_skill1,
+		    SS2.name AS set_bonus_skill2
         FROM
         ( SELECT
           A.name, A.armor_set_id, ifnull(B.rank, 'High') as rank,
@@ -94,13 +96,15 @@ export default class EquipArmorScreen extends PureComponent {
           I3.name AS gloves_name, I3.rarity as gloves_rarity,
           I4.name AS belt_name, I4.rarity as belt_rarity,
           I5.name AS pants_name, I5.rarity as pants_rarity,
-  		    SB.name AS set_bonus,
+          SB.name AS set_bonus_name,
   		    SB.pieces AS pieces,
-  		    SB.pieces_2 AS pieces2,
-          SS1.armor_skill_id AS skill1_id,
-          SS2.armor_skill_id AS skill2_id,
-  	      SS1.name AS skill1_name,
-  		    SS2.name AS skill2_name
+  		    SB.pieces_2 AS pieces_2,
+          SB1.level as set_bonus_skill1_level,
+          SB2.level as set_bonus_skill2_level,
+          SS1.armor_skill_id AS set_bonus_skill1_id,
+          SS2.armor_skill_id AS set_bonus_skill2_id,
+  	      SS1.name AS set_bonus_skill1,
+  		    SS2.name AS set_bonus_skill2
           FROM
           ( SELECT
             A.name, A.armor_set_id, ifnull(B.rank, 'Low') as rank,

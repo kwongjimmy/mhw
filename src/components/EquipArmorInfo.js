@@ -50,6 +50,8 @@ export default class EquipArmorInfo extends PureComponent {
             B.name as set_bonus,
             B.pieces as pieces,
             B.pieces_2 as pieces_2,
+            SL1.level as set_bonus_skill1_level,
+            SL2.level as set_bonus_skill2_level,
             S1.name as skill1,
             S1.armor_skill_id as skill1_id,
             S2.name as skill2,
@@ -317,9 +319,16 @@ export default class EquipArmorInfo extends PureComponent {
           animationType: 'slide-horizontal',
           title: this.state.setBonus.skill1,
           })}>
-          <Text style={{ fontSize: 15.5, color: colors.main }}>
-            {`(${this.state.setBonus.pieces} pieces) ${this.state.setBonus.skill1}`}
-          </Text>
+          <Left>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>
+              {`(${this.state.setBonus.pieces} pieces) ${this.state.setBonus.skill1}`}
+            </Text>
+          </Left>
+          <Right>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>
+              {`+${this.state.setBonus.set_bonus_skill1_level}`}
+            </Text>
+          </Right>
         </ListItem>
       );
     }
@@ -340,9 +349,16 @@ export default class EquipArmorInfo extends PureComponent {
           animationType: 'slide-horizontal',
           title: this.state.setBonus.skill2,
           })}>
-          <Text style={{ fontSize: 15.5, color: colors.main }}>
-            {`(${this.state.setBonus.pieces_2} pieces) ${this.state.setBonus.skill2}`}
-          </Text>
+          <Left>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>
+              {`(${this.state.setBonus.pieces_2} pieces) ${this.state.setBonus.skill2}`}
+            </Text>
+          </Left>
+          <Right>
+            <Text style={{ fontSize: 15.5, color: colors.main }}>
+              {`+${this.state.setBonus.set_bonus_skill2_level}`}
+            </Text>
+          </Right>
         </ListItem>
       );
     }
