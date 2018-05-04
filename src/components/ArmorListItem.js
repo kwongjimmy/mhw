@@ -245,11 +245,26 @@ export default class ArmorListItem extends PureComponent {
             {this.renderSlots(item)}
           </View>
           <View style={{ flex: 1, flexDirection: 'row', borderWidth: 0, borderColor: 'green' }}>
-            {this.renderSkills(item)}
-            {this.renderSkills2(item)}
+            {this.renderSkillsContainer(item)}
           </View>
         </Left>
       </ListItem>
+    );
+  }
+
+  renderSkillsContainer(item) {
+    if (this.props.monster === true) {
+      return (
+        <View>
+          {this.renderSkills(item)}
+        </View>
+      );
+    }
+    return (
+      <View style={{ flex: 1, flexDirection: 'row', borderWidth: 0, borderColor: 'green' }}>
+        {this.renderSkills(item)}
+        {this.renderSkills2(item)}
+      </View>
     );
   }
 
