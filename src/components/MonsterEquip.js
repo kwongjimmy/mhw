@@ -77,7 +77,7 @@ export default class MonsterEquip extends PureComponent {
 
   renderListItems = ({ item }) => {
     return (
-      <ArmorListItem item={item} navigator={this.props.navigator} />
+      <ArmorListItem item={item} navigator={this.props.navigator} monster={true}/>
       // <ListItem
       //   style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
       //   onPress={() => this.props.navigator.push({
