@@ -686,14 +686,14 @@ export default class SetBuilderSelect extends PureComponent {
     let noShadow = false;
     if (this.props.type === 'armor') {
       style = {
-        borderBottomWidth: (Platform.OS !== 'ios') ? 0 : 1,
+        borderBottomWidth: (Platform.OS !== 'ios') ? 0 : 0,
         borderBottomColor: colors.accent,
         backgroundColor: 'white',
       };
       noShadow = true;
     } else {
       style = {
-        borderBottomWidth: (Platform.OS !== 'ios') ? 2 : 1,
+        borderBottomWidth: (Platform.OS !== 'ios') ? 2 : 0,
         borderBottomColor: colors.accent,
         backgroundColor: 'white',
       };
