@@ -693,7 +693,7 @@ export default class SetBuilderSelect extends PureComponent {
       noShadow = true;
     } else {
       style = {
-        borderBottomWidth: (Platform.OS !== 'ios') ? 2 : 0,
+        borderBottomWidth: (Platform.OS !== 'ios') ? 2 : 1,
         borderBottomColor: colors.accent,
         backgroundColor: 'white',
       };
