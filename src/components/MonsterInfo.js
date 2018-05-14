@@ -268,7 +268,7 @@ export default class MonsterInfo extends PureComponent {
             />
           </View>
         </ListItem>
-        <ListItem style={{ marginLeft: 0, marginRight: 0, backgroundColor: 'white' }} itemDivider>
+        <ListItem style={{ marginLeft: 0, marginRight: 0, backgroundColor: colors.background }} itemDivider>
           <Text style={{ flex: 1, fontSize: 12.5, color: colors.main, textAlign: 'center' }}>{fire}</Text>
           <Text style={{ flex: 1, fontSize: 12.5, color: colors.main, textAlign: 'center' }}>{water}</Text>
           <Text style={{ flex: 1, fontSize: 12.5, color: colors.main, textAlign: 'center' }}>{thunder}</Text>
@@ -322,7 +322,7 @@ export default class MonsterInfo extends PureComponent {
             />
           </View>
         </ListItem>
-        <ListItem style={{ marginLeft: 0, marginRight: 0, backgroundColor: 'white'}} itemDivider>
+        <ListItem style={{ marginLeft: 0, marginRight: 0, backgroundColor: colors.background}} itemDivider>
           <Text style={{ flex: 1, fontSize: 12.5, color: colors.main, textAlign: 'center' }}>{poison}</Text>
           <Text style={{ flex: 1, fontSize: 12.5, color: colors.main, textAlign: 'center' }}>{sleep}</Text>
           <Text style={{ flex: 1, fontSize: 12.5, color: colors.main, textAlign: 'center' }}>{paralysis}</Text>
@@ -464,14 +464,14 @@ export default class MonsterInfo extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{
-          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white',
+          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background,
         }}>
           <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
         {this.renderInfo()}
       </View>
     );

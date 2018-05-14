@@ -5,7 +5,7 @@ const colors = {
   secondaryDark: '#5e5e5e',
   divider: '#F8F8F8',
   border: '#c9c9c9',
-  background: '#f4f4f4',
+  background: 'white',
 };
 
 export default colors;

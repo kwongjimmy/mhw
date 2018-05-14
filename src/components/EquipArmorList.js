@@ -33,7 +33,7 @@ export default class EquipArmorList extends PureComponent {
   render() {
     return (
       <FlatList
-        style={{ backgroundColor: 'white' }}
+        style={{ backgroundColor: colors.background }}
         initialNumToRender={12}
         data={this.props.armor}
         keyExtractor={item => item.armor_set_id.toString()}

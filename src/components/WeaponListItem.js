@@ -251,7 +251,7 @@ export default class WeaponListItem extends PureComponent {
           <View style={{ flex: yellow, backgroundColor: '#D5BF45', marginRight: -0.5 }}/>
           <View style={{ flex: green, backgroundColor: '#94BB46', marginRight: -0.5 }}/>
           <View style={{ flex: blue, backgroundColor: '#465DD1', marginRight: -0.5 }}/>
-          <View style={{ flex: white, backgroundColor: 'white', marginRight: -0.5 }}/>
+          <View style={{ flex: white, backgroundColor: colors.background, marginRight: -0.5 }}/>
           <View style={{ flex: black, backgroundColor: 'black', marginRight: -0.5 }}/>
         </View>
     );
@@ -273,7 +273,7 @@ export default class WeaponListItem extends PureComponent {
         <View style={{ flex: yellow2, backgroundColor: '#D5BF45', marginRight: -0.5 }}/>
         <View style={{ flex: green2, backgroundColor: '#94BB46', marginRight: -0.5 }}/>
         <View style={{ flex: blue2, backgroundColor: '#465DD1', marginRight: -0.5 }}/>
-        <View style={{ flex: white2, backgroundColor: 'white', marginRight: -0.5 }}/>
+        <View style={{ flex: white2, backgroundColor: colors.background, marginRight: -0.5 }}/>
         <View style={{ flex: black2, backgroundColor: 'black', marginRight: -0.5 }}/>
       </View>
     );

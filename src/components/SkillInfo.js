@@ -83,15 +83,15 @@ export default class SkillInfo extends PureComponent {
   renderContent(screen) {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
           <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }
     if (screen === 'Info') {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
-          <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
+          <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
             <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
               <Left>
                 <Text style={{ fontSize: 15.5, color: colors.main }}>Description</Text>
@@ -117,7 +117,7 @@ export default class SkillInfo extends PureComponent {
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
         <SkillEquip navigator={this.props.navigator} armor_skill_id={this.props.armor_skill_id}/>
       </View>
     );
@@ -128,8 +128,8 @@ export default class SkillInfo extends PureComponent {
       <Container>
         <Tabs prerenderingSiblingsNumber={2} tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }} initialPage={0}>
           <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
+           activeTabStyle={{ backgroundColor: colors.background }}
+           tabStyle={{ backgroundColor: colors.background }}
            activeTextStyle={{ color: colors.main,  }}
            textStyle={{ color: colors.secondary }}
            heading="Info"
@@ -137,8 +137,8 @@ export default class SkillInfo extends PureComponent {
            {this.renderContent('Info')}
           </Tab>
           <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
+           activeTabStyle={{ backgroundColor: colors.background }}
+           tabStyle={{ backgroundColor: colors.background }}
            activeTextStyle={{ color: colors.main,  }}
            textStyle={{ color: colors.secondary }}
            heading="Equip"

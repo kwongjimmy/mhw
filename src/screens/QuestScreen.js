@@ -10,7 +10,7 @@ import colors from '../styles/colors';
 export default class QuestScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: false,
-    navBarBackgroundColor: 'white',
+    navBarbackgroundColor: colors.background,
   };
 
   constructor(props) {
@@ -119,7 +119,7 @@ export default class QuestScreen extends PureComponent {
   renderContent(screen) {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
           <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
@@ -128,7 +128,7 @@ export default class QuestScreen extends PureComponent {
       return (
         <View style={{ flex: 1}}>
           <FlatList
-            style={{ backgroundColor: 'white' }}
+            style={{ backgroundColor: colors.background }}
             initialNumToRender={11}
             data={this.state.assigned}
             keyExtractor={(item) => item.quest_id.toString()}
@@ -141,9 +141,9 @@ export default class QuestScreen extends PureComponent {
       );
     } else if (screen === 'tab2') {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
           <FlatList
-            style={{ backgroundColor: 'white' }}
+            style={{ backgroundColor: colors.background }}
             initialNumToRender={11}
             data={this.state.optional}
             keyExtractor={(item) => item.quest_id.toString()}
@@ -156,9 +156,9 @@ export default class QuestScreen extends PureComponent {
       );
     } else if (screen === 'tab3') {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
           <FlatList
-            style={{ backgroundColor: 'white' }}
+            style={{ backgroundColor: colors.background }}
             initialNumToRender={11}
             data={this.state.arena}
             keyExtractor={(item) => item.quest_id.toString()}
@@ -171,9 +171,9 @@ export default class QuestScreen extends PureComponent {
       );
     } else if (screen === 'tab4') {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
           <FlatList
-            style={{ backgroundColor: 'white' }}
+            style={{ backgroundColor: colors.background }}
             initialNumToRender={11}
             data={this.state.special}
             keyExtractor={(item) => item.quest_id.toString()}
@@ -186,9 +186,9 @@ export default class QuestScreen extends PureComponent {
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
         <FlatList
-          style={{ backgroundColor: 'white' }}
+          style={{ backgroundColor: colors.background }}
           initialNumToRender={11}
           data={this.state.event}
           keyExtractor={(item) => item.quest_id.toString()}
@@ -208,11 +208,11 @@ export default class QuestScreen extends PureComponent {
           prerenderingSiblingsNumber={3}
           tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }}
           initialPage={0}
-          renderTabBar={() => <ScrollableTab style={{ backgroundColor: 'white', elevation: 2 }}/>}
+          renderTabBar={() => <ScrollableTab style={{ backgroundColor: colors.background, elevation: 2 }}/>}
           >
           <Tab
-            activeTabStyle={{ backgroundColor: 'white' }}
-            tabStyle={{ backgroundColor: 'white' }}
+            activeTabStyle={{ backgroundColor: colors.background }}
+            tabStyle={{ backgroundColor: colors.background }}
             activeTextStyle={{ color: colors.main }}
             textStyle={{ color: colors.secondary }}
             heading="Assigned"
@@ -220,8 +220,8 @@ export default class QuestScreen extends PureComponent {
             {this.renderContent('tab1')}
           </Tab>
           <Tab
-            activeTabStyle={{ backgroundColor: 'white' }}
-            tabStyle={{ backgroundColor: 'white' }}
+            activeTabStyle={{ backgroundColor: colors.background }}
+            tabStyle={{ backgroundColor: colors.background }}
             activeTextStyle={{ color: colors.main }}
             textStyle={{ color: colors.secondary }}
             heading="Optional"
@@ -229,8 +229,8 @@ export default class QuestScreen extends PureComponent {
             {this.renderContent('tab2')}
           </Tab>
           <Tab
-            activeTabStyle={{ backgroundColor: 'white' }}
-            tabStyle={{ backgroundColor: 'white' }}
+            activeTabStyle={{ backgroundColor: colors.background }}
+            tabStyle={{ backgroundColor: colors.background }}
             activeTextStyle={{ color: colors.main }}
             textStyle={{ color: colors.secondary }}
             heading="Arena"
@@ -238,8 +238,8 @@ export default class QuestScreen extends PureComponent {
             {this.renderContent('tab3')}
           </Tab>
           <Tab
-            activeTabStyle={{ backgroundColor: 'white' }}
-            tabStyle={{ backgroundColor: 'white' }}
+            activeTabStyle={{ backgroundColor: colors.background }}
+            tabStyle={{ backgroundColor: colors.background }}
             activeTextStyle={{ color: colors.main }}
             textStyle={{ color: colors.secondary }}
             heading="Special Assignment"
@@ -247,8 +247,8 @@ export default class QuestScreen extends PureComponent {
             {this.renderContent('tab4')}
           </Tab>
           <Tab
-            activeTabStyle={{ backgroundColor: 'white' }}
-            tabStyle={{ backgroundColor: 'white' }}
+            activeTabStyle={{ backgroundColor: colors.background }}
+            tabStyle={{ backgroundColor: colors.background }}
             activeTextStyle={{ color: colors.main }}
             textStyle={{ color: colors.secondary }}
             heading="Event"

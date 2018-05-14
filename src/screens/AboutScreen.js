@@ -31,7 +31,7 @@ export default class AboutScreen extends PureComponent {
 
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
         <ListItem itemDivider>
           <Text style = {{ fontSize: 15.5 }}>Contact Info</Text>
         </ListItem>

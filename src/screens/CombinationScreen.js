@@ -97,15 +97,15 @@ export default class CombinationScreen extends PureComponent {
   renderContent() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
           <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
         <FlatList
-          style={{ backgroundColor: 'white' }}
+          style={{ backgroundColor: colors.background }}
           initialNumToRender={24}
           data={this.state.crafting}
           keyExtractor={item => item[0].craft_id.toString()}

@@ -215,13 +215,13 @@ export default class CharmInfo extends PureComponent {
   renderContent() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
           <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
         <ScrollView>
           {this.renderInfo()}
           {this.renderSkills()}

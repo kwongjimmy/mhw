@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { View, Platform, InteractionManager, FlatList, Image, ActivityIndicator } from 'react-native';
 import { Text, ListItem, Left, Right, Body, Tabs, Tab, Container, Header, Item, Input, Icon, Button, InputGroup } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
+import _ from 'lodash';
 import AdBanner from '../components/AdBanner';
 import { WeaponImages, ArmorImages, MiscImages } from '../assets';
 import WeaponListItem from '../components/WeaponListItem';
@@ -273,10 +274,11 @@ export default class SetBuilderSelect extends PureComponent {
         }
       });
     });
+    this.searchQuery = _.debounce(this.searchQuery, 1000);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.props.type === 'armor') {
       this.props.navigator.setStyle({
         // tabBarButtonColor: '#0d0d0d',
@@ -688,14 +690,14 @@ export default class SetBuilderSelect extends PureComponent {
       style = {
         borderBottomWidth: (Platform.OS !== 'ios') ? 0 : 0,
         borderBottomColor: colors.accent,
-        backgroundColor: 'white',
+        backgroundColor: colors.background,
       };
       noShadow = true;
     } else {
       style = {
         borderBottomWidth: (Platform.OS !== 'ios') ? 2 : 1,
         borderBottomColor: colors.accent,
-        backgroundColor: 'white',
+        backgroundColor: colors.background,
       };
     }
     if (this.state.weapon === null && this.props.type === 'weapon') {
@@ -745,14 +747,14 @@ export default class SetBuilderSelect extends PureComponent {
   render() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
           <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }
     if (this.props.type === 'armor') {
       return (
-        <Container style={{ backgroundColor: 'white' }}>
+        <Container style={{ backgroundColor: colors.background }}>
           {this.renderHeader()}
           <Tabs
             prerenderingSiblingsNumber={3}
@@ -761,13 +763,13 @@ export default class SetBuilderSelect extends PureComponent {
             initialPage={0}
             >
             <Tab
-              activeTabStyle={{ backgroundColor: 'white' }}
-              tabStyle={{ backgroundColor: 'white' }}
+              activeTabStyle={{ backgroundColor: colors.background }}
+              tabStyle={{ backgroundColor: colors.background }}
               activeTextStyle={{ color: colors.main }}
               textStyle={{ color: colors.secondary }}
               heading="HR Armor"
               >
-                <View style={{ flex: 1, backgroundColor: 'white' }}>
+                <View style={{ flex: 1, backgroundColor: colors.background }}>
                   <FlatList
                     initialNumToRender={24}
                     data={this.state.data}
@@ -777,13 +779,13 @@ export default class SetBuilderSelect extends PureComponent {
                 </View>
             </Tab>
             <Tab
-              activeTabStyle={{ backgroundColor: 'white' }}
-              tabStyle={{ backgroundColor: 'white' }}
+              activeTabStyle={{ backgroundColor: colors.background }}
+              tabStyle={{ backgroundColor: colors.background }}
               activeTextStyle={{ color: colors.main }}
               textStyle={{ color: colors.secondary }}
               heading="LR Armor"
               >
-                <View style={{ flex: 1, backgroundColor: 'white' }}>
+                <View style={{ flex: 1, backgroundColor: colors.background }}>
                   <FlatList
                     initialNumToRender={24}
                     data={this.state.data2}
@@ -798,7 +800,7 @@ export default class SetBuilderSelect extends PureComponent {
       );
     } else if (this.props.type === 'decoration') {
       return (
-        <Container style={{ backgroundColor: 'white' }}>
+        <Container style={{ backgroundColor: colors.background }}>
           {this.renderHeader()}
           <FlatList
             initialNumToRender={24}
@@ -811,7 +813,7 @@ export default class SetBuilderSelect extends PureComponent {
       );
     } else if (this.props.type === 'charm') {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
           {this.renderHeader()}
           <FlatList
             initialNumToRender={24}
@@ -825,10 +827,10 @@ export default class SetBuilderSelect extends PureComponent {
     } else if (this.props.type === 'weapon') {
       if (this.state.weapon === null) {
         return (
-          <View style={{ flex: 1, backgroundColor: 'white' }}>
+          <View style={{ flex: 1, backgroundColor: colors.background }}>
             {this.renderHeader()}
             <FlatList
-              style={{ backgroundColor: 'white' }}
+              style={{ backgroundColor: colors.background }}
               initialNumToRender={14}
               data={this.state.weapons}
               keyExtractor={item => item.name.toString()}
@@ -842,10 +844,10 @@ export default class SetBuilderSelect extends PureComponent {
         );
       }
       return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
           {this.renderHeader()}
           <FlatList
-            style={{ backgroundColor: 'white' }}
+            style={{ backgroundColor: colors.background }}
             initialNumToRender={14}
             data={this.state.data}
             keyExtractor={item => item.item_id.toString()}
@@ -856,10 +858,10 @@ export default class SetBuilderSelect extends PureComponent {
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
         {this.renderHeader()}
         <FlatList
-          style={{ backgroundColor: 'white' }}
+          style={{ backgroundColor: colors.background }}
           initialNumToRender={14}
           data={this.state.data}
           keyExtractor={item => item.item_id.toString()}

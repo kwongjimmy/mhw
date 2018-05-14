@@ -116,14 +116,14 @@ export default class MapInfo extends PureComponent {
   renderContent(screen) {
     if (!this.state.loading && this.state.low.length === 0 && screen === 'tab1') {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
           <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: colors.secondary }} />
           <Text style={{ textAlign: 'center', fontSize: 25, color: colors.secondary }}>No Data</Text>
         </View>
       );
     } else if (!this.state.loading && this.state.high.length === 0 && screen === 'tab2') {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
           <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: colors.secondary }} />
           <Text style={{ textAlign: 'center', fontSize: 25, color: colors.secondary }}>No Data</Text>
         </View>
@@ -131,7 +131,7 @@ export default class MapInfo extends PureComponent {
     }
     if (screen === 'tab1') {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
           <FlatList
             initialNumToRender={12}
             data={this.state.low}
@@ -145,7 +145,7 @@ export default class MapInfo extends PureComponent {
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
         <FlatList
           initialNumToRender={12}
           data={this.state.high}
@@ -162,7 +162,7 @@ export default class MapInfo extends PureComponent {
   render() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
           <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
@@ -175,8 +175,8 @@ export default class MapInfo extends PureComponent {
           initialPage={0}
           >
           <Tab
-            activeTabStyle={{ backgroundColor: 'white' }}
-            tabStyle={{ backgroundColor: 'white' }}
+            activeTabStyle={{ backgroundColor: colors.background }}
+            tabStyle={{ backgroundColor: colors.background }}
             activeTextStyle={{ color: colors.main }}
             textStyle={{ color: colors.secondary }}
             heading="Low Rank"
@@ -184,8 +184,8 @@ export default class MapInfo extends PureComponent {
             {this.renderContent('tab1')}
           </Tab>
           <Tab
-            activeTabStyle={{ backgroundColor: 'white' }}
-            tabStyle={{ backgroundColor: 'white' }}
+            activeTabStyle={{ backgroundColor: colors.background }}
+            tabStyle={{ backgroundColor: colors.background }}
             activeTextStyle={{ color: colors.main }}
             textStyle={{ color: colors.secondary }}
             heading="High Rank"

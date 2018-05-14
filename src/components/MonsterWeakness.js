@@ -212,14 +212,14 @@ export default class MonsterWeakness extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{
-          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white',
+          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background,
         }}>
           <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
         {this.renderInfo()}
       </View>
     );

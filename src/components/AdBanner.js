@@ -3,6 +3,9 @@ import { Platform, View, InteractionManager, AsyncStorage, Alert } from 'react-n
 import firebase from 'react-native-firebase';
 import * as RNIap from 'react-native-iap';
 
+// Styles
+import colors from '../styles/colors';
+
 const Banner = firebase.admob.Banner;
 const AdRequest = firebase.admob.AdRequest;
 const request = new AdRequest();
@@ -80,7 +83,7 @@ export default class AdBanner extends PureComponent {
     }
     return (
       <Banner
-        style={{ alignSelf: 'center', justifyContent: 'center', backgroundColor: 'white' }}
+        style={{ alignSelf: 'center', justifyContent: 'center', backgroundColor: colors.background }}
         // unitId={'ca-app-pub-3940256099942544/6300978111'}
         // unitId={'ca-app-pub-9661316023859369/8743467790'}
         unitId={this.state.unitId}

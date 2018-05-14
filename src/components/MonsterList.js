@@ -57,7 +57,7 @@ export default class MonsterList extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{
-          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white',
+          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background,
         }}>
           <ActivityIndicator size="large" color={colors.main}/>
         </View>
@@ -65,7 +65,7 @@ export default class MonsterList extends PureComponent {
     }
     return (
       <FlatList
-        style={{ backgroundColor: 'white' }}
+        style={{ backgroundColor: colors.background }}
         initialNumToRender={7}
         data={this.props.monsters}
         keyExtractor={item => item.monster_id.toString()}

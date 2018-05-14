@@ -1,13 +1,11 @@
 package com.chingoo.mhw;
 
-import android.app.Application;
+import android.app.Activity;
 
-import com.facebook.react.ReactApplication;
 import com.dooboolab.RNIap.RNIapPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.admob.RNFirebaseAdMobPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
-import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
@@ -40,7 +38,7 @@ public class MainApplication extends NavigationApplication {
   }
 
   @Override
-  public boolean clearHostOnActivityDestroy() {
+  public boolean clearHostOnActivityDestroy(Activity activity) {
     return false;
   }
 

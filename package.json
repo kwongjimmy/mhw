@@ -16,7 +16,7 @@
     "react-native-firebase": "3.3.1",
     "react-native-iap": "^0.3.20",
     "react-native-modal": "^5.4.0",
-    "react-native-navigation": "^1.1.451",
+    "react-native-navigation": "git+https://github.com/kwongjimmy/react-native-navigation.git",
     "react-native-splash-screen": "^3.0.6",
     "react-native-sqlite-storage": "^3.3.4",
     "react-native-vector-icons": "^4.6.0"

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, View, ActivityIndicator } from 'react-native';
+import { FlatList, View, ActivityIndicator, Platform } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Header, Button, Icon, Tabs, Title, Right, Item, Input, ListItem, Text, Left, Body, ScrollableTab } from 'native-base';
 import MonsterList from '../components/MonsterList';
@@ -9,9 +9,6 @@ import AdBanner from '../components/AdBanner';
 
 // Styles
 import colors from '../styles/colors';
-
-currentScreen = "monster";
-currentWord = "";
 
 export default class SearchScreen extends Component {
   static navigatorStyle = {
@@ -32,7 +29,9 @@ export default class SearchScreen extends Component {
       weapons: [],
       loading: false,
       data: [],
+      tabs: 0,
     };
+    this.searchMatchingWords = _.debounce(this.searchMatchingWords, 1000);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
@@ -45,13 +44,11 @@ export default class SearchScreen extends Component {
   }
 
   searchMatchingWords(keyWord) {
-    currentWord = keyWord;
-    var keyW = keyWord.toLowerCase();
+    let keyW = keyWord.toLowerCase();
     const db = SQLite.openDatabase({
       name: 'mhworld.db', createFromLocation: '~mhworld.db', location: 'Default',
     });
-    if(keyWord == "")
-    {
+    if (keyWord === '') {
       db.transaction((tx) => {
         const allMonsters = [];
         const lowRank = [];
@@ -62,22 +59,12 @@ export default class SearchScreen extends Component {
         const decorations = [];
         const charms = [];
         const weapons = [];
+        const tabs = 0;
         this.setState({
-          data: allMonsters, lowRank, items,skills,maps,quests,decorations,charms, weapons, loading: false,
+          allMonsters, lowRank, items, skills, maps, quests, decorations, charms, weapons, loading: false, tabs
         });
-        this.renderContent('monster');
-        this.renderContent('armor');
-        this.renderContent('weapon');
-        this.renderContent('item');
-        this.renderContent('quest');
-        this.renderContent('charm');
-        this.renderContent('decoration');
-        this.renderContent('skill');
-        this.renderContent('map');
-        db.close();
-        });
-    }
-    else if(keyWord.length <3){
+      });
+    } else if (keyWord.length < 3) {
       db.transaction((tx) => {
         const allMonsters = [];
         const lowRank = [];
@@ -88,17 +75,17 @@ export default class SearchScreen extends Component {
         const decorations = [];
         const charms = [];
         const weapons = [];
-
-        tx.executeSql("SELECT * FROM monster WHERE LOWER(monster_name) LIKE ? ORDER BY monster_name LIMIT 20" , [keyW+'%'], (tx, results) => {
+        let tabs = 0;
+        tx.executeSql('SELECT * FROM monster WHERE LOWER(monster_name) LIKE ? ORDER BY monster_name LIMIT 20', [keyW+'%'], (tx, results) => {
           const len = results.rows.length;
           for (let i = 0; i < len; i += 1) {
             const row = results.rows.item(i);
             allMonsters.push(row);
           }
-          this.renderContent('monster');
+          if (allMonsters.length > 0) tabs += 1;
         });
-        tx.executeSql(`
-        SELECT
+        tx.executeSql(
+          `SELECT
           X.*,
           I1.name AS head_name, I1.rarity as head_rarity,
           I2.name AS armor_name, I2.rarity as armor_rarity,
@@ -151,15 +138,17 @@ export default class SearchScreen extends Component {
           LEFT JOIN armor_skills AS SS1 ON SS1.armor_skill_id = SB1.armor_skill_id
           LEFT JOIN armor_skills AS SS2 ON SS2.armor_skill_id = SB2.armor_skill_id
           WHERE LOWER(X.name) LIKE ? LIMIT 20`
-           , [keyW+'%'], (tx, results) => {
-          const len = results.rows.length;
-          for (let i = 0; i < len; i += 1) {
-            const row = results.rows.item(i);
-            lowRank.push(row);
-          }
-          this.renderContent('armor');
-        });
-        tx.executeSql(  `SELECT
+          , [keyW+'%'], (tx, results) => {
+            const len = results.rows.length;
+            for (let i = 0; i < len; i += 1) {
+              const row = results.rows.item(i);
+              lowRank.push(row);
+            }
+            if (lowRank.length > 0) tabs += 1;
+          },
+        );
+        tx.executeSql(
+          `SELECT
             weapon_sharpness.*,
             weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
             weapons.*, items.name as name, items.rarity as rarity
@@ -172,13 +161,15 @@ export default class SearchScreen extends Component {
             LEFT JOIN weapon_phials ON weapons.item_id = weapon_phials.item_id
             LEFT JOIN weapon_sharpness ON weapons.item_id = weapon_sharpness.item_id
             LEFT JOIN weapon_shellings ON weapons.item_id = weapon_shellings.item_id
-            WHERE items.name LIKE ? ORDER BY name LIMIT 20`, [keyW+'%'], (tx, results) => {
-          const len = results.rows.length;
-          for (let i = 0; i < len; i += 1) {
-            weapons.push(results.rows.item(i));
-          }
-          this.renderContent('weapon');
-        });
+            WHERE items.name LIKE ? ORDER BY name LIMIT 20`
+          , [keyW+'%'], (tx, results) => {
+            const len = results.rows.length;
+            for (let i = 0; i < len; i += 1) {
+              weapons.push(results.rows.item(i));
+            }
+            if (weapons.length > 0) tabs += 1;
+          },
+        );
         tx.executeSql(
           `SELECT item_id, name, type FROM items WHERE type = 'item' AND LOWER(name) LIKE ? ORDER BY name LIMIT 20`,
           [keyW+'%'], (tx, results) => {
@@ -187,46 +178,47 @@ export default class SearchScreen extends Component {
               const row = results.rows.item(i);
               items.push(row);
             }
-            this.renderContent('item');
-          });
-          tx.executeSql('SELECT * FROM quests WHERE LOWER(name) LIKE ? ORDER BY name LIMIT 20', [keyW+'%'], (tx, results) => {
+            if (items.length > 0) tabs += 1;
+          }
+        );
+        tx.executeSql('SELECT * FROM quests WHERE LOWER(name) LIKE ? ORDER BY name LIMIT 20', [keyW+'%'], (tx, results) => {
+          const len = results.rows.length;
+          for (let i = 0; i < len; i += 1) {
+            const row = results.rows.item(i);
+            quests.push(row);
+          }
+          if (quests.length > 0) tabs += 1;
+        });
+        tx.executeSql(
+          'SELECT * FROM armor_skills WHERE LOWER(name) LIKE ? ORDER BY name LIMIT 20',
+          [keyW+'%'], (tx, results) => {
             const len = results.rows.length;
             for (let i = 0; i < len; i += 1) {
               const row = results.rows.item(i);
-              quests.push(row);
+              skills.push(row);
             }
-            this.renderContent('quest');
-          });
-          tx.executeSql(
-            'SELECT * FROM armor_skills WHERE LOWER(name) LIKE ? ORDER BY name LIMIT 20',
-            [keyW+'%'], (tx, results) => {
-              const len = results.rows.length;
-              for (let i = 0; i < len; i += 1) {
-                const row = results.rows.item(i);
-                skills.push(row);
-              }
-              this.renderContent('skill');
-            },
-          );
-          tx.executeSql(
-            `SELECT
-              A.item_id as item_id, B.name as name, C.name as skill_name, D.level as skill_level
-              FROM decorations AS A
-              JOIN items AS B ON A.item_id = B.item_id
-              LEFT JOIN armor_skills_levels AS D ON A.skill = D.armor_skill_level_id
-              LEFT JOIN armor_skills AS C ON D.armor_skill_id = C.armor_skill_id
-              WHERE LOWER(B.name) LIKE ? ORDER BY B.name LIMIT 20`
-            , [keyW+'%'], (tx, results) => {
+            if (skills.length > 0) tabs += 1;
+          },
+        );
+        tx.executeSql(
+          `SELECT
+            A.item_id as item_id, B.name as name, C.name as skill_name, D.level as skill_level
+            FROM decorations AS A
+            JOIN items AS B ON A.item_id = B.item_id
+            LEFT JOIN armor_skills_levels AS D ON A.skill = D.armor_skill_level_id
+            LEFT JOIN armor_skills AS C ON D.armor_skill_id = C.armor_skill_id
+            WHERE LOWER(B.name) LIKE ? ORDER BY B.name LIMIT 20`
+          , [keyW+'%'], (tx, results) => {
             const len = results.rows.length;
-            for(let i = 0; i < len; i += 1) {
+            for (let i = 0; i < len; i += 1) {
               const row = results.rows.item(i);
               decorations.push(row);
             }
-            this.renderContent('decoration');
-           },
-          );
-          tx.executeSql(
-            `SELECT
+            if (decorations.length > 0) tabs += 1;
+          },
+        );
+        tx.executeSql(
+          `SELECT
               A.item_id as item_id, B.name as name,
               CL1.name as skill1_name, C1.level as skill1_level,
               CL2.name as skill2_name, C2.level as skill2_level
@@ -236,38 +228,23 @@ export default class SearchScreen extends Component {
               LEFT JOIN armor_skills_levels AS C2 ON A.armor_skill_2 = C2.armor_skill_level_id
               LEFT JOIN armor_skills AS CL1 ON C1.armor_skill_id = CL1.armor_skill_id
               LEFT JOIN armor_skills AS CL2 ON C2.armor_skill_id = CL2.armor_skill_id WHERE LOWER(B.name) LIKE ? ORDER BY B.name LIMIT 20`
-            , [keyW+'%'], (tx, results) => {
-              const len = results.rows.length;
-              for (let i = 0; i < len; i += 1) {
-                const row = results.rows.item(i);
-                charms.push(row);
-              }
-              this.renderContent('charm');
-            },
-          );
-          tx.executeSql(
-            'SELECT * FROM maps WHERE LOWER(name) LIKE ? ORDER BY name LIMIT 20',
-            [keyW+'%'], (tx, results) => {
-              const len = results.rows.length;
-              for (let i = 0; i < len; i += 1) {
-                const row = results.rows.item(i);
-                maps.push(row);
-              }
-              this.renderContent('map');
-              this.setState({
-                data: allMonsters, allMonsters, lowRank, items,skills,maps,quests,decorations,charms, weapons, loading: false,
-              });
-              db.close();
-            },
-          );
+          , [keyW+'%'], (tx, results) => {
+            const len = results.rows.length;
+            for (let i = 0; i < len; i += 1) {
+              const row = results.rows.item(i);
+              charms.push(row);
+            }
+            if (charms.length > 0) tabs += 1;
+            this.setState({
+              allMonsters, lowRank, items, skills, maps, quests, decorations, charms, weapons, loading: false, tabs,
+            });
+          },
+        );
       });
-    }
-    else if(keyWord.length >2 ){
+    } else if (keyWord.length > 2) {
       db.transaction((tx) => {
         const allMonsters = [];
         const lowRank = [];
-        const smallMonsters = [];
-        const largeMonsters = [];
         const items = [];
         const skills = [];
         const maps = [];
@@ -275,16 +252,20 @@ export default class SearchScreen extends Component {
         const decorations = [];
         const charms = [];
         const weapons = [];
-        tx.executeSql("SELECT * FROM monster WHERE LOWER(monster_name) LIKE ? OR LOWER(type) LIKE ? ORDER BY SUBSTR(monster_name,1,3)" , ['%'+keyW+'%','%'+keyW+'%'], (tx, results) => {
-          const len = results.rows.length;
-          for (let i = 0; i < len; i += 1) {
-            const row = results.rows.item(i);
-            allMonsters.push(row);
-          }
-          this.renderContent('monster');
-        });
-        tx.executeSql(`
-        SELECT
+        let tabs = 0;
+        tx.executeSql(
+          "SELECT * FROM monster WHERE LOWER(monster_name) LIKE ? OR LOWER(type) LIKE ? ORDER BY SUBSTR(monster_name,1,3)"
+          , ['%'+keyW+'%','%'+keyW+'%'], (tx, results) => {
+            const len = results.rows.length;
+            for (let i = 0; i < len; i += 1) {
+              const row = results.rows.item(i);
+              allMonsters.push(row);
+            }
+            if (allMonsters.length > 0) tabs += 1;
+          },
+        );
+        tx.executeSql(
+          `SELECT
           X.*,
           I1.name AS head_name, I1.rarity as head_rarity,
           I2.name AS armor_name, I2.rarity as armor_rarity,
@@ -337,15 +318,17 @@ export default class SearchScreen extends Component {
           LEFT JOIN armor_skills AS SS1 ON SS1.armor_skill_id = SB1.armor_skill_id
           LEFT JOIN armor_skills AS SS2 ON SS2.armor_skill_id = SB2.armor_skill_id
           WHERE LOWER(X.name) LIKE ? ORDER BY SUBSTR(X.name,1,3)`
-           , ['%'+keyW+'%'], (tx, results) => {
-          const len = results.rows.length;
-          for (let i = 0; i < len; i += 1) {
-            const row = results.rows.item(i);
-            lowRank.push(row);
-          }
-          this.renderContent('armor');
-        });
-        tx.executeSql(  `SELECT
+          , ['%'+keyW+'%'], (tx, results) => {
+            const len = results.rows.length;
+            for (let i = 0; i < len; i += 1) {
+              const row = results.rows.item(i);
+              lowRank.push(row);
+            }
+            if (lowRank.length > 0) tabs += 1;
+          },
+        );
+        tx.executeSql(
+          `SELECT
             weapon_sharpness.*,
             weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
             weapons.*, items.name as name, items.rarity as rarity
@@ -358,13 +341,15 @@ export default class SearchScreen extends Component {
             LEFT JOIN weapon_phials ON weapons.item_id = weapon_phials.item_id
             LEFT JOIN weapon_sharpness ON weapons.item_id = weapon_sharpness.item_id
             LEFT JOIN weapon_shellings ON weapons.item_id = weapon_shellings.item_id
-            WHERE items.name LIKE ? ORDER BY SUBSTR(items.name,1,3)`, ['%'+keyW+'%'], (tx, results) => {
-          const len = results.rows.length;
-          for (let i = 0; i < len; i += 1) {
-            weapons.push(results.rows.item(i));
-          }
-          this.renderContent('weapon');
-        });
+            WHERE items.name LIKE ? ORDER BY SUBSTR(items.name,1,3)`
+          , ['%'+keyW+'%'], (tx, results) => {
+            const len = results.rows.length;
+            for (let i = 0; i < len; i += 1) {
+              weapons.push(results.rows.item(i));
+            }
+            if (weapons.length > 0) tabs += 1;
+          },
+        );
         tx.executeSql(
           `SELECT item_id, name, type FROM items WHERE type = 'item' AND LOWER(name) LIKE ? ORDER BY SUBSTR(name,1,3)`,
           ['%'+keyW+'%'], (tx, results) => {
@@ -375,86 +360,76 @@ export default class SearchScreen extends Component {
             }
             this.renderContent('item');
           });
-          tx.executeSql('SELECT * FROM quests WHERE LOWER(name) LIKE ? ORDER BY SUBSTR(name,1,3)', ['%'+keyW+'%'], (tx, results) => {
+        tx.executeSql('SELECT * FROM quests WHERE LOWER(name) LIKE ? ORDER BY SUBSTR(name,1,3)', ['%'+keyW+'%'], (tx, results) => {
+          const len = results.rows.length;
+          for (let i = 0; i < len; i += 1) {
+            const row = results.rows.item(i);
+            quests.push(row);
+          }
+          if (quests.length > 0) tabs += 1;
+        });
+        tx.executeSql(
+          'SELECT * FROM armor_skills WHERE LOWER(name) LIKE ? ORDER BY SUBSTR(name,1,3)',
+          ['%'+keyW+'%'], (tx, results) => {
             const len = results.rows.length;
             for (let i = 0; i < len; i += 1) {
               const row = results.rows.item(i);
-              quests.push(row);
+              skills.push(row);
             }
-            this.renderContent('quest');
-          });
-          tx.executeSql(
-            'SELECT * FROM armor_skills WHERE LOWER(name) LIKE ? ORDER BY SUBSTR(name,1,3)',
-            ['%'+keyW+'%'], (tx, results) => {
-              const len = results.rows.length;
-              for (let i = 0; i < len; i += 1) {
-                const row = results.rows.item(i);
-                skills.push(row);
-              }
-              this.renderContent('skill');
-            },
-          );
-          tx.executeSql(
-            `SELECT
-              A.item_id as item_id, B.name as name, C.name as skill_name, D.level as skill_level
-              FROM decorations AS A
-              JOIN items AS B ON A.item_id = B.item_id
-              LEFT JOIN armor_skills_levels AS D ON A.skill = D.armor_skill_level_id
-              LEFT JOIN armor_skills AS C ON D.armor_skill_id = C.armor_skill_id
-              WHERE LOWER(B.name) LIKE ? ORDER BY SUBSTR(B.name,1,3)`
-            , ['%'+keyW+'%'], (tx, results) => {
+            if (skills.length > 0) tabs += 1;
+          },
+        );
+        tx.executeSql(
+          `SELECT
+            A.item_id as item_id, B.name as name, C.name as skill_name, D.level as skill_level
+            FROM decorations AS A
+            JOIN items AS B ON A.item_id = B.item_id
+            LEFT JOIN armor_skills_levels AS D ON A.skill = D.armor_skill_level_id
+            LEFT JOIN armor_skills AS C ON D.armor_skill_id = C.armor_skill_id
+            WHERE LOWER(B.name) LIKE ? ORDER BY SUBSTR(B.name,1,3)`
+          , ['%'+keyW+'%'], (tx, results) => {
             const len = results.rows.length;
-            for(let i = 0; i < len; i += 1) {
+            for (let i = 0; i < len; i += 1) {
               const row = results.rows.item(i);
               decorations.push(row);
             }
-            this.renderContent('decoration');
-           },
-          );
-          tx.executeSql(
-            `SELECT
-              A.item_id as item_id, B.name as name,
-              CL1.name as skill1_name, C1.level as skill1_level,
-              CL2.name as skill2_name, C2.level as skill2_level
-              FROM charms AS A
-              JOIN items AS B ON A.item_id = B.item_id
-              LEFT JOIN armor_skills_levels AS C1 ON A.armor_skill_1 = C1.armor_skill_level_id
-              LEFT JOIN armor_skills_levels AS C2 ON A.armor_skill_2 = C2.armor_skill_level_id
-              LEFT JOIN armor_skills AS CL1 ON C1.armor_skill_id = CL1.armor_skill_id
-              LEFT JOIN armor_skills AS CL2 ON C2.armor_skill_id = CL2.armor_skill_id WHERE LOWER(B.name) LIKE ? ORDER BY SUBSTR(B.name,1,3)`
-            , ['%'+keyW+'%'], (tx, results) => {
-            // Get rows with Web SQL Database spec compliance.
-              const len = results.rows.length;
-              for (let i = 0; i < len; i += 1) {
-                const row = results.rows.item(i);
-                charms.push(row);
-              }
-              this.renderContent('charm');
-            },
-          );
-          tx.executeSql(
-            'SELECT * FROM maps WHERE LOWER(name) LIKE ? ORDER BY SUBSTR(name,1,3)',
-            ['%'+keyW+'%'], (tx, results) => {
-              const len = results.rows.length;
-              for (let i = 0; i < len; i += 1) {
-                const row = results.rows.item(i);
-                maps.push(row);
-              }
-              this.renderContent('map');
-              this.setState({
-                data: allMonsters, allMonsters, lowRank, items,skills,maps,quests,decorations,charms, weapons, loading: false,
-              });
-              db.close();
-            },
-          );
+            if (decorations.length > 0) tabs += 1;
+          },
+        );
+        tx.executeSql(
+          `SELECT
+            A.item_id as item_id, B.name as name,
+            CL1.name as skill1_name, C1.level as skill1_level,
+            CL2.name as skill2_name, C2.level as skill2_level
+            FROM charms AS A
+            JOIN items AS B ON A.item_id = B.item_id
+            LEFT JOIN armor_skills_levels AS C1 ON A.armor_skill_1 = C1.armor_skill_level_id
+            LEFT JOIN armor_skills_levels AS C2 ON A.armor_skill_2 = C2.armor_skill_level_id
+            LEFT JOIN armor_skills AS CL1 ON C1.armor_skill_id = CL1.armor_skill_id
+            LEFT JOIN armor_skills AS CL2 ON C2.armor_skill_id = CL2.armor_skill_id WHERE LOWER(B.name) LIKE ? ORDER BY SUBSTR(B.name,1,3)`
+          , ['%'+keyW+'%'], (tx, results) => {
+          // Get rows with Web SQL Database spec compliance.
+            const len = results.rows.length;
+            for (let i = 0; i < len; i += 1) {
+              const row = results.rows.item(i);
+              charms.push(row);
+            }
+            if (charms.length > 0) tabs += 1;
+            this.setState({
+              allMonsters, lowRank, items, skills, maps, quests, decorations, charms, weapons, loading: false, tabs
+            });
+          },
+        );
       });
     }
   }
+
   renderListWeapons = ({ item }) => {
     return (
       <WeaponListItem navigator={this.props.navigator} item={item} />
     );
   }
+
   renderListQuests = ({ item }) => {
     return (
       <ListItem
@@ -478,6 +453,7 @@ export default class SearchScreen extends Component {
       </ListItem>
     );
   }
+
   renderListMaps = ({ item }) => {
     return (
       <ListItem
@@ -497,6 +473,7 @@ export default class SearchScreen extends Component {
       </ListItem>
     );
   }
+
   renderListItems = ({ item }) => {
     return (
       <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} onPress={() => this.props.navigator.push({
@@ -512,6 +489,7 @@ export default class SearchScreen extends Component {
       </ListItem>
     );
   }
+
   renderListDecorations = ({ item }) => {
     return (
       <ListItem
@@ -534,6 +512,7 @@ export default class SearchScreen extends Component {
       </ListItem>
     );
   }
+
   renderListSkills = ({ item }) => {
     return (
       <ListItem
@@ -557,6 +536,7 @@ export default class SearchScreen extends Component {
       </ListItem>
     );
   }
+
   renderListCharms = ({ item }) => {
     return (
       <ListItem
@@ -577,6 +557,7 @@ export default class SearchScreen extends Component {
       </ListItem>
     );
   }
+
   renderSkills(item) {
     if (item.skill1_name !== null && item.skill2_name !== null) {
       return (
@@ -596,212 +577,298 @@ export default class SearchScreen extends Component {
       null
     );
   }
+
   renderContent(screen) {
-    if (this.state.loading) {
-      return null;
-    }
     if (screen === 'monster') {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
           <MonsterList navigator={this.props.navigator} monsters={this.state.allMonsters} type={'monster'}/>
         </View>
       );
-    }
-    else if (screen === 'armor') {
+    } else if (screen === 'armor') {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
           <EquipArmorList navigator={this.props.navigator} armor={this.state.lowRank}/>
         </View>
       );
-    }
-    else if (screen === 'weapon') {
+    } else if (screen === 'weapon') {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
           <FlatList
-            style={{ backgroundColor: 'white' }}
+            style={{ backgroundColor: colors.background }}
             initialNumToRender={8}
             data={this.state.weapons}
-            keyExtractor={(item) => item.item_id.toString()}
+            keyExtractor={item => item.item_id.toString()}
             renderItem={this.renderListWeapons}
           />
         </View>
       );
-    }
-    else if (screen === 'item') {
+    } else if (screen === 'item') {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
           <FlatList
             data={this.state.items}
-            keyExtractor={(item) => item.item_id.toString()}
+            keyExtractor={item => item.item_id.toString()}
             renderItem={this.renderListItems}
           />
         </View>
       );
     } else if (screen === 'skill') {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
           <FlatList
             data={this.state.skills}
-            keyExtractor={(item) => item.armor_skill_id.toString()}
+            keyExtractor={item => item.armor_skill_id.toString()}
             renderItem={this.renderListSkills}
           />
         </View>
       );
-    }
-    else if (screen === 'map') {
+    } else if (screen === 'map') {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
           <FlatList
             data={this.state.maps}
-            keyExtractor={(item) => item.map_id.toString()}
+            keyExtractor={item => item.map_id.toString()}
             renderItem={this.renderListMaps}
           />
         </View>
       );
-    }
-    else if (screen === 'decoration') {
+    } else if (screen === 'decoration') {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
           <FlatList
             data={this.state.decorations}
-            keyExtractor={(item) => item.item_id.toString()}
+            keyExtractor={item => item.item_id.toString()}
             renderItem={this.renderListDecorations}
           />
         </View>
       );
-    }
-    else if (screen === 'charm') {
+    } else if (screen === 'charm') {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
           <FlatList
             data={this.state.charms}
-            keyExtractor={(item) => item.item_id.toString()}
+            keyExtractor={item => item.item_id.toString()}
             renderItem={this.renderListCharms}
           />
         </View>
       );
-    }
-    else if (screen === 'quest') {
+    } else if (screen === 'quest') {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
           <FlatList
             data={this.state.quests}
-            keyExtractor={(item) => item.quest_id.toString()}
+            keyExtractor={item => item.quest_id.toString()}
             renderItem={this.renderListQuests}
           />
         </View>
       );
     }
+    return null;
+  }
+
+  renderTab(screen) {
+    if (screen === 'monster' && this.state.allMonsters.length > 0) {
+      return (
+        <Tab
+          activeTabStyle={{ backgroundColor: colors.background }}
+          tabStyle={{ backgroundColor: colors.background }}
+          activeTextStyle={{ color: colors.main }}
+          textStyle={{ color: colors.secondary }}
+          heading="Monsters"
+          >
+          {this.renderContent('monster')}
+        </Tab>
+      );
+    } else if (screen === 'armor' && this.state.lowRank.length > 0) {
+      return (
+        <Tab
+          activeTabStyle={{ backgroundColor: colors.background }}
+          tabStyle={{ backgroundColor: colors.background }}
+          activeTextStyle={{ color: colors.main }}
+          textStyle={{ color: colors.secondary }}
+          heading="Armor"
+          >
+          {this.renderContent('armor')}
+        </Tab>
+      );
+    } else if (screen === 'weapon' && this.state.weapons.length > 0) {
+      return (
+        <Tab
+          activeTabStyle={{ backgroundColor: colors.background }}
+          tabStyle={{ backgroundColor: colors.background }}
+          activeTextStyle={{ color: colors.main }}
+          textStyle={{ color: colors.secondary }}
+          heading="Weapons"
+          >
+          {this.renderContent('weapon')}
+        </Tab>
+      );
+    } else if (screen === 'item' && this.state.items.length > 0) {
+      return (
+        <Tab
+          activeTabStyle={{ backgroundColor: colors.background }}
+          tabStyle={{ backgroundColor: colors.background }}
+          activeTextStyle={{ color: colors.main }}
+          textStyle={{ color: colors.secondary }}
+          heading="Items"
+          >
+          {this.renderContent('item')}
+        </Tab>
+      );
+    } else if (screen === 'quest' && this.state.quests.length > 0) {
+      return (
+        <Tab
+          activeTabStyle={{ backgroundColor: colors.background }}
+          tabStyle={{ backgroundColor: colors.background }}
+          activeTextStyle={{ color: colors.main }}
+          textStyle={{ color: colors.secondary }}
+          heading="Quests"
+          >
+          {this.renderContent('quest')}
+        </Tab>
+      );
+    } else if (screen === 'charm' && this.state.charms.length > 0) {
+      return (
+        <Tab
+          activeTabStyle={{ backgroundColor: colors.background }}
+          tabStyle={{ backgroundColor: colors.background }}
+          activeTextStyle={{ color: colors.main }}
+          textStyle={{ color: colors.secondary }}
+          heading="Charms"
+          >
+          {this.renderContent('charm')}
+        </Tab>
+      );
+    } else if (screen === 'decoration' && this.state.decorations.length > 0) {
+      return (
+        <Tab
+          activeTabStyle={{ backgroundColor: colors.background }}
+          tabStyle={{ backgroundColor: colors.background }}
+          activeTextStyle={{ color: colors.main }}
+          textStyle={{ color: colors.secondary }}
+          heading="Decorations"
+          >
+          {this.renderContent('decoration')}
+        </Tab>
+      );
+    } else if (screen === 'skill' && this.state.skills.length > 0) {
+      return (
+        <Tab
+          activeTabStyle={{ backgroundColor: colors.background }}
+          tabStyle={{ backgroundColor: colors.background }}
+          activeTextStyle={{ color: colors.main }}
+          textStyle={{ color: colors.secondary }}
+          heading="Skills"
+          >
+          {this.renderContent('skill')}
+        </Tab>
+      );
+    } else if (screen === 'map' && this.state.maps.length > 0) {
+      return (
+        <Tab
+          activeTabStyle={{ backgroundColor: colors.background }}
+          tabStyle={{ backgroundColor: colors.background }}
+          activeTextStyle={{ color: colors.main }}
+          textStyle={{ color: colors.secondary }}
+          heading="Maps"
+          >
+          {this.renderContent('map')}
+        </Tab>
+      );
+    }
+    return null;
+  }
+
+  renderTabs() {
+    if (
+      this.state.allMonsters.length <= 0
+      && this.state.lowRank.length <= 0
+      && this.state.weapons.length <= 0
+      && this.state.items.length <= 0
+      && this.state.skills.length <= 0
+      && this.state.quests.length <= 0
+      && this.state.decorations.length <= 0
+      && this.state.charms.length <= 0
+    ) {
+      return null;
+    }
+    // if (this.state.tabs < 4) {
+    //   return (
+    //     <Tabs
+    //     tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }}
+    //     prerenderingSiblingsNumber={5}
+    //     initialPage={0}>
+    //       {this.renderTab('monster')}
+    //       {this.renderTab('armor')}
+    //       {this.renderTab('weapon')}
+    //       {this.renderTab('item')}
+    //       {this.renderTab('quest')}
+    //       {this.renderTab('charm')}
+    //       {this.renderTab('decoration')}
+    //       {this.renderTab('skill')}
+    //     </Tabs>
+    //   );
+    // }
+    return (
+      <Tabs
+      tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }}
+      prerenderingSiblingsNumber={5}
+      initialPage={0}
+      renderTabBar={() => <ScrollableTab style={{ backgroundColor: colors.background, elevation: 2 }}/>}>
+        {this.renderTab('monster')}
+        {this.renderTab('armor')}
+        {this.renderTab('weapon')}
+        {this.renderTab('item')}
+        {this.renderTab('quest')}
+        {this.renderTab('charm')}
+        {this.renderTab('decoration')}
+        {this.renderTab('skill')}
+      </Tabs>
+    );
   }
 
   render() {
-    if (this.state.loading) {
-      return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
-          <ActivityIndicator size="large" color={colors.main}/>
-        </View>
-      );
+    console.log(this.state);
+    let noShadow = true;
+    let style = {
+      borderBottomWidth: (Platform.OS !== 'ios') ? 0 : 0,
+      borderBottomColor: colors.accent,
+      backgroundColor: colors.background,
+    };
+    if (
+      this.state.allMonsters.length <= 0
+      && this.state.lowRank.length <= 0
+      && this.state.weapons.length <= 0
+      && this.state.items.length <= 0
+      && this.state.skills.length <= 0
+      && this.state.quests.length <= 0
+      && this.state.decorations.length <= 0
+      && this.state.charms.length <= 0
+    ) {
+      style = {
+        borderBottomWidth: (Platform.OS !== 'ios') ? 2 : 1,
+        borderBottomColor: colors.accent,
+        backgroundColor: colors.background,
+      };
+      noShadow = false;
     }
     return (
-      <Container style={{ backgroundColor: 'white' }}>
+      <Container style={{ backgroundColor: colors.background }}>
         <Header
-          style={{ backgroundColor: 'white' }}
+          style={style}
           androidStatusBarColor='white'
-          noShadow={true}
+          noShadow={noShadow}
           searchBar rounded>
           <Item>
             <Icon active name="search" />
-            <Input placeholder="Search" onChangeText={(text) => this.searchMatchingWords(text)}/>
+            <Input placeholder="Search" onChangeText={text => this.searchMatchingWords(text)}/>
           </Item>
           <Button transparent>
             <Text>Search</Text>
           </Button>
         </Header>
-        <Tabs tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }} initialPage={0}
-        renderTabBar={() => <ScrollableTab style={{ elevation: 2 }}/>}
-        >
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: colors.main }}
-           textStyle={{ color: colors.secondary }}
-           heading="Monster"
-           >
-           {this.renderContent('monster')}
-         </Tab>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: colors.main }}
-           textStyle={{ color: colors.secondary }}
-           heading="Armor"
-           >
-           {this.renderContent('armor')}
-         </Tab>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: colors.main }}
-           textStyle={{ color: colors.secondary }}
-           heading="Weapon"
-           >
-           {this.renderContent('weapon')}
-         </Tab>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: colors.main }}
-           textStyle={{ color: colors.secondary }}
-           heading="Item"
-           >
-           {this.renderContent('item')}
-         </Tab>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: colors.main }}
-           textStyle={{ color: colors.secondary }}
-           heading="Quests"
-           >
-           {this.renderContent('quest')}
-         </Tab>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: colors.main }}
-           textStyle={{ color: colors.secondary }}
-           heading="Charms"
-           >
-           {this.renderContent('charm')}
-         </Tab>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: colors.main }}
-           textStyle={{ color: colors.secondary }}
-           heading="Decorations"
-           >
-           {this.renderContent('decoration')}
-         </Tab>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: colors.main }}
-           textStyle={{ color: colors.secondary }}
-           heading="Skills"
-           >
-           {this.renderContent('skill')}
-         </Tab>
-         <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
-           activeTextStyle={{ color: colors.main }}
-           textStyle={{ color: colors.secondary }}
-           heading="Maps"
-           >
-           {this.renderContent('map')}
-         </Tab>
-       </Tabs>
+        {this.renderTabs()}
        <AdBanner/>
       </Container>
     );

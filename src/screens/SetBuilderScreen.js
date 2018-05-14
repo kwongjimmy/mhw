@@ -194,7 +194,7 @@ export default class SetBuilderScreen extends PureComponent {
           this.setState({ clearModal: false });
         }}>
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-          <View style={{ width: 300, height: 200, backgroundColor: 'white', borderRadius: 10 }}>
+          <View style={{ width: 300, height: 200, backgroundColor: colors.background, borderRadius: 10 }}>
             <View style={{ flex: 4, justifyContent: 'center', alignItems: 'center', borderBottomWidth: 0, borderColor: colors.accent }}>
               <Text style={{ fontSize: 18, color: colors.main }}>{`Clear all equipments?`}</Text>
             </View>
@@ -1538,7 +1538,7 @@ export default class SetBuilderScreen extends PureComponent {
     this.saveSet();
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
           <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
@@ -1554,13 +1554,13 @@ export default class SetBuilderScreen extends PureComponent {
           onChangeTab={(ref) => { if (ref.i === 1) this.calculateStats(); }}
           >
           <Tab
-            activeTabStyle={{ backgroundColor: 'white' }}
-            tabStyle={{ backgroundColor: 'white' }}
+            activeTabStyle={{ backgroundColor: colors.background }}
+            tabStyle={{ backgroundColor: colors.background }}
             activeTextStyle={{ color: colors.main }}
             textStyle={{ color: colors.secondary }}
             heading="Equipment"
             >
-            <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
+            <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
               {this.renderWeapon()}
               {this.renderCharm()}
               {this.renderHelm()}
@@ -1571,13 +1571,13 @@ export default class SetBuilderScreen extends PureComponent {
             </ScrollView>
           </Tab>
           <Tab
-            activeTabStyle={{ backgroundColor: 'white' }}
-            tabStyle={{ backgroundColor: 'white' }}
+            activeTabStyle={{ backgroundColor: colors.background }}
+            tabStyle={{ backgroundColor: colors.background }}
             activeTextStyle={{ color: colors.main }}
             textStyle={{ color: colors.secondary }}
             heading="Stats"
             >
-            <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
+            <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
               {this.renderStats()}
             </ScrollView>
           </Tab>

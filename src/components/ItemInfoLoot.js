@@ -229,7 +229,7 @@ export default class ItemInfoLoot extends PureComponent {
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
         {this.renderMonsterLoot()}
         {this.renderMapLoot()}
       </View>

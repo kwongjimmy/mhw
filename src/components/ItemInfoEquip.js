@@ -192,7 +192,7 @@ export default class ItemInfoEquip extends PureComponent {
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
         {this.renderArmor()}
         {this.renderWeapons()}
       </View>

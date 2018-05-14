@@ -291,7 +291,7 @@ export default class ArmorSetPiecesList extends PureComponent {
 
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
         <ScrollView>
           {this.renderBody()}
         </ScrollView>

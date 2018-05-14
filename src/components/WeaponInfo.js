@@ -635,7 +635,7 @@ export default class WeaponInfo extends PureComponent {
               <View style={{ flex: yellow, height: 10, backgroundColor: '#D5BF45', marginRight: -0.5 }}/>
               <View style={{ flex: green, height: 10, backgroundColor: '#94BB46', marginRight: -0.5 }}/>
               <View style={{ flex: blue, height: 10, backgroundColor: '#465DD1', marginRight: -0.5}}/>
-              <View style={{ flex: white, height: 10, backgroundColor: 'white', marginRight: -0.5 }}/>
+              <View style={{ flex: white, height: 10, backgroundColor: colors.background, marginRight: -0.5 }}/>
               <View style={{ flex: black, height: 10, backgroundColor: 'black', marginRight: -0.5 }}/>
             </View>
           </Right> */}
@@ -666,7 +666,7 @@ export default class WeaponInfo extends PureComponent {
               <View style={{ flex: yellow, height: 10, backgroundColor: '#D5BF45', marginRight: -0.5 }}/>
               <View style={{ flex: green, height: 10, backgroundColor: '#94BB46', marginRight: -0.5 }}/>
               <View style={{ flex: blue, height: 10, backgroundColor: '#465DD1', marginRight: -0.5}}/>
-              <View style={{ flex: white, height: 10, backgroundColor: 'white', marginRight: -0.5 }}/>
+              <View style={{ flex: white, height: 10, backgroundColor: colors.background, marginRight: -0.5 }}/>
               <View style={{ flex: black, height: 10, backgroundColor: 'black', marginRight: -0.5 }}/>
             </View>
           </Left>
@@ -679,7 +679,7 @@ export default class WeaponInfo extends PureComponent {
               <View style={{ flex: yellow2, height: 10, backgroundColor: '#D5BF45', marginRight: -0.5 }}/>
               <View style={{ flex: green2, height: 10, backgroundColor: '#94BB46', marginRight: -0.5 }}/>
               <View style={{ flex: blue2, height: 10, backgroundColor: '#465DD1', marginRight: -0.5}}/>
-              <View style={{ flex: white2, height: 10, backgroundColor: 'white', marginRight: -0.5 }}/>
+              <View style={{ flex: white2, height: 10, backgroundColor: colors.background, marginRight: -0.5 }}/>
               <View style={{ flex: black2, height: 10, backgroundColor: 'black', marginRight: -0.5 }}/>
             </View>
           </Left>
@@ -980,13 +980,13 @@ export default class WeaponInfo extends PureComponent {
   renderContent() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
           <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     } else if (this.state.info.type === 'bow') {
       return (
-        <ScrollView style={{ backgroundColor: 'white' }}>
+        <ScrollView style={{ backgroundColor: colors.background }}>
           {this.renderInfo(this.state.info)}
           {this.renderSecondaryInfo(this.state.info)}
           {this.renderUpgrading()}
@@ -1002,13 +1002,13 @@ export default class WeaponInfo extends PureComponent {
           tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }}
           initialPage={0}>
          <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
+           activeTabStyle={{ backgroundColor: colors.background }}
+           tabStyle={{ backgroundColor: colors.background }}
            activeTextStyle={{ color: colors.main }}
            textStyle={{ color: colors.secondary }}
            heading="Info"
            >
-           <ScrollView style={{ backgroundColor: 'white' }}>
+           <ScrollView style={{ backgroundColor: colors.background }}>
              {this.renderInfo(this.state.info)}
              {this.renderBowGunSecondaryInfo(this.state.info)}
              {this.renderUpgrading()}
@@ -1018,24 +1018,24 @@ export default class WeaponInfo extends PureComponent {
            </ScrollView>
          </Tab>
          <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
+           activeTabStyle={{ backgroundColor: colors.background }}
+           tabStyle={{ backgroundColor: colors.background }}
            activeTextStyle={{ color: colors.main }}
            textStyle={{ color: colors.secondary }}
            heading="Recoil"
            >
-           <ScrollView style={{ backgroundColor: 'white' }}>
+           <ScrollView style={{ backgroundColor: colors.background }}>
              {this.renderRecoil()}
            </ScrollView>
          </Tab>
          <Tab
-           activeTabStyle={{ backgroundColor: 'white' }}
-           tabStyle={{ backgroundColor: 'white' }}
+           activeTabStyle={{ backgroundColor: colors.background }}
+           tabStyle={{ backgroundColor: colors.background }}
            activeTextStyle={{ color: colors.main }}
            textStyle={{ color: colors.secondary }}
            heading="Reload"
            >
-           <ScrollView style={{ backgroundColor: 'white' }}>
+           <ScrollView style={{ backgroundColor: colors.background }}>
              {this.renderReload()}
            </ScrollView>
          </Tab>
@@ -1043,7 +1043,7 @@ export default class WeaponInfo extends PureComponent {
       );
     } else if (this.props.type === 'kinsect') {
       return (
-        <ScrollView style={{ backgroundColor: 'white' }}>
+        <ScrollView style={{ backgroundColor: colors.background }}>
           {this.renderKinsectInfo()}
           {this.renderUpgrading()}
           {this.renderUpgradeTo()}
@@ -1051,7 +1051,7 @@ export default class WeaponInfo extends PureComponent {
       );
     }
     return (
-      <ScrollView style={{ backgroundColor: 'white' }}>
+      <ScrollView style={{ backgroundColor: colors.background }}>
         {this.renderInfo(this.state.info)}
         {this.renderSecondaryInfo(this.state.info)}
         {this.renderSharpness(this.state.info)}
@@ -1065,7 +1065,7 @@ export default class WeaponInfo extends PureComponent {
 
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
         {this.renderContent()}
         <AdBanner />
       </View>

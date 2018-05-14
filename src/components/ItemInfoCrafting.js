@@ -111,7 +111,7 @@ export default class ItemInfoCrafting extends PureComponent {
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
         <DropDown
           headerName={'Combination'}
           hide={true}

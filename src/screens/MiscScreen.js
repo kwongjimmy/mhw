@@ -5,6 +5,7 @@ import firebase from 'react-native-firebase';
 import { MiscImages } from '../assets';
 import AdBanner from '../components/AdBanner';
 import * as RNIap from 'react-native-iap';
+import _ from 'lodash';
 
 // Styles
 import colors from '../styles/colors';
@@ -179,7 +180,6 @@ export default class MiscScreen extends PureComponent {
         onPress={() => this.props.navigator.push({
         screen: item.route,
         passProps: {
-
         },
         animationType: 'slide-horizontal',
         title: item.title,
@@ -309,16 +309,16 @@ export default class MiscScreen extends PureComponent {
   render() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
           <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
         <FlatList
           initialNumToRender={15}
-          style={{ backgroundColor: 'white' }}
+          style={{ backgroundColor: colors.background }}
           data={this.state.screens}
           keyExtractor={item => item.route}
           renderItem={this.renderListItems}

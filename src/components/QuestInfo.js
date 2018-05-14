@@ -290,22 +290,22 @@ export default class QuestInfo extends PureComponent {
   renderContent() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
           <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }
     if (!this.state.loading && this.state.rewards.length === 0 && this.state.info.objective === '' && (this.state.monsters.length === 0)) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
           <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: colors.secondary }} />
           <Text style={{ textAlign: 'center', fontSize: 25, color: colors.secondary }}>No Data</Text>
         </View>
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
-        <ScrollView style={{ backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <ScrollView style={{ backgroundColor: colors.background }}>
         {this.renderObjective()}
         {this.renderMap()}
         {this.renderItem()}

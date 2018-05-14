@@ -168,20 +168,20 @@ export default class EquipArmorScreen extends PureComponent {
   renderContent(screen) {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
           <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }
     if (screen === 'low') {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
           <EquipArmorList navigator={this.props.navigator} armor={this.state.lowRank}/>
        </View>
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
         <EquipArmorList navigator={this.props.navigator} armor={this.state.highRank}/>
        </View>
     );
@@ -192,8 +192,8 @@ export default class EquipArmorScreen extends PureComponent {
       <Container>
         <Tabs prerenderingSiblingsNumber={2} scrollWithoutAnimation={false} tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }} initialPage={0}>
           <Tab
-            activeTabStyle={{ backgroundColor: 'white' }}
-            tabStyle={{ backgroundColor: 'white' }}
+            activeTabStyle={{ backgroundColor: colors.background }}
+            tabStyle={{ backgroundColor: colors.background }}
             activeTextStyle={{ color: colors.main }}
             textStyle={{ color: colors.secondary }}
             heading="Low Rank"
@@ -201,8 +201,8 @@ export default class EquipArmorScreen extends PureComponent {
             {this.renderContent('low')}
           </Tab>
           <Tab
-            activeTabStyle={{ backgroundColor: 'white' }}
-            tabStyle={{ backgroundColor: 'white' }}
+            activeTabStyle={{ backgroundColor: colors.background }}
+            tabStyle={{ backgroundColor: colors.background }}
             activeTextStyle={{ color: colors.main }}
             textStyle={{ color: colors.secondary }}
             heading="High Rank"

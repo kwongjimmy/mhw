@@ -212,9 +212,8 @@ export default class MonsterInfoScreen extends PureComponent {
   }
 
   _renderHeader(items, index, isActive) {
-    console.log(isActive);
     return (
-      <View style={{ flexDirection: 'row', padding: 18, borderBottomWidth: 0.33, borderColor: colors.border, backgroundColor: colors.background}}>
+      <View style={{ flexDirection: 'row', padding: 18, borderBottomWidth: 0.33, borderColor: colors.border, backgroundColor: colors.divider }}>
           <Text style={{ flex: 3, fontSize: 15.5, color: colors.main }}>{items[0].name}</Text>
           <Icon style={{ flex: 1 }} ios='ios-arrow-down' android="ios-arrow-down" style={{ fontSize: 20, color: colors.accent }}/>
       </View>
@@ -254,7 +253,7 @@ export default class MonsterInfoScreen extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{
-          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white',
+          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background,
         }}>
           <ActivityIndicator size="large" color={colors.main}/>
         </View>
@@ -306,8 +305,8 @@ export default class MonsterInfoScreen extends PureComponent {
     if (this.state.monster_loot.length > 0) {
       return (
         <Tab
-          activeTabStyle={{ backgroundColor: 'white' }}
-          tabStyle={{ backgroundColor: 'white' }}
+          activeTabStyle={{ backgroundColor: colors.background }}
+          tabStyle={{ backgroundColor: colors.background }}
           activeTextStyle={{ color: colors.main }}
           textStyle={{ color: colors.secondary }}
           heading="LR Loot"
@@ -323,8 +322,8 @@ export default class MonsterInfoScreen extends PureComponent {
     if (this.state.monster_loot_high.length > 0) {
       return (
         <Tab
-          activeTabStyle={{ backgroundColor: 'white' }}
-          tabStyle={{ backgroundColor: 'white' }}
+          activeTabStyle={{ backgroundColor: colors.background }}
+          tabStyle={{ backgroundColor: colors.background }}
           activeTextStyle={{ color: colors.main }}
           textStyle={{ color: colors.secondary }}
           heading="HR Loot"
@@ -340,8 +339,8 @@ export default class MonsterInfoScreen extends PureComponent {
     if (this.state.monster_weapons.length > 0) {
       return (
         <Tab
-          activeTabStyle={{ backgroundColor: 'white' }}
-          tabStyle={{ backgroundColor: 'white' }}
+          activeTabStyle={{ backgroundColor: colors.background }}
+          tabStyle={{ backgroundColor: colors.background }}
           activeTextStyle={{ color: colors.main }}
           textStyle={{ color: colors.secondary }}
           heading="Weapon"
@@ -357,8 +356,8 @@ export default class MonsterInfoScreen extends PureComponent {
     if (this.state.monster_armor.length > 0) {
       return (
         <Tab
-          activeTabStyle={{ backgroundColor: 'white' }}
-          tabStyle={{ backgroundColor: 'white' }}
+          activeTabStyle={{ backgroundColor: colors.background }}
+          tabStyle={{ backgroundColor: colors.background }}
           activeTextStyle={{ color: colors.main }}
           textStyle={{ color: colors.secondary }}
           heading="Armor"
@@ -374,8 +373,8 @@ export default class MonsterInfoScreen extends PureComponent {
     if (this.state.monster_quest.length > 0) {
       return (
         <Tab
-          activeTabStyle={{ backgroundColor: 'white' }}
-          tabStyle={{ backgroundColor: 'white' }}
+          activeTabStyle={{ backgroundColor: colors.background }}
+          tabStyle={{ backgroundColor: colors.background }}
           activeTextStyle={{ color: colors.main }}
           textStyle={{ color: colors.secondary }}
           heading="Quest"
@@ -398,11 +397,11 @@ export default class MonsterInfoScreen extends PureComponent {
           scrollWithoutAnimation={false}
           tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }}
           initialPage={0}
-          renderTabBar={() => <ScrollableTab style={{ backgroundColor: 'white', elevation: 2 }}/>}
+          renderTabBar={() => <ScrollableTab style={{ backgroundColor: colors.background, elevation: 2 }}/>}
           >
           <Tab
-            activeTabStyle={{ backgroundColor: 'white' }}
-            tabStyle={{ backgroundColor: 'white' }}
+            activeTabStyle={{ backgroundColor: colors.background }}
+            tabStyle={{ backgroundColor: colors.background }}
             activeTextStyle={{ color: colors.main }}
             textStyle={{ color: colors.secondary }}
             heading="Info"
@@ -410,8 +409,8 @@ export default class MonsterInfoScreen extends PureComponent {
             {this.renderContent('tab6')}
           </Tab>
           <Tab
-            activeTabStyle={{ backgroundColor: 'white' }}
-            tabStyle={{ backgroundColor: 'white' }}
+            activeTabStyle={{ backgroundColor: colors.background }}
+            tabStyle={{ backgroundColor: colors.background }}
             activeTextStyle={{ color: colors.main }}
             textStyle={{ color: colors.secondary }}
             heading="Weakness"

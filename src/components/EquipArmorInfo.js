@@ -121,7 +121,7 @@ export default class EquipArmorInfo extends PureComponent {
             <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>Price</Text>
             <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>Rarity</Text>
         </ListItem>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: 'white' }} itemDivider>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: colors.background }} itemDivider>
           <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{min_def}</Text>
           <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{`${slotOne} ${slotTwo} ${slotThree}`}</Text>
           <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{`${buy_price}z`}</Text>
@@ -164,7 +164,7 @@ export default class EquipArmorInfo extends PureComponent {
             />
           </View>
         </ListItem>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: 'white' }} itemDivider>
+        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: colors.background }} itemDivider>
           <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{fire}</Text>
           <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{water}</Text>
           <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{thunder}</Text>
@@ -368,14 +368,14 @@ export default class EquipArmorInfo extends PureComponent {
   renderContent() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
           <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
-        <ScrollView style={{ backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <ScrollView style={{ backgroundColor: colors.background }}>
           {this.renderInfo()}
           {this.renderSkills()}
           {this.renderSetBonus()}

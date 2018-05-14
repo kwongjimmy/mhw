@@ -114,7 +114,7 @@ export default class MonsterEquip extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{
-          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white',
+          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background,
         }}>
           <ActivityIndicator size="large" color={colors.main}/>
         </View>
@@ -122,7 +122,7 @@ export default class MonsterEquip extends PureComponent {
     }
     if (!this.state.loading && this.state.data.length === 0) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
           <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: colors.secondary }} />
           <Text style={{ textAlign: 'center', fontSize: 25, color: colors.secondary }}>No Data</Text>
         </View>
@@ -130,7 +130,7 @@ export default class MonsterEquip extends PureComponent {
     }
     if (this.props.type === 'armor') {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
           <FlatList
             initialNumToRender={11}
             data={this.state.data}
@@ -144,7 +144,7 @@ export default class MonsterEquip extends PureComponent {
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
         <FlatList
           initialNumToRender={7}
           data={this.state.data}

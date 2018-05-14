@@ -177,26 +177,26 @@ export default class MonsterScreen extends PureComponent {
   renderContent(screen) {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: 'white' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
           <ActivityIndicator size="large" color={colors.main}/>
         </View>
       );
     }
     if (screen === 'all') {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
           <MonsterList navigator={this.props.navigator} monsters={this.state.allMonsters} type={'all'}/>
         </View>
       );
     } else if (screen === 'large') {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
           <MonsterList navigator={this.props.navigator} monsters={this.state.largeMonsters} type={'large'}/>
         </View>
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
         <MonsterList navigator={this.props.navigator} monsters={this.state.smallMonsters} type={'small'}/>
       </View>
     );
@@ -217,7 +217,7 @@ export default class MonsterScreen extends PureComponent {
               marginBottom: 0,
               alignItems: undefined,
               justifyContent: undefined,
-              backgroundColor: 'white',
+              backgroundColor: colors.background,
             }}
            animationType='slide'
            useNativeDriver
@@ -258,15 +258,15 @@ export default class MonsterScreen extends PureComponent {
               </Button>
              </View>
          </Modal> */}
-        <Container style={{ backgroundColor: 'white' }}>
+        <Container style={{ backgroundColor: colors.background }}>
           <Tabs
             prerenderingSiblingsNumber={3}
             scrollWithoutAnimation={false}
             tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }}
             initialPage={0}>
            <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
+             activeTabStyle={{ backgroundColor: colors.background }}
+             tabStyle={{ backgroundColor: colors.background }}
              activeTextStyle={{ color: colors.main }}
              textStyle={{ color: colors.secondary }}
              heading="All"
@@ -274,8 +274,8 @@ export default class MonsterScreen extends PureComponent {
              {this.renderContent('all')}
            </Tab>
            <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
+             activeTabStyle={{ backgroundColor: colors.background }}
+             tabStyle={{ backgroundColor: colors.background }}
              activeTextStyle={{ color: colors.main }}
              textStyle={{ color: colors.secondary }}
              heading="Large"
@@ -283,8 +283,8 @@ export default class MonsterScreen extends PureComponent {
              {this.renderContent('large')}
            </Tab>
            <Tab
-             activeTabStyle={{ backgroundColor: 'white' }}
-             tabStyle={{ backgroundColor: 'white' }}
+             activeTabStyle={{ backgroundColor: colors.background }}
+             tabStyle={{ backgroundColor: colors.background }}
              activeTextStyle={{ color: colors.main }}
              textStyle={{ color: colors.secondary }}
              heading="Small"
