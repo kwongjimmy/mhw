@@ -30,8 +30,9 @@ export default class SearchScreen extends Component {
       loading: false,
       data: [],
       tabs: 0,
+      keyWord: '',
     };
-    this.searchMatchingWords = _.debounce(this.searchMatchingWords, 1000);
+    this.searchMatchingWords = _.debounce(this.searchMatchingWords, 625);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
@@ -60,8 +61,9 @@ export default class SearchScreen extends Component {
         const charms = [];
         const weapons = [];
         const tabs = 0;
+        const keyWord = '';
         this.setState({
-          allMonsters, lowRank, items, skills, maps, quests, decorations, charms, weapons, loading: false, tabs
+          allMonsters, lowRank, items, skills, maps, quests, decorations, charms, weapons, loading: false, tabs, keyWord,
         });
       });
     } else if (keyWord.length < 3) {
@@ -76,6 +78,9 @@ export default class SearchScreen extends Component {
         const charms = [];
         const weapons = [];
         let tabs = 0;
+        this.setState({
+          loading: true, keyWord
+        });
         tx.executeSql('SELECT * FROM monster WHERE LOWER(monster_name) LIKE ? ORDER BY monster_name LIMIT 20', [keyW+'%'], (tx, results) => {
           const len = results.rows.length;
           for (let i = 0; i < len; i += 1) {
@@ -253,6 +258,9 @@ export default class SearchScreen extends Component {
         const charms = [];
         const weapons = [];
         let tabs = 0;
+        this.setState({
+          loading: true, keyWord
+        });
         tx.executeSql(
           "SELECT * FROM monster WHERE LOWER(monster_name) LIKE ? OR LOWER(type) LIKE ? ORDER BY SUBSTR(monster_name,1,3)"
           , ['%'+keyW+'%','%'+keyW+'%'], (tx, results) => {
@@ -781,17 +789,29 @@ export default class SearchScreen extends Component {
   }
 
   renderTabs() {
-    if (
-      this.state.allMonsters.length <= 0
-      && this.state.lowRank.length <= 0
-      && this.state.weapons.length <= 0
-      && this.state.items.length <= 0
-      && this.state.skills.length <= 0
-      && this.state.quests.length <= 0
-      && this.state.decorations.length <= 0
-      && this.state.charms.length <= 0
-    ) {
-      return null;
+    if (this.state.loading) {
+      return (
+        <View style={{
+          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background,
+        }}>
+          <ActivityIndicator size="large" color={colors.main}/>
+        </View>
+      );
+    }
+    if (this.state.keyWord.length === 0) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
+          <Icon ios='ios-search-outline' android='ios-search-outline' style={{ textAlign: 'center', fontSize: 50, color: colors.secondary }} />
+          <Text style={{ textAlign: 'center', fontSize: 22.5, color: colors.secondary }}>Begin search using search bar</Text>
+        </View>
+      );
+    } else if (this.state.keyWord.length > 0 && this.state.tabs === 0) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
+          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: colors.secondary }} />
+          <Text style={{ textAlign: 'center', fontSize: 22.5, color: colors.secondary }}>No Results Found</Text>
+        </View>
+      );
     }
     // if (this.state.tabs < 4) {
     //   return (

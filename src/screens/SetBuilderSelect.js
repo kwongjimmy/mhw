@@ -274,7 +274,7 @@ export default class SetBuilderSelect extends PureComponent {
         }
       });
     });
-    this.searchQuery = _.debounce(this.searchQuery, 1000);
+    this.searchQuery = _.debounce(this.searchQuery, 625);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
