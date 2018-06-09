@@ -51,6 +51,7 @@ const MonsterImages = {
   Deviljho: require('./images/monsters/MHW-Deviljho_Icon.png'),
   Gajalaka: require('./images/monsters/MHW-Gajalaka_Icon.png'),
   Grimalkyne: require('./images/monsters/MHW-Grimalkyne_Icon.png'),
+  Lunastra: require('./images/monsters/MHW-Lunastra_Icon.png'),
 };
 
 export default MonsterImages;

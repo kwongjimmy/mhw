@@ -3,6 +3,7 @@ import { Text, ActivityIndicator, InteractionManager, ScrollView } from 'react-n
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Tabs, ScrollableTab, ListItem, Left, Body, Right, Icon, View } from 'native-base';
 import _ from 'lodash';
+import Item from '../components/Item';
 import MonsterInfo from '../components/MonsterInfo';
 import MonsterWeakness from '../components/MonsterWeakness';
 import MonsterLootList from '../components/MonsterLootList';
@@ -97,36 +98,6 @@ export default class MonsterInfoScreen extends PureComponent {
             monster_loot_high = _.values(monster_loot_high);
           },
         );
-        // tx.executeSql(
-        //   `SELECT DISTINCT
-        //   cat.name
-        //   FROM monster_loot as loot
-        //   INNER JOIN monster_loot_categories as cat ON loot.category_id = cat.category_id
-        //   INNER JOIN items as items ON loot.item_id = items.item_id
-        //   WHERE loot.monster_id = ? AND cat.rank = 0
-        //   ORDER BY cat.name`,
-        //   [this.props.monster_id], (tx, results) => {
-        //     for (let i = 0; i < results.rows.length; i += 1) {
-        //       const row = results.rows.item(i);
-        //       monster_loot.push(row);
-        //     }
-        //   },
-        // );
-        // tx.executeSql(
-        //   `SELECT DISTINCT
-        //   cat.name
-        //   FROM monster_loot as loot
-        //   INNER JOIN monster_loot_categories as cat ON loot.category_id = cat.category_id
-        //   INNER JOIN items as items ON loot.item_id = items.item_id
-        //   WHERE loot.monster_id = ? AND cat.rank = 1
-        //   ORDER BY cat.name`,
-        //   [this.props.monster_id], (tx, results) => {
-        //     for (let i = 0; i < results.rows.length; i += 1) {
-        //       const row = results.rows.item(i);
-        //       monster_loot_high.push(row);
-        //     }
-        //   },
-        // );
         tx.executeSql(
           `SELECT
             C.name, C.item_id, C.rarity,
@@ -201,6 +172,8 @@ export default class MonsterInfoScreen extends PureComponent {
         );
       });
     });
+    this._renderHeader = this._renderHeader.bind(this);
+    this._renderContent = this._renderContent.bind(this);
   }
 
   _renderSectionTitle(items) {
@@ -223,18 +196,29 @@ export default class MonsterInfoScreen extends PureComponent {
   _renderContent(items) {
     return items.map((item, key) => {
       return (
-        <ListItem
-          key={key}
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
-          onPress={() => this.props.navigator.push({
-            screen: 'TablessInfoScreen',
-            passProps: {
-              item_id: item.item_id,
-              type: 'item',
-            },
-            animationType: 'slide-horizontal',
-            title: item.name,
-          })}>
+        // <ListItem
+        //   key={key}
+        //   style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+        //   onPress={() => this.props.navigator.push({
+        //     screen: 'TablessInfoScreen',
+        //     passProps: {
+        //       item_id: item.item_id,
+        //       type: 'item',
+        //     },
+        //     animationType: 'slide-horizontal',
+        //     title: item.name,
+        //   })}>
+        //   <Left>
+        //     <Text style={{ fontSize: 15.5, color: colors.main }}>{item.loot_name}</Text>
+        //   </Left>
+        //   <Right>
+        //     <Text style={{ fontSize: 15.5, color: colors.main }}>{`x${item.quantity}`}</Text>
+        //   </Right>
+        //   <Right>
+        //     <Text style={{ fontSize: 15.5, color: colors.main }}>{`${item.chance}%`}</Text>
+        //   </Right>
+        // </ListItem>
+        <Item key={key} item={item} navigator={this.props.navigator}>
           <Left>
             <Text style={{ fontSize: 15.5, color: colors.main }}>{item.loot_name}</Text>
           </Left>
@@ -244,9 +228,9 @@ export default class MonsterInfoScreen extends PureComponent {
           <Right>
             <Text style={{ fontSize: 15.5, color: colors.main }}>{`${item.chance}%`}</Text>
           </Right>
-        </ListItem>
+        </Item>
       );
-    })
+    });
   }
 
   renderContent(screen) {
@@ -268,8 +252,8 @@ export default class MonsterInfoScreen extends PureComponent {
             underlayColor={colors.border}
             sections={this.state.monster_loot}
             // renderSectionTitle={this._renderSectionTitle}
-            renderHeader={this._renderHeader.bind(this)}
-            renderContent={this._renderContent.bind(this)}
+            renderHeader={this._renderHeader}
+            renderContent={this._renderContent}
             duration={400}
           />
         </ScrollView>
@@ -282,8 +266,8 @@ export default class MonsterInfoScreen extends PureComponent {
             underlayColor={colors.border}
             sections={this.state.monster_loot_high}
             // renderSectionTitle={this._renderSectionTitle}
-            renderHeader={this._renderHeader.bind(this)}
-            renderContent={this._renderContent.bind(this)}
+            renderHeader={this._renderHeader}
+            renderContent={this._renderContent}
             duration={400}
           />
         </ScrollView>

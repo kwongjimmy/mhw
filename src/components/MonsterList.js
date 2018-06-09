@@ -12,11 +12,24 @@ export default class MonsterList extends PureComponent {
     this.state = {
       loading: true,
     };
+    this._onPress = this._onPress.bind(this);
   }
 
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
       this.setState({ loading: false });
+    });
+  }
+
+  _onPress = (item) => {
+    this.props.navigator.push({
+      screen: 'MonsterInfoScreen',
+      passProps: {
+        monster_id: item.monster_id,
+        monster_info: item,
+      },
+      animationType: 'slide-horizontal',
+      title: item.monster_name,
     });
   }
 
@@ -29,15 +42,7 @@ export default class MonsterList extends PureComponent {
     return (
       <ListItem
         style={{ height: 80, marginLeft: 0, paddingLeft: 18 }}
-        onPress={() => this.props.navigator.push({
-        screen: 'MonsterInfoScreen',
-        passProps: {
-          monster_id: item.monster_id,
-          monster_info: item,
-        },
-        animationType: 'slide-horizontal',
-        title: item.monster_name,
-      })}>
+        onPress={() => this._onPress(item)}>
       <Left>
         <Image
           resizeMode="contain"
