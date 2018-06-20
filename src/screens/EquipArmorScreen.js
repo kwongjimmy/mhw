@@ -70,7 +70,7 @@ export default class EquipArmorScreen extends PureComponent {
             LEFT JOIN armor_skills AS DS1 ON DSL1.armor_skill_id = DS1.armor_skill_id LEFT JOIN armor_skills AS DS2 ON DSL2.armor_skill_id = DS2.armor_skill_id
             LEFT JOIN armor_skills AS ES1 ON ESL1.armor_skill_id = ES1.armor_skill_id LEFT JOIN armor_skills AS ES2 ON ESL2.armor_skill_id = ES2.armor_skill_id
             LEFT JOIN armor_skills AS FS1 ON FSL1.armor_skill_id = FS1.armor_skill_id LEFT JOIN armor_skills AS FS2 ON FSL2.armor_skill_id = FS2.armor_skill_id
-			      WHERE A.name LIKE '%Alpha%' OR A.name LIKE '%Beta%'
+			      WHERE A.name LIKE '%Alpha%' OR A.name LIKE '%Beta%' OR A.name LIKE '%Gamma%'
         ) AS X
         LEFT JOIN items AS I1 ON X.head_item_id = I1.item_id
         LEFT JOIN items AS I2 ON X.armor_item_id = I2.item_id

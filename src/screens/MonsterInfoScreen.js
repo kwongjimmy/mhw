@@ -19,6 +19,7 @@ import colors from '../styles/colors';
 export default class MonsterInfoScreen extends PureComponent {
   constructor(props) {
     super(props);
+    console.log(this.props.monster_id);
     this.state = {
       monster_hit: [],
       monster_loot: [],
