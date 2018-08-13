@@ -17,6 +17,7 @@ const MiscImages = {
   'Rate Our App!': require('./images/misc/VillageIcon08.png'),
   'Hunter Tools': require('./images/misc/placeholder_mantle.png'),
   'Set Builder' : require('./images/misc/chest.png'),
+  'Endemic Life': require('./images/misc/ItemIcon016a.png'),
 };
 
 export default MiscImages;

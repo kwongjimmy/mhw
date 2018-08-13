@@ -80,6 +80,10 @@ export default class MiscScreen extends PureComponent {
           title: 'Hunter Tools',
         },
         {
+          route: 'EndemicScreen',
+          title: 'Endemic Life',
+        },
+        {
           route: 'AboutScreen',
           title: 'About',
         },

@@ -5,6 +5,7 @@ import { Container, Tab, Tabs, ScrollableTab, ListItem, Left, Body, Right, Icon,
 import _ from 'lodash';
 import Item from '../components/Item';
 import MonsterInfo from '../components/MonsterInfo';
+import MonsterLocations from '../components/MonsterLocations';
 import MonsterWeakness from '../components/MonsterWeakness';
 import MonsterLootList from '../components/MonsterLootList';
 import MonsterEquip from '../components/MonsterEquip';
@@ -28,6 +29,7 @@ export default class MonsterInfoScreen extends PureComponent {
       monster_weapons: [],
       monster_quest: [],
       monster_inflicts: {},
+      monster_locations: [],
       loading: true,
     };
     InteractionManager.runAfterInteractions(() => {
@@ -45,6 +47,7 @@ export default class MonsterInfoScreen extends PureComponent {
         const monster_weapons = [];
         const monster_quest = [];
         let monster_inflicts = [];
+        const monster_locations = [];
         tx.executeSql('SELECT * FROM monster_inflicts WHERE monster_id = ?', [this.props.monster_id], (tx, results) => {
           for (let i = 0; i < results.rows.length; i += 1) {
             const row = results.rows.item(i);
@@ -67,6 +70,12 @@ export default class MonsterInfoScreen extends PureComponent {
           for (let i = 0; i < results.rows.length; i += 1) {
             const row = results.rows.item(i);
             monster_tool.push(row);
+          }
+        });
+        tx.executeSql('SELECT A.spawn, A.areas, A.rest, B.* FROM map_monsters AS A JOIN maps AS B ON A.map_id = B.map_id WHERE A.monster_id = ?', [this.props.monster_id], (tx, results) => {
+          for (let i = 0; i < results.rows.length; i += 1) {
+            const row = results.rows.item(i);
+            monster_locations.push(row);
           }
         });
         tx.executeSql(
@@ -165,6 +174,7 @@ export default class MonsterInfoScreen extends PureComponent {
               monster_weapons,
               monster_quest,
               monster_inflicts,
+              monster_locations,
               loading: false,
             });
             // let end = new Date().getTime();
@@ -280,6 +290,8 @@ export default class MonsterInfoScreen extends PureComponent {
       return <MonsterEquip navigator={this.props.navigator} data={this.state.monster_weapons} type={'weapon'}/>;
     } else if (screen === 'tab6') {
       return <MonsterInfo navigator={this.props.navigator} info={this.props.monster_info} tool={this.state.monster_tool} ailment={this.state.monster_ailment} inflicts={this.state.monster_inflicts}/>;
+    } else if (screen === 'tab8') {
+      return <MonsterLocations navigator={this.props.navigator} locations={this.state.monster_locations}/>;
     }
     return (
       <MonsterQuest navigator={this.props.navigator} monster_quest={this.state.monster_quest}/>
@@ -371,6 +383,23 @@ export default class MonsterInfoScreen extends PureComponent {
     return null;
   }
 
+  renderLocations() {
+    if (this.state.monster_locations.length > 0 && this.props.monster_info.size === 'Large') {
+      return (
+        <Tab
+          activeTabStyle={{ backgroundColor: colors.background }}
+          tabStyle={{ backgroundColor: colors.background }}
+          activeTextStyle={{ color: colors.main }}
+          textStyle={{ color: colors.secondary }}
+          heading="Areas"
+          >
+          {this.renderContent('tab8')}
+        </Tab>
+      );
+    }
+    return null;
+  }
+
   render() {
     if (this.state.loading) {
       return this.renderContent();
@@ -402,6 +431,7 @@ export default class MonsterInfoScreen extends PureComponent {
             >
             {this.renderContent('tab1')}
           </Tab>
+          {this.renderLocations()}
           {this.renderLrLoot()}
           {this.renderHrLoot()}
           {this.renderWeapon()}

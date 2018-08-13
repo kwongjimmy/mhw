@@ -42,6 +42,7 @@ export default class WeaponInfo extends PureComponent {
       craftMaterials: [],
       upgradeMaterials: [],
       upgradeFrom: [],
+      upgradeTo: [],
       ammo: [],
       melodies: [],
       recoil: [],
@@ -54,6 +55,7 @@ export default class WeaponInfo extends PureComponent {
       let craftMaterials = [];
       let upgradeMaterials = [];
       const upgradeTo = [];
+      const upgradeFrom = [];
       let ammo = [];
       let melodies = [];
       let recoil = [];
@@ -169,6 +171,29 @@ export default class WeaponInfo extends PureComponent {
         );
         tx.executeSql(
           `SELECT
+		        weapon_sharpness.*,
+            weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
+            B.*, items.name as name, items.rarity as rarity
+            FROM weapons
+            JOIN items on weapons.upgrade_from = items.item_id
+			      LEFT JOIN weapons as B ON weapons.upgrade_from = B.item_id
+			      LEFT JOIN weapon_bowgun_chars ON weapons.upgrade_from = weapon_bowgun_chars.item_id
+            LEFT JOIN weapon_coatings ON weapons.upgrade_from = weapon_coatings.item_id
+            LEFT JOIN weapon_kinsects ON weapons.upgrade_from = weapon_kinsects.item_id
+            LEFT JOIN weapon_notes ON weapons.upgrade_from = weapon_notes.item_id
+            LEFT JOIN weapon_phials ON weapons.upgrade_from = weapon_phials.item_id
+            LEFT JOIN weapon_sharpness ON weapons.upgrade_from = weapon_sharpness.item_id
+            LEFT JOIN weapon_shellings ON weapons.upgrade_from = weapon_shellings.item_id
+    		    WHERE weapons.item_id = ?`
+          , [this.props.item_id], (tx, results) => {
+            const len = results.rows.length;
+            for (let i = 0; i < len; i += 1) {
+              upgradeFrom.push(results.rows.item(i));
+            }
+          },
+        );
+        tx.executeSql(
+          `SELECT
             weapon_sharpness.*,
             weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
             weapons.*, items.name as name, items.rarity as rarity
@@ -188,7 +213,7 @@ export default class WeaponInfo extends PureComponent {
               upgradeTo.push(results.rows.item(i));
             }
             this.setState({
-              info, ammo, craftMaterials, upgradeMaterials, upgradeTo, melodies, recoil, reload, loading: false,
+              info, ammo, craftMaterials, upgradeMaterials, upgradeTo, upgradeFrom, melodies, recoil, reload, loading: false,
             });
           },
         );
@@ -207,6 +232,19 @@ export default class WeaponInfo extends PureComponent {
           },
         );
         tx.executeSql(
+          `SELECT
+            A.*, items.name as name, items.rarity as rarity
+            FROM kinsects AS A
+            JOIN items on A.upgrade_from = items.item_id
+            WHERE A.item_id = ?`
+          , [this.props.item_id], (tx, results) => {
+            const len = results.rows.length;
+            for (let i = 0; i < len; i += 1) {
+              upgradeFrom.push(results.rows.item(i));
+            }
+          },
+        );
+        tx.executeSql(
           `SELECT A.*, B.name as name, B.rarity as rarity
             FROM kinsects as A
             JOIN items as B on A.item_id = B.item_id
@@ -217,7 +255,7 @@ export default class WeaponInfo extends PureComponent {
               upgradeTo.push(results.rows.item(i));
             }
             this.setState({
-              info, upgradeMaterials, upgradeTo, loading: false,
+              info, upgradeMaterials, upgradeTo, upgradeFrom, loading: false,
             });
           },
         );
@@ -805,6 +843,33 @@ export default class WeaponInfo extends PureComponent {
     );
   }
 
+  renderUpgradeFrom() {
+    if (this.state.upgradeFrom.length > 0) {
+      return (
+        <View>
+          <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+            <Left>
+              <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>Previous Weapon</Text>
+            </Left>
+            <Right>
+            </Right>
+          </ListItem>
+          {this.state.upgradeFrom.map((item, key) => {
+            if (this.props.type === 'kinsect') {
+              return <KinsectListItem key={key} navigator={this.props.navigator} item={item} />;
+            }
+            return (
+              <WeaponListItem key={key} navigator={this.props.navigator} item={item} />
+            );
+          })}
+        </View>
+      );
+    }
+    return (
+      null
+    );
+  }
+
   renderHornMelodies() {
     if (this.state.melodies.length > 0) {
       return (
@@ -992,6 +1057,7 @@ export default class WeaponInfo extends PureComponent {
           {this.renderUpgrading()}
           {this.renderCrafting()}
           {this.renderUpgradeTo()}
+          {this.renderUpgradeFrom()}
         </ScrollView>
       );
     } else if (this.state.info.type.includes('bowgun')) {
@@ -1014,6 +1080,7 @@ export default class WeaponInfo extends PureComponent {
              {this.renderUpgrading()}
              {this.renderCrafting()}
              {this.renderUpgradeTo()}
+             {this.renderUpgradeFrom()}
              {this.renderAmmo(this.state.info)}
            </ScrollView>
          </Tab>
@@ -1047,6 +1114,7 @@ export default class WeaponInfo extends PureComponent {
           {this.renderKinsectInfo()}
           {this.renderUpgrading()}
           {this.renderUpgradeTo()}
+          {this.renderUpgradeFrom()}
         </ScrollView>
       );
     }
@@ -1058,6 +1126,7 @@ export default class WeaponInfo extends PureComponent {
         {this.renderUpgrading()}
         {this.renderCrafting()}
         {this.renderUpgradeTo()}
+        {this.renderUpgradeFrom()}
         {this.renderHornMelodies()}
       </ScrollView>
     );

@@ -17,6 +17,7 @@ import DecorationScreen from './screens/DecorationScreen';
 import AboutScreen from './screens/AboutScreen';
 import CombinationScreen from './screens/CombinationScreen';
 import ToolScreen from './screens/ToolScreen';
+import EndemicScreen from './screens/EndemicScreen';
 import SetBuilderScreen from './screens/SetBuilderScreen';
 import SetBuilderSelect from './screens/SetBuilderSelect';
 import SetSelectScreen from './screens/SetSelectScreen';
@@ -40,6 +41,7 @@ export default function startApp() {
   Navigation.registerComponent('AboutScreen', () => AboutScreen);
   Navigation.registerComponent('CombinationScreen', () => CombinationScreen);
   Navigation.registerComponent('ToolScreen', () => ToolScreen);
+  Navigation.registerComponent('EndemicScreen', () => EndemicScreen);
   Navigation.registerComponent('SetBuilderScreen', () => SetBuilderScreen);
   Navigation.registerComponent('SetBuilderSelect', () => SetBuilderSelect);
   Navigation.registerComponent('SetSelectScreen', () => SetSelectScreen);

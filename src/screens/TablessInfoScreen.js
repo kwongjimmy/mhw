@@ -10,6 +10,7 @@ import ItemInfo from '../components/ItemInfo';
 import MonsterLoot from '../components/MonsterLoot';
 import ArmorSetPiecesList from '../components/ArmorSetPiecesList';
 import ToolInfo from '../components/ToolInfo';
+import EndemicInfo from '../components/EndemicInfo';
 
 // Styles
 import colors from '../styles/colors';
@@ -77,6 +78,10 @@ export default class TablessInfoScreen extends PureComponent {
     } else if (this.props.type === 'tools') {
       return (
         <ToolInfo navigator={this.props.navigator} item={this.props.item}/>
+      );
+    } else if (this.props.type === 'endemic') {
+      return (
+        <EndemicInfo navigator={this.props.navigator} item={this.props.item}/>
       );
     }
     return (
