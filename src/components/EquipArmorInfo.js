@@ -91,7 +91,7 @@ export default class EquipArmorInfo extends PureComponent {
         );
       });
     });
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    // this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   onNavigatorEvent(event) {

@@ -122,7 +122,7 @@ export default class SkillEquip extends PureComponent {
                 key={key}
                 style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
                 onPress={() => this.props.navigator.push({
-                screen: 'TablessInfoScreen',
+                screen: 'EquipInfoScreen',
                 passProps: {
                   item_id: item.item_id,
                   type: 'armor',

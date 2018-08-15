@@ -52,31 +52,25 @@ export default class SetSelectScreen extends PureComponent {
   }
 
   async componentDidMount() {
-    try {
-      // Get value to see if the data has been created yet.
-      let value = await AsyncStorage.getItem('@sets').then(data => JSON.parse(data));
-      if (value === null) {
-        try {
-          // If data is null create new set array.
-          AsyncStorage.setItem('@sets', JSON.stringify([]))
-            .then(() => {
-              AsyncStorage.getItem('@sets').then(data => JSON.parse(data))
-                .then((jsonData) => {
-                  console.log(jsonData);
-                  this.setState({ sets: jsonData, loading: false })
-                  // AsyncStorage.removeItem('@sets');
-                });
+    console.log('test');
+    // Get value to see if the data has been created yet.
+    let value = await AsyncStorage.getItem('@sets').then(data => JSON.parse(data));
+    console.log(value);
+    if (value === null) {
+      // If data is null create new set array.
+      AsyncStorage.setItem('@sets', JSON.stringify([]))
+        .then(() => {
+          AsyncStorage.getItem('@sets').then(data => JSON.parse(data))
+            .then((jsonData) => {
+              console.log(jsonData);
+              this.setState({ sets: jsonData, loading: false })
+              // AsyncStorage.removeItem('@sets');
             });
-        } catch (error) {
-
-        }
-      } else {
-        // If set data exist; place into state.
-        this.setState({ sets: value, loading: false });
-        console.log(this.state);
-      }
-    } catch (error) {
-
+        });
+    } else {
+      // If set data exist; place into state.
+      this.setState({ sets: value, loading: false });
+      console.log(this.state);
     }
   }
 

@@ -159,9 +159,10 @@ export default class ArmorListItem extends PureComponent {
             });
           } else {
             this.props.navigator.push({
-              screen: 'TablessInfoScreen',
+              screen: 'EquipInfoScreen',
               passProps: {
                 item_id: item.item_id,
+                item,
                 type: 'armor',
               },
               animationType: 'slide-horizontal',

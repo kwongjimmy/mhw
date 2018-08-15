@@ -125,11 +125,10 @@ export default class KinsectListItem extends PureComponent {
             });
           } else {
             this.props.navigator.push({
-              screen: 'TablessInfoScreen',
+              screen: 'WeaponInfoScreen',
               passProps: {
                 item_id,
-                type: 'weapons',
-                weaponType: 'kinsect',
+                type: 'kinsect',
                 item: this.props.item,
               },
               animationType: 'slide-horizontal',

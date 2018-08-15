@@ -61,26 +61,6 @@ export default class WeaponInfo extends PureComponent {
       let recoil = [];
       let reload = [];
       let info = this.props.item;
-      // if (this.props.refetch) {
-      //   tx.executeSql(
-      //     `SELECT weapon_sharpness.*,
-      //       weapon_bowgun_chars.*, weapon_coatings.*, weapon_kinsects.*, weapon_notes.*, weapon_phials.*, weapon_shellings.*,
-      //       weapons.*, items.name as name, items.rarity as rarity
-      //       FROM weapons
-      //       JOIN items on weapons.item_id = items.item_id
-      //       LEFT JOIN weapon_bowgun_chars ON weapons.item_id = weapon_bowgun_chars.item_id
-      //       LEFT JOIN weapon_coatings ON weapons.item_id = weapon_coatings.item_id
-      //       LEFT JOIN weapon_kinsects ON weapons.item_id = weapon_kinsects.item_id
-      //       LEFT JOIN weapon_notes ON weapons.item_id = weapon_notes.item_id
-      //       LEFT JOIN weapon_phials ON weapons.item_id = weapon_phials.item_id
-      //       LEFT JOIN weapon_sharpness ON weapons.item_id = weapon_sharpness.item_id
-      //       LEFT JOIN weapon_shellings ON weapons.item_id = weapon_shellings.item_id
-      //       WHERE items.item_id = ?`
-      //     , [this.props.item_id], (tx, results) => {
-      //       info = results.rows.item(0);
-      //     },
-      //   );
-      // }
       if (this.props.item.type.includes('bowgun')) {
         tx.executeSql(
           `SELECT A.*, B.name
@@ -233,9 +213,10 @@ export default class WeaponInfo extends PureComponent {
         );
         tx.executeSql(
           `SELECT
-            A.*, items.name as name, items.rarity as rarity
+            B.*, items.name as name, items.rarity as rarity
             FROM kinsects AS A
-            JOIN items on A.upgrade_from = items.item_id
+            JOIN items ON A.upgrade_from = items.item_id
+			      LEFT JOIN kinsects AS B ON B.item_id = A.upgrade_from
             WHERE A.item_id = ?`
           , [this.props.item_id], (tx, results) => {
             const len = results.rows.length;
@@ -550,7 +531,6 @@ export default class WeaponInfo extends PureComponent {
   }
 
   renderKinsectInfo() {
-    console.log(this.state.info);
     const {
        type, power, speed, heal, dust, rarity
     } = this.state.info;
@@ -616,7 +596,10 @@ export default class WeaponInfo extends PureComponent {
         </ListItem>
         <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
           <Body style={{ flex: 1, alignItems: 'center' }}>
-            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{`${dust}`}</Text>
+            {dust === null
+              ? <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>None</Text>
+              : <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{`${dust}`}</Text>
+            }
           </Body>
           <Body style={{ flex: 1, alignItems: 'center' }}>
             <Text style={{ flex: 0.5, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{`LV ${power}`}</Text>

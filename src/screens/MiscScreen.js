@@ -1,12 +1,13 @@
 import React, { PureComponent } from 'react';
-import { View, FlatList, Platform, Image, ActivityIndicator, Alert, AsyncStorage, Linking } from 'react-native';
+import { View, FlatList, Platform, Image, ActivityIndicator, Alert, AsyncStorage, Linking, TouchableOpacity } from 'react-native';
 import { Container, ListItem, Text, Left, Body } from 'native-base';
 import firebase from 'react-native-firebase';
 import { MiscImages } from '../assets';
 import AdBanner from '../components/AdBanner';
 import * as RNIap from 'react-native-iap';
 import _ from 'lodash';
-
+import { test } from '../actions/testActions';
+import { connect } from 'react-redux';
 // Styles
 import colors from '../styles/colors';
 
@@ -32,7 +33,7 @@ const itemSkus = Platform.select({
   ],
 });
 
-export default class MiscScreen extends PureComponent {
+class MiscScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
     topBarBorderColor: colors.accent,
@@ -47,13 +48,17 @@ export default class MiscScreen extends PureComponent {
           route: 'SetSelectScreen',
           title: 'Set Builder',
         },
+        // {
+        //   route: 'FavoritesScreen',
+        //   title: 'Favorites',
+        // },
         {
           route: 'ItemScreen',
           title: 'Items',
         },
         {
           route: 'CombinationScreen',
-          title: 'Combination List'
+          title: 'Combination List',
         },
         {
           route: 'QuestScreen',
@@ -102,7 +107,7 @@ export default class MiscScreen extends PureComponent {
       ],
       loading: false,
     };
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    // this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   onNavigatorEvent(event) {
@@ -320,6 +325,9 @@ export default class MiscScreen extends PureComponent {
     }
     return (
       <View style={{ flex: 1, backgroundColor: colors.background }}>
+        {/* <TouchableOpacity onPress={() => this.props.test()}>
+          <Text>Hi</Text>
+        </TouchableOpacity> */}
         <FlatList
           initialNumToRender={15}
           style={{ backgroundColor: colors.background }}
@@ -333,3 +341,11 @@ export default class MiscScreen extends PureComponent {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    testtest: state.test
+  };
+};
+
+export default connect(mapStateToProps, { test })(MiscScreen);

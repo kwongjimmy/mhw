@@ -183,6 +183,7 @@ export default class SearchScreen extends Component {
               const row = results.rows.item(i);
               items.push(row);
             }
+            console.log(items.length, len);
             if (items.length > 0) tabs += 1;
           }
         );
@@ -366,7 +367,7 @@ export default class SearchScreen extends Component {
               const row = results.rows.item(i);
               items.push(row);
             }
-            this.renderContent('item');
+            if (items.length > 0) tabs += 1;
           });
         tx.executeSql('SELECT * FROM quests WHERE LOWER(name) LIKE ? ORDER BY SUBSTR(name,1,3)', ['%'+keyW+'%'], (tx, results) => {
           const len = results.rows.length;
@@ -813,23 +814,23 @@ export default class SearchScreen extends Component {
         </View>
       );
     }
-    // if (this.state.tabs < 4) {
-    //   return (
-    //     <Tabs
-    //     tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }}
-    //     prerenderingSiblingsNumber={5}
-    //     initialPage={0}>
-    //       {this.renderTab('monster')}
-    //       {this.renderTab('armor')}
-    //       {this.renderTab('weapon')}
-    //       {this.renderTab('item')}
-    //       {this.renderTab('quest')}
-    //       {this.renderTab('charm')}
-    //       {this.renderTab('decoration')}
-    //       {this.renderTab('skill')}
-    //     </Tabs>
-    //   );
-    // }
+    if (this.state.tabs < 4) {
+      return (
+        <Tabs
+        tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }}
+        prerenderingSiblingsNumber={5}
+        initialPage={0}>
+          {this.renderTab('monster')}
+          {this.renderTab('armor')}
+          {this.renderTab('weapon')}
+          {this.renderTab('item')}
+          {this.renderTab('quest')}
+          {this.renderTab('charm')}
+          {this.renderTab('decoration')}
+          {this.renderTab('skill')}
+        </Tabs>
+      );
+    }
     return (
       <Tabs
       tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }}

@@ -287,7 +287,7 @@ export default class WeaponListItem extends PureComponent {
     const slotOne = (slot1 === 0) ? `-` : (slot1 === 1) ? `\u2460` : (slot1 === 2) ? `\u2461` : `\u2462`;
     const slotTwo = (slot2 === 0) ? `-` : (slot2 === 1) ? `\u2460` : (slot2 === 2) ? `\u2461` : `\u2462`;
     const slotThree = (slot3 === 0) ? `-` : (slot3 === 1) ? `\u2460` : (slot3 === 2) ? `\u2461` : `\u2462`;
-    
+
     // For SetBuilder
     if (this.props.setSelected) {
       return (
@@ -348,11 +348,21 @@ export default class WeaponListItem extends PureComponent {
               animationType: 'slide-down' // 'none' / 'slide-down' , dismiss animation for the modal (optional, default 'slide-down')});
             });
           } else if (type.includes('bowgun')) {
+            // this.props.navigator.push({
+            //   screen: 'TabInfoScreen',
+            //   passProps: {
+            //     item_id,
+            //     type: 'weapons',
+            //     item: this.props.item,
+            //   },
+            //   animationType: 'slide-horizontal',
+            //   title: name,
+            // });
             this.props.navigator.push({
-              screen: 'TabInfoScreen',
+              screen: 'WeaponInfoScreen',
               passProps: {
                 item_id,
-                type: 'weapons',
+                type: this.props.item.type,
                 item: this.props.item,
               },
               animationType: 'slide-horizontal',
@@ -360,17 +370,18 @@ export default class WeaponListItem extends PureComponent {
             });
           } else {
             this.props.navigator.push({
-              screen: 'TablessInfoScreen',
+              screen: 'WeaponInfoScreen',
               passProps: {
                 item_id,
-                type: 'weapons',
+                type: this.props.item.type,
                 item: this.props.item,
               },
               animationType: 'slide-horizontal',
               title: name,
             });
           }
-        }}>
+        }}
+        >
         <Left style={{ flex: 0.5 }}>
           <Image
             resizeMode="contain"

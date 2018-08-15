@@ -13,7 +13,7 @@ export default class EquipArmorList extends PureComponent {
       <ListItem
         style={{ height: 52, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
         onPress={() => this.props.navigator.push({
-        screen: 'TablessInfoScreen',
+        screen: 'EquipArmorSetScreen',
         passProps: {
           armor: item,
           type: 'set',
