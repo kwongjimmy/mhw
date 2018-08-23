@@ -897,7 +897,6 @@ class SearchScreen extends Component {
         <Header
           style={style}
           androidStatusBarColor={this.props.theme.background}
-          iosStatusbar='dark'
           noShadow={noShadow}
           searchBar rounded>
           <Item>
