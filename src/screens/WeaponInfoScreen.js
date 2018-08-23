@@ -29,30 +29,30 @@ class WeaponInfoScreen extends PureComponent {
         topBarBorderWidth: 17,
       });
     }
-  //   if (_.findIndex(this.props.favorites.weapons, obj => obj.weaponID === this.props.item_id) === -1) {
-  //   // if (this.props.favorites.weapons[this.props.item_id] === undefined) {
-  //     this.props.navigator.setButtons({
-  //       rightButtons: [
-  //         {
-  //           // icon: require('../assets/images/misc/ItemIcon007.png'), // for icon button, provide the local image asset name
-  //           icon: MiscImages.unfavorite,
-  //           id: 'favorite', // id for this button, given in onNavigatorEvent(event) to help understand which button was clicked
-  //         },
-  //       ], // see "Adding buttons to the navigator" below for format (optional)
-  //       animated: true // does the change have transition animation or does it happen immediately (optional)
-  //     });
-  //   } else {
-  //     this.props.navigator.setButtons({
-  //       rightButtons: [
-  //         {
-  //           // icon: require('../assets/images/misc/ItemIcon007.png'), // for icon button, provide the local image asset name
-  //           icon: MiscImages.favorite,
-  //           id: 'unfavorite', // id for this button, given in onNavigatorEvent(event) to help understand which button was clicked
-  //         },
-  //       ], // see "Adding buttons to the navigator" below for format (optional)
-  //       animated: true // does the change have transition animation or does it happen immediately (optional)
-  //     });
-  //   }
+    // if (_.findIndex(this.props.favorites.weapons, obj => obj.weaponID === this.props.item_id) === -1) {
+    // // if (this.props.favorites.weapons[this.props.item_id] === undefined) {
+    //   this.props.navigator.setButtons({
+    //     rightButtons: [
+    //       {
+    //         // icon: require('../assets/images/misc/ItemIcon007.png'), // for icon button, provide the local image asset name
+    //         icon: MiscImages.unfavorite,
+    //         id: 'favorite', // id for this button, given in onNavigatorEvent(event) to help understand which button was clicked
+    //       },
+    //     ], // see "Adding buttons to the navigator" below for format (optional)
+    //     animated: true // does the change have transition animation or does it happen immediately (optional)
+    //   });
+    // } else {
+    //   this.props.navigator.setButtons({
+    //     rightButtons: [
+    //       {
+    //         // icon: require('../assets/images/misc/ItemIcon007.png'), // for icon button, provide the local image asset name
+    //         icon: MiscImages.favorite,
+    //         id: 'unfavorite', // id for this button, given in onNavigatorEvent(event) to help understand which button was clicked
+    //       },
+    //     ], // see "Adding buttons to the navigator" below for format (optional)
+    //     animated: true // does the change have transition animation or does it happen immediately (optional)
+    //   });
+    // }
   }
 
   onNavigatorEvent(event) {

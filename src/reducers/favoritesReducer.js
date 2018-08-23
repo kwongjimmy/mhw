@@ -4,10 +4,13 @@ import {
   REMOVE_WEAPON,
   ADD_ARMOR,
   REMOVE_ARMOR,
+  REORDER_WEAPON,
+  REORDER_ARMOR,
 } from '../actions/types';
 
 const INITIAL_STATE = {
   weapons: [],
+  currentWeaponOrder: [],
   armor: [],
 };
 
@@ -62,6 +65,10 @@ export default (state = INITIAL_STATE, action) => {
         ...state, armor: armorArray,
       };
     }
+    case REORDER_WEAPON:
+      return {
+        ...state, currentWeaponOrder: action.payload.currentWeaponOrder,
+      };
     default:
       return state;
   }

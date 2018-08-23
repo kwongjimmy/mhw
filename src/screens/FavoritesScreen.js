@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, ActivityIndicator, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, ActivityIndicator, Text, ScrollView, TouchableOpacity,Dimensions, StyleSheet, Platform } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Tabs } from 'native-base';
 import { connect } from 'react-redux';
@@ -8,9 +8,38 @@ import AdBanner from '../components/AdBanner';
 import WeaponListItem from '../components/WeaponListItem';
 import KinsectListItem from '../components/KinsectListItem';
 import ArmorListItem from '../components/ArmorListItem';
+import SortableList from 'react-native-sortable-list';
+import { saveWeaponOrder } from '../actions/favoritesActions';
 
 // Styles
 import colors from '../styles/colors';
+
+const window = Dimensions.get('window');
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    backgroundColor: colors.background,
+    ...Platform.select({
+      ios: {
+        paddingTop: 20,
+      },
+    }),
+  },
+
+  contentContainer: {
+    width: window.width,
+    ...Platform.select({
+      ios: {
+        paddingHorizontal: 30,
+      },
+      android: {
+        paddingHorizontal: 0,
+      }
+    })
+  }
+});
 
 class FavoritesScreen extends PureComponent {
   constructor(props) {
@@ -45,14 +74,27 @@ class FavoritesScreen extends PureComponent {
     if (screen === 'Weapons') {
       return (
         <SortableListView
-          style={{ flex: 1 }}
+          style={{ flex: 1, backgroundColor: 'white' }}
           data={this.props.favorites.weapons}
           order={this.state.orderWeapons}
           onRowMoved={e => {
-            this.setState({ orderWeapon: order.splice(e.to, 0, order.splice(e.from, 1)[0]) })
+            this.setState({ orderWeapon: this.state.orderWeapons.splice(e.to, 0, this.state.orderWeapons.splice(e.from, 1)[0]) })
             // this.forceUpdate()
           }}
-          renderRow={data => <Text>{data.weaponID}</Text>}
+          activeOpacity={0.8}
+          disableAnimatedScrolling
+          renderRow={(item) => {
+             return (
+               <TouchableOpacity style={{ flex: 1 }}>
+                <View style={{ flex: 1 }}>
+                  <Text>HI</Text>
+                  <Text>HI</Text>
+                  <Text>HI</Text>
+                  {/* <WeaponListItem navigator={this.props.navigator} item={item.info} favorites /> */}
+                </View>
+               </TouchableOpacity>
+             );
+          }}
         />
        //  <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
        //    {this.props.favorites.weapons.map((item, key) => {
@@ -75,27 +117,59 @@ class FavoritesScreen extends PureComponent {
     );
   }
 
-  render() {
+  renderRow = ({data, active}) => {
+  // renderRow = (item) => {
     return (
-      <Container>
+        <View style={{ flex: 1, flexDirection: 'row', padding: 15, borderBottomWidth: StyleSheet.hairlineWidth, borderTopWidth: StyleSheet.hairlineWidth }}>
+          <TouchableOpacity style={{ flex: 7 }} onPressIn={() => console.log('test')}>
+            <WeaponListItem navigator={this.props.navigator} item={data.info} favorites />
+          </TouchableOpacity>
+          <View style={{ flex: 1 }}>
+            <Text>AAAAA</Text>
+          </View>
+        </View>
+    )
+    // return <Row data={data} active={active} />
+  }
+
+  render() {
+    console.log(this.props.favorites.weapons);
+    return (
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
+        {/* <SortableList
+          style={{ flex: 1, backgroundColor: colors.background }}
+          contentContainerStyle={{ flex: 1 }}
+          data={this.props.favorites.weapons}
+          renderRow={this.renderRow}
+          onReleaseRow={(key) => console.log(key)}
+          onChangeOrder={(nextOrder) => {
+              // this.props.saveWeaponOrder(nextOrder)
+              // console.log(nextOrder);
+            }
+          }
+        /> */}
         <SortableListView
           style={{ flex: 1, backgroundColor: 'white' }}
           data={this.props.favorites.weapons}
           order={this.state.orderWeapons}
           onRowMoved={e => {
-            this.setState({ orderWeapon: order.splice(e.to, 0, order.splice(e.from, 1)[0]) })
-            // this.forceUpdate()
+            this.setState({ orderWeapon: this.state.orderWeapons.splice(e.to, 0, this.state.orderWeapons.splice(e.from, 1)[0]) })
           }}
+          activeOpacity={0.8}
+          disableAnimatedScrolling
           renderRow={(item) => {
              return (
-               // <TouchableOpacity>
-               //   <View style={{ height: 100, borderWidth: 1 }}>
-               //     <Text>{item.weaponID}</Text>
-               //   </View>
-               // </TouchableOpacity>
-              <WeaponListItem navigator={this.props.navigator} item={item.info}/>
+               <TouchableOpacity
+                 onPress={() => console.log('test')}
+                 style={{ flex: 1, flexDirection: 'row', padding: 15, borderBottomWidth: StyleSheet.hairlineWidth, borderTopWidth: StyleSheet.hairlineWidth }}
+               >
+                 <View style={{ flex: 1 }}>
+                   <WeaponListItem navigator={this.props.navigator} item={item.info} favorites />
+                 </View>
+               </TouchableOpacity>
              );
           }}
+          // renderRow={(item) => this.renderRow(item)}
         />
         {/* <Tabs prerenderingSiblingsNumber={2} scrollWithoutAnimation={false} tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }} initialPage={0}>
           <Tab
@@ -118,7 +192,7 @@ class FavoritesScreen extends PureComponent {
           </Tab>
         </Tabs> */}
         <AdBanner />
-      </Container>
+      </View>
     );
   }
 }
@@ -129,4 +203,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {})(FavoritesScreen);
+export default connect(mapStateToProps, { saveWeaponOrder })(FavoritesScreen);

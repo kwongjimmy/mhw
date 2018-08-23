@@ -25,5 +25,7 @@
     "react/prop-types": "off",
     "no-tabs": "off",
     "linebreak-style": "off",
+    "no-use-before-define": "off",
+    "object-curly-newline": "off"
   }
 }

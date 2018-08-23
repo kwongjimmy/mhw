@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { FlatList, View, ActivityIndicator, Platform } from 'react-native';
+import { FlatList, View, ActivityIndicator, Platform, StyleSheet } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Header, Button, Icon, Tabs, Title, Right, Item, Input, ListItem, Text, Left, Body, ScrollableTab } from 'native-base';
+import { connect } from 'react-redux';
 import MonsterList from '../components/MonsterList';
 import WeaponListItem from '../components/WeaponListItem';
 import EquipArmorList from '../components/EquipArmorList';
@@ -10,7 +11,7 @@ import AdBanner from '../components/AdBanner';
 // Styles
 import colors from '../styles/colors';
 
-export default class SearchScreen extends Component {
+class SearchScreen extends Component {
   static navigatorStyle = {
     navBarHidden: true,
   };
@@ -442,7 +443,7 @@ export default class SearchScreen extends Component {
   renderListQuests = ({ item }) => {
     return (
       <ListItem
-        style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+        style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.background }]}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
         passProps: {
@@ -454,11 +455,15 @@ export default class SearchScreen extends Component {
       })}
       >
         <Left>
-          <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+          <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{item.name}</Text>
         </Left>
-        <Right>
-          <Text style={{ fontSize: 14.5, color: colors.secondary }}>{`${item.required_rank} \u2605`}</Text>
+        <Right style={{ justifyContent: 'center' }}>
+          <Text style={{ fontSize: 14.5, color: this.props.theme.secondary, textAlign: 'right' }}>{item.type.replace('Assignment', '')}</Text>
+          <Text style={{ fontSize: 14.5, color: this.props.theme.secondary, textAlign: 'right' }}>{`${item.required_rank} \u2605`}</Text>
         </Right>
+        {/* <Right>
+          <Text style={{ fontSize: 14.5, color: this.props.theme.secondary }}>{`${item.required_rank} \u2605`}</Text>
+        </Right> */}
       </ListItem>
     );
   }
@@ -466,7 +471,7 @@ export default class SearchScreen extends Component {
   renderListMaps = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+        style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.background }]}
         onPress={() => this.props.navigator.push({
         screen: 'TabInfoScreen',
         passProps: {
@@ -477,7 +482,7 @@ export default class SearchScreen extends Component {
         title: item.name,
       })}>
       <Left>
-        <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+        <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{item.name}</Text>
       </Left>
       </ListItem>
     );
@@ -485,7 +490,9 @@ export default class SearchScreen extends Component {
 
   renderListItems = ({ item }) => {
     return (
-      <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} onPress={() => this.props.navigator.push({
+      <ListItem
+        style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.background }]}
+        onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
         passProps: {
           item_id: item.item_id,
@@ -494,7 +501,7 @@ export default class SearchScreen extends Component {
         animationType: 'slide-horizontal',
         title: item.name,
       })}>
-        <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+        <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{item.name}</Text>
       </ListItem>
     );
   }
@@ -502,7 +509,7 @@ export default class SearchScreen extends Component {
   renderListDecorations = ({ item }) => {
     return (
       <ListItem
-        style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+        style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.background }]}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
         passProps: {
@@ -513,10 +520,10 @@ export default class SearchScreen extends Component {
         title: item.name,
       })}>
       <Left style= {{ flex: 1 }}>
-        <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+        <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{item.name}</Text>
       </Left>
       <Right style= {{ flex: 1, justifyContent: 'center' }}>
-        <Text style={{ fontSize: 14, color: colors.secondary }}>{item.skill_name} +{item.skill_level}</Text>
+        <Text style={{ fontSize: 14, color: this.props.theme.secondary }}>{item.skill_name} +{item.skill_level}</Text>
       </Right>
       </ListItem>
     );
@@ -525,7 +532,7 @@ export default class SearchScreen extends Component {
   renderListSkills = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+        style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.background }]}
         onPress={() => this.props.navigator.push({
         screen: 'TabInfoScreen',
         passProps: {
@@ -537,10 +544,10 @@ export default class SearchScreen extends Component {
       })}
       >
       <Left>
-        <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+        <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{item.name}</Text>
       </Left>
       <Body>
-        <Text style={{ fontSize: 13, color: colors.secondary }}>{item.description}</Text>
+        <Text style={{ fontSize: 13, color: this.props.theme.secondary }}>{item.description}</Text>
       </Body>
       </ListItem>
     );
@@ -549,7 +556,7 @@ export default class SearchScreen extends Component {
   renderListCharms = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+        style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.background }]}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
         passProps: {
@@ -560,7 +567,7 @@ export default class SearchScreen extends Component {
         title: item.name,
       })}>
       <Left style={{ flex: 2 }}>
-        <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+        <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{item.name}</Text>
       </Left>
       {this.renderSkills(item)}
       </ListItem>
@@ -571,14 +578,14 @@ export default class SearchScreen extends Component {
     if (item.skill1_name !== null && item.skill2_name !== null) {
       return (
         <Right style={{ flex: 2 }}>
-          <Text style={{ flex: 1, fontSize: 14, color: colors.secondary }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
-          <Text style={{ flex: 1, fontSize: 14, color: colors.secondary }}>{`${item.skill2_name} +${item.skill2_level}`}</Text>
+          <Text style={{ flex: 1, fontSize: 14, color: this.props.theme.secondary }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
+          <Text style={{ flex: 1, fontSize: 14, color: this.props.theme.secondary }}>{`${item.skill2_name} +${item.skill2_level}`}</Text>
         </Right>
       );
     } else if (item.skill1_name !== null && item.skill2_name === null) {
       return (
         <Right style={{ flex: 2 }}>
-          <Text style={{ flex: 1, fontSize: 14, color: colors.secondary }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
+          <Text style={{ flex: 1, fontSize: 14, color: this.props.theme.secondary }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
         </Right>
       );
     }
@@ -590,21 +597,21 @@ export default class SearchScreen extends Component {
   renderContent(screen) {
     if (screen === 'monster') {
       return (
-        <View style={{ flex: 1, backgroundColor: colors.background }}>
-          <MonsterList navigator={this.props.navigator} monsters={this.state.allMonsters} type={'monster'}/>
+        <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
+          <MonsterList theme={this.props.theme} navigator={this.props.navigator} monsters={this.state.allMonsters} type={'monster'}/>
         </View>
       );
     } else if (screen === 'armor') {
       return (
-        <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
           <EquipArmorList navigator={this.props.navigator} armor={this.state.lowRank}/>
         </View>
       );
     } else if (screen === 'weapon') {
       return (
-        <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
           <FlatList
-            style={{ backgroundColor: colors.background }}
+            style={{ backgroundColor: this.props.theme.background }}
             initialNumToRender={8}
             data={this.state.weapons}
             keyExtractor={item => item.item_id.toString()}
@@ -614,7 +621,7 @@ export default class SearchScreen extends Component {
       );
     } else if (screen === 'item') {
       return (
-        <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
           <FlatList
             data={this.state.items}
             keyExtractor={item => item.item_id.toString()}
@@ -624,7 +631,7 @@ export default class SearchScreen extends Component {
       );
     } else if (screen === 'skill') {
       return (
-        <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
           <FlatList
             data={this.state.skills}
             keyExtractor={item => item.armor_skill_id.toString()}
@@ -634,7 +641,7 @@ export default class SearchScreen extends Component {
       );
     } else if (screen === 'map') {
       return (
-        <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
           <FlatList
             data={this.state.maps}
             keyExtractor={item => item.map_id.toString()}
@@ -644,7 +651,7 @@ export default class SearchScreen extends Component {
       );
     } else if (screen === 'decoration') {
       return (
-        <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
           <FlatList
             data={this.state.decorations}
             keyExtractor={item => item.item_id.toString()}
@@ -654,7 +661,7 @@ export default class SearchScreen extends Component {
       );
     } else if (screen === 'charm') {
       return (
-        <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
           <FlatList
             data={this.state.charms}
             keyExtractor={item => item.item_id.toString()}
@@ -664,7 +671,7 @@ export default class SearchScreen extends Component {
       );
     } else if (screen === 'quest') {
       return (
-        <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
           <FlatList
             data={this.state.quests}
             keyExtractor={item => item.quest_id.toString()}
@@ -680,10 +687,10 @@ export default class SearchScreen extends Component {
     if (screen === 'monster' && this.state.allMonsters.length > 0) {
       return (
         <Tab
-          activeTabStyle={{ backgroundColor: colors.background }}
-          tabStyle={{ backgroundColor: colors.background }}
-          activeTextStyle={{ color: colors.main }}
-          textStyle={{ color: colors.secondary }}
+          activeTabStyle={{ backgroundColor: this.props.theme.background }}
+          tabStyle={{ backgroundColor: this.props.theme.background }}
+          activeTextStyle={{ color: this.props.theme.main }}
+          textStyle={{ color: this.props.theme.secondary }}
           heading="Monsters"
           >
           {this.renderContent('monster')}
@@ -692,10 +699,10 @@ export default class SearchScreen extends Component {
     } else if (screen === 'armor' && this.state.lowRank.length > 0) {
       return (
         <Tab
-          activeTabStyle={{ backgroundColor: colors.background }}
-          tabStyle={{ backgroundColor: colors.background }}
-          activeTextStyle={{ color: colors.main }}
-          textStyle={{ color: colors.secondary }}
+          activeTabStyle={{ backgroundColor: this.props.theme.background }}
+          tabStyle={{ backgroundColor: this.props.theme.background }}
+          activeTextStyle={{ color: this.props.theme.main }}
+          textStyle={{ color: this.props.theme.secondary }}
           heading="Armor"
           >
           {this.renderContent('armor')}
@@ -704,10 +711,10 @@ export default class SearchScreen extends Component {
     } else if (screen === 'weapon' && this.state.weapons.length > 0) {
       return (
         <Tab
-          activeTabStyle={{ backgroundColor: colors.background }}
-          tabStyle={{ backgroundColor: colors.background }}
-          activeTextStyle={{ color: colors.main }}
-          textStyle={{ color: colors.secondary }}
+          activeTabStyle={{ backgroundColor: this.props.theme.background }}
+          tabStyle={{ backgroundColor: this.props.theme.background }}
+          activeTextStyle={{ color: this.props.theme.main }}
+          textStyle={{ color: this.props.theme.secondary }}
           heading="Weapons"
           >
           {this.renderContent('weapon')}
@@ -716,10 +723,10 @@ export default class SearchScreen extends Component {
     } else if (screen === 'item' && this.state.items.length > 0) {
       return (
         <Tab
-          activeTabStyle={{ backgroundColor: colors.background }}
-          tabStyle={{ backgroundColor: colors.background }}
-          activeTextStyle={{ color: colors.main }}
-          textStyle={{ color: colors.secondary }}
+          activeTabStyle={{ backgroundColor: this.props.theme.background }}
+          tabStyle={{ backgroundColor: this.props.theme.background }}
+          activeTextStyle={{ color: this.props.theme.main }}
+          textStyle={{ color: this.props.theme.secondary }}
           heading="Items"
           >
           {this.renderContent('item')}
@@ -728,10 +735,10 @@ export default class SearchScreen extends Component {
     } else if (screen === 'quest' && this.state.quests.length > 0) {
       return (
         <Tab
-          activeTabStyle={{ backgroundColor: colors.background }}
-          tabStyle={{ backgroundColor: colors.background }}
-          activeTextStyle={{ color: colors.main }}
-          textStyle={{ color: colors.secondary }}
+          activeTabStyle={{ backgroundColor: this.props.theme.background }}
+          tabStyle={{ backgroundColor: this.props.theme.background }}
+          activeTextStyle={{ color: this.props.theme.main }}
+          textStyle={{ color: this.props.theme.secondary }}
           heading="Quests"
           >
           {this.renderContent('quest')}
@@ -740,10 +747,10 @@ export default class SearchScreen extends Component {
     } else if (screen === 'charm' && this.state.charms.length > 0) {
       return (
         <Tab
-          activeTabStyle={{ backgroundColor: colors.background }}
-          tabStyle={{ backgroundColor: colors.background }}
-          activeTextStyle={{ color: colors.main }}
-          textStyle={{ color: colors.secondary }}
+          activeTabStyle={{ backgroundColor: this.props.theme.background }}
+          tabStyle={{ backgroundColor: this.props.theme.background }}
+          activeTextStyle={{ color: this.props.theme.main }}
+          textStyle={{ color: this.props.theme.secondary }}
           heading="Charms"
           >
           {this.renderContent('charm')}
@@ -752,10 +759,10 @@ export default class SearchScreen extends Component {
     } else if (screen === 'decoration' && this.state.decorations.length > 0) {
       return (
         <Tab
-          activeTabStyle={{ backgroundColor: colors.background }}
-          tabStyle={{ backgroundColor: colors.background }}
-          activeTextStyle={{ color: colors.main }}
-          textStyle={{ color: colors.secondary }}
+          activeTabStyle={{ backgroundColor: this.props.theme.background }}
+          tabStyle={{ backgroundColor: this.props.theme.background }}
+          activeTextStyle={{ color: this.props.theme.main }}
+          textStyle={{ color: this.props.theme.secondary }}
           heading="Decorations"
           >
           {this.renderContent('decoration')}
@@ -764,10 +771,10 @@ export default class SearchScreen extends Component {
     } else if (screen === 'skill' && this.state.skills.length > 0) {
       return (
         <Tab
-          activeTabStyle={{ backgroundColor: colors.background }}
-          tabStyle={{ backgroundColor: colors.background }}
-          activeTextStyle={{ color: colors.main }}
-          textStyle={{ color: colors.secondary }}
+          activeTabStyle={{ backgroundColor: this.props.theme.background }}
+          tabStyle={{ backgroundColor: this.props.theme.background }}
+          activeTextStyle={{ color: this.props.theme.main }}
+          textStyle={{ color: this.props.theme.secondary }}
           heading="Skills"
           >
           {this.renderContent('skill')}
@@ -776,10 +783,10 @@ export default class SearchScreen extends Component {
     } else if (screen === 'map' && this.state.maps.length > 0) {
       return (
         <Tab
-          activeTabStyle={{ backgroundColor: colors.background }}
-          tabStyle={{ backgroundColor: colors.background }}
-          activeTextStyle={{ color: colors.main }}
-          textStyle={{ color: colors.secondary }}
+          activeTabStyle={{ backgroundColor: this.props.theme.background }}
+          tabStyle={{ backgroundColor: this.props.theme.background }}
+          activeTextStyle={{ color: this.props.theme.main }}
+          textStyle={{ color: this.props.theme.secondary }}
           heading="Maps"
           >
           {this.renderContent('map')}
@@ -793,31 +800,31 @@ export default class SearchScreen extends Component {
     if (this.state.loading) {
       return (
         <View style={{
-          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background,
+          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background,
         }}>
-          <ActivityIndicator size="large" color={colors.main}/>
+          <ActivityIndicator size="large" color={this.props.theme.main}/>
         </View>
       );
     }
     if (this.state.keyWord.length === 0) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
-          <Icon ios='ios-search-outline' android='ios-search-outline' style={{ textAlign: 'center', fontSize: 50, color: colors.secondary }} />
-          <Text style={{ textAlign: 'center', fontSize: 22.5, color: colors.secondary }}>Begin search using search bar</Text>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background }}>
+          <Icon ios='ios-search-outline' android='ios-search-outline' style={{ textAlign: 'center', fontSize: 50, color: this.props.theme.secondary }} />
+          <Text style={{ textAlign: 'center', fontSize: 22.5, color: this.props.theme.secondary }}>Begin search using search bar</Text>
         </View>
       );
     } else if (this.state.keyWord.length > 0 && this.state.tabs === 0) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
-          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: colors.secondary }} />
-          <Text style={{ textAlign: 'center', fontSize: 22.5, color: colors.secondary }}>No Results Found</Text>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background }}>
+          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: this.props.theme.secondary }} />
+          <Text style={{ textAlign: 'center', fontSize: 22.5, color: this.props.theme.secondary }}>No Results Found</Text>
         </View>
       );
     }
     if (this.state.tabs < 4) {
       return (
         <Tabs
-        tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }}
+        tabBarUnderlineStyle={{ backgroundColor: this.props.theme.accent, height: 3 }}
         prerenderingSiblingsNumber={5}
         initialPage={0}>
           {this.renderTab('monster')}
@@ -833,10 +840,10 @@ export default class SearchScreen extends Component {
     }
     return (
       <Tabs
-      tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }}
+      tabBarUnderlineStyle={{ backgroundColor: this.props.theme.accent, height: 3 }}
       prerenderingSiblingsNumber={5}
       initialPage={0}
-      renderTabBar={() => <ScrollableTab style={{ backgroundColor: colors.background, elevation: 2 }}/>}>
+      renderTabBar={() => <ScrollableTab style={{ borderWidth: 0, backgroundColor: this.props.theme.background, elevation: 2 }}/>}>
         {this.renderTab('monster')}
         {this.renderTab('armor')}
         {this.renderTab('weapon')}
@@ -849,13 +856,25 @@ export default class SearchScreen extends Component {
     );
   }
 
+  setNavSettings() {
+    this.props.navigator.setStyle({
+      navBarButtonColor: this.props.theme.main,
+      navBarTextColor: this.props.theme.main,
+      navBarBackgroundColor: this.props.theme.background,
+      statusBarTextColorScheme: this.props.theme.statusbar,
+      statusBarColor: this.props.theme.background,
+      tabBarBackgroundColor: this.props.theme.background,
+    });
+  }
+
   render() {
+    this.setNavSettings();
     console.log(this.state);
     let noShadow = true;
     let style = {
       borderBottomWidth: (Platform.OS !== 'ios') ? 0 : 0,
-      borderBottomColor: colors.accent,
-      backgroundColor: colors.background,
+      borderBottomColor: this.props.theme.accent,
+      backgroundColor: this.props.theme.background,
     };
     if (
       this.state.allMonsters.length <= 0
@@ -869,16 +888,16 @@ export default class SearchScreen extends Component {
     ) {
       style = {
         borderBottomWidth: (Platform.OS !== 'ios') ? 2 : 1,
-        borderBottomColor: colors.accent,
-        backgroundColor: colors.background,
+        borderBottomColor: this.props.theme.accent,
+        backgroundColor: this.props.theme.background,
       };
       noShadow = false;
     }
     return (
-      <Container style={{ backgroundColor: colors.background }}>
+      <Container style={{ backgroundColor: this.props.theme.background }}>
         <Header
           style={style}
-          androidStatusBarColor='white'
+          androidStatusBarColor={this.props.theme.background}
           noShadow={noShadow}
           searchBar rounded>
           <Item>
@@ -895,3 +914,28 @@ export default class SearchScreen extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+  },
+  listItem: {
+    height: 60,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(SearchScreen);

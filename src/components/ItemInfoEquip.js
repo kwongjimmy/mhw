@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 import { Text, Left, Right, ListItem } from 'native-base';
+import { connect } from 'react-redux';
 import AdBanner from './AdBanner';
 import DropDown from './DropDown';
 import { WeaponImages, ArmorImages } from '../assets/';
@@ -25,7 +26,7 @@ const weaponTypes = {
   heavy_bowgun: 'Heavy Bowgun',
 };
 
-export default class ItemInfoEquip extends PureComponent {
+class ItemInfoEquip extends PureComponent {
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -45,12 +46,12 @@ export default class ItemInfoEquip extends PureComponent {
 
   renderWeaponHeader() {
     return (
-      <ListItem style={{ marginLeft: 0, paddingLeft: 8 }} itemDivider>
+      <ListItem style={[styles.listHeader, { backgroundColor: this.props.theme.listItemHeader }]}>
         <Left>
-          <Text style={{ fontSize: 15.5, color: colors.main }}>Weapons</Text>
+          <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>Weapons</Text>
         </Left>
         <Right>
-          <Text style={{ fontSize: 15.5, color: colors.secondary }}>Cost</Text>
+          <Text style={{ fontSize: 15.5, color: this.props.theme.secondary }}>Cost</Text>
         </Right>
       </ListItem>
     );
@@ -66,7 +67,7 @@ export default class ItemInfoEquip extends PureComponent {
             return (
               <ListItem
                 key={key}
-                style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+                style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
                 onPress={() => {
                   if (item.type.includes('bowgun')) {
                     this.props.navigator.push({
@@ -99,11 +100,11 @@ export default class ItemInfoEquip extends PureComponent {
                     source={WeaponImages[`${weaponTypes[item.type]} ${item.rarity}`]}
                   />
                 </Left>
-                <Left style={{ flex: 2 }}>
-                  <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+                <Left style={{ flex: 3 }}>
+                  <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{item.name}</Text>
                 </Left>
-                <Right style={{ flex: 2 }}>
-                  <Text style={{ fontSize: 15.5, color: colors.main }}>{`x${item.quantity}`}</Text>
+                <Right style={{ flex: 1 }}>
+                  <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`x${item.quantity}`}</Text>
                 </Right>
               </ListItem>
             );
@@ -124,12 +125,12 @@ export default class ItemInfoEquip extends PureComponent {
 
   renderArmorHeader() {
     return (
-      <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+      <ListItem style={[styles.listHeader, { backgroundColor: this.props.theme.listItemHeader }]}>
         <Left>
-          <Text style={{ fontSize: 15.5, color: colors.main }}>Armor</Text>
+          <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>Armor</Text>
         </Left>
         <Right>
-          <Text style={{ fontSize: 15.5, color: colors.secondary }}>Cost</Text>
+          <Text style={{ fontSize: 15.5, color: this.props.theme.secondary }}>Cost</Text>
         </Right>
       </ListItem>
     );
@@ -145,7 +146,7 @@ export default class ItemInfoEquip extends PureComponent {
             return (
               <ListItem
                 key={key}
-                style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+                style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
                 onPress={() => this.props.navigator.push({
                 screen: 'EquipInfoScreen',
                 passProps: {
@@ -162,11 +163,11 @@ export default class ItemInfoEquip extends PureComponent {
                     source={ArmorImages[`${item.type.toLowerCase()} ${item.rarity}`]}
                   />
                 </Left>
-                <Left style={{ flex: 2 }}>
-                  <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+                <Left style={{ flex: 3 }}>
+                  <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{item.name}</Text>
                 </Left>
-                <Right style={{ flex: 2 }}>
-                  <Text style={{ fontSize: 15.5, color: colors.main }}>{`x${item.quantity}`}</Text>
+                <Right style={{ flex: 1 }}>
+                  <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`x${item.quantity}`}</Text>
                 </Right>
               </ListItem>
             );
@@ -199,3 +200,27 @@ export default class ItemInfoEquip extends PureComponent {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  listHeader: {
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: 0,
+  },
+  listItem: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(ItemInfoEquip);

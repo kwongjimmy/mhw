@@ -1,14 +1,15 @@
 import React, { PureComponent } from 'react';
-import { ScrollView, View, ActivityIndicator, Image } from 'react-native';
+import { ScrollView, View, ActivityIndicator, Image, StyleSheet } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, ListItem, Text, Left, Body, Right } from 'native-base';
+import { connect } from 'react-redux';
 import DropDown from './DropDown';
 import { ArmorImages } from '../assets/';
 
 // Styles
 import colors from '../styles/colors';
 
-export default class SkillEquip extends PureComponent {
+class SkillEquip extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -120,7 +121,7 @@ export default class SkillEquip extends PureComponent {
             return (
               <ListItem
                 key={key}
-                style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+                style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
                 onPress={() => this.props.navigator.push({
                 screen: 'EquipInfoScreen',
                 passProps: {
@@ -138,10 +139,10 @@ export default class SkillEquip extends PureComponent {
                   />
                 </Left>
                 <Left style={{ flex: 2 }}>
-                  <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+                  <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{item.name}</Text>
                 </Left>
                 <Right style={{ flex: 2 }}>
-                  <Text style={{ fontSize: 15.5, color: colors.main }}>{`+${item.level}`}</Text>
+                  <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`+${item.level}`}</Text>
                 </Right>
               </ListItem>
             );
@@ -166,7 +167,7 @@ export default class SkillEquip extends PureComponent {
             return (
               <ListItem
                 key={key}
-                style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+                style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
                 onPress={() => this.props.navigator.push({
                 screen: 'TablessInfoScreen',
                 passProps: {
@@ -178,10 +179,10 @@ export default class SkillEquip extends PureComponent {
                 })}
                 >
                 <Left>
-                  <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+                  <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>{item.name}</Text>
                 </Left>
                 <Right>
-                  <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`+${item.level}`}</Text>
+                  <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>{`+${item.level}`}</Text>
                 </Right>
               </ListItem>
             );
@@ -206,7 +207,7 @@ export default class SkillEquip extends PureComponent {
               return (
                 <ListItem
                   key={key}
-                  style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+                  style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
                   onPress={() => this.props.navigator.push({
                   screen: 'TablessInfoScreen',
                   passProps: {
@@ -218,10 +219,10 @@ export default class SkillEquip extends PureComponent {
                   })}
                   >
                   <Left>
-                    <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+                    <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>{item.name}</Text>
                   </Left>
                   <Right>
-                    <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`+${item.level}`}</Text>
+                    <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>{`+${item.level}`}</Text>
                   </Right>
                 </ListItem>
               );
@@ -245,3 +246,28 @@ export default class SkillEquip extends PureComponent {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  listHeader: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: 0,
+  },
+  listItem: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(SkillEquip);

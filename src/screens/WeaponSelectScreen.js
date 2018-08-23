@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react';
-import { View, Image, FlatList, TouchableHighlight, Platform, ActivityIndicator } from 'react-native';
+import { View, Image, FlatList, Platform, ActivityIndicator } from 'react-native';
 import { Container, ListItem, Body, Left, Right, Text } from 'native-base';
+import { connect } from 'react-redux';
 import { WeaponImages } from '../assets';
 import AdBanner from '../components/AdBanner';
 
 // Styles
 import colors from '../styles/colors';
 
-export default class WeaponSelectScreen extends PureComponent {
+class WeaponSelectScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
     topBarBorderColor: colors.accent,
@@ -110,15 +111,23 @@ export default class WeaponSelectScreen extends PureComponent {
     const src = WeaponImages[item.name];
     return (
       <ListItem
-        style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+        style={{
+          backgroundColor: this.props.theme.background,
+          borderColor: this.props.theme.border,
+          height: 60,
+          marginLeft: 0,
+          paddingLeft: 18,
+          marginRight: 0,
+          paddingRight: 18,
+        }}
         onPress={() => this.props.navigator.push({
         screen: 'WeaponSelectedScreen',
         passProps: {
           type: item.type,
-          item
+          item,
         },
         animationType: 'slide-horizontal',
-        title: item.name
+        title: item.name,
         })}>
       <Left>
         <Image
@@ -128,7 +137,7 @@ export default class WeaponSelectScreen extends PureComponent {
         />
       </Left>
       <Body style={{ flex: 6 }}>
-        <Text style={{ fontSize: 20, color: colors.main }}>{item.name}</Text>
+        <Text style={{ fontSize: 20, color: this.props.theme.main }}>{item.name}</Text>
       </Body>
       </ListItem>
     );
@@ -137,15 +146,15 @@ export default class WeaponSelectScreen extends PureComponent {
   renderSelectList() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
-          <ActivityIndicator size="large" color={colors.main}/>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background }}>
+          <ActivityIndicator size="large" color={this.props.theme.main}/>
         </View>
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
         <FlatList
-          style={{ backgroundColor: colors.background }}
+          style={{ backgroundColor: this.props.theme.background }}
           initialNumToRender={20}
           data={this.state.weapons}
           keyExtractor={item => item.name}
@@ -159,7 +168,25 @@ export default class WeaponSelectScreen extends PureComponent {
     );
   }
 
+  setNavSettings() {
+    this.props.navigator.setStyle({
+      navBarButtonColor: this.props.theme.main,
+      navBarTextColor: this.props.theme.main,
+      navBarBackgroundColor: this.props.theme.background,
+      statusBarTextColorScheme: this.props.theme.statusbar,
+      statusBarColor: this.props.theme.background,
+      tabBarBackgroundColor: this.props.theme.background,
+    });
+  }
+
   render() {
+    this.setNavSettings();
     return this.renderSelectList();
   }
 }
+
+const mapStateToProps = (state) => {
+  return state.settings
+};
+
+export default connect(mapStateToProps, {})(WeaponSelectScreen);

@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
-import { ScrollView, View, ActivityIndicator } from 'react-native';
+import { ScrollView, View, ActivityIndicator, StyleSheet } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Text, Left, Body, Right, ListItem, Tab, Tabs } from 'native-base';
+import { connect } from 'react-redux';
 import ItemInfoEquip from './ItemInfoEquip';
 import ItemInfoQuest from './ItemInfoQuest';
 import ItemInfoLoot from './ItemInfoLoot';
@@ -12,7 +13,7 @@ import DropDown from './DropDown';
 // Styles
 import colors from '../styles/colors';
 
-export default class ItemInfo extends PureComponent {
+class ItemInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -196,17 +197,17 @@ export default class ItemInfo extends PureComponent {
   renderInfo() {
     return (
       <View style={{ flex: 1 }}>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
-            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: colors.main }}>Buy</Text>
-            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: colors.main }}>Sell</Text>
-            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: colors.main }}>Carry</Text>
-            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: colors.main }}>Rarity</Text>
+        <ListItem style={[styles.listHeader, { backgroundColor: this.props.theme.listItemHeader }]}>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: this.props.theme.main }}>Buy</Text>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: this.props.theme.main }}>Sell</Text>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: this.props.theme.main }}>Carry</Text>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: this.props.theme.main }}>Rarity</Text>
         </ListItem>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
-            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: colors.main }}>{`${this.state.item.buy_price}z`}</Text>
-            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: colors.main }}>{`${this.state.item.sell_price}z`}</Text>
-            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: colors.main }}>{this.state.item.carry}</Text>
-            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: colors.main }}>{this.state.item.rarity}</Text>
+        <ListItem style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: this.props.theme.main }}>{`${this.state.item.buy_price}z`}</Text>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: this.props.theme.main }}>{`${this.state.item.sell_price}z`}</Text>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: this.props.theme.main }}>{this.state.item.carry}</Text>
+            <Text style={{ fontSize: 15.5, flex: 1, textAlign: 'center', color: this.props.theme.main }}>{this.state.item.rarity}</Text>
         </ListItem>
       </View>
     );
@@ -215,13 +216,13 @@ export default class ItemInfo extends PureComponent {
   renderContent(screen) {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
-          <ActivityIndicator size="large" color={colors.main}/>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background }}>
+          <ActivityIndicator size="large" color={this.props.theme.main}/>
         </View>
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
         <ScrollView>
           {this.renderInfo()}
           <ItemInfoLoot
@@ -241,3 +242,28 @@ export default class ItemInfo extends PureComponent {
     return this.renderContent();
   }
 }
+
+const styles = StyleSheet.create({
+  listHeader: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: 0,
+  },
+  listItem: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(ItemInfo);

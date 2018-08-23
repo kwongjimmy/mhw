@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
-import { Image, View, ActivityIndicator, ScrollView } from 'react-native';
+import { Image, View, ActivityIndicator, ScrollView, StyleSheet } from 'react-native';
 import { ListItem, Text, Right, Left, Body } from 'native-base';
+import { connect } from 'react-redux';
 import SQLite from 'react-native-sqlite-storage';
 import AdBanner from './AdBanner';
 import { EndemicImages } from '../assets';
@@ -8,7 +9,7 @@ import { EndemicImages } from '../assets';
 // Styles
 import colors from '../styles/colors';
 
-export default class EndemicInfo extends PureComponent {
+class EndemicInfo extends PureComponent {
   constructor(props) {
     super(props);
     console.log(this.props);
@@ -51,13 +52,13 @@ export default class EndemicInfo extends PureComponent {
   renderContent() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
-          <ActivityIndicator size="large" color={colors.main}/>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background }}>
+          <ActivityIndicator size="large" color={this.props.theme.main}/>
         </View>
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
         <ScrollView>
           <Image
             resizeMode="contain"
@@ -65,26 +66,32 @@ export default class EndemicInfo extends PureComponent {
             style={{ width: 300, height: 300, alignSelf: 'center', justifyContent: 'center' }}
             source={EndemicImages[this.props.item]}
           />
-          <ListItem itemDivider style={{ height: 50, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
+          <ListItem
+            style={[styles.listHeader, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItemHeader }]}
+          >
             <Left style={{ flex: 1 }}>
-              <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'left' }}>Type</Text>
+              <Text style={{ fontSize: 15.5, color: this.props.theme.main, textAlign: 'left' }}>Type</Text>
             </Left>
           </ListItem>
-          <ListItem style={{ height: 50, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
+          <ListItem
+            style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
+          >
             <Left style={{ flex: 1 }}>
-              <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'left' }}>{this.state.locations[0].field_guide}</Text>
+              <Text style={{ fontSize: 15.5, color: this.props.theme.main, textAlign: 'left' }}>{this.state.locations[0].field_guide}</Text>
             </Left>
           </ListItem>
-          <ListItem itemDivider style={{ height: 50, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
+          <ListItem
+            style={[styles.listHeader, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItemHeader }]}
+          >
             <Left style={{ flex: 1 }}>
-              <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'left' }}>Locations</Text>
+              <Text style={{ fontSize: 15.5, color: this.props.theme.main, textAlign: 'left' }}>Locations</Text>
             </Left>
           </ListItem>
           {this.state.locations.map((item, key) => {
             return (
               <ListItem
                 key={key}
-                style={{ height: 50, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+                style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
                 onPress={() => this.props.navigator.push({
                   screen: 'TabInfoScreen',
                   passProps: {
@@ -95,10 +102,10 @@ export default class EndemicInfo extends PureComponent {
                   title: item.name,
               })}>
                 <Left style={{ flex: 1 }}>
-                  <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'left' }}>{item.name}</Text>
+                  <Text style={{ fontSize: 15.5, color: this.props.theme.main, textAlign: 'left' }}>{item.name}</Text>
                 </Left>
                 <Right style={{ flex: 1 }}>
-                  <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'left' }}>{item.zone}</Text>
+                  <Text style={{ fontSize: 15.5, color: this.props.theme.main, textAlign: 'left' }}>{item.zone}</Text>
                 </Right>
               </ListItem>
             )
@@ -113,3 +120,28 @@ export default class EndemicInfo extends PureComponent {
     return this.renderContent();
   }
 }
+
+const styles = StyleSheet.create({
+  listHeader: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  listItem: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(EndemicInfo);

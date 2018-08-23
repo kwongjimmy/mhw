@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import { ListItem, Left, Right, Body, Text } from 'native-base';
 import EquipArmorContainer from './EquipArmorContainer';
 
@@ -11,7 +11,7 @@ export default class EquipArmorList extends PureComponent {
     return (
       // <EquipArmorContainer navigator={this.props.navigator} armor={item}/>
       <ListItem
-        style={{ height: 52, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+        style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.background }]}
         onPress={() => this.props.navigator.push({
         screen: 'EquipArmorSetScreen',
         passProps: {
@@ -22,7 +22,7 @@ export default class EquipArmorList extends PureComponent {
         title: item.name,
         })}>
         <Left>
-          <Text style={{ fontSize: 15.5, color: colors.main }}>
+          <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>
             {item.name}
           </Text>
         </Left>
@@ -33,15 +33,34 @@ export default class EquipArmorList extends PureComponent {
   render() {
     return (
       <FlatList
-        style={{ backgroundColor: colors.background }}
+        style={{ backgroundColor: this.props.theme.background }}
         initialNumToRender={12}
         data={this.props.armor}
         keyExtractor={item => item.armor_set_id.toString()}
         renderItem={this.renderArmorSet}
         getItemLayout={(data, index) => (
-          { length: 52, offset: 52 * index, index }
+          { length: 50, offset: 50 * index, index }
         )}
       />
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+  },
+  listItem: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});

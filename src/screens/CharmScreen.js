@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react';
-import { Platform, View, FlatList, ActivityIndicator } from 'react-native';
+import { Platform, View, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { ListItem, Text, Left, Right } from 'native-base';
+import { connect } from 'react-redux';
 import AdBanner from '../components/AdBanner';
 import CharmListItem from '../components/CharmListItem';
 // Styles
 import colors from '../styles/colors';
 
-export default class CharmScreen extends PureComponent {
+class CharmScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
     topBarBorderColor: colors.accent,
@@ -71,15 +72,15 @@ export default class CharmScreen extends PureComponent {
   renderContent() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
-          <ActivityIndicator size="large" color={colors.main}/>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background }}>
+          <ActivityIndicator size="large" color={this.props.theme.main}/>
         </View>
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
         <FlatList
-          style={{ backgroundColor: colors.background }}
+          style={{ backgroundColor: this.props.theme.background }}
           initialNumToRender={11}
           data={this.state.items}
           keyExtractor={(item) => item.item_id.toString()}
@@ -97,3 +98,9 @@ export default class CharmScreen extends PureComponent {
     return this.renderContent();
   }
 }
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(CharmScreen);

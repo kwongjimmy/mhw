@@ -41,7 +41,7 @@ const store = configureStore();
 export default function startApp() {
   Navigation.registerComponent('MonsterScreen', () => MonsterScreen, store, Provider);
   Navigation.registerComponent('EquipArmorScreen', () => EquipArmorScreen, store, Provider);
-  Navigation.registerComponent('QuestScreen', () => QuestScreen);
+  Navigation.registerComponent('QuestScreen', () => QuestScreen, store, Provider);
   Navigation.registerComponent('WeaponSelectScreen', () => WeaponSelectScreen, store, Provider);
   Navigation.registerComponent('MiscScreen', () => MiscScreen, store, Provider);
   Navigation.registerComponent('ItemScreen', () => ItemScreen, store, Provider);
@@ -56,9 +56,9 @@ export default function startApp() {
   Navigation.registerComponent('ToolScreen', () => ToolScreen, store, Provider);
   Navigation.registerComponent('EndemicScreen', () => EndemicScreen, store, Provider);
   Navigation.registerComponent('SetBuilderScreen', () => SetBuilderScreen, store, Provider);
-  Navigation.registerComponent('SetBuilderSelect', () => SetBuilderSelect);
-  Navigation.registerComponent('SetSelectScreen', () => SetSelectScreen);
-  Navigation.registerComponent('SetSelectScreen', () => SetSelectScreen);
+  Navigation.registerComponent('SetBuilderSelect', () => SetBuilderSelect, store, Provider);
+  Navigation.registerComponent('SetSelectScreen', () => SetSelectScreen, store, Provider);
+  Navigation.registerComponent('SetSelectScreen', () => SetSelectScreen, store, Provider);
   Navigation.registerComponent('WeaponSelectedScreen', () => WeaponSelectedScreen, store, Provider);
   Navigation.registerComponent('MonsterInfoScreen', () => MonsterInfoScreen, store, Provider);
   Navigation.registerComponent('TabInfoScreen', () => TabInfoScreen, store, Provider);
@@ -70,6 +70,15 @@ export default function startApp() {
 
   // DELETE to prevent vector icon error ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json
   persistStore(store, null, () => {
+    console.log(store.getState().settings.theme);
+    const {
+      accent,
+      background,
+      statusbar,
+      secondary,
+      mainText,
+      main,
+    } = store.getState().settings.theme;
     Navigation.startTabBasedApp({
       tabs: [
         {
@@ -112,31 +121,32 @@ export default function startApp() {
         // tabFontFamily: 'Avenir-Medium',  // existing font family name or asset file without extension which can be '.ttf' or '.otf' (searched only if '.ttf' asset not found)
         tabFontSize: 10,
         selectedTabFontSize: 11,
-        statusBarColor: colors.background,
-        statusBarTextColorScheme: 'dark',
+        statusBarColor: background,
+        statusBarTextColorScheme: statusbar,
         navBarHeight: 40,
+        navBarButtonColor: main,
         topBarElevationShadowEnabled: false,
-        tabBarBackgroundColor: colors.background,
+        tabBarBackgroundColor: background,
         tabBarHidden: false, // make the tab bar hidden
         forceTitlesDisplay: true,
         navBarHideOnScroll: false,
-        tabBarButtonColor: colors.secondary, // change the color of the tab icons and text (also unselected)
-        tabBarSelectedButtonColor: colors.accent, // change the color of the selected tab icon and text (only selected)
-        navBarTextColor: colors.main, // change the text color of the title (remembered across pushes)
+        tabBarButtonColor: secondary, // change the color of the tab icons and text (also unselected)
+        tabBarSelectedButtonColor: accent, // change the color of the selected tab icon and text (only selected)
+        navBarTextColor: mainText, // change the text color of the title (remembered across pushes)
         navBarTextFontSize: 18, // change the font size of the title
-        navBarBackgroundColor: colors.background,
+        navBarBackgroundColor: background,
       },
-      tabsStyle: { // optional, **iOS Only** add this if you want to style the tab bar beyond the defaults
-        tabBarHidden: false, // make the tab bar hidden
-        tabBarButtonColor: colors.secondary, // change the color of the tab icons and text (also unselected)
-        tabBarSelectedButtonColor: colors.accent, // change the color of the selected tab icon and text (only selected)
-        tabBarLabelColor: colors.secondary, // iOS only. change the color of tab text
-        tabBarSelectedLabelColor: colors.accent, // iOS only. change the color of the selected tab text
-        tabBarBackgroundColor: colors.background, // change the background color of the tab bar
-        tabBarTranslucent: false, // change the translucent of the tab bar to false
-        tabBarHideShadow: false, // iOS only. Remove default tab bar top shadow (hairline)
-        navBarBackgroundColor: colors.background,
-      },
+      // tabsStyle: { // optional, **iOS Only** add this if you want to style the tab bar beyond the defaults
+      //   tabBarHidden: false, // make the tab bar hidden
+      //   tabBarButtonColor: colors.secondary, // change the color of the tab icons and text (also unselected)
+      //   tabBarSelectedButtonColor: colors.accent, // change the color of the selected tab icon and text (only selected)
+      //   tabBarLabelColor: colors.secondary, // iOS only. change the color of tab text
+      //   tabBarSelectedLabelColor: colors.accent, // iOS only. change the color of the selected tab text
+      //   tabBarBackgroundColor: colors.background, // change the background color of the tab bar
+      //   tabBarTranslucent: false, // change the translucent of the tab bar to false
+      //   tabBarHideShadow: false, // iOS only. Remove default tab bar top shadow (hairline)
+      //   navBarBackgroundColor: colors.background,
+      // },
     });
   });
 }

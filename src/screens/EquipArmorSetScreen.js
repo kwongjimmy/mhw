@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
-import { ScrollView, Image, View, Platform } from 'react-native';
+import { ScrollView, Image, View, Platform, StyleSheet} from 'react-native';
 import { Text, Left, Body, Right, ListItem } from 'native-base';
+import { connect } from 'react-redux';
 import ArmorListItem from '../components/ArmorListItem';
 import { ArmorImages } from '../assets';
 import AdBanner from '../components/AdBanner';
@@ -8,7 +9,7 @@ import AdBanner from '../components/AdBanner';
 // Styles
 import colors from '../styles/colors';
 
-export default class EquipArmorSetScreen extends PureComponent {
+class EquipArmorSetScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
     topBarBorderColor: colors.accent,
@@ -189,14 +190,14 @@ export default class EquipArmorSetScreen extends PureComponent {
     if (item.skill1 !== null && item.skill2 !== null) {
       return (
         <View style={{ justifyContent: 'center' }}>
-          <Text style={{ fontSize: 11, color: colors.secondary }}>{`${item.skill1} +${item.skill1_level}`}</Text>
-          <Text style={{ fontSize: 11, color: colors.secondary }}>{`${item.skill2} +${item.skill2_level}`}</Text>
+          <Text style={{ fontSize: 11, color: this.props.theme.secondary }}>{`${item.skill1} +${item.skill1_level}`}</Text>
+          <Text style={{ fontSize: 11, color: this.props.theme.secondary }}>{`${item.skill2} +${item.skill2_level}`}</Text>
         </View>
       );
     } else if (item.skill1 !== null && item.skill2 === null) {
       return (
         <View style={{ justifyContent: 'center' }}>
-          <Text style={{ fontSize: 11, color: colors.secondary }}>{`${item.skill1} +${item.skill1_level}`}</Text>
+          <Text style={{ fontSize: 11, color: this.props.theme.secondary }}>{`${item.skill1} +${item.skill1_level}`}</Text>
         </View>
       );
     }
@@ -211,7 +212,7 @@ export default class EquipArmorSetScreen extends PureComponent {
     let slot3 = (item.slot3 === 0) ? `-` : (item.slot3 === 1) ? `\u2460` : (item.slot3 === 2) ? `\u2461` : `\u2462`;
     return (
       <View style={{ justifyContent: 'center' }}>
-        <Text style={{ fontSize: 14, fontWeight: '500', color: colors.secondary, textAlign: 'center' }}>{`${slot1} ${slot2} ${slot3}`}</Text>
+        <Text style={{ fontSize: 14, fontWeight: '500', color: this.props.theme.secondary, textAlign: 'center' }}>{`${slot1} ${slot2} ${slot3}`}</Text>
       </View>
     );
   }
@@ -220,8 +221,8 @@ export default class EquipArmorSetScreen extends PureComponent {
     if (this.props.armor.set_bonus_name !== null) {
       return (
         <View>
-          <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: '#F8F8F8' }} itemDivider>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>
+          <ListItem style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.background }]}>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>
               {`${this.props.armor.set_bonus_name} Set Bonus`}
             </Text>
           </ListItem>
@@ -237,7 +238,7 @@ export default class EquipArmorSetScreen extends PureComponent {
     if (this.props.armor.set_bonus_skill1 !== null) {
       return (
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.background }]}
           onPress={() => this.props.navigator.push({
           screen: 'TabInfoScreen',
           passProps: {
@@ -248,12 +249,12 @@ export default class EquipArmorSetScreen extends PureComponent {
           title: this.props.armor.set_bonus_skill1,
           })}>
           <Left>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>
               {`(${this.props.armor.pieces} pieces) ${this.props.armor.set_bonus_skill1}`}
             </Text>
           </Left>
           <Right>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>
               {`+${this.props.armor.set_bonus_skill1_level}`}
             </Text>
           </Right>
@@ -267,7 +268,7 @@ export default class EquipArmorSetScreen extends PureComponent {
     if (this.props.armor.set_bonus_skill2 !== null) {
       return (
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.background }]}
           onPress={() => this.props.navigator.push({
           screen: 'TabInfoScreen',
           passProps: {
@@ -278,12 +279,12 @@ export default class EquipArmorSetScreen extends PureComponent {
           title: this.props.armor.set_bonus_skill2,
           })}>
           <Left>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>
               {`(${this.props.armor.pieces_2} pieces) ${this.props.armor.set_bonus_skill2}`}
             </Text>
           </Left>
           <Right>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>
               {`+${this.props.armor.set_bonus_skill2_level}`}
             </Text>
           </Right>
@@ -308,7 +309,7 @@ export default class EquipArmorSetScreen extends PureComponent {
 
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
         <ScrollView>
           {this.renderBody()}
         </ScrollView>
@@ -317,3 +318,28 @@ export default class EquipArmorSetScreen extends PureComponent {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+  },
+  listItem: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings
+};
+
+export default connect(mapStateToProps, {})(EquipArmorSetScreen);

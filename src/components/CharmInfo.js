@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react';
-import { View, ActivityIndicator, ScrollView } from 'react-native';
+import { View, ActivityIndicator, ScrollView, StyleSheet } from 'react-native';
 import { ListItem, Text, Right, Left } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
+import { connect } from 'react-redux';
 import AdBanner from './AdBanner';
 
 // Styles
 import colors from '../styles/colors';
 
-export default class CharmInfo extends PureComponent {
+class CharmInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -73,15 +74,15 @@ export default class CharmInfo extends PureComponent {
     } = this.state.info;
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
-            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>Buy</Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>Sell</Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>Rarity</Text>
+        <ListItem style={[styles.listHeader, { backgroundColor: this.props.theme.listItemHeader }]}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>Buy</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>Sell</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>Rarity</Text>
         </ListItem>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{`${buy_price}z`}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{`${sell_price}z`}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{rarity}</Text>
+        <ListItem style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>{`${buy_price}z`}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>{`${sell_price}z`}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>{rarity}</Text>
         </ListItem>
       </View>
     );
@@ -92,7 +93,7 @@ export default class CharmInfo extends PureComponent {
       return (
         <View>
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+            style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
             onPress={() => this.props.navigator.push({
               screen: 'TabInfoScreen',
               passProps: {
@@ -104,14 +105,14 @@ export default class CharmInfo extends PureComponent {
             })}
             >
             <Left>
-              <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`${this.state.info.skill1_name}`}</Text>
+              <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>{`${this.state.info.skill1_name}`}</Text>
             </Left>
             <Right>
-              <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`${this.state.info.skill1_level}`}</Text>
+              <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>{`${this.state.info.skill1_level}`}</Text>
             </Right>
           </ListItem>
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+            style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
             onPress={() => this.props.navigator.push({
               screen: 'TabInfoScreen',
               passProps: {
@@ -123,10 +124,10 @@ export default class CharmInfo extends PureComponent {
             })}
             >
             <Left>
-              <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`${this.state.info.skill2_name}`}</Text>
+              <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>{`${this.state.info.skill2_name}`}</Text>
             </Left>
             <Right>
-              <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`${this.state.info.skill2_level}`}</Text>
+              <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>{`${this.state.info.skill2_level}`}</Text>
             </Right>
           </ListItem>
       </View>
@@ -134,7 +135,7 @@ export default class CharmInfo extends PureComponent {
     } else if (this.state.info.skill1_name !== null && this.state.info.skill2_name === null) {
       return (
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
           onPress={() => this.props.navigator.push({
             screen: 'TabInfoScreen',
             passProps: {
@@ -146,10 +147,10 @@ export default class CharmInfo extends PureComponent {
           })}
           >
           <Left>
-            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`${this.state.info.skill1_name}`}</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>{`${this.state.info.skill1_name}`}</Text>
           </Left>
           <Right>
-            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`+${this.state.info.skill1_level}`}</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>{`+${this.state.info.skill1_level}`}</Text>
           </Right>
         </ListItem>
       );
@@ -162,9 +163,9 @@ export default class CharmInfo extends PureComponent {
   renderSkills() {
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+        <ListItem style={[styles.listHeader, { backgroundColor: this.props.theme.listItemHeader }]}>
           <Left>
-            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>Skill</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>Skill</Text>
           </Left>
         </ListItem>
         {this.renderSkillBody()}
@@ -175,18 +176,18 @@ export default class CharmInfo extends PureComponent {
   renderCrafting() {
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+        <ListItem style={[styles.listHeader, { backgroundColor: this.props.theme.listItemHeader }]}>
           <Left>
-            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>Material</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>Material</Text>
           </Left>
           <Right>
-            <Text style={{ flex: 1, fontSize: 15.5, color: colors.secondary }}>Quantity</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.secondary }}>Quantity</Text>
           </Right>
         </ListItem>
         {this.state.materials.map((item, key) => {
           return (
             <View key={key}>
-              <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+              <ListItem style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
                 onPress={() => this.props.navigator.push({
                   screen: 'TablessInfoScreen',
                   passProps: {
@@ -198,10 +199,10 @@ export default class CharmInfo extends PureComponent {
                 })}
                 >
                 <Left>
-                  <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+                  <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>{item.name}</Text>
                 </Left>
                 <Right>
-                  <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`x${item.quantity}`}</Text>
+                  <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>{`x${item.quantity}`}</Text>
                 </Right>
               </ListItem>
             </View>
@@ -215,13 +216,13 @@ export default class CharmInfo extends PureComponent {
   renderContent() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
-          <ActivityIndicator size="large" color={colors.main}/>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background }}>
+          <ActivityIndicator size="large" color={this.props.theme.main}/>
         </View>
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
         <ScrollView>
           {this.renderInfo()}
           {this.renderSkills()}
@@ -236,3 +237,28 @@ export default class CharmInfo extends PureComponent {
     return this.renderContent();
   }
 }
+
+const styles = StyleSheet.create({
+  listHeader: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: 0,
+  },
+  listItem: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(CharmInfo);

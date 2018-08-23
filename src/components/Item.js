@@ -1,11 +1,10 @@
 import React, { PureComponent } from 'react';
-import { Text, ActivityIndicator, InteractionManager, ScrollView } from 'react-native';
-import SQLite from 'react-native-sqlite-storage';
+import { StyleSheet } from 'react-native';
 import { ListItem } from 'native-base';
-import _ from 'lodash';
+import { connect } from 'react-redux';
 
-export default class Item extends PureComponent {
-  _onClick = () => this.props.navigator.push({
+class Item extends PureComponent {
+  onClick = () => this.props.navigator.push({
     screen: 'TablessInfoScreen',
     passProps: {
       item_id: this.props.item.item_id,
@@ -18,11 +17,34 @@ export default class Item extends PureComponent {
   render() {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
-        onPress={this._onClick}
+        style={[
+          styles.listItem,
+          {
+            borderColor: this.props.theme.border,
+            backgroundColor: this.props.theme.listItem,
+          },
+        ]}
+        onPress={this.onClick}
       >
         {this.props.children}
       </ListItem>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  listItem: {
+    height: 45,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings
+};
+
+export default connect(mapStateToProps, {})(Item);

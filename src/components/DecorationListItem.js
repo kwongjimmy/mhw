@@ -1,12 +1,13 @@
 import React, { PureComponent } from 'react';
-import { Image } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 import { View, Text, Left, Body, Right, ListItem } from 'native-base';
+import { connect } from 'react-redux';
 import { ArmorImages } from '../assets';
 
 // Styles
 import colors from '../styles/colors';
 
-export default class DecorationListItem extends PureComponent {
+class DecorationListItem extends PureComponent {
   renderListItems = (item) => {
     if (this.props.setSelected) {
       return (
@@ -21,17 +22,17 @@ export default class DecorationListItem extends PureComponent {
               />
             </Left>
           <Left style= {{ flex: 2 }}>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{item.name}</Text>
           </Left>
           <Right style= {{ flex: 2, justifyContent: 'center' }}>
-            <Text style={{ fontSize: 11, color: colors.secondary }}>{item.skill_name} +{item.skill_level}</Text>
+            <Text style={{ fontSize: 11, color: this.props.theme.secondary }}>{item.skill_name} +{item.skill_level}</Text>
           </Right>
         </View>
       );
     }
     return (
       <ListItem
-        style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+        style={[styles.listHeader, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItemHeader }]}
         onPress={() => {
           if (this.props.setBuilder) {
             this.props.onPassProp(item);
@@ -58,10 +59,10 @@ export default class DecorationListItem extends PureComponent {
           />
         </Left>
         <Left style= {{ flex: 2 }}>
-          <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+          <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{item.name}</Text>
         </Left>
         <Right style= {{ flex: 2, justifyContent: 'center' }}>
-          <Text style={{ fontSize: 11, color: colors.secondary }}>{item.skill_name} +{item.skill_level}</Text>
+          <Text style={{ fontSize: 11, color: this.props.theme.secondary }}>{item.skill_name} +{item.skill_level}</Text>
         </Right>
       </ListItem>
     );
@@ -71,3 +72,28 @@ export default class DecorationListItem extends PureComponent {
     return this.renderListItems(this.props.item);
   }
 }
+
+const styles = StyleSheet.create({
+  listHeader: {
+    height: 55,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  listItem: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(DecorationListItem);

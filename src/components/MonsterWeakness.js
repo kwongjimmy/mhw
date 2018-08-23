@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { ScrollView, Image, View, FlatList, InteractionManager, ActivityIndicator } from 'react-native'
+import { ScrollView, Image, View, FlatList, InteractionManager, ActivityIndicator, StyleSheet } from 'react-native'
 import { Text, ListItem, Left, Right, Body } from 'native-base';
 import { ElementStatusImages } from '../assets';
 
@@ -34,7 +34,7 @@ export default class MonsterWeakness extends PureComponent {
 
   renderHeader() {
     return (
-      <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+      <ListItem style={[styles.listHeader, { backgroundColor: this.props.theme.listItemHeader }]}>
         <Text style={[{ fontSize: 13, color: colors.main, flex: 2.5 }]}>{''}</Text>
         <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
           <Image
@@ -114,23 +114,23 @@ export default class MonsterWeakness extends PureComponent {
     if (item.extract_color === '') {
       return <Text></Text>;
     }
-    return <View style={[{ borderRadius: 25, borderWidth: 1, borderColor: colors.main, height: 15, width: 15, backgroundColor: item.extract_color }]} />;
+    return <View style={[{ borderRadius: 25, borderWidth: 1, borderColor: this.props.theme.background, height: 15, width: 15, backgroundColor: item.extract_color }]} />;
   }
 
   renderDamageHeader() {
     return (
-      <ListItem style={{ height: 45, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+      <ListItem style={[styles.listHeader, { backgroundColor: this.props.theme.listItemHeader }]}>
         <Left style={{ flex: 1 }}>
-          <Text style={{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'center' }}></Text>
+          <Text style={{ flex: 1, fontSize: 13, color: this.props.theme.main, textAlign: 'center' }}></Text>
         </Left>
         <Right style={{ flex: 1 }}>
-          <Text style={{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'center' }}>Flinch</Text>
+          <Text style={{ flex: 1, fontSize: 13, color: this.props.theme.main, textAlign: 'center' }}>Flinch</Text>
         </Right>
         <Right style={{ flex: 1 }}>
-          <Text style={{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'center' }}>Wound</Text>
+          <Text style={{ flex: 1, fontSize: 13, color: this.props.theme.main, textAlign: 'center' }}>Wound</Text>
         </Right>
         <Right style={{ flex: 1 }}>
-          <Text style={{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'center' }}>Sever</Text>
+          <Text style={{ flex: 1, fontSize: 13, color: this.props.theme.main, textAlign: 'center' }}>Sever</Text>
         </Right>
       </ListItem>
     );
@@ -143,18 +143,18 @@ export default class MonsterWeakness extends PureComponent {
         {this.state.data.map((item, key) => {
           if (item.extract_color !== '') {
             return (
-              <ListItem key={key} style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
+              <ListItem key={key} style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}>
                 <Left style={{ flex: 1 }}>
-                  <Text style={[{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'left' }]}>{item.part_name}</Text>
+                  <Text style={[{ flex: 1, fontSize: 13, color: this.props.theme.main, textAlign: 'left' }]}>{item.part_name}</Text>
                 </Left>
                 <Right style={{ flex: 1 }}>
-                  <Text style={{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'center' }}>{item.flinch}</Text>
+                  <Text style={{ flex: 1, fontSize: 13, color: this.props.theme.main, textAlign: 'center' }}>{item.flinch}</Text>
                 </Right>
                 <Right style={{ flex: 1 }}>
-                  <Text style={{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'center' }}>{item.wound}</Text>
+                  <Text style={{ flex: 1, fontSize: 13, color: this.props.theme.main, textAlign: 'center' }}>{item.wound}</Text>
                 </Right>
                 <Right style={{ flex: 1 }}>
-                  <Text style={{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'center' }}>{item.sever2}</Text>
+                  <Text style={{ flex: 1, fontSize: 13, color: this.props.theme.main, textAlign: 'center' }}>{item.sever2 === 0 ? '-' : item.sever2}</Text>
                 </Right>
               </ListItem>
             );
@@ -171,17 +171,17 @@ export default class MonsterWeakness extends PureComponent {
         {this.renderHeader()}
         {this.state.data.map((item, key) => {
           return (
-            <ListItem key={key} style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
-              <Text style={[{ color: colors.main, flex: 2.5, fontSize: 9.5, textAlign: 'left' }]}>{item.part_name}</Text>
-              <Text style={{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'center' }}>{item.sever}</Text>
-              <Text style={{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'center' }}>{item.blunt}</Text>
-              <Text style={{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'center' }}>{item.shot}</Text>
-              <Text style={{ flex: 1, fontSize: 13, color: colors.main, textAlign: 'center' }}>{item.stun}</Text>
-              <Text style={[{ flex: 1, fontSize: 13, textAlign: 'center', color: colors.accent }]}>{item.fire}</Text>
-              <Text style={[{ flex: 1, fontSize: 13, textAlign: 'center', color: 'darkblue' }]}>{item.water}</Text>
-              <Text style={[{ flex: 1, fontSize: 13, textAlign: 'center', color: 'teal' }]}>{item.ice}</Text>
-              <Text style={[{ flex: 1, fontSize: 13, textAlign: 'center', color: '#e5c100' }]}>{item.thunder}</Text>
-              <Text style={[{ flex: 1, fontSize: 13, textAlign: 'center', color: 'purple' }]}>{item.dragon}</Text>
+            <ListItem key={key} style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}>
+              <Text style={[{ color: this.props.theme.main, flex: 2.5, fontSize: 9.5, textAlign: 'left' }]}>{item.part_name}</Text>
+              <Text style={{ flex: 1, fontSize: 13, color: this.props.theme.main, textAlign: 'center' }}>{item.sever}</Text>
+              <Text style={{ flex: 1, fontSize: 13, color: this.props.theme.main, textAlign: 'center' }}>{item.blunt}</Text>
+              <Text style={{ flex: 1, fontSize: 13, color: this.props.theme.main, textAlign: 'center' }}>{item.shot}</Text>
+              <Text style={{ flex: 1, fontSize: 13, color: this.props.theme.main, textAlign: 'center' }}>{item.stun}</Text>
+              <Text style={[{ flex: 1, fontSize: 13, textAlign: 'center', color: this.props.theme.red }]}>{item.fire}</Text>
+              <Text style={[{ flex: 1, fontSize: 13, textAlign: 'center', color: this.props.theme.blue }]}>{item.water}</Text>
+              <Text style={[{ flex: 1, fontSize: 13, textAlign: 'center', color: this.props.theme.teal }]}>{item.ice}</Text>
+              <Text style={[{ flex: 1, fontSize: 13, textAlign: 'center', color: this.props.theme.yellow }]}>{item.thunder}</Text>
+              <Text style={[{ flex: 1, fontSize: 13, textAlign: 'center', color: this.props.theme.purple }]}>{item.dragon}</Text>
               <View style={{ flex: 1, borderWidth: 0, alignItems: 'center' }}>
                 {this.renderExtractColor(item)}
               </View>
@@ -212,16 +212,43 @@ export default class MonsterWeakness extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{
-          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background,
+          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background,
         }}>
-          <ActivityIndicator size="large" color={colors.main}/>
+          <ActivityIndicator size="large" color={this.props.theme.main}/>
         </View>
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
         {this.renderInfo()}
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+  },
+  listHeader: {
+    height: 45,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: 0,
+  },
+  listItem: {
+    height: 45,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});

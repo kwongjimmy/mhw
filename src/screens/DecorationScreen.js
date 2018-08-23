@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { Platform, View, FlatList, ActivityIndicator } from 'react-native';
+import { Platform, View, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { ListItem, Text, Left, Right } from 'native-base';
+import { connect } from 'react-redux';
 import AdBanner from '../components/AdBanner';
 import DecorationListItem from '../components/DecorationListItem';
 
 // Styles
 import colors from '../styles/colors';
 
-export default class DecorationScreen extends Component {
+class DecorationScreen extends Component {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
     topBarBorderColor: colors.accent,
@@ -68,13 +69,13 @@ export default class DecorationScreen extends Component {
   renderContent() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
-          <ActivityIndicator size="large" color={colors.main}/>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background }}>
+          <ActivityIndicator size="large" color={this.props.theme.main}/>
         </View>
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
         <FlatList
           initialNumToRender={11}
           data={this.state.items}
@@ -93,3 +94,9 @@ export default class DecorationScreen extends Component {
     return this.renderContent();
   }
 }
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(DecorationScreen);

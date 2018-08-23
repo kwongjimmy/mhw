@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
-import { View, Platform, InteractionManager, FlatList, Image, ActivityIndicator } from 'react-native';
+import { View, Platform, InteractionManager, FlatList, Image, ActivityIndicator, StyleSheet } from 'react-native';
 import { Text, ListItem, Left, Right, Body, Tabs, Tab, Container, Header, Item, Input, Icon, Button, InputGroup } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
 import _ from 'lodash';
+import { connect } from 'react-redux';
 import AdBanner from '../components/AdBanner';
 import { WeaponImages, ArmorImages, MiscImages } from '../assets';
 import WeaponListItem from '../components/WeaponListItem';
@@ -14,7 +15,7 @@ import ArmorListItem from '../components/ArmorListItem';
 // Styles
 import colors from '../styles/colors';
 
-export default class SetBuilderSelect extends PureComponent {
+class SetBuilderSelect extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
     topBarBorderColor: colors.accent,
@@ -312,7 +313,7 @@ export default class SetBuilderSelect extends PureComponent {
     if (item.item_id === '0') {
       return (
         <ListItem
-          style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItemHeader }]}
           onPress={() => {
             this.props.onPassProp(null);
             this.props.navigator.dismissModal({
@@ -320,7 +321,7 @@ export default class SetBuilderSelect extends PureComponent {
             });
           }
           }>
-          <Text>
+          <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>
             Clear Selected
           </Text>
         </ListItem>
@@ -335,7 +336,7 @@ export default class SetBuilderSelect extends PureComponent {
     if (item.item_id === '0') {
       return (
         <ListItem
-          style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItemHeader }]}
           onPress={() => {
             this.props.onPassProp(null);
             this.props.navigator.dismissModal({
@@ -343,7 +344,7 @@ export default class SetBuilderSelect extends PureComponent {
             });
           }
           }>
-          <Text>
+          <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>
             Clear Selected
           </Text>
         </ListItem>
@@ -358,7 +359,7 @@ export default class SetBuilderSelect extends PureComponent {
     if (item.item_id === '0') {
       return (
         <ListItem
-          style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItemHeader }]}
           onPress={() => {
             this.props.onPassProp(null);
             this.props.navigator.dismissModal({
@@ -366,7 +367,7 @@ export default class SetBuilderSelect extends PureComponent {
             });
           }
           }>
-          <Text>
+          <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>
             Clear Selected
           </Text>
         </ListItem>
@@ -418,7 +419,7 @@ export default class SetBuilderSelect extends PureComponent {
     if (item.item_id === '0') {
       return (
         <ListItem
-          style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItemHeader }]}
           onPress={() => {
             this.props.onPassProp(null);
             this.props.navigator.dismissModal({
@@ -426,7 +427,7 @@ export default class SetBuilderSelect extends PureComponent {
             });
           }
           }>
-          <Text>
+          <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>
             Clear Selected
           </Text>
         </ListItem>
@@ -441,7 +442,7 @@ export default class SetBuilderSelect extends PureComponent {
     if (item.item_id === '0') {
       return (
         <ListItem
-          style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItemHeader }]}
           onPress={() => {
             this.props.onPassProp(null);
             this.props.navigator.dismissModal({
@@ -449,14 +450,14 @@ export default class SetBuilderSelect extends PureComponent {
             });
           }
           }>
-          <Text>
+          <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>
             Clear Selected
           </Text>
         </ListItem>
       );
     }
     return (
-      <WeaponListItem setBuilder={true} onPassProp={this.props.onPassProp} navigator={this.props.navigator} item={item} />
+      <WeaponListItem listItem setBuilder={true} onPassProp={this.props.onPassProp} navigator={this.props.navigator} item={item} />
     );
   }
 
@@ -464,7 +465,7 @@ export default class SetBuilderSelect extends PureComponent {
     const src = WeaponImages[item.name];
     return (
       <ListItem
-        style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+        style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItemHeader }]}
         onPress={() => {
           this.getWeaponList(item.type);
           this.setState({ loading: true });
@@ -477,7 +478,7 @@ export default class SetBuilderSelect extends PureComponent {
         />
       </Left>
       <Body style={{ flex: 6 }}>
-        <Text style={{ fontSize: 20, color: colors.main }}>{item.name}</Text>
+        <Text style={{ fontSize: 20, color: this.props.theme.main }}>{item.name}</Text>
       </Body>
       </ListItem>
     );
@@ -689,33 +690,33 @@ export default class SetBuilderSelect extends PureComponent {
     if (this.props.type === 'armor') {
       style = {
         borderBottomWidth: (Platform.OS !== 'ios') ? 0 : 0,
-        borderBottomColor: colors.accent,
-        backgroundColor: colors.background,
+        borderBottomColor: this.props.theme.accent,
+        backgroundColor: this.props.theme.background,
       };
       noShadow = true;
     } else {
       style = {
         borderBottomWidth: (Platform.OS !== 'ios') ? 2 : 1,
-        borderBottomColor: colors.accent,
-        backgroundColor: colors.background,
+        borderBottomColor: this.props.theme.accent,
+        backgroundColor: this.props.theme.background,
       };
     }
     if (this.state.weapon === null && this.props.type === 'weapon') {
       return (
         <Header
           style={style}
-          androidStatusBarColor='white'
+          androidStatusBarColor={this.props.theme.background}
           noShadow={noShadow}>
           <Left style={{ flex: 1, marginLeft: 0, paddingLeft: 0, borderWidth: 0 }}>
             <Button rounded transparent
               onPress={() => this.props.navigator.dismissModal({
                 animationType: 'slide-down',
               })}>
-              <Icon style={{ color: colors.main }} name='arrow-back' />
+              <Icon style={{ color: this.props.theme.main }} name='arrow-back' />
             </Button>
           </Left>
           <Body style={{ flex: 7, borderWidth: 0 }}>
-            <Text style={{ fontSize: 18, fontWeight: '500', color: colors.main }}>Select Weapon Type</Text>
+            <Text style={{ fontSize: 18, fontWeight: '500', color: this.props.theme.main }}>Select Weapon Type</Text>
           </Body>
         </Header>
       )
@@ -723,7 +724,7 @@ export default class SetBuilderSelect extends PureComponent {
     return (
       <Header
         style={style}
-        androidStatusBarColor='white'
+        androidStatusBarColor={this.props.theme.background}
         noShadow={noShadow}
         searchBar rounded>
         <Left style={{ flex: 1, marginLeft: 0, paddingLeft: 0, borderWidth: 0 }}>
@@ -731,13 +732,13 @@ export default class SetBuilderSelect extends PureComponent {
             onPress={() => this.props.navigator.dismissModal({
               animationType: 'slide-down',
             })}>
-            <Icon style={{ color: colors.main }} name='arrow-back' />
+            <Icon style={{ color: this.props.theme.main }} name='arrow-back' />
           </Button>
         </Left>
         <Body style={{ flex: 7, borderWidth: 0 }}>
           <Item>
-            <Icon active name="search" />
-            <Input autoCorrect={false} underline={false} placeholder="Search" onChangeText={text => this.searchQuery(text)}/>
+            <Icon style={{ color: this.props.theme.main }} active name="search" />
+            <Input style={{ fontSize: 15.5, color: this.props.theme.main }} autoCorrect={false} underline={false} placeholder="Search" onChangeText={text => this.searchQuery(text)}/>
           </Item>
         </Body>
       </Header>
@@ -747,29 +748,29 @@ export default class SetBuilderSelect extends PureComponent {
   render() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
-          <ActivityIndicator size="large" color={colors.main}/>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background }}>
+          <ActivityIndicator size="large" color={this.props.theme.main}/>
         </View>
       );
     }
     if (this.props.type === 'armor') {
       return (
-        <Container style={{ backgroundColor: colors.background }}>
+        <Container style={{ backgroundColor: this.props.theme.background }}>
           {this.renderHeader()}
           <Tabs
             prerenderingSiblingsNumber={3}
             scrollWithoutAnimation={false}
-            tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }}
+            tabBarUnderlineStyle={{ backgroundColor: this.props.theme.accent, height: 3 }}
             initialPage={0}
             >
             <Tab
-              activeTabStyle={{ backgroundColor: colors.background }}
-              tabStyle={{ backgroundColor: colors.background }}
-              activeTextStyle={{ color: colors.main }}
-              textStyle={{ color: colors.secondary }}
+              activeTabStyle={{ backgroundColor: this.props.theme.background }}
+              tabStyle={{ backgroundColor: this.props.theme.background }}
+              activeTextStyle={{ color: this.props.theme.main }}
+              textStyle={{ color: this.props.theme.secondary }}
               heading="HR Armor"
               >
-                <View style={{ flex: 1, backgroundColor: colors.background }}>
+                <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
                   <FlatList
                     initialNumToRender={24}
                     data={this.state.data}
@@ -779,13 +780,13 @@ export default class SetBuilderSelect extends PureComponent {
                 </View>
             </Tab>
             <Tab
-              activeTabStyle={{ backgroundColor: colors.background }}
-              tabStyle={{ backgroundColor: colors.background }}
-              activeTextStyle={{ color: colors.main }}
-              textStyle={{ color: colors.secondary }}
+              activeTabStyle={{ backgroundColor: this.props.theme.background }}
+              tabStyle={{ backgroundColor: this.props.theme.background }}
+              activeTextStyle={{ color: this.props.theme.main }}
+              textStyle={{ color: this.props.theme.secondary }}
               heading="LR Armor"
               >
-                <View style={{ flex: 1, backgroundColor: colors.background }}>
+                <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
                   <FlatList
                     initialNumToRender={24}
                     data={this.state.data2}
@@ -800,7 +801,7 @@ export default class SetBuilderSelect extends PureComponent {
       );
     } else if (this.props.type === 'decoration') {
       return (
-        <Container style={{ backgroundColor: colors.background }}>
+        <Container style={{ backgroundColor: this.props.theme.background }}>
           {this.renderHeader()}
           <FlatList
             initialNumToRender={24}
@@ -813,7 +814,7 @@ export default class SetBuilderSelect extends PureComponent {
       );
     } else if (this.props.type === 'charm') {
       return (
-        <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
           {this.renderHeader()}
           <FlatList
             initialNumToRender={24}
@@ -827,10 +828,10 @@ export default class SetBuilderSelect extends PureComponent {
     } else if (this.props.type === 'weapon') {
       if (this.state.weapon === null) {
         return (
-          <View style={{ flex: 1, backgroundColor: colors.background }}>
+          <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
             {this.renderHeader()}
             <FlatList
-              style={{ backgroundColor: colors.background }}
+              style={{ backgroundColor: this.props.theme.background }}
               initialNumToRender={14}
               data={this.state.weapons}
               keyExtractor={item => item.name.toString()}
@@ -844,10 +845,10 @@ export default class SetBuilderSelect extends PureComponent {
         );
       }
       return (
-        <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
           {this.renderHeader()}
           <FlatList
-            style={{ backgroundColor: colors.background }}
+            style={{ backgroundColor: this.props.theme.background }}
             initialNumToRender={14}
             data={this.state.data}
             keyExtractor={item => item.item_id.toString()}
@@ -858,10 +859,10 @@ export default class SetBuilderSelect extends PureComponent {
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
         {this.renderHeader()}
         <FlatList
-          style={{ backgroundColor: colors.background }}
+          style={{ backgroundColor: this.props.theme.background }}
           initialNumToRender={14}
           data={this.state.data}
           keyExtractor={item => item.item_id.toString()}
@@ -872,3 +873,28 @@ export default class SetBuilderSelect extends PureComponent {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  listHeader: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: 0,
+  },
+  listItem: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(SetBuilderSelect);

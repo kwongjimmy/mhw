@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import { View, ActivityIndicator, ScrollView } from 'react-native';
+import { View, ActivityIndicator, ScrollView, StyleSheet } from 'react-native';
 import { ListItem, Text, Right, Left, Body } from 'native-base';
+import { connect } from 'react-redux';
 import SQLite from 'react-native-sqlite-storage';
 import AdBanner from './AdBanner';
 
 // Styles
 import colors from '../styles/colors';
 
-export default class DecorationInfo extends Component {
+class DecorationInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,8 +50,6 @@ export default class DecorationInfo extends Component {
           });
         }
       );
-
-
     });
 
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -71,16 +70,16 @@ export default class DecorationInfo extends Component {
   renderSkills() {
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+        <ListItem style={[styles.listHeader, { backgroundColor: this.props.theme.listItemHeader }]}>
           <Left>
-            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>Skill</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>Skill</Text>
           </Left>
           <Right>
-            <Text style={{ flex: 1, fontSize: 15.5, color: colors.secondary }}></Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.secondary }}></Text>
           </Right>
         </ListItem>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
           onPress={() => this.props.navigator.push({
             screen: 'TabInfoScreen',
             passProps: {
@@ -92,10 +91,10 @@ export default class DecorationInfo extends Component {
           })}
           >
           <Left>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>{this.state.info.name}</Text>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{this.state.info.name}</Text>
           </Left>
           <Right>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>+{this.state.info.level}</Text>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>+{this.state.info.level}</Text>
           </Right>
         </ListItem>
       </View>
@@ -105,16 +104,16 @@ export default class DecorationInfo extends Component {
   renderFeystones() {
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+        <ListItem style={[styles.listHeader, { backgroundColor: this.props.theme.listItemHeader }]}>
           <Left>
-            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>Feystone</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>Feystone</Text>
           </Left>
           <Right>
-            <Text style={{ flex: 1, fontSize: 15.5, color: colors.secondary }}>Drop %</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.secondary }}>Drop %</Text>
           </Right>
         </ListItem>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
           onPress={() => this.props.navigator.push({
             screen: 'TablessInfoScreen',
             passProps: {
@@ -126,14 +125,14 @@ export default class DecorationInfo extends Component {
           })}
           >
           <Left>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>Mysterious Feystone</Text>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>Mysterious Feystone</Text>
           </Left>
           <Right>
-            <Text style={{ fontSize: 15.5, color: colors.secondary }}>{this.state.info.mysterious} %</Text>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.secondary }}>{this.state.info.mysterious} %</Text>
           </Right>
         </ListItem>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
           onPress={() => this.props.navigator.push({
             screen: 'TablessInfoScreen',
             passProps: {
@@ -145,14 +144,14 @@ export default class DecorationInfo extends Component {
           })}
           >
           <Left>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>Glowing Feystone</Text>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>Glowing Feystone</Text>
           </Left>
           <Right>
-            <Text style={{ fontSize: 15.5, color: colors.secondary }}>{this.state.info.glowing} %</Text>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.secondary }}>{this.state.info.glowing} %</Text>
           </Right>
         </ListItem>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
           onPress={() => this.props.navigator.push({
             screen: 'TablessInfoScreen',
             passProps: {
@@ -164,14 +163,14 @@ export default class DecorationInfo extends Component {
           })}
           >
           <Left>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>Worn Feystone</Text>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>Worn Feystone</Text>
           </Left>
           <Right>
-            <Text style={{ fontSize: 15.5, color: colors.secondary }}>{this.state.info.worn} %</Text>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.secondary }}>{this.state.info.worn} %</Text>
           </Right>
         </ListItem>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
           onPress={() => this.props.navigator.push({
             screen: 'TablessInfoScreen',
             passProps: {
@@ -183,10 +182,10 @@ export default class DecorationInfo extends Component {
           })}
           >
           <Left>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>Warped Feystone</Text>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>Warped Feystone</Text>
           </Left>
           <Right>
-            <Text style={{ fontSize: 15.5, color: colors.secondary }}>{this.state.info.warped} %</Text>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.secondary }}>{this.state.info.warped} %</Text>
           </Right>
         </ListItem>
       </View>
@@ -196,13 +195,13 @@ export default class DecorationInfo extends Component {
   renderContent() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
-          <ActivityIndicator size="large" color={colors.main}/>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background }}>
+          <ActivityIndicator size="large" color={this.props.theme.main}/>
         </View>
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
         <ScrollView>
           {this.renderSkills()}
           {this.renderFeystones()}
@@ -216,3 +215,28 @@ export default class DecorationInfo extends Component {
     return this.renderContent();
   }
 }
+
+const styles = StyleSheet.create({
+  listHeader: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: 0,
+  },
+  listItem: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(DecorationInfo);

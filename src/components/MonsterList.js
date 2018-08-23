@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { Image, View, FlatList, InteractionManager, ActivityIndicator } from 'react-native';
 import { Text, Left, Body, Right, ListItem } from 'native-base';
 import { MonsterImages } from '../assets';
+import { connect } from 'react-redux';
 
 // Styles
 import colors from '../styles/colors';
@@ -41,7 +42,7 @@ export default class MonsterList extends PureComponent {
     src = MonsterImages[name];
     return (
       <ListItem
-        style={{ height: 80, marginLeft: 0, paddingLeft: 18 }}
+        style={{ height: 80, marginLeft: 0, paddingLeft: 18, borderColor: this.props.theme.border }}
         onPress={() => this._onPress(item)}>
       <Left>
         <Image
@@ -51,8 +52,8 @@ export default class MonsterList extends PureComponent {
         />
       </Left>
       <Body style={{ flex: 4 }}>
-        <Text style={{ fontSize: 18, color: colors.main }}>{item.monster_name}</Text>
-        <Text style={{ fontSize: 15.5, color: colors.secondary }}>{item.type}</Text>
+        <Text style={{ fontSize: 18, color: this.props.theme.main }}>{item.monster_name}</Text>
+        <Text style={{ fontSize: 15.5, color: this.props.theme.secondary }}>{item.type}</Text>
       </Body>
       </ListItem>
     );
@@ -62,15 +63,15 @@ export default class MonsterList extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{
-          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background,
+          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background,
         }}>
-          <ActivityIndicator size="large" color={colors.main}/>
+          <ActivityIndicator size="large" color={this.props.theme.main}/>
         </View>
       );
     }
     return (
       <FlatList
-        style={{ backgroundColor: colors.background }}
+        style={{ backgroundColor: this.props.theme.background }}
         initialNumToRender={7}
         data={this.props.monsters}
         keyExtractor={item => item.monster_id.toString()}
@@ -82,3 +83,9 @@ export default class MonsterList extends PureComponent {
     );
   }
 }
+
+// const mapStateToProps = (state) => {
+//   return state.settings;
+// };
+//
+// export default connect(mapStateToProps, {})(MonsterList);

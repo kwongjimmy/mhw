@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { ScrollView, Image, View, InteractionManager, ActivityIndicator } from 'react-native'
+import { ScrollView, Image, View, InteractionManager, ActivityIndicator, StyleSheet } from 'react-native'
 import { Text, ListItem, Left, Right, Body } from 'native-base';
 import DropDown from './DropDown';
 
@@ -40,43 +40,45 @@ export default class MonsterLocations extends PureComponent {
           hide={false}
           content={
             <View>
-              <ListItem style={{ marginLeft: 0, marginRight: 0, paddingLeft: 18, paddingRight: 18 }}>
+              <ListItem style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}>
                 <Left style={{ flex: 1 }}>
-                  <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+                  <Text style={{ fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>
                     Areas
                   </Text>
                 </Left>
                 <Right style={{ flex: 2 }}>
-                  <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
-                    {`${item.areas}`}
+                  <Text style={{ fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>
+                    {/* {`${item.areas}`} */}
+                    {item.areas !== null ? item.areas : 'N/A'}
                   </Text>
                 </Right>
               </ListItem>
               {item.spawn !== null
                 ?
-                <ListItem style={{ marginLeft: 0, marginRight: 0, paddingLeft: 18, paddingRight: 18 }}>
+                <ListItem style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}>
                   <Left style={{ flex: 1.5 }}>
-                    <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+                    <Text style={{ fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>
                       Spawn
                     </Text>
                   </Left>
                   <Right style={{ flex: 1 }}>
-                    <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+                    <Text style={{ fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>
                       {`${item.spawn}`}
                     </Text>
                   </Right>
                 </ListItem>
                 : null
               }
-              <ListItem style={{ marginLeft: 0, marginRight: 0, paddingLeft: 18, paddingRight: 18 }}>
+              <ListItem style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}>
                 <Left style={{ flex: 1.5 }}>
-                  <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
+                  <Text style={{ fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>
                     Rest
                   </Text>
                 </Left>
                 <Right style={{ flex: 1 }}>
-                  <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'center' }}>
-                    {`${item.rest}`}
+                  <Text style={{ fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>
+                    {/* {`${item.rest}`} */}
+                    {item.rest !== null ? item.rest : 'N/A'}
                   </Text>
                 </Right>
               </ListItem>
@@ -89,7 +91,6 @@ export default class MonsterLocations extends PureComponent {
   }
 
   renderInfo() {
-    console.log(this.props);
     return (
       <ScrollView>
         {this.renderLocations()}
@@ -101,16 +102,43 @@ export default class MonsterLocations extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{
-          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background,
+          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background,
         }}>
-          <ActivityIndicator size="large" color={colors.main}/>
+          <ActivityIndicator size="large" color={this.props.theme.main}/>
         </View>
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
         {this.renderInfo()}
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+  },
+  listHeader: {
+    height: 45,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  listItem: {
+    height: 45,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});

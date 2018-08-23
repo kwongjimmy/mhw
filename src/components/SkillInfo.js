@@ -1,14 +1,15 @@
 import React, { PureComponent } from 'react';
-import { ScrollView, View, ActivityIndicator } from 'react-native';
+import { ScrollView, View, ActivityIndicator, StyleSheet } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Tabs, ListItem, Text, Left, Body } from 'native-base';
+import { connect } from 'react-redux';
 import SkillEquip from './SkillEquip';
 import AdBanner from './AdBanner';
 
 // Styles
 import colors from '../styles/colors';
 
-export default class SkillInfo extends PureComponent {
+class SkillInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -69,12 +70,12 @@ export default class SkillInfo extends PureComponent {
 
   renderLevels() {
     return this.state.levels.map((item, key) => (
-        <ListItem key={key} style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
+        <ListItem key={key} style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}>
           <Left style={{ flex: 1 }}>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>{`Lv ${item.level}`}</Text>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`Lv ${item.level}`}</Text>
           </Left>
           <Body style={{ flex: 3 }}>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>{item.description}</Text>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{item.description}</Text>
           </Body>
         </ListItem>
     ));
@@ -83,28 +84,28 @@ export default class SkillInfo extends PureComponent {
   renderContent(screen) {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
-          <ActivityIndicator size="large" color={colors.main}/>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background }}>
+          <ActivityIndicator size="large" color={this.props.theme.main}/>
         </View>
       );
     }
     if (screen === 'Info') {
       return (
-        <View style={{ flex: 1, backgroundColor: colors.background }}>
-          <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
-            <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+        <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
+          <ScrollView style={{ flex: 1, backgroundColor: this.props.theme.background }}>
+            <ListItem style={[styles.listHeader, { backgroundColor: this.props.theme.listItemHeader }]}>
               <Left>
-                <Text style={{ fontSize: 15.5, color: colors.main }}>Description</Text>
+                <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>Description</Text>
               </Left>
             </ListItem>
-            <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
+            <ListItem style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}>
               <Left>
-                <Text style={{ fontSize: 15.5, color: colors.main }}>{this.state.info.description}</Text>
+                <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{this.state.info.description}</Text>
               </Left>
             </ListItem>
-            <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+            <ListItem style={[styles.listHeader, { backgroundColor: this.props.theme.listItemHeader }]}>
               <Left>
-                <Text style={{ fontSize: 15.5, color: colors.main }}>Level</Text>
+                <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>Level</Text>
               </Left>
               <Body>
               <Text></Text>
@@ -117,7 +118,7 @@ export default class SkillInfo extends PureComponent {
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
         <SkillEquip navigator={this.props.navigator} armor_skill_id={this.props.armor_skill_id}/>
       </View>
     );
@@ -126,21 +127,21 @@ export default class SkillInfo extends PureComponent {
   render() {
     return (
       <Container>
-        <Tabs prerenderingSiblingsNumber={2} tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }} initialPage={0}>
+        <Tabs prerenderingSiblingsNumber={2} tabBarUnderlineStyle={{ backgroundColor: this.props.theme.accent, height: 3 }} initialPage={0}>
           <Tab
-           activeTabStyle={{ backgroundColor: colors.background }}
-           tabStyle={{ backgroundColor: colors.background }}
-           activeTextStyle={{ color: colors.main,  }}
-           textStyle={{ color: colors.secondary }}
+           activeTabStyle={{ backgroundColor: this.props.theme.background }}
+           tabStyle={{ backgroundColor: this.props.theme.background }}
+           activeTextStyle={{ color: this.props.theme.main }}
+           textStyle={{ color: this.props.theme.secondary }}
            heading="Info"
            >
            {this.renderContent('Info')}
           </Tab>
           <Tab
-           activeTabStyle={{ backgroundColor: colors.background }}
-           tabStyle={{ backgroundColor: colors.background }}
-           activeTextStyle={{ color: colors.main,  }}
-           textStyle={{ color: colors.secondary }}
+           activeTabStyle={{ backgroundColor: this.props.theme.background }}
+           tabStyle={{ backgroundColor: this.props.theme.background }}
+           activeTextStyle={{ color: this.props.theme.main }}
+           textStyle={{ color: this.props.theme.secondary }}
            heading="Equip"
            >
            {this.renderContent('Equip')}
@@ -151,3 +152,27 @@ export default class SkillInfo extends PureComponent {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  listHeader: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: 0,
+  },
+  listItem: {
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(SkillInfo);

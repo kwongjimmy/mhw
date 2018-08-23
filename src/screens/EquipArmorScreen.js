@@ -1,14 +1,15 @@
 import React, { PureComponent } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Tabs } from 'native-base';
+import { connect } from 'react-redux';
 import EquipArmorList from '../components/EquipArmorList';
 import AdBanner from '../components/AdBanner';
 
 // Styles
 import colors from '../styles/colors';
 
-export default class EquipArmorScreen extends PureComponent {
+class EquipArmorScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -168,43 +169,54 @@ export default class EquipArmorScreen extends PureComponent {
   renderContent(screen) {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
-          <ActivityIndicator size="large" color={colors.main}/>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background }}>
+          <ActivityIndicator size="large" color={this.props.theme.main}/>
         </View>
       );
     }
     if (screen === 'low') {
       return (
         <View style={{ flex: 1, backgroundColor: colors.background }}>
-          <EquipArmorList navigator={this.props.navigator} armor={this.state.lowRank}/>
+          <EquipArmorList theme={this.props.theme} navigator={this.props.navigator} armor={this.state.lowRank}/>
        </View>
       );
     }
     return (
       <View style={{ flex: 1, backgroundColor: colors.background }}>
-        <EquipArmorList navigator={this.props.navigator} armor={this.state.highRank}/>
+        <EquipArmorList theme={this.props.theme} navigator={this.props.navigator} armor={this.state.highRank}/>
        </View>
     );
   }
+  setNavSettings() {
+    this.props.navigator.setStyle({
+      navBarButtonColor: this.props.theme.main,
+      navBarTextColor: this.props.theme.main,
+      navBarBackgroundColor: this.props.theme.background,
+      statusBarTextColorScheme: this.props.theme.statusbar,
+      statusBarColor: this.props.theme.background,
+      tabBarBackgroundColor: this.props.theme.background,
+    });
+  }
 
   render() {
+    this.setNavSettings();
     return (
       <Container>
         <Tabs prerenderingSiblingsNumber={2} scrollWithoutAnimation={false} tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }} initialPage={0}>
           <Tab
-            activeTabStyle={{ backgroundColor: colors.background }}
-            tabStyle={{ backgroundColor: colors.background }}
-            activeTextStyle={{ color: colors.main }}
-            textStyle={{ color: colors.secondary }}
+            activeTabStyle={{ backgroundColor: this.props.theme.background }}
+            tabStyle={{ backgroundColor: this.props.theme.background }}
+            activeTextStyle={{ color: this.props.theme.main }}
+            textStyle={{ color: this.props.theme.secondary }}
             heading="Low Rank"
             >
             {this.renderContent('low')}
           </Tab>
           <Tab
-            activeTabStyle={{ backgroundColor: colors.background }}
-            tabStyle={{ backgroundColor: colors.background }}
-            activeTextStyle={{ color: colors.main }}
-            textStyle={{ color: colors.secondary }}
+            activeTabStyle={{ backgroundColor: this.props.theme.background }}
+            tabStyle={{ backgroundColor: this.props.theme.background }}
+            activeTextStyle={{ color: this.props.theme.main }}
+            textStyle={{ color: this.props.theme.secondary }}
             heading="High Rank"
             >
             {this.renderContent('high')}
@@ -215,3 +227,9 @@ export default class EquipArmorScreen extends PureComponent {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return state.settings
+};
+
+export default connect(mapStateToProps, {})(EquipArmorScreen);

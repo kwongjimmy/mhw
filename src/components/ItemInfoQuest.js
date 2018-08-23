@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 import { ListItem, Body, Right, Left, Text, Icon } from 'native-base';
+import { connect } from 'react-redux';
 import AdBanner from './AdBanner';
 import DropDown from './DropDown';
 
 // Styles
 import colors from '../styles/colors';
 
-export default class ItemInfoQuest extends PureComponent {
+class ItemInfoQuest extends PureComponent {
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -28,7 +29,7 @@ export default class ItemInfoQuest extends PureComponent {
   renderListItems = ({ item }) => {
     return (
       <ListItem
-        style={{ height: 65, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+        style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
         passProps: {
@@ -39,11 +40,11 @@ export default class ItemInfoQuest extends PureComponent {
         title: item.name,
         })}>
         <Left>
-          <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+          <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{item.name}</Text>
         </Left>
         <Right>
-          <Text style={{ fontSize: 14.5, color: colors.secondary }}>{item.type.replace('Assignment', '')}</Text>
-          <Text style={{ fontSize: 14.5, color: colors.secondary }}>{`${item.required_rank} \u2605`}</Text>
+          <Text style={{ fontSize: 14.5, color: this.props.theme.secondary }}>{item.type.replace('Assignment', '')}</Text>
+          <Text style={{ fontSize: 14.5, color: this.props.theme.secondary }}>{`${item.required_rank} \u2605`}</Text>
         </Right>
       </ListItem>
     );
@@ -51,9 +52,9 @@ export default class ItemInfoQuest extends PureComponent {
 
   renderListHeader() {
     return (
-      <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+      <ListItem style={[styles.listHeader, { backgroundColor: this.props.theme.listItemHeader }]}>
         <Left>
-          <Text style={{ fontSize: 15.5, color: colors.main }}>Quests</Text>
+          <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>Quests</Text>
         </Left>
         <Right />
       </ListItem>
@@ -66,7 +67,7 @@ export default class ItemInfoQuest extends PureComponent {
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
         <DropDown
           headerName={'Quest Rewards'}
           hide={true}
@@ -87,3 +88,28 @@ export default class ItemInfoQuest extends PureComponent {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  listHeader: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: 0,
+  },
+  listItem: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(ItemInfoQuest);

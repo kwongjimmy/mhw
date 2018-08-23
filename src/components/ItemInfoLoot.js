@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
-import { View, FlatList, ScrollView, Image } from 'react-native';
+import { View, FlatList, ScrollView, Image, StyleSheet } from 'react-native';
 import { Container, Text, Left, Body, Right, ListItem, Icon } from 'native-base';
+import { connect } from 'react-redux';
 import AdBanner from './AdBanner';
 import DropDown from './DropDown';
 import { MonsterImages } from '../assets';
@@ -8,7 +9,7 @@ import { MonsterImages } from '../assets';
 // Styles
 import colors from '../styles/colors';
 
-export default class ItemInfoLoot extends PureComponent {
+class ItemInfoLoot extends PureComponent {
   constructor(props) {
     super(props);
     this.currentMap = '';
@@ -72,7 +73,7 @@ export default class ItemInfoLoot extends PureComponent {
       this.currentMap = `${item.name} ${item.rank}`;
       return (
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: colors.divider }}
+          style={[styles.listHeader, { backgroundColor: this.props.theme.listItemHeader }]}
           onPress={() => this.props.navigator.push({
           screen: 'TabInfoScreen',
           passProps: {
@@ -83,7 +84,7 @@ export default class ItemInfoLoot extends PureComponent {
           title: item.name,
           })}>
           <Left>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>{`${item.name}`} <Text style={{ fontSize: 15.5, color: colors.secondary }}>{` ${item.rank} Rank`}</Text> </Text>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`${item.name}`} <Text style={{ fontSize: 15.5, color: this.props.theme.secondary }}>{` ${item.rank} Rank`}</Text> </Text>
           </Left>
         </ListItem>
       );
@@ -104,9 +105,9 @@ export default class ItemInfoLoot extends PureComponent {
           return (
             <View key={key}>
               {this.renderMapHeader(item)}
-              <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
+              <ListItem style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}>
                 <Left>
-                  <Text style={{ fontSize: 15.5, color: colors.main }}>{`Area ${item.area}`}</Text>
+                  <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`Area ${item.area}`}</Text>
                 </Left>
               </ListItem>
             </View>
@@ -130,7 +131,7 @@ export default class ItemInfoLoot extends PureComponent {
       if (item.rank) {
         return (
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: colors.divider }}
+            style={[styles.listHeader, { height: 60, backgroundColor: this.props.theme.listItemHeader }]}
             onPress={() => this.props.navigator.push({
             screen: 'MonsterInfoScreen',
             passProps: {
@@ -148,18 +149,18 @@ export default class ItemInfoLoot extends PureComponent {
               />
             </Left>
             <Body style={{ flex: 3 }}>
-              <Text style={{ fontSize: 15.5, color: colors.main }}>{`${item.monster_name}`}</Text>
-              <Text style={{ fontSize: 15.5, color: colors.secondary }}>{`High Rank`}</Text>
+              <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`${item.monster_name}`}</Text>
+              <Text style={{ fontSize: 15.5, color: this.props.theme.secondary }}>{`High Rank`}</Text>
             </Body>
             <Right style={{ flex: 3 }}>
-              <Text style={{ fontSize: 15.5, color: colors.secondary }}>{``}</Text>
+              <Text style={{ fontSize: 15.5, color: this.props.theme.secondary }}>{``}</Text>
             </Right>
           </ListItem>
         );
       }
       return (
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: colors.divider }}
+          style={[styles.listHeader, { height: 60, backgroundColor: this.props.theme.listItemHeader }]}
           onPress={() => this.props.navigator.push({
           screen: 'MonsterInfoScreen',
           passProps: {
@@ -177,11 +178,11 @@ export default class ItemInfoLoot extends PureComponent {
             />
           </Left>
           <Body style={{ flex: 3 }}>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>{`${item.monster_name}`}</Text>
-            <Text style={{ fontSize: 15.5, color: colors.secondary }}>{`Low Rank`}</Text>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`${item.monster_name}`}</Text>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.secondary }}>{`Low Rank`}</Text>
           </Body>
           <Right style={{ flex: 3 }}>
-            <Text style={{ fontSize: 15.5, color: colors.secondary }}>{``}</Text>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.secondary }}>{``}</Text>
           </Right>
         </ListItem>
       );
@@ -202,12 +203,12 @@ export default class ItemInfoLoot extends PureComponent {
               return (
                 <View key={key}>
                   {this.renderMonsterHeader(item)}
-                  <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}>
+                  <ListItem style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}>
                     <Left>
-                      <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+                      <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{item.name}</Text>
                     </Left>
                     <Right>
-                      <Text style={{ fontSize: 15.5, color: colors.main }}>{`${item.chance}%`}</Text>
+                      <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`${item.chance}%`}</Text>
                     </Right>
                   </ListItem>
                 </View>
@@ -229,10 +230,35 @@ export default class ItemInfoLoot extends PureComponent {
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
         {this.renderMonsterLoot()}
         {this.renderMapLoot()}
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  listHeader: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: 0,
+  },
+  listItem: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(ItemInfoLoot);
