@@ -1,24 +1,25 @@
 import React, { PureComponent } from 'react';
-import { ScrollView, Image } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 import { Text, Left, Body, Right, ListItem, View } from 'native-base';
+import { connect } from 'react-redux';
 import { ArmorImages, ElementStatusImages } from '../assets';
 
 // Styles
 import colors from '../styles/colors';
 
-export default class ArmorListItem extends PureComponent {
+class ArmorListItem extends PureComponent {
   renderSkills(item) {
     if (item.skill1 !== null && item.skill2 !== null) {
       return (
         <View style={{ flex: 1, flexDirection: 'column' }}>
-          <Text style={{ fontSize: 10, color: colors.main, textAlign: 'left' }}>{`${item.skill1} +${item.skill1_level}`}</Text>
-          <Text style={{ fontSize: 10, color: colors.main, textAlign: 'left' }}>{`${item.skill2} +${item.skill2_level}`}</Text>
+          <Text style={{ fontSize: 10, color: this.props.theme.main, textAlign: 'left' }}>{`${item.skill1} +${item.skill1_level}`}</Text>
+          <Text style={{ fontSize: 10, color: this.props.theme.main, textAlign: 'left' }}>{`${item.skill2} +${item.skill2_level}`}</Text>
         </View>
       );
     } else if (item.skill1 !== null && item.skill2 === null) {
       return (
         <View style={{ flex: 1, flexDirection: 'column' }}>
-          <Text style={{ fontSize: 10, color: colors.main, textAlign: 'left' }}>{`${item.skill1} +${item.skill1_level}`}</Text>
+          <Text style={{ fontSize: 10, color: this.props.theme.main, textAlign: 'left' }}>{`${item.skill1} +${item.skill1_level}`}</Text>
         </View>
       );
     }
@@ -31,16 +32,16 @@ export default class ArmorListItem extends PureComponent {
     if (item.set_bonus_skill1 !== null && item.set_bonus_skill2 !== null) {
       return (
         <View style={{ flex: 1, flexDirection: 'column' }}>
-          <Text style={{ flex: 1, fontSize: 10, color: colors.main, textAlign: 'left' }}>{`${item.set_bonus_name}`}</Text>
-          <Text style={{ flex: 1, fontSize: 10, color: colors.main, textAlign: 'left' }}>{`(${item.pieces}) ${item.set_bonus_skill1} +${item.set_bonus_skill1_level}`}</Text>
-          <Text style={{ flex: 1, fontSize: 10, color: colors.main, textAlign: 'left' }}>{`(${item.pieces_2}) ${item.set_bonus_skill2} +${item.set_bonus_skill2_level}`}</Text>
+          <Text style={{ flex: 1, fontSize: 10, color: this.props.theme.main, textAlign: 'left' }}>{`${item.set_bonus_name}`}</Text>
+          <Text style={{ flex: 1, fontSize: 10, color: this.props.theme.main, textAlign: 'left' }}>{`(${item.pieces}) ${item.set_bonus_skill1} +${item.set_bonus_skill1_level}`}</Text>
+          <Text style={{ flex: 1, fontSize: 10, color: this.props.theme.main, textAlign: 'left' }}>{`(${item.pieces_2}) ${item.set_bonus_skill2} +${item.set_bonus_skill2_level}`}</Text>
         </View>
       );
     } else if (item.set_bonus_skill1 !== null && item.set_bonus_skill2 === null) {
       return (
         <View style={{ flex: 1, flexDirection: 'column' }}>
-          <Text style={{ flex: 1, fontSize: 10, color: colors.main, textAlign: 'left' }}>{`${item.set_bonus_name}`}</Text>
-          <Text style={{ flex: 1, fontSize: 10, color: colors.main, textAlign: 'left' }}>{`(${item.pieces}) ${item.set_bonus_skill1} +${item.set_bonus_skill1_level}`}</Text>
+          <Text style={{ flex: 1, fontSize: 10, color: this.props.theme.main, textAlign: 'left' }}>{`${item.set_bonus_name}`}</Text>
+          <Text style={{ flex: 1, fontSize: 10, color: this.props.theme.main, textAlign: 'left' }}>{`(${item.pieces}) ${item.set_bonus_skill1} +${item.set_bonus_skill1_level}`}</Text>
         </View>
       );
     }
@@ -55,7 +56,7 @@ export default class ArmorListItem extends PureComponent {
     let slot3 = (item.slot3 === 0) ? `-` : (item.slot3 === 1) ? `\u2460` : (item.slot3 === 2) ? `\u2461` : `\u2462`;
     return (
       <View style={{ justifyContent: 'center' }}>
-        <Text style={{ fontSize: 13, fontWeight: '500', color: colors.main, textAlign: 'center' }}>{`${slot1} ${slot2} ${slot3}`}</Text>
+        <Text style={{ fontSize: 13, fontWeight: '500', color: this.props.theme.main, textAlign: 'center' }}>{`${slot1} ${slot2} ${slot3}`}</Text>
       </View>
     );
   }
@@ -73,7 +74,7 @@ export default class ArmorListItem extends PureComponent {
           </Left>
           <Left style={{ flex: 4.5, flexDirection: 'column' }}>
             <View style={{ flex: 1, flexDirection: 'row', borderWidth: 0, borderColor: 'purple' }}>
-              <Text style={{ flex: 1.5, fontSize: 15.5, color: colors.main, justifyContent: 'center', lineHeight: 17.5 }}>{item.name}</Text>
+              <Text style={{ flex: 1.5, fontSize: 15.5, color: this.props.theme.main, justifyContent: 'center', lineHeight: 17.5 }}>{item.name}</Text>
             </View>
             <View style={{ flex: 1, flexDirection: 'row', borderWidth: 0, borderColor: 'blue' }}>
               <View style={{ flex: 1.5, flexDirection: 'row' }}>
@@ -85,7 +86,7 @@ export default class ArmorListItem extends PureComponent {
                       source={ElementStatusImages['Defense']}
                     />
                   </View>
-                  <Text style={{ flex: 1, fontSize: 11, color: colors.main }}>{`${item.min_def}`}</Text>
+                  <Text style={{ flex: 1, fontSize: 11, color: this.props.theme.main }}>{`${item.min_def}`}</Text>
                 </View>
                 <View style={{ flex: 1, flexDirection: 'row' }}>
                   <View style={{ flex: 0.5 }}>
@@ -95,7 +96,7 @@ export default class ArmorListItem extends PureComponent {
                       source={ElementStatusImages['Fire']}
                     />
                   </View>
-                  <Text style={{ flex: 1, fontSize: 11, color: colors.main }}>{`${item.fire}`}</Text>
+                  <Text style={{ flex: 1, fontSize: 11, color: this.props.theme.main }}>{`${item.fire}`}</Text>
                 </View>
                 <View style={{ flex: 1, flexDirection: 'row' }}>
                   <View style={{ flex: 0.5 }}>
@@ -105,7 +106,7 @@ export default class ArmorListItem extends PureComponent {
                       source={ElementStatusImages['Water']}
                     />
                   </View>
-                  <Text style={{ flex: 1, fontSize: 11, color: colors.main }}>{`${item.water}`}</Text>
+                  <Text style={{ flex: 1, fontSize: 11, color: this.props.theme.main }}>{`${item.water}`}</Text>
                 </View>
                 <View style={{ flex: 1, flexDirection: 'row' }}>
                   <View style={{ flex: 0.5 }}>
@@ -115,7 +116,7 @@ export default class ArmorListItem extends PureComponent {
                       source={ElementStatusImages['Thunder']}
                     />
                   </View>
-                  <Text style={{ flex: 1, fontSize: 11, color: colors.main }}>{`${item.thunder}`}</Text>
+                  <Text style={{ flex: 1, fontSize: 11, color: this.props.theme.main }}>{`${item.thunder}`}</Text>
                 </View>
                 <View style={{ flex: 1, flexDirection: 'row' }}>
                   <View style={{ flex: 0.5 }}>
@@ -125,7 +126,7 @@ export default class ArmorListItem extends PureComponent {
                       source={ElementStatusImages['Ice']}
                     />
                   </View>
-                  <Text style={{ flex: 1, fontSize: 11, color: colors.main }}>{`${item.ice}`}</Text>
+                  <Text style={{ flex: 1, fontSize: 11, color: this.props.theme.main }}>{`${item.ice}`}</Text>
                 </View>
                 <View style={{ flex: 1, flexDirection: 'row' }}>
                   <View style={{ flex: 0.5 }}>
@@ -135,7 +136,7 @@ export default class ArmorListItem extends PureComponent {
                       source={ElementStatusImages['Dragon']}
                     />
                   </View>
-                  <Text style={{ flex: 1, fontSize: 11, color: colors.main }}>{`${item.dragon}`}</Text>
+                  <Text style={{ flex: 1, fontSize: 11, color: this.props.theme.main }}>{`${item.dragon}`}</Text>
                 </View>
               </View>
               {this.renderSlots(item)}
@@ -150,7 +151,7 @@ export default class ArmorListItem extends PureComponent {
     }
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+        style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.background }]}
         onPress={() => {
           if (this.props.setBuilder) {
             this.props.onPassProp(item);
@@ -159,9 +160,10 @@ export default class ArmorListItem extends PureComponent {
             });
           } else {
             this.props.navigator.push({
-              screen: 'TablessInfoScreen',
+              screen: 'EquipInfoScreen',
               passProps: {
                 item_id: item.item_id,
+                item,
                 type: 'armor',
               },
               animationType: 'slide-horizontal',
@@ -177,7 +179,7 @@ export default class ArmorListItem extends PureComponent {
         </Left>
         <Left style={{ flex: 4.5, flexDirection: 'column' }}>
           <View style={{ flex: 1, flexDirection: 'row', borderWidth: 0, borderColor: 'purple' }}>
-            <Text style={{ flex: 1.5, fontSize: 15.5, color: colors.main, justifyContent: 'center', lineHeight: 17.5 }}>{item.name}</Text>
+            <Text style={{ flex: 1.5, fontSize: 15.5, color: this.props.theme.main, justifyContent: 'center', lineHeight: 17.5 }}>{item.name}</Text>
           </View>
           <View style={{ flex: 1, flexDirection: 'row', borderWidth: 0, borderColor: 'blue' }}>
             <View style={{ flex: 1.5, flexDirection: 'row' }}>
@@ -189,7 +191,7 @@ export default class ArmorListItem extends PureComponent {
                     source={ElementStatusImages['Defense']}
                   />
                 </View>
-                <Text style={{ flex: 1, fontSize: 11, color: colors.main }}>{`${item.min_def}`}</Text>
+                <Text style={{ flex: 1, fontSize: 11, color: this.props.theme.main }}>{`${item.min_def}`}</Text>
               </View>
               <View style={{ flex: 1, flexDirection: 'row' }}>
                 <View style={{ flex: 0.5 }}>
@@ -199,7 +201,7 @@ export default class ArmorListItem extends PureComponent {
                     source={ElementStatusImages['Fire']}
                   />
                 </View>
-                <Text style={{ flex: 1, fontSize: 11, color: colors.main }}>{`${item.fire}`}</Text>
+                <Text style={{ flex: 1, fontSize: 11, color: this.props.theme.main }}>{`${item.fire}`}</Text>
               </View>
               <View style={{ flex: 1, flexDirection: 'row' }}>
                 <View style={{ flex: 0.5 }}>
@@ -209,7 +211,7 @@ export default class ArmorListItem extends PureComponent {
                     source={ElementStatusImages['Water']}
                   />
                 </View>
-                <Text style={{ flex: 1, fontSize: 11, color: colors.main }}>{`${item.water}`}</Text>
+                <Text style={{ flex: 1, fontSize: 11, color: this.props.theme.main }}>{`${item.water}`}</Text>
               </View>
               <View style={{ flex: 1, flexDirection: 'row' }}>
                 <View style={{ flex: 0.5 }}>
@@ -219,7 +221,7 @@ export default class ArmorListItem extends PureComponent {
                     source={ElementStatusImages['Thunder']}
                   />
                 </View>
-                <Text style={{ flex: 1, fontSize: 11, color: colors.main }}>{`${item.thunder}`}</Text>
+                <Text style={{ flex: 1, fontSize: 11, color: this.props.theme.main }}>{`${item.thunder}`}</Text>
               </View>
               <View style={{ flex: 1, flexDirection: 'row' }}>
                 <View style={{ flex: 0.5 }}>
@@ -229,7 +231,7 @@ export default class ArmorListItem extends PureComponent {
                     source={ElementStatusImages['Ice']}
                   />
                 </View>
-                <Text style={{ flex: 1, fontSize: 11, color: colors.main }}>{`${item.ice}`}</Text>
+                <Text style={{ flex: 1, fontSize: 11, color: this.props.theme.main }}>{`${item.ice}`}</Text>
               </View>
               <View style={{ flex: 1, flexDirection: 'row' }}>
                 <View style={{ flex: 0.5 }}>
@@ -239,7 +241,7 @@ export default class ArmorListItem extends PureComponent {
                     source={ElementStatusImages['Dragon']}
                   />
                 </View>
-                <Text style={{ flex: 1, fontSize: 11, color: colors.main }}>{`${item.dragon}`}</Text>
+                <Text style={{ flex: 1, fontSize: 11, color: this.props.theme.main }}>{`${item.dragon}`}</Text>
               </View>
             </View>
             {this.renderSlots(item)}
@@ -272,3 +274,28 @@ export default class ArmorListItem extends PureComponent {
     return this.renderBody(this.props.item);
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+  },
+  listItem: {
+    // height: 45,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings
+};
+
+export default connect(mapStateToProps, {})(ArmorListItem);

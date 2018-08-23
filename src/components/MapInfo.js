@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
-import { ScrollView, FlatList, View, ActivityIndicator } from 'react-native';
+import { ScrollView, FlatList, View, ActivityIndicator, StyleSheet } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, Tab, Tabs, ListItem, Text, Left, Body, Right, Icon } from 'native-base';
+import { connect } from 'react-redux';
 import _ from 'lodash';
 import DropDown from './DropDown';
 import AdBanner from './AdBanner';
@@ -9,7 +10,7 @@ import AdBanner from './AdBanner';
 // Styles
 import colors from '../styles/colors';
 
-export default class MapInfo extends PureComponent {
+class MapInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -89,7 +90,7 @@ export default class MapInfo extends PureComponent {
           content={item.map((item2, key2) => {
           return (
             <ListItem
-              style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+              style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
               onPress={() => this.props.navigator.push({
                 screen: 'TablessInfoScreen',
                 passProps: {
@@ -101,10 +102,10 @@ export default class MapInfo extends PureComponent {
               })}
               key={key2}>
               <Left>
-                <Text style={{ fontSize: 15.5, color: colors.main }}>{item2.item_name}</Text>
+                <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{item2.item_name}</Text>
               </Left>
               <Right>
-                <Text style={{ fontSize: 15.5, color: colors.main }}>{`${item2.chance}%`}</Text>
+                <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`${item2.chance}%`}</Text>
               </Right>
             </ListItem>
           );
@@ -116,22 +117,22 @@ export default class MapInfo extends PureComponent {
   renderContent(screen) {
     if (!this.state.loading && this.state.low.length === 0 && screen === 'tab1') {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
-          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: colors.secondary }} />
-          <Text style={{ textAlign: 'center', fontSize: 25, color: colors.secondary }}>No Data</Text>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background }}>
+          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: this.props.theme.secondary }} />
+          <Text style={{ textAlign: 'center', fontSize: 25, color: this.props.theme.secondary }}>No Data</Text>
         </View>
       );
     } else if (!this.state.loading && this.state.high.length === 0 && screen === 'tab2') {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
-          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: colors.secondary }} />
-          <Text style={{ textAlign: 'center', fontSize: 25, color: colors.secondary }}>No Data</Text>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background }}>
+          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: this.props.theme.secondary }} />
+          <Text style={{ textAlign: 'center', fontSize: 25, color: this.props.theme.secondary }}>No Data</Text>
         </View>
       );
     }
     if (screen === 'tab1') {
       return (
-        <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
           <FlatList
             initialNumToRender={12}
             data={this.state.low}
@@ -145,7 +146,7 @@ export default class MapInfo extends PureComponent {
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
         <FlatList
           initialNumToRender={12}
           data={this.state.high}
@@ -162,8 +163,8 @@ export default class MapInfo extends PureComponent {
   render() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
-          <ActivityIndicator size="large" color={colors.main}/>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background }}>
+          <ActivityIndicator size="large" color={this.props.theme.main}/>
         </View>
       );
     }
@@ -171,23 +172,23 @@ export default class MapInfo extends PureComponent {
       <Container>
         <Tabs
           prerenderingSiblingsNumber={2}
-          tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }}
+          tabBarUnderlineStyle={{ backgroundColor: this.props.theme.accent, height: 3 }}
           initialPage={0}
           >
           <Tab
-            activeTabStyle={{ backgroundColor: colors.background }}
-            tabStyle={{ backgroundColor: colors.background }}
-            activeTextStyle={{ color: colors.main }}
-            textStyle={{ color: colors.secondary }}
+            activeTabStyle={{ backgroundColor: this.props.theme.background }}
+            tabStyle={{ backgroundColor: this.props.theme.background }}
+            activeTextStyle={{ color: this.props.theme.main }}
+            textStyle={{ color: this.props.theme.secondary }}
             heading="Low Rank"
             >
             {this.renderContent('tab1')}
           </Tab>
           <Tab
-            activeTabStyle={{ backgroundColor: colors.background }}
-            tabStyle={{ backgroundColor: colors.background }}
-            activeTextStyle={{ color: colors.main }}
-            textStyle={{ color: colors.secondary }}
+            activeTabStyle={{ backgroundColor: this.props.theme.background }}
+            tabStyle={{ backgroundColor: this.props.theme.background }}
+            activeTextStyle={{ color: this.props.theme.main }}
+            textStyle={{ color: this.props.theme.secondary }}
             heading="High Rank"
             >
             {this.renderContent('tab2')}
@@ -198,3 +199,27 @@ export default class MapInfo extends PureComponent {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  listHeader: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  listItem: {
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(MapInfo);

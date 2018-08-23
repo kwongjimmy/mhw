@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react';
-import { Text, View, FlatList, ActivityIndicator } from 'react-native';
+import { Text, View, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { ScrollableTab, Container, Tab, Tabs, ListItem, Left, Right, Body } from 'native-base';
+import { connect } from 'react-redux';
 import AdBanner from '../components/AdBanner';
 
 // Styles
 import colors from '../styles/colors';
 
-export default class QuestScreen extends PureComponent {
+class QuestScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: false,
     navBarbackgroundColor: colors.background,
@@ -95,7 +96,7 @@ export default class QuestScreen extends PureComponent {
   renderListItems = ({ item }) => {
     return (
       <ListItem
-        style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+        style={[styles.listHeader, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItemHeader }]}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
 				passProps: {
@@ -107,10 +108,10 @@ export default class QuestScreen extends PureComponent {
       })}
       >
         <Left>
-          <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+          <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{item.name}</Text>
         </Left>
         <Right>
-          <Text style={{ fontSize: 14.5, color: colors.secondary }}>{`${item.required_rank} \u2605`}</Text>
+          <Text style={{ fontSize: 14.5, color: this.props.theme.secondary }}>{`${item.required_rank} \u2605`}</Text>
         </Right>
       </ListItem>
     );
@@ -119,16 +120,16 @@ export default class QuestScreen extends PureComponent {
   renderContent(screen) {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
-          <ActivityIndicator size="large" color={colors.main}/>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background }}>
+          <ActivityIndicator size="large" color={this.props.theme.main}/>
         </View>
       );
     }
     if (screen === 'tab1') {
       return (
-        <View style={{ flex: 1}}>
+        <View style={{ flex: 1 }}>
           <FlatList
-            style={{ backgroundColor: colors.background }}
+            style={{ backgroundColor: this.props.theme.background }}
             initialNumToRender={11}
             data={this.state.assigned}
             keyExtractor={(item) => item.quest_id.toString()}
@@ -141,9 +142,9 @@ export default class QuestScreen extends PureComponent {
       );
     } else if (screen === 'tab2') {
       return (
-        <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
           <FlatList
-            style={{ backgroundColor: colors.background }}
+            style={{ backgroundColor: this.props.theme.background }}
             initialNumToRender={11}
             data={this.state.optional}
             keyExtractor={(item) => item.quest_id.toString()}
@@ -156,9 +157,9 @@ export default class QuestScreen extends PureComponent {
       );
     } else if (screen === 'tab3') {
       return (
-        <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
           <FlatList
-            style={{ backgroundColor: colors.background }}
+            style={{ backgroundColor: this.props.theme.background }}
             initialNumToRender={11}
             data={this.state.arena}
             keyExtractor={(item) => item.quest_id.toString()}
@@ -171,9 +172,9 @@ export default class QuestScreen extends PureComponent {
       );
     } else if (screen === 'tab4') {
       return (
-        <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
           <FlatList
-            style={{ backgroundColor: colors.background }}
+            style={{ backgroundColor: this.props.theme.background }}
             initialNumToRender={11}
             data={this.state.special}
             keyExtractor={(item) => item.quest_id.toString()}
@@ -186,9 +187,9 @@ export default class QuestScreen extends PureComponent {
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
         <FlatList
-          style={{ backgroundColor: colors.background }}
+          style={{ backgroundColor: this.props.theme.background }}
           initialNumToRender={11}
           data={this.state.event}
           keyExtractor={(item) => item.quest_id.toString()}
@@ -206,51 +207,51 @@ export default class QuestScreen extends PureComponent {
       <Container>
         <Tabs
           prerenderingSiblingsNumber={3}
-          tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }}
+          tabBarUnderlineStyle={{ backgroundColor: this.props.theme.accent, height: 3 }}
           initialPage={0}
-          renderTabBar={() => <ScrollableTab style={{ backgroundColor: colors.background, elevation: 2 }}/>}
+          renderTabBar={() => <ScrollableTab style={{ borderWidth: 0, backgroundColor: colors.background, elevation: 2 }}/>}
           >
           <Tab
-            activeTabStyle={{ backgroundColor: colors.background }}
-            tabStyle={{ backgroundColor: colors.background }}
-            activeTextStyle={{ color: colors.main }}
-            textStyle={{ color: colors.secondary }}
+            activeTabStyle={{ backgroundColor: this.props.theme.background }}
+            tabStyle={{ backgroundColor: this.props.theme.background }}
+            activeTextStyle={{ color: this.props.theme.main }}
+            textStyle={{ color: this.props.theme.secondary }}
             heading="Assigned"
             >
             {this.renderContent('tab1')}
           </Tab>
           <Tab
-            activeTabStyle={{ backgroundColor: colors.background }}
-            tabStyle={{ backgroundColor: colors.background }}
-            activeTextStyle={{ color: colors.main }}
-            textStyle={{ color: colors.secondary }}
+            activeTabStyle={{ backgroundColor: this.props.theme.background }}
+            tabStyle={{ backgroundColor: this.props.theme.background }}
+            activeTextStyle={{ color: this.props.theme.main }}
+            textStyle={{ color: this.props.theme.secondary }}
             heading="Optional"
             >
             {this.renderContent('tab2')}
           </Tab>
           <Tab
-            activeTabStyle={{ backgroundColor: colors.background }}
-            tabStyle={{ backgroundColor: colors.background }}
-            activeTextStyle={{ color: colors.main }}
-            textStyle={{ color: colors.secondary }}
+            activeTabStyle={{ backgroundColor: this.props.theme.background }}
+            tabStyle={{ backgroundColor: this.props.theme.background }}
+            activeTextStyle={{ color: this.props.theme.main }}
+            textStyle={{ color: this.props.theme.secondary }}
             heading="Arena"
             >
             {this.renderContent('tab3')}
           </Tab>
           <Tab
-            activeTabStyle={{ backgroundColor: colors.background }}
-            tabStyle={{ backgroundColor: colors.background }}
-            activeTextStyle={{ color: colors.main }}
-            textStyle={{ color: colors.secondary }}
+            activeTabStyle={{ backgroundColor: this.props.theme.background }}
+            tabStyle={{ backgroundColor: this.props.theme.background }}
+            activeTextStyle={{ color: this.props.theme.main }}
+            textStyle={{ color: this.props.theme.secondary }}
             heading="Special Assignment"
             >
             {this.renderContent('tab4')}
           </Tab>
           <Tab
-            activeTabStyle={{ backgroundColor: colors.background }}
-            tabStyle={{ backgroundColor: colors.background }}
-            activeTextStyle={{ color: colors.main }}
-            textStyle={{ color: colors.secondary }}
+            activeTabStyle={{ backgroundColor: this.props.theme.background }}
+            tabStyle={{ backgroundColor: this.props.theme.background }}
+            activeTextStyle={{ color: this.props.theme.main }}
+            textStyle={{ color: this.props.theme.secondary }}
             heading="Event"
             >
             {this.renderContent('tab5')}
@@ -261,3 +262,28 @@ export default class QuestScreen extends PureComponent {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  listHeader: {
+    height: 55,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  listItem: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(QuestScreen);

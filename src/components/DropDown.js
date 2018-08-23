@@ -1,16 +1,16 @@
 import React, { PureComponent } from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Text, Icon, Left, Right, ListItem } from 'native-base';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 // Styles
 import colors from '../styles/colors';
 
-export default class DropDown extends PureComponent {
+class DropDown extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      headerName: this.props.headerName,
-      content: this.props.content,
       hide: this.props.hide,
     };
   }
@@ -28,7 +28,7 @@ export default class DropDown extends PureComponent {
 
   renderContent() {
     if (!this.state.hide) {
-      return this.state.content;
+      return this.props.content;
     }
     return (
       null
@@ -39,13 +39,13 @@ export default class DropDown extends PureComponent {
     return (
       <View style={{ flex: 1 }}>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, borderBottomWidth: 0.5, borderColor: '#d1d1d1' }}
+          style={[styles.listHeader, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItemHeader }]}
           itemDivider
           onPress={() => {
             this.setState({ hide: !this.state.hide });
           }}>
           <Left>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>{this.state.headerName}</Text>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{this.props.headerName}</Text>
           </Left>
           <Right>
             {this.renderHeaderIcon()}
@@ -56,3 +56,40 @@ export default class DropDown extends PureComponent {
     );
   }
 }
+
+DropDown.defaultProps = {
+  headerName: '',
+  content: <View />,
+  hide: false,
+};
+
+DropDown.propTypes = {
+  headerName: PropTypes.string,
+  content: PropTypes.object.isRequired,
+  hide: PropTypes.bool,
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+  },
+  listHeader: {
+    height: 45,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings
+};
+
+export default connect(mapStateToProps, {})(DropDown);

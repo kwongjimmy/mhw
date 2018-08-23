@@ -1,17 +1,19 @@
 import React, { PureComponent } from 'react';
-import { View, ActivityIndicator, Platform } from 'react-native';
+import { View, ActivityIndicator, Platform, TouchableOpacity } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Text, Container, Tab, Tabs, Icon, Button } from 'native-base';
 import Modal from 'react-native-modal';
 import SplashScreen from 'react-native-splash-screen';
+import { connect } from 'react-redux';
 import MonsterList from '../components/MonsterList';
 import AdBanner from '../components/AdBanner';
 import { MiscImages } from '../assets/';
+import { setDarkTheme, setLightTheme } from '../actions/settingsAction';
 
 // Styles
 import colors from '../styles/colors';
 
-export default class MonsterScreen extends PureComponent {
+class MonsterScreen extends PureComponent {
   // static navigatorButtons = {
   //   rightButtons: [
   //     // {
@@ -144,7 +146,6 @@ export default class MonsterScreen extends PureComponent {
   }
 
   componentDidMount() {
-
   }
 
   componentWillUnmount() {
@@ -159,6 +160,14 @@ export default class MonsterScreen extends PureComponent {
   }
 
   componentWillMount() {
+    // this.props.navigator.setStyle({
+      // statusBarColor: 'black',
+      // statusBarTextColorScheme: 'light',
+      // navBarTextColor: 'white',
+      // navBarBackgroundColor: 'black',
+      // tabBarButtonColor: 'light-grey',
+      // tabBarBackgroundColor: 'black',
+    // });
     if (Platform.OS === 'ios') {
       // DELETE FROM IOS
       SQLite.deleteDatabase(
@@ -175,29 +184,30 @@ export default class MonsterScreen extends PureComponent {
   }
 
   renderContent(screen) {
+    const { accent, background, border, divider, main, mainText, secondary, secondaryDark } = this.props.theme;
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
-          <ActivityIndicator size="large" color={colors.main}/>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: background }}>
+          <ActivityIndicator size="large" color={main}/>
         </View>
       );
     }
     if (screen === 'all') {
       return (
-        <View style={{ flex: 1, backgroundColor: colors.background }}>
-          <MonsterList navigator={this.props.navigator} monsters={this.state.allMonsters} type={'all'}/>
+        <View style={{ flex: 1 }}>
+          <MonsterList theme={this.props.theme} navigator={this.props.navigator} monsters={this.state.allMonsters} type={'all'}/>
         </View>
       );
     } else if (screen === 'large') {
       return (
-        <View style={{ flex: 1, backgroundColor: colors.background }}>
-          <MonsterList navigator={this.props.navigator} monsters={this.state.largeMonsters} type={'large'}/>
+        <View style={{ flex: 1 }}>
+          <MonsterList theme={this.props.theme} navigator={this.props.navigator} monsters={this.state.largeMonsters} type={'large'}/>
         </View>
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
-        <MonsterList navigator={this.props.navigator} monsters={this.state.smallMonsters} type={'small'}/>
+      <View style={{ flex: 1 }}>
+        <MonsterList theme={this.props.theme} navigator={this.props.navigator} monsters={this.state.smallMonsters} type={'small'}/>
       </View>
     );
   }
@@ -206,7 +216,20 @@ export default class MonsterScreen extends PureComponent {
     this.setState({ modalVisible: visible });
   }
 
+  setNavSettings() {
+    this.props.navigator.setStyle({
+      navBarButtonColor: this.props.theme.main,
+      navBarTextColor: this.props.theme.main,
+      navBarBackgroundColor: this.props.theme.background,
+      statusBarTextColorScheme: this.props.theme.statusbar,
+      statusBarColor: this.props.theme.background,
+      tabBarBackgroundColor: this.props.theme.background,
+    });
+  }
+
   render() {
+    this.setNavSettings();
+    const { accent, background, border, divider, main, mainText, secondary, secondaryDark } = this.props.theme;
     return (
       <View style={{ flex: 1 }}>
          {/* <Modal
@@ -258,35 +281,35 @@ export default class MonsterScreen extends PureComponent {
               </Button>
              </View>
          </Modal> */}
-        <Container style={{ backgroundColor: colors.background }}>
+        <Container style={{ backgroundColor: background }}>
           <Tabs
             prerenderingSiblingsNumber={3}
             scrollWithoutAnimation={false}
-            tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }}
+            tabBarUnderlineStyle={{ backgroundColor: accent, height: 3 }}
             initialPage={0}>
            <Tab
-             activeTabStyle={{ backgroundColor: colors.background }}
-             tabStyle={{ backgroundColor: colors.background }}
-             activeTextStyle={{ color: colors.main }}
-             textStyle={{ color: colors.secondary }}
+             activeTabStyle={{ backgroundColor: background }}
+             tabStyle={{ backgroundColor: background }}
+             activeTextStyle={{ color: main }}
+             textStyle={{ color: secondary }}
              heading="All"
              >
              {this.renderContent('all')}
            </Tab>
            <Tab
-             activeTabStyle={{ backgroundColor: colors.background }}
-             tabStyle={{ backgroundColor: colors.background }}
-             activeTextStyle={{ color: colors.main }}
-             textStyle={{ color: colors.secondary }}
+             activeTabStyle={{ backgroundColor: background }}
+             tabStyle={{ backgroundColor: background }}
+             activeTextStyle={{ color: main }}
+             textStyle={{ color: secondary }}
              heading="Large"
              >
              {this.renderContent('large')}
            </Tab>
            <Tab
-             activeTabStyle={{ backgroundColor: colors.background }}
-             tabStyle={{ backgroundColor: colors.background }}
-             activeTextStyle={{ color: colors.main }}
-             textStyle={{ color: colors.secondary }}
+             activeTabStyle={{ backgroundColor: background }}
+             tabStyle={{ backgroundColor: background }}
+             activeTextStyle={{ color: main }}
+             textStyle={{ color: secondary }}
              heading="Small"
              >
              {this.renderContent('small')}
@@ -298,3 +321,9 @@ export default class MonsterScreen extends PureComponent {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return state.settings
+};
+
+export default connect(mapStateToProps, { setDarkTheme, setLightTheme })(MonsterScreen);

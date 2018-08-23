@@ -1,11 +1,13 @@
 import React, { PureComponent } from 'react';
-import { View, FlatList, Platform, Image, ActivityIndicator, Alert, AsyncStorage, Linking } from 'react-native';
+import { View, FlatList, Platform, Image, ActivityIndicator, Alert, AsyncStorage, Linking, TouchableOpacity, StyleSheet } from 'react-native';
 import { Container, ListItem, Text, Left, Body } from 'native-base';
 import firebase from 'react-native-firebase';
-import { MiscImages } from '../assets';
-import AdBanner from '../components/AdBanner';
 import * as RNIap from 'react-native-iap';
 import _ from 'lodash';
+import { connect } from 'react-redux';
+import { MiscImages } from '../assets';
+import AdBanner from '../components/AdBanner';
+import { setDarkTheme, setLightTheme } from '../actions/settingsAction';
 
 // Styles
 import colors from '../styles/colors';
@@ -32,7 +34,7 @@ const itemSkus = Platform.select({
   ],
 });
 
-export default class MiscScreen extends PureComponent {
+class MiscScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
     topBarBorderColor: colors.accent,
@@ -47,13 +49,17 @@ export default class MiscScreen extends PureComponent {
           route: 'SetSelectScreen',
           title: 'Set Builder',
         },
+        // {
+        //   route: 'FavoritesScreen',
+        //   title: 'Favorites',
+        // },
         {
           route: 'ItemScreen',
           title: 'Items',
         },
         {
           route: 'CombinationScreen',
-          title: 'Combination List'
+          title: 'Combination List',
         },
         {
           route: 'QuestScreen',
@@ -99,10 +105,14 @@ export default class MiscScreen extends PureComponent {
           route: 'Restore',
           title: 'Restore Purchase',
         },
+        {
+          route: 'Theme',
+          title: 'Theme',
+        },
       ],
       loading: false,
     };
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    // this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   onNavigatorEvent(event) {
@@ -126,7 +136,7 @@ export default class MiscScreen extends PureComponent {
     if (item.route === 'Remove') {
       return (
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.background }]}
           onPress={() => this.buyItem()}>
           <Left>
             <Image
@@ -136,15 +146,15 @@ export default class MiscScreen extends PureComponent {
             />
           </Left>
           <Body style={{ flex: 6 }}>
-            <Text style={{ fontSize: 20, color: colors.main }}>{item.title}</Text>
-            <Text style={{ fontSize: 12, color: colors.secondary }}>{'Restart application after purchase.'}</Text>
+            <Text style={{ fontSize: 20, color: this.props.theme.main }}>{item.title}</Text>
+            <Text style={{ fontSize: 12, color: this.props.theme.secondary }}>{'Restart application after purchase.'}</Text>
           </Body>
         </ListItem>
       );
     } else if (item.route === 'Restore') {
       return (
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.background }]}
           onPress={() => this.restore()}>
           <Left>
             <Image
@@ -154,8 +164,8 @@ export default class MiscScreen extends PureComponent {
             />
           </Left>
           <Body style={{ flex: 6 }}>
-            <Text style={{ fontSize: 20, color: colors.main }}>{item.title}</Text>
-            <Text style={{ fontSize: 12, color: colors.secondary }}>{'Restart application after restore.'}</Text>
+            <Text style={{ fontSize: 20, color: this.props.theme.main }}>{item.title}</Text>
+            <Text style={{ fontSize: 12, color: this.props.theme.secondary }}>{'Restart application after restore.'}</Text>
             {/* <Text style={{ fontSize: 12, color: colors.secondary }}>{''}</Text> */}
           </Body>
         </ListItem>
@@ -163,7 +173,7 @@ export default class MiscScreen extends PureComponent {
     } else if (item.route === 'Rate') {
       return (
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.background }]}
           onPress={() => this.rate()}>
           <Left>
             <Image
@@ -173,14 +183,33 @@ export default class MiscScreen extends PureComponent {
             />
           </Left>
           <Body style={{ flex: 6 }}>
-            <Text style={{ fontSize: 20, color: colors.main }}>{item.title}</Text>
+            <Text style={{ fontSize: 20, color: this.props.theme.main }}>{item.title}</Text>
+          </Body>
+        </ListItem>
+      );
+    } else if (item.route === 'Theme') {
+      return (
+        <ListItem
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.background }]}
+          onPress={() => this.props.themeStatus === 'light' ? this.props.setDarkTheme() : this.props.setLightTheme()}
+        >
+          <Left>
+            <Image
+              resizeMode="contain"
+              style={{ width: 35, height: 35 }}
+              source={MiscImages[item.title]}
+            />
+          </Left>
+          <Body style={{ flex: 6 }}>
+            <Text style={{ fontSize: 20, color: this.props.theme.main }}>{this.props.themeStatus === 'light' ? 'Set Dark Theme' : 'Set Light Theme'}</Text>
+            <Text style={{ fontSize: 12, color: this.props.theme.secondary }}>{'Requires restart for theme to fully activate.'}</Text>
           </Body>
         </ListItem>
       );
     }
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+        style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.background }]}
         onPress={() => this.props.navigator.push({
         screen: item.route,
         passProps: {
@@ -196,7 +225,7 @@ export default class MiscScreen extends PureComponent {
           />
         </Left>
         <Body style={{ flex: 6 }}>
-          <Text style={{ fontSize: 20, color: colors.main }}>{item.title}</Text>
+          <Text style={{ fontSize: 20, color: this.props.theme.main }}>{item.title}</Text>
         </Body>
       </ListItem>
     );
@@ -290,6 +319,17 @@ export default class MiscScreen extends PureComponent {
     }
   }
 
+  setNavSettings() {
+    this.props.navigator.setStyle({
+      navBarButtonColor: this.props.theme.main,
+      navBarTextColor: this.props.theme.main,
+      navBarBackgroundColor: this.props.theme.background,
+      statusBarTextColorScheme: this.props.theme.statusbar,
+      statusBarColor: this.props.theme.background,
+      tabBarBackgroundColor: this.props.theme.background,
+    });
+  }
+
   renderTester() {
     return (
       <View>
@@ -311,18 +351,19 @@ export default class MiscScreen extends PureComponent {
   }
 
   render() {
+    this.setNavSettings();
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
-          <ActivityIndicator size="large" color={colors.main}/>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background }}>
+          <ActivityIndicator size="large" color={this.props.theme.main}/>
         </View>
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
         <FlatList
           initialNumToRender={15}
-          style={{ backgroundColor: colors.background }}
+          style={{ backgroundColor: this.props.theme.background }}
           data={this.state.screens}
           keyExtractor={item => item.route}
           renderItem={this.renderListItems}
@@ -333,3 +374,27 @@ export default class MiscScreen extends PureComponent {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+  },
+  listItem: {
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, { setDarkTheme, setLightTheme })(MiscScreen);

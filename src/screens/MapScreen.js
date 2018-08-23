@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react';
-import { Platform, View, FlatList, ActivityIndicator } from 'react-native';
+import { Platform, View, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { Container, ListItem, Text, Left, Right } from 'native-base';
+import { connect } from 'react-redux';
 import AdBanner from '../components/AdBanner';
 
 // Styles
 import colors from '../styles/colors';
 
-export default class MapScreen extends PureComponent {
+class MapScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
     topBarBorderColor: colors.accent,
@@ -57,7 +58,7 @@ export default class MapScreen extends PureComponent {
   renderListItems = ({ item }) => {
     return (
       <ListItem
-        style={{ height: 50, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+        style={[styles.listHeader, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItemHeader }]}
         onPress={() => this.props.navigator.push({
         screen: 'TabInfoScreen',
         passProps: {
@@ -68,7 +69,7 @@ export default class MapScreen extends PureComponent {
         title: item.name,
       })}>
       <Left>
-        <Text style={{ fontSize: 15.5, color: colors.main, textAlign: 'left' }}>{item.name}</Text>
+        <Text style={{ fontSize: 15.5, color: this.props.theme.main, textAlign: 'left' }}>{item.name}</Text>
       </Left>
       <Right></Right>
       </ListItem>
@@ -79,14 +80,14 @@ export default class MapScreen extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
-          <ActivityIndicator size="large" color={colors.main}/>
+          <ActivityIndicator size="large" color={this.props.theme.main}/>
         </View>
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
         <FlatList
-          style={{ backgroundColor: colors.background }}
+          style={{ backgroundColor: this.props.theme.background }}
           initialNumToRender={11}
           data={this.state.items}
           keyExtractor={(item) => item.map_id.toString()}
@@ -104,3 +105,28 @@ export default class MapScreen extends PureComponent {
     return this.renderContent();
   }
 }
+
+const styles = StyleSheet.create({
+  listHeader: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  listItem: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(MapScreen);

@@ -1,14 +1,15 @@
 import React, { PureComponent } from 'react';
-import { Image, View, ActivityIndicator, InteractionManager, ScrollView } from 'react-native';
+import { Image, View, ActivityIndicator, InteractionManager, ScrollView, StyleSheet} from 'react-native';
 import { ListItem, Text, Right, Left, Body } from 'native-base';
 import SQLite from 'react-native-sqlite-storage';
+import { connect } from 'react-redux';
 import AdBanner from './AdBanner';
 import { ElementStatusImages } from '../assets';
 
 // Styles
 import colors from '../styles/colors';
 
-export default class EquipArmorInfo extends PureComponent {
+class EquipArmorInfo extends PureComponent {
 
   constructor(props) {
     super(props);
@@ -91,7 +92,7 @@ export default class EquipArmorInfo extends PureComponent {
         );
       });
     });
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    // this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   onNavigatorEvent(event) {
@@ -115,19 +116,19 @@ export default class EquipArmorInfo extends PureComponent {
     let slotThree = (slot3 === 0) ? `-` : (slot3 === 1) ? `\u2460` : (slot3 === 2) ? `\u2461` : `\u2462`;
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, borderColor: colors.accent }} itemDivider>
-            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>Defense</Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>Slots</Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>Price</Text>
-            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>Rarity</Text>
+        <ListItem style={[styles.listItem, { backgroundColor: this.props.theme.listItemHeader }]}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>Defense</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>Slots</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>Price</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>Rarity</Text>
         </ListItem>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: colors.background }} itemDivider>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{min_def}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{`${slotOne} ${slotTwo} ${slotThree}`}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{`${buy_price}z`}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{rarity}</Text>
+        <ListItem style={[styles.listItem, { backgroundColor: this.props.theme.listItem }]}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>{min_def}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>{`${slotOne} ${slotTwo} ${slotThree}`}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>{`${buy_price}z`}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>{rarity}</Text>
         </ListItem>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+        <ListItem style={[styles.listItem, { backgroundColor: this.props.theme.listItemHeader }]}>
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
             <Image
               resizeMode="contain"
@@ -164,12 +165,12 @@ export default class EquipArmorInfo extends PureComponent {
             />
           </View>
         </ListItem>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: colors.background }} itemDivider>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{fire}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{water}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{thunder}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{ice}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{dragon}</Text>
+        <ListItem style={[styles.listItem, { backgroundColor: this.props.theme.listItem }]}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>{fire}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>{water}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>{thunder}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>{ice}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>{dragon}</Text>
         </ListItem>
       </View>
     );
@@ -179,7 +180,12 @@ export default class EquipArmorInfo extends PureComponent {
     if (this.state.skills[0].skill2_name !== null) {
       return (
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, {
+            height: 55,
+            backgroundColor: this.props.theme.listItem,
+            borderBottomWidth: StyleSheet.hairlineWidth,
+            borderColor: this.props.theme.border,
+          }]}
           onPress={() => this.props.navigator.push({
             screen: 'TabInfoScreen',
             passProps: {
@@ -191,10 +197,10 @@ export default class EquipArmorInfo extends PureComponent {
           })}
           >
           <Left>
-            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{this.state.skills[0].skill2_name}</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>{this.state.skills[0].skill2_name}</Text>
           </Left>
           <Right>
-            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`+${this.state.skills[0].skill2_level}`}</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>{`+${this.state.skills[0].skill2_level}`}</Text>
           </Right>
         </ListItem>
       );
@@ -207,7 +213,12 @@ export default class EquipArmorInfo extends PureComponent {
   renderSkill1() {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+        style={[styles.listItem, {
+          height: 55,
+          backgroundColor: this.props.theme.listItem,
+          borderBottomWidth: StyleSheet.hairlineWidth,
+          borderColor: this.props.theme.border,
+        }]}
         onPress={() => this.props.navigator.push({
           screen: 'TabInfoScreen',
           passProps: {
@@ -219,10 +230,10 @@ export default class EquipArmorInfo extends PureComponent {
         })}
         >
         <Left>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{this.state.skills[0].skill1_name}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>{this.state.skills[0].skill1_name}</Text>
         </Left>
         <Right>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`+${this.state.skills[0].skill1_level}`}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>{`+${this.state.skills[0].skill1_level}`}</Text>
         </Right>
       </ListItem>
     );
@@ -232,12 +243,12 @@ export default class EquipArmorInfo extends PureComponent {
     if (this.state.skills[0].skill1_name !== null) {
       return (
         <View>
-          <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+          <ListItem style={[styles.listItem, { height: 55, backgroundColor: this.props.theme.listItemHeader }]}>
             <Left>
-              <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>Skill</Text>
+              <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>Skill</Text>
             </Left>
             <Right>
-              <Text style={{ flex: 1, fontSize: 15.5, color: colors.secondary }}></Text>
+              <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.secondary }}></Text>
             </Right>
           </ListItem>
           {this.renderSkill1()}
@@ -253,18 +264,24 @@ export default class EquipArmorInfo extends PureComponent {
   renderCrafting() {
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+        <ListItem style={[styles.listItem, { height: 55, backgroundColor: this.props.theme.listItemHeader }]}>
           <Left>
-            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>Material</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>Material</Text>
           </Left>
           <Right>
-            <Text style={{ flex: 1, fontSize: 15.5, color: colors.secondary }}>Quantity</Text>
+            <Text style={{ flex: 1, fontSize: 15.5, justifyContent: 'center', color: this.props.theme.secondary }}>Quantity</Text>
           </Right>
         </ListItem>
         {this.state.materials.map((item, key) => {
           return (
             <View key={key}>
-              <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+              <ListItem
+                style={[styles.listItem, {
+                  height: 55,
+                  backgroundColor: this.props.theme.listItem,
+                  borderBottomWidth: StyleSheet.hairlineWidth,
+                  borderColor: this.props.theme.border,
+                }]}
                 onPress={() => this.props.navigator.push({
                   screen: 'TablessInfoScreen',
                   passProps: {
@@ -276,10 +293,10 @@ export default class EquipArmorInfo extends PureComponent {
                 })}
                 >
                 <Left>
-                  <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+                  <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>{item.name}</Text>
                 </Left>
                 <Right>
-                  <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`x${item.quantity}`}</Text>
+                  <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>{`x${item.quantity}`}</Text>
                 </Right>
               </ListItem>
             </View>
@@ -294,8 +311,8 @@ export default class EquipArmorInfo extends PureComponent {
     if (this.state.setBonus.set_bonus !== null) {
       return (
         <View>
-          <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
-            <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{`${this.state.setBonus.set_bonus} Set Bonus`}</Text>
+          <ListItem style={[styles.listItem, { height: 55, backgroundColor: this.props.theme.listItemHeader }]}>
+            <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main }}>{`${this.state.setBonus.set_bonus} Set Bonus`}</Text>
           </ListItem>
           {this.renderSetBonus1()}
           {this.renderSetBonus2()}
@@ -309,7 +326,12 @@ export default class EquipArmorInfo extends PureComponent {
     if (this.state.setBonus.skill1 !== null) {
       return (
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, {
+            height: 55,
+            backgroundColor: this.props.theme.listItem,
+            borderBottomWidth: StyleSheet.hairlineWidth,
+            borderColor: this.props.theme.border,
+          }]}
           onPress={() => this.props.navigator.push({
           screen: 'TabInfoScreen',
           passProps: {
@@ -320,12 +342,12 @@ export default class EquipArmorInfo extends PureComponent {
           title: this.state.setBonus.skill1,
           })}>
           <Left>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>
               {`(${this.state.setBonus.pieces} pieces) ${this.state.setBonus.skill1}`}
             </Text>
           </Left>
           <Right>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>
               {`+${this.state.setBonus.set_bonus_skill1_level}`}
             </Text>
           </Right>
@@ -339,7 +361,12 @@ export default class EquipArmorInfo extends PureComponent {
     if (this.state.setBonus.skill2 !== null) {
       return (
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, {
+            height: 55,
+            backgroundColor: this.props.theme.listItem,
+            borderBottomWidth: StyleSheet.hairlineWidth,
+            borderColor: this.props.theme.border,
+          }]}
           onPress={() => this.props.navigator.push({
           screen: 'TabInfoScreen',
           passProps: {
@@ -350,12 +377,12 @@ export default class EquipArmorInfo extends PureComponent {
           title: this.state.setBonus.skill2,
           })}>
           <Left>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>
               {`(${this.state.setBonus.pieces_2} pieces) ${this.state.setBonus.skill2}`}
             </Text>
           </Left>
           <Right>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>
               {`+${this.state.setBonus.set_bonus_skill2_level}`}
             </Text>
           </Right>
@@ -368,14 +395,14 @@ export default class EquipArmorInfo extends PureComponent {
   renderContent() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
-          <ActivityIndicator size="large" color={colors.main}/>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background }}>
+          <ActivityIndicator size="large" color={this.props.theme.main}/>
         </View>
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
-        <ScrollView style={{ backgroundColor: colors.background }}>
+      <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
+        <ScrollView style={{ backgroundColor: this.props.theme.background }}>
           {this.renderInfo()}
           {this.renderSkills()}
           {this.renderSetBonus()}
@@ -390,3 +417,36 @@ export default class EquipArmorInfo extends PureComponent {
     return this.renderContent();
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+  },
+  listHeader: {
+    height: 45,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: 0,
+  },
+  listItem: {
+    height: 45,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: 0,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(EquipArmorInfo);

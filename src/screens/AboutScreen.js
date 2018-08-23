@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react';
-import { View, Linking, Platform } from 'react-native';
+import { View, Linking, Platform, StyleSheet } from 'react-native';
 import { Text, ListItem, Left, Right, Body } from 'native-base';
+import { connect } from 'react-redux';
 
 // Styles
 import colors from '../styles/colors';
 
-export default class AboutScreen extends PureComponent {
+class AboutScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
     topBarBorderColor: colors.accent,
@@ -31,63 +32,88 @@ export default class AboutScreen extends PureComponent {
 
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
-        <ListItem itemDivider>
-          <Text style = {{ fontSize: 15.5 }}>Contact Info</Text>
+      <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
+        <ListItem style={[styles.listHeader, { backgroundColor: this.props.theme.listItemHeader }]}>
+          <Text style = {{ fontSize: 15.5, color: this.props.theme.main }}>Contact Info</Text>
         </ListItem>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
           onPress={() => Linking.openURL('mailto:chingoosat242@gmail.com?subject=[MHW DB] Suggestions and Feedback')}>
           <Left>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>chingoosat242@gmail.com</Text>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>chingoosat242@gmail.com</Text>
           </Left>
         </ListItem>
-        <ListItem itemDivider>
-          <Text style = {{ fontSize: 15.5 }}>Sources</Text>
+        <ListItem style={[styles.listHeader, { backgroundColor: this.props.listItemHeader }]}>
+          <Text style = {{ fontSize: 15.5, color: this.props.theme.main }}>Sources</Text>
         </ListItem>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
           onPress={() => Linking.openURL('https://mhworld.kiranico.com/')}>
           <Left>
-            <Text style = {{ fontSize: 15.5 }}>Kiranico - Monster Hunter World Data</Text>
+            <Text style = {{ fontSize: 15.5, color: this.props.theme.main }}>Kiranico - Monster Hunter World Data</Text>
           </Left>
         </ListItem>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
           onPress={() => Linking.openURL('http://monsterhunter.wikia.com/wiki/Monster_Hunter:_World')}>
           <Left>
-          <Text style = {{ fontSize: 15.5 }}>Wikia - Monster Hunter World Data</Text>
+          <Text style = {{ fontSize: 15.5, color: this.props.theme.main }}>Wikia - Monster Hunter World Data</Text>
           </Left>
         </ListItem>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
           onPress={() => Linking.openURL('https://monsterhunterworld.wiki.fextralife.com/Monster+Hunter+World+Wiki')}>
           <Left>
-            <Text style = {{ fontSize: 15.5 }}>Fextralife - Monster Hunter World Wiki Data</Text>
+            <Text style = {{ fontSize: 15.5, color: this.props.theme.main }}>Fextralife - Monster Hunter World Wiki Data</Text>
           </Left>
         </ListItem>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
           onPress={() => Linking.openURL('http://monsterhunter.wikia.com/wiki/Images_GeneStarwind')}>
           <Left>
-            <Text style = {{ fontSize: 15.5 }}>GeneStarwind - Monster Hunter Icons</Text>
+            <Text style = {{ fontSize: 15.5, color: this.props.theme.main }}>GeneStarwind - Monster Hunter Icons</Text>
           </Left>
         </ListItem>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
           onPress={() => Linking.openURL('http://monsterhunter.wikia.com/wiki/User:YukiHerz')}>
           <Left>
-            <Text style = {{ fontSize: 15.5 }}>YukiHerz - Monster Icons</Text>
+            <Text style = {{ fontSize: 15.5, color: this.props.theme.main }}>YukiHerz - Monster Icons</Text>
           </Left>
         </ListItem>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
           onPress={() => Linking.openURL('http://monsterhunter.wikia.com/wiki/User:Mckrongs')}>
           <Left>
-            <Text style = {{ fontSize: 15.5 }}>Mckrongs - Element Icons</Text>
+            <Text style = {{ fontSize: 15.5, color: this.props.theme.main }}>Mckrongs - Element Icons</Text>
           </Left>
         </ListItem>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  listHeader: {
+    height: 45,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: 0,
+  },
+  listItem: {
+    height: 45,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(AboutScreen);

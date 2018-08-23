@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
-import { Image } from 'react-native';
+import { Image, StyleSheet  } from 'react-native';
 import { View, Text, Left, Body, Right, ListItem } from 'native-base';
+import { connect } from 'react-redux';
 import { ElementStatusImages, WeaponImages } from '../assets';
 
 // Styles
@@ -23,7 +24,7 @@ const weaponTypes = {
   heavy_bowgun: 'Heavy Bowgun',
 };
 
-export default class KinsectListItem extends PureComponent {
+class KinsectListItem extends PureComponent {
   renderKinsectInfo() {
     let { item } = this.props;
     const dust = (item.dust === null) ? 'None' : item.dust;
@@ -37,7 +38,7 @@ export default class KinsectListItem extends PureComponent {
               source={WeaponImages['Kinsect Type']}
             />
           </View>
-          <Text style={{ flex: 1, fontSize: 11, color: colors.main }}>{`${item.type}`}</Text>
+          <Text style={{ flex: 1, fontSize: 11, color: this.props.theme.main }}>{`${item.type}`}</Text>
         </View>
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <View style={{ flex: 0.5 }}>
@@ -47,7 +48,7 @@ export default class KinsectListItem extends PureComponent {
               source={WeaponImages['Kinsect Dust']}
             />
           </View>
-          <Text style={{ flex: 1, fontSize: 11, color: colors.main }}>{`${dust}`}</Text>
+          <Text style={{ flex: 1, fontSize: 11, color: this.props.theme.main }}>{`${dust}`}</Text>
         </View>
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <View style={{ flex: 0.5 }}>
@@ -57,7 +58,7 @@ export default class KinsectListItem extends PureComponent {
               source={WeaponImages['Kinsect Power']}
             />
           </View>
-          <Text style={{ flex: 1, fontSize: 11, color: colors.main }}>{`LV ${item.power}`}</Text>
+          <Text style={{ flex: 1, fontSize: 11, color: this.props.theme.main }}>{`LV ${item.power}`}</Text>
         </View>
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <View style={{ flex: 0.5 }}>
@@ -67,7 +68,7 @@ export default class KinsectListItem extends PureComponent {
               source={WeaponImages['Kinsect Heal']}
             />
           </View>
-          <Text style={{ flex: 1, fontSize: 11, color: colors.main }}>{`LV ${item.heal}`}</Text>
+          <Text style={{ flex: 1, fontSize: 11, color: this.props.theme.main }}>{`LV ${item.heal}`}</Text>
         </View>
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <View style={{ flex: 0.5 }}>
@@ -77,7 +78,7 @@ export default class KinsectListItem extends PureComponent {
               source={WeaponImages['Kinsect Speed']}
             />
           </View>
-          <Text style={{ flex: 1, fontSize: 11, color: colors.main }}>{`LV ${item.speed}`}</Text>
+          <Text style={{ flex: 1, fontSize: 11, color: this.props.theme.main }}>{`LV ${item.speed}`}</Text>
         </View>
       </View>
     );
@@ -102,8 +103,8 @@ export default class KinsectListItem extends PureComponent {
               source={WeaponImages[`Kinsect ${kinsectTreePath} ${rarity}`]} />
           </Left>
           <Body style={{ flex: 4.5 }}>
-            <View style={{ flex: 1, flexDirection: 'row', borderWidth: 0, borderColor: colors.accent }}>
-              <Text style={{ flex: 1.5, fontSize: 15.5, color: colors.main, justifyContent: 'center', lineHeight: 17.5 }}>{name}</Text>
+            <View style={{ flex: 1, flexDirection: 'row', borderWidth: 0, borderColor: this.props.theme.accent }}>
+              <Text style={{ flex: 1.5, fontSize: 15.5, color: this.props.theme.main, justifyContent: 'center', lineHeight: 17.5 }}>{name}</Text>
             </View>
             <View style={{ flex: 1, flexDirection: 'row', borderWidth: 0, borderColor: 'green' }}>
               <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -116,7 +117,7 @@ export default class KinsectListItem extends PureComponent {
     }
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+        style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.listItem ? this.props.theme.background : this.props.theme.listItem }]}
         onPress={() => {
           if (this.props.setBuilder) {
             this.props.onPassProp(this.props.item);
@@ -125,11 +126,10 @@ export default class KinsectListItem extends PureComponent {
             });
           } else {
             this.props.navigator.push({
-              screen: 'TablessInfoScreen',
+              screen: 'WeaponInfoScreen',
               passProps: {
                 item_id,
-                type: 'weapons',
-                weaponType: 'kinsect',
+                type: 'kinsect',
                 item: this.props.item,
               },
               animationType: 'slide-horizontal',
@@ -144,8 +144,8 @@ export default class KinsectListItem extends PureComponent {
             source={WeaponImages[`Kinsect ${kinsectTreePath} ${rarity}`]} />
         </Left>
         <Body style={{ flex: 4.5 }}>
-          <View style={{ flex: 1, flexDirection: 'row', borderWidth: 0, borderColor: colors.accent }}>
-            <Text style={{ flex: 1.5, fontSize: 15.5, color: colors.main, justifyContent: 'center', lineHeight: 17.5 }}>{name}</Text>
+          <View style={{ flex: 1, flexDirection: 'row', borderWidth: 0, borderColor: this.props.theme.accent }}>
+            <Text style={{ flex: 1.5, fontSize: 15.5, color: this.props.theme.main, justifyContent: 'center', lineHeight: 17.5 }}>{name}</Text>
           </View>
           <View style={{ flex: 1, flexDirection: 'row', borderWidth: 0, borderColor: 'green' }}>
             <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -157,3 +157,28 @@ export default class KinsectListItem extends PureComponent {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+  },
+  listItem: {
+    // height: 45,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(KinsectListItem);

@@ -1,24 +1,25 @@
 import React, { PureComponent } from 'react';
-import { Image } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 import { View, Text, Left, Body, Right, ListItem } from 'native-base';
+import { connect } from 'react-redux';
 import { ArmorImages } from '../assets';
 
 // Styles
 import colors from '../styles/colors';
 
-export default class CharmListItem extends PureComponent {
+class CharmListItem extends PureComponent {
   renderSkills(item) {
     if (item.skill1_name !== null && item.skill2_name !== null) {
       return (
         <Right style={{ flex: 2, justifyContent: 'center' }}>
-          <Text style={{ fontSize: 11, color: colors.secondary }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
-          <Text style={{ fontSize: 11, color: colors.secondary }}>{`${item.skill2_name} +${item.skill2_level}`}</Text>
+          <Text style={{ fontSize: 11, color: this.props.theme.secondary }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
+          <Text style={{ fontSize: 11, color: this.props.theme.secondary }}>{`${item.skill2_name} +${item.skill2_level}`}</Text>
         </Right>
       );
     } else if (item.skill1_name !== null && item.skill2_name === null) {
       return (
         <Right style={{ flex: 2, justifyContent: 'center' }}>
-          <Text style={{ fontSize: 11, color: colors.secondary }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
+          <Text style={{ fontSize: 11, color: this.props.theme.secondary }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
         </Right>
       );
     }
@@ -31,8 +32,12 @@ export default class CharmListItem extends PureComponent {
     if (this.props.setSelected) {
       return (
         <View
-          style={{ marginLeft: 0, marginRight: 0, marginTop: 0, marginBottom: 0, paddingTop: 0, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, borderWidth: 0, flexDirection: 'row' }}
-          >
+          style={{
+            margin: 0,
+            padding: 0,
+            borderWidth: 0,
+            flexDirection: 'row',
+          }}>
             <Left style={{ flex: 0.5 }}>
               <Image
                 resizeMode="contain"
@@ -41,7 +46,7 @@ export default class CharmListItem extends PureComponent {
               />
             </Left>
             <Left style={{ flex: 2.5 }}>
-              <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+              <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{item.name}</Text>
             </Left>
             {this.renderSkills(item)}
         </View>
@@ -49,7 +54,7 @@ export default class CharmListItem extends PureComponent {
     }
     return (
       <ListItem
-        style={{ height: 60, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+        style={[styles.listHeader, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItemHeader }]}
         onPress={() => {
         if (this.props.setBuilder) {
           this.props.onPassProp(item);
@@ -76,7 +81,7 @@ export default class CharmListItem extends PureComponent {
           />
         </Left>
         <Left style={{ flex: 2 }}>
-          <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+          <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{item.name}</Text>
         </Left>
         {this.renderSkills(item)}
       </ListItem>
@@ -87,3 +92,28 @@ export default class CharmListItem extends PureComponent {
     return this.renderListItems(this.props.item);
   }
 }
+
+const styles = StyleSheet.create({
+  listHeader: {
+    height: 55,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  listItem: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(CharmListItem);

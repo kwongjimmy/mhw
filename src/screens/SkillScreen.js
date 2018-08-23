@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react';
-import { Platform, View, FlatList, ActivityIndicator } from 'react-native';
+import { Platform, View, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import { ListItem, Text, Left, Right, Body } from 'native-base';
+import { connect } from 'react-redux';
 import AdBanner from '../components/AdBanner';
 
 // Styles
 import colors from '../styles/colors';
 
-export default class SkillScreen extends PureComponent {
+class SkillScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
     topBarBorderColor: colors.accent,
@@ -57,7 +58,7 @@ export default class SkillScreen extends PureComponent {
   renderListItems = ({ item }) => {
     return (
       <ListItem
-        style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+        style={[styles.listHeader, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItemHeader }]}
         onPress={() => this.props.navigator.push({
         screen: 'TabInfoScreen',
         passProps: {
@@ -69,10 +70,10 @@ export default class SkillScreen extends PureComponent {
       })}
       >
       <Left>
-        <Text style={{ fontSize: 15.5, color: colors.main }}>{item.name}</Text>
+        <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{item.name}</Text>
       </Left>
       <Body>
-        <Text style={{ fontSize: 13, color: colors.secondary }}>{item.description}</Text>
+        <Text style={{ fontSize: 13, color: this.props.theme.secondary }}>{item.description}</Text>
       </Body>
       </ListItem>
     );
@@ -81,15 +82,15 @@ export default class SkillScreen extends PureComponent {
   renderContent() {
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
-          <ActivityIndicator size="large" color={colors.main}/>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background }}>
+          <ActivityIndicator size="large" color={this.props.theme.main}/>
         </View>
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
         <FlatList
-          style={{ backgroundColor: colors.background }}
+          style={{ backgroundColor: this.props.theme.background }}
           initialNumToRender={8}
           data={this.state.items}
           keyExtractor={(item) => item.armor_skill_id.toString()}
@@ -104,3 +105,27 @@ export default class SkillScreen extends PureComponent {
     return this.renderContent();
   }
 }
+
+const styles = StyleSheet.create({
+  listHeader: {
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  listItem: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(SkillScreen);

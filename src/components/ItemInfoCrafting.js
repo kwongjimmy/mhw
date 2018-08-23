@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 import { ListItem, Body, Right, Left, Text } from 'native-base';
+import { connect } from 'react-redux';
 import AdBanner from './AdBanner';
 import DropDown from './DropDown';
 
 // Styles
 import colors from '../styles/colors';
 
-export default class ItemInfoCrafting extends PureComponent {
+class ItemInfoCrafting extends PureComponent {
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -27,7 +28,7 @@ export default class ItemInfoCrafting extends PureComponent {
       return (
         <View>
           <ListItem
-            style={{ height: 50, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+            style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
             onPress={() => this.props.navigator.push({
             screen: 'TablessInfoScreen',
             passProps: {
@@ -38,14 +39,14 @@ export default class ItemInfoCrafting extends PureComponent {
             title: item[0].material_name,
           })}>
             <Left>
-              <Text style={{ fontSize: 15.5, color: colors.main }}>{`${item[0].material_name}`}</Text>
+              <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`${item[0].material_name}`}</Text>
             </Left>
             <Right>
-              <Text style={{ fontSize: 15.5, color: colors.main }}>{`x${item[0].quantity}`}</Text>
+              <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`x${item[0].quantity}`}</Text>
             </Right>
           </ListItem>
           <ListItem
-            style={{ height: 50, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+            style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
             onPress={() => this.props.navigator.push({
             screen: 'TablessInfoScreen',
             passProps: {
@@ -56,10 +57,10 @@ export default class ItemInfoCrafting extends PureComponent {
             title: item[1].material_name,
           })}>
             <Left>
-              <Text style={{ fontSize: 15.5, color: colors.main }}>{`${item[1].material_name}`}</Text>
+              <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`${item[1].material_name}`}</Text>
             </Left>
             <Right>
-              <Text style={{ fontSize: 15.5, color: colors.main }}>{`x${item[1].quantity}`}</Text>
+              <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`x${item[1].quantity}`}</Text>
             </Right>
           </ListItem>
         </View>
@@ -67,7 +68,7 @@ export default class ItemInfoCrafting extends PureComponent {
     }
     return (
       <ListItem
-        style={{ height: 50, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+        style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
         passProps: {
@@ -78,10 +79,10 @@ export default class ItemInfoCrafting extends PureComponent {
         title: item[0].material_name,
       })}>
         <Left>
-          <Text style={{ fontSize: 15.5, color: colors.main }}>{`${item[0].material_name}`}</Text>
+          <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`${item[0].material_name}`}</Text>
         </Left>
         <Right>
-          <Text style={{ fontSize: 15.5, color: colors.main }}>{`x${item[0].quantity}`}</Text>
+          <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`x${item[0].quantity}`}</Text>
         </Right>
       </ListItem>
     );
@@ -91,11 +92,10 @@ export default class ItemInfoCrafting extends PureComponent {
     return (
       <View>
         <ListItem
-          style={{ height: 50, marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: colors.divider }}
-          itemDivider
+          style={[styles.listHeader, { backgroundColor: this.props.theme.listItemHeader }]}
         >
           <Left>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>{`Recipe #${index + 1}`}</Text>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`Recipe #${index + 1}`}</Text>
           </Left>
           <Right />
         </ListItem>
@@ -111,7 +111,7 @@ export default class ItemInfoCrafting extends PureComponent {
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
         <DropDown
           headerName={'Combination'}
           hide={true}
@@ -131,3 +131,28 @@ export default class ItemInfoCrafting extends PureComponent {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  listHeader: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: 0,
+  },
+  listItem: {
+    height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(ItemInfoCrafting);

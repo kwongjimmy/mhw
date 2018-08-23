@@ -44,69 +44,9 @@ export default class MonsterEquip extends PureComponent {
     );
   }
 
-  renderSlots(item) {
-    let slot1 = (item.slot1 === 0) ? `-` : (item.slot1 === 1) ? `\u2460` : (item.slot1 === 2) ? `\u2461` : `\u2462`;
-    let slot2 = (item.slot2 === 0) ? `-` : (item.slot2 === 1) ? `\u2460` : (item.slot2 === 2) ? `\u2461` : `\u2462`;
-    let slot3 = (item.slot3 === 0) ? `-` : (item.slot3 === 1) ? `\u2460` : (item.slot3 === 2) ? `\u2461` : `\u2462`;
-    return (
-      <View style={{ justifyContent: 'center' }}>
-        <Text style={{ fontSize: 14, fontWeight: '500', color: colors.secondary, textAlign: 'center' }}>{`${slot1} ${slot2} ${slot3}`}</Text>
-      </View>
-    );
-  }
-
-  renderSkills(item) {
-    if (item.skill1_name !== null && item.skill2_name !== null) {
-      return (
-        <View style={{ justifyContent: 'center' }}>
-          <Text style={{ fontSize: 11, color: colors.secondary }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
-          <Text style={{ fontSize: 11, color: colors.secondary }}>{`${item.skill2_name} +${item.skill2_level}`}</Text>
-        </View>
-      );
-    } else if (item.skill1_name !== null && item.skill2_name === null) {
-      return (
-        <View style={{ justifyContent: 'center' }}>
-          <Text style={{ fontSize: 11, color: colors.secondary }}>{`${item.skill1_name} +${item.skill1_level}`}</Text>
-        </View>
-      );
-    }
-    return (
-      null
-    );
-  }
-
   renderListItems = ({ item }) => {
     return (
-      <ArmorListItem item={item} navigator={this.props.navigator} monster={true}/>
-      // <ListItem
-      //   style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
-      //   onPress={() => this.props.navigator.push({
-      //   screen: 'TablessInfoScreen',
-      //   passProps: {
-      //     item_id: item.item_id,
-      //     type: 'armor',
-      //   },
-      //   animationType: 'slide-horizontal',
-      //   title: item.name,
-      // })}
-      // >
-      //   <Left style={{ flex: 0.5 }}>
-      //     <Image
-      //       resizeMode="contain"
-      //       style={{ alignSelf: 'center', width: 20, height: 20 }}
-      //       source={ArmorImages[`${item.type.toLowerCase()} ${item.rarity}`]}
-      //     />
-      //   </Left>
-      //   <Left style={{ flex: 1.25 }}>
-      //     <Text style={{ flex: 1, fontSize: 15.5, color: colors.main }}>{item.name}</Text>
-      //   </Left>
-      //   <Body style={{ flex: 1.5, flexGrow: 2 }}>
-      //     {this.renderSkills(item)}
-      //   </Body>
-      //   <Right style={{ flex: 0.5, flexGrow: 1 }}>
-      //     {this.renderSlots(item)}
-      //   </Right>
-      // </ListItem>
+      <ArmorListItem navigator={this.props.navigator} item={item} monster={true}/>
     );
   }
 
@@ -114,23 +54,23 @@ export default class MonsterEquip extends PureComponent {
     if (this.state.loading) {
       return (
         <View style={{
-          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background,
+          flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background,
         }}>
-          <ActivityIndicator size="large" color={colors.main}/>
+          <ActivityIndicator size="large" color={this.props.theme.main}/>
         </View>
       );
     }
     if (!this.state.loading && this.state.data.length === 0) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
-          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: colors.secondary }} />
-          <Text style={{ textAlign: 'center', fontSize: 25, color: colors.secondary }}>No Data</Text>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background }}>
+          <Icon ios='ios-alert-outline' android='ios-alert-outline' style={{ textAlign: 'center', fontSize: 50, color: this.props.theme.secondary }} />
+          <Text style={{ textAlign: 'center', fontSize: 25, color: this.props.theme.secondary }}>No Data</Text>
         </View>
       );
     }
     if (this.props.type === 'armor') {
       return (
-        <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
           <FlatList
             initialNumToRender={11}
             data={this.state.data}
@@ -144,7 +84,7 @@ export default class MonsterEquip extends PureComponent {
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={{ flex: 1, backgroundColor: this.props.theme.background }}>
         <FlatList
           initialNumToRender={7}
           data={this.state.data}

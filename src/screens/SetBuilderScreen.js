@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
-import { View, ScrollView, Image, AsyncStorage, ActivityIndicator } from 'react-native';
+import { View, ScrollView, Image, AsyncStorage, ActivityIndicator, StyleSheet } from 'react-native';
 import { Text, ListItem, Left, Right, Body, Container, Tabs, Tab, Button } from 'native-base';
+import Modal from 'react-native-modal';
+import { connect } from 'react-redux';
 import { WeaponImages, ArmorImages, ElementStatusImages } from '../assets';
 import WeaponListItem from '../components/WeaponListItem';
 import KinsectListItem from '../components/KinsectListItem';
@@ -8,26 +10,25 @@ import CharmListItem from '../components/CharmListItem';
 import DecorationListItem from '../components/DecorationListItem';
 import ArmorListItem from '../components/ArmorListItem';
 import AdBanner from '../components/AdBanner';
-import Modal from 'react-native-modal';
 
 // Styles
 import colors from '../styles/colors';
 
-export default class SetBuilderScreen extends PureComponent {
-  static navigatorButtons = {
-    rightButtons: [
-      {
-        title: 'Clear', // for a textual button, provide the button title (label)
-        id: 'Clear', // id for this button, given in onNavigatorEvent(event) to help understand which button was clicked
-        disabled: false, // optional, used to disable the button (appears faded and doesn't interact)
-        disableIconTint: false, // optional, by default the image colors are overridden and tinted to navBarButtonColor, set to true to keep the original image colors
-        showAsAction: 'never', // optional, Android only. Control how the button is displayed in the Toolbar. Accepted valued: 'ifRoom' (default) - Show this item as a button in an Action Bar if the system decides there is room for it. 'always' - Always show this item as a button in an Action Bar. 'withText' - When this item is in the action bar, always show it with a text label even if it also has an icon specified. 'never' - Never show this item as a button in an Action Bar.
-        buttonColor: colors.main, // Optional, iOS only. Set color for the button (can also be used in setButtons function to set different button style programatically)
-        buttonFontSize: 14, // Set font size for the button (can also be used in setButtons function to set different button style programatically)
-        buttonFontWeight: '600', // Set font weight for the button (can also be used in setButtons function to set different button style programatically)
-      },
-    ],
-  };
+class SetBuilderScreen extends PureComponent {
+  // static navigatorButtons = {
+  //   rightButtons: [
+  //     {
+  //       title: 'Clear', // for a textual button, provide the button title (label)
+  //       id: 'Clear', // id for this button, given in onNavigatorEvent(event) to help understand which button was clicked
+  //       disabled: false, // optional, used to disable the button (appears faded and doesn't interact)
+  //       disableIconTint: false, // optional, by default the image colors are overridden and tinted to navBarButtonColor, set to true to keep the original image colors
+  //       showAsAction: 'never', // optional, Android only. Control how the button is displayed in the Toolbar. Accepted valued: 'ifRoom' (default) - Show this item as a button in an Action Bar if the system decides there is room for it. 'always' - Always show this item as a button in an Action Bar. 'withText' - When this item is in the action bar, always show it with a text label even if it also has an icon specified. 'never' - Never show this item as a button in an Action Bar.
+  //       buttonColor: colors.main, // Optional, iOS only. Set color for the button (can also be used in setButtons function to set different button style programatically)
+  //       buttonFontSize: 14, // Set font size for the button (can also be used in setButtons function to set different button style programatically)
+  //       buttonFontWeight: '600', // Set font weight for the button (can also be used in setButtons function to set different button style programatically)
+  //     },
+  //   ],
+  // };
 
   constructor(props) {
     super(props);
@@ -115,6 +116,21 @@ export default class SetBuilderScreen extends PureComponent {
           loading: false,
         });
       });
+    this.props.navigator.setButtons({
+      rightButtons: [
+        {
+          title: 'Clear', // for a textual button, provide the button title (label)
+          id: 'Clear', // id for this button, given in onNavigatorEvent(event) to help understand which button was clicked
+          disabled: false, // optional, used to disable the button (appears faded and doesn't interact)
+          disableIconTint: false, // optional, by default the image colors are overridden and tinted to navBarButtonColor, set to true to keep the original image colors
+          showAsAction: 'never', // optional, Android only. Control how the button is displayed in the Toolbar. Accepted valued: 'ifRoom' (default) - Show this item as a button in an Action Bar if the system decides there is room for it. 'always' - Always show this item as a button in an Action Bar. 'withText' - When this item is in the action bar, always show it with a text label even if it also has an icon specified. 'never' - Never show this item as a button in an Action Bar.
+          buttonColor: this.props.theme.main, // Optional, iOS only. Set color for the button (can also be used in setButtons function to set different button style programatically)
+          buttonFontSize: 14, // Set font size for the button (can also be used in setButtons function to set different button style programatically)
+          buttonFontWeight: '600', // Set font weight for the button (can also be used in setButtons function to set different button style programatically)
+        },
+      ],
+      animated: true, // does the change have transition animation or does it happen immediately (optional)
+    });
   }
 
   onNavigatorEvent(event) {
@@ -186,7 +202,7 @@ export default class SetBuilderScreen extends PureComponent {
       <Modal
         animationType="fade"
         // useNativeDriver
-        backdropColor={colors.main}
+        backdropColor={this.props.theme.backdrop}
         backdropOpacity={0.7}
         avoidKeyboard
         isVisible={this.state.clearModal}
@@ -194,14 +210,14 @@ export default class SetBuilderScreen extends PureComponent {
           this.setState({ clearModal: false });
         }}>
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-          <View style={{ width: 300, height: 200, backgroundColor: colors.background, borderRadius: 10 }}>
-            <View style={{ flex: 4, justifyContent: 'center', alignItems: 'center', borderBottomWidth: 0, borderColor: colors.accent }}>
-              <Text style={{ fontSize: 18, color: colors.main }}>{`Clear all equipments?`}</Text>
+          <View style={{ width: 300, height: 200, backgroundColor: this.props.theme.background, borderRadius: 10 }}>
+            <View style={{ flex: 4, justifyContent: 'center', alignItems: 'center', borderBottomWidth: 0, borderColor: this.props.theme.accent }}>
+              <Text style={{ fontSize: 18, color: this.props.theme.main }}>{`Clear all equipments?`}</Text>
             </View>
             <View style={{ flex: 2, flexDirection: 'row', borderWidth: 0, borderColor: 'green', justifyContent: 'center', alignItems: 'center' }}>
               <Button
                 block
-                style={{ flex: 1, backgroundColor: colors.secondary, alignItems: 'center', shadowOpacity: 0, elevation: 0, marginLeft: 15, marginRight: 15 }}
+                style={{ flex: 1, backgroundColor: this.props.theme.secondary, alignItems: 'center', shadowOpacity: 0, elevation: 0, marginLeft: 15, marginRight: 15 }}
                 onPress={() => {
                   this.cancelClear();
                 }}>
@@ -209,7 +225,7 @@ export default class SetBuilderScreen extends PureComponent {
               </Button>
               <Button
                 block
-                style={{ flex: 1, backgroundColor: colors.accent, alignItems: 'center', shadowOpacity: 0, elevation: 0, marginLeft: 15, marginRight: 15 }}
+                style={{ flex: 1, backgroundColor: this.props.theme.accent, alignItems: 'center', shadowOpacity: 0, elevation: 0, marginLeft: 15, marginRight: 15 }}
                 onPress={() => {
                   this.confirmClear();
                 }}>
@@ -228,7 +244,7 @@ export default class SetBuilderScreen extends PureComponent {
       if (this.state.equipment.helm.slot1 > 0) {
         return (
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18 }}
+            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18, backgroundColor: this.props.theme.listItem, borderColor: this.props.theme.border, borderBottomWidth: StyleSheet.hairlineWidth }}
             onPress={() => this.props.navigator.showModal({
               screen: 'SetBuilderSelect',
               title: 'Select Decoration',
@@ -250,7 +266,7 @@ export default class SetBuilderScreen extends PureComponent {
       if (this.state.equipment.helm.slot2 > 0) {
         return (
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18 }}
+            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18, backgroundColor: this.props.theme.listItem, borderColor: this.props.theme.border, borderBottomWidth: StyleSheet.hairlineWidth }}
             onPress={() => this.props.navigator.showModal({
               screen: 'SetBuilderSelect',
               title: 'Select Decoration',
@@ -272,7 +288,7 @@ export default class SetBuilderScreen extends PureComponent {
       if (this.state.equipment.helm.slot3 > 0) {
         return (
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18 }}
+            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18, backgroundColor: this.props.theme.listItem, borderColor: this.props.theme.border, borderBottomWidth: StyleSheet.hairlineWidth }}
             onPress={() => this.props.navigator.showModal({
               screen: 'SetBuilderSelect',
               title: 'Select Decoration',
@@ -298,7 +314,7 @@ export default class SetBuilderScreen extends PureComponent {
     return (
       <View style={{ flex: 1 }}>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItemHeader }]}
           onPress={() => this.props.navigator.showModal({
             screen: 'SetBuilderSelect',
             title: 'Select Helm',
@@ -339,7 +355,7 @@ export default class SetBuilderScreen extends PureComponent {
       if (this.state.equipment.chest.slot1 > 0) {
         return (
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18 }}
+            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18, backgroundColor: this.props.theme.listItem, borderColor: this.props.theme.border, borderBottomWidth: StyleSheet.hairlineWidth }}
             onPress={() => this.props.navigator.showModal({
               screen: 'SetBuilderSelect',
               title: 'Select Decoration',
@@ -361,7 +377,7 @@ export default class SetBuilderScreen extends PureComponent {
       if (this.state.equipment.chest.slot2 > 0) {
         return (
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18 }}
+            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18, backgroundColor: this.props.theme.listItem, borderColor: this.props.theme.border, borderBottomWidth: StyleSheet.hairlineWidth }}
             onPress={() => this.props.navigator.showModal({
               screen: 'SetBuilderSelect',
               title: 'Select Decoration',
@@ -383,7 +399,7 @@ export default class SetBuilderScreen extends PureComponent {
       if (this.state.equipment.chest.slot3 > 0) {
         return (
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18 }}
+            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18, backgroundColor: this.props.theme.listItem, borderColor: this.props.theme.border, borderBottomWidth: StyleSheet.hairlineWidth }}
             onPress={() => this.props.navigator.showModal({
               screen: 'SetBuilderSelect',
               title: 'Select Decoration',
@@ -409,7 +425,7 @@ export default class SetBuilderScreen extends PureComponent {
     return (
       <View style={{ flex: 1 }}>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItemHeader }]}
           onPress={() => this.props.navigator.showModal({
             screen: 'SetBuilderSelect',
             title: 'Select Chest',
@@ -449,7 +465,7 @@ export default class SetBuilderScreen extends PureComponent {
       if (this.state.equipment.arms.slot1 > 0) {
         return (
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18 }}
+            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18, backgroundColor: this.props.theme.listItem, borderColor: this.props.theme.border, borderBottomWidth: StyleSheet.hairlineWidth }}
             onPress={() => this.props.navigator.showModal({
               screen: 'SetBuilderSelect',
               title: 'Select Decoration',
@@ -471,7 +487,7 @@ export default class SetBuilderScreen extends PureComponent {
       if (this.state.equipment.arms.slot2 > 0) {
         return (
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18 }}
+            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18, backgroundColor: this.props.theme.listItem, borderColor: this.props.theme.border, borderBottomWidth: StyleSheet.hairlineWidth }}
             onPress={() => this.props.navigator.showModal({
               screen: 'SetBuilderSelect',
               title: 'Select Decoration',
@@ -493,7 +509,15 @@ export default class SetBuilderScreen extends PureComponent {
       if (this.state.equipment.arms.slot3 > 0) {
         return (
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18 }}
+            style={{
+              marginLeft: 0,
+              paddingLeft: 36,
+              marginRight: 0,
+              paddingRight: 18,
+              backgroundColor: this.props.theme.listItem,
+              borderColor: this.props.theme.border,
+              borderBottomWidth: StyleSheet.hairlineWidth
+            }}
             onPress={() => this.props.navigator.showModal({
               screen: 'SetBuilderSelect',
               title: 'Select Decoration',
@@ -519,7 +543,7 @@ export default class SetBuilderScreen extends PureComponent {
     return (
       <View style={{ flex: 1 }}>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItemHeader }]}
           onPress={() => this.props.navigator.showModal({
             screen: 'SetBuilderSelect',
             title: 'Select Arms',
@@ -559,7 +583,15 @@ export default class SetBuilderScreen extends PureComponent {
       if (this.state.equipment.waist.slot1 > 0) {
         return (
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18 }}
+            style={{
+              marginLeft: 0,
+              paddingLeft: 36,
+              marginRight: 0,
+              paddingRight: 18,
+              backgroundColor: this.props.theme.listItem,
+              borderColor: this.props.theme.border,
+              borderBottomWidth: StyleSheet.hairlineWidth,
+            }}
             onPress={() => this.props.navigator.showModal({
               screen: 'SetBuilderSelect',
               title: 'Select Decoration',
@@ -581,7 +613,15 @@ export default class SetBuilderScreen extends PureComponent {
       if (this.state.equipment.waist.slot2 > 0) {
         return (
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18 }}
+            style={{
+              marginLeft: 0,
+              paddingLeft: 36,
+              marginRight: 0,
+              paddingRight: 18,
+              backgroundColor: this.props.theme.listItem,
+              borderColor: this.props.theme.border,
+              borderBottomWidth: StyleSheet.hairlineWidth,
+            }}
             onPress={() => this.props.navigator.showModal({
               screen: 'SetBuilderSelect',
               title: 'Select Decoration',
@@ -603,7 +643,15 @@ export default class SetBuilderScreen extends PureComponent {
       if (this.state.equipment.waist.slot3 > 0) {
         return (
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18 }}
+            style={{
+              marginLeft: 0,
+              paddingLeft: 36,
+              marginRight: 0,
+              paddingRight: 18,
+              backgroundColor: this.props.theme.listItem,
+              borderColor: this.props.theme.border,
+              borderBottomWidth: StyleSheet.hairlineWidth,
+            }}
             onPress={() => this.props.navigator.showModal({
               screen: 'SetBuilderSelect',
               title: 'Select Decoration',
@@ -629,7 +677,7 @@ export default class SetBuilderScreen extends PureComponent {
     return (
       <View style={{ flex: 1 }}>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItemHeader }]}
           onPress={() => this.props.navigator.showModal({
             screen: 'SetBuilderSelect',
             title: 'Select Waist',
@@ -669,7 +717,15 @@ export default class SetBuilderScreen extends PureComponent {
       if (this.state.equipment.legs.slot1 > 0) {
         return (
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18 }}
+            style={{
+              marginLeft: 0,
+              paddingLeft: 36,
+              marginRight: 0,
+              paddingRight: 18,
+              backgroundColor: this.props.theme.listItem,
+              borderColor: this.props.theme.border,
+              borderBottomWidth: StyleSheet.hairlineWidth,
+            }}
             onPress={() => this.props.navigator.showModal({
               screen: 'SetBuilderSelect',
               title: 'Select Decoration',
@@ -691,7 +747,15 @@ export default class SetBuilderScreen extends PureComponent {
       if (this.state.equipment.legs.slot2 > 0) {
         return (
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18 }}
+            style={{
+              marginLeft: 0,
+              paddingLeft: 36,
+              marginRight: 0,
+              paddingRight: 18,
+              backgroundColor: this.props.theme.listItem,
+              borderColor: this.props.theme.border,
+              borderBottomWidth: StyleSheet.hairlineWidth,
+            }}
             onPress={() => this.props.navigator.showModal({
               screen: 'SetBuilderSelect',
               title: 'Select Decoration',
@@ -713,7 +777,15 @@ export default class SetBuilderScreen extends PureComponent {
       if (this.state.equipment.legs.slot3 > 0) {
         return (
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18 }}
+            style={{
+              marginLeft: 0,
+              paddingLeft: 36,
+              marginRight: 0,
+              paddingRight: 18,
+              backgroundColor: this.props.theme.listItem,
+              borderColor: this.props.theme.border,
+              borderBottomWidth: StyleSheet.hairlineWidth,
+            }}
             onPress={() => this.props.navigator.showModal({
               screen: 'SetBuilderSelect',
               title: 'Select Decoration',
@@ -739,7 +811,7 @@ export default class SetBuilderScreen extends PureComponent {
     return (
       <View style={{ flex: 1 }}>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItemHeader }]}
           onPress={() => this.props.navigator.showModal({
             screen: 'SetBuilderSelect',
             title: 'Select Legs',
@@ -779,7 +851,15 @@ export default class SetBuilderScreen extends PureComponent {
       if (this.state.equipment.weapon.slot1 > 0) {
         return (
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18 }}
+            style={{
+              marginLeft: 0,
+              paddingLeft: 36,
+              marginRight: 0,
+              paddingRight: 18,
+              backgroundColor: this.props.theme.listItem,
+              borderColor: this.props.theme.border,
+              borderBottomWidth: StyleSheet.hairlineWidth,
+            }}
             onPress={() => this.props.navigator.showModal({
               screen: 'SetBuilderSelect',
               title: 'Select Decoration',
@@ -801,7 +881,15 @@ export default class SetBuilderScreen extends PureComponent {
       if (this.state.equipment.weapon.slot2 > 0) {
         return (
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18 }}
+            style={{
+              marginLeft: 0,
+              paddingLeft: 36,
+              marginRight: 0,
+              paddingRight: 18,
+              backgroundColor: this.props.theme.listItem,
+              borderColor: this.props.theme.border,
+              borderBottomWidth: StyleSheet.hairlineWidth,
+            }}
             onPress={() => this.props.navigator.showModal({
               screen: 'SetBuilderSelect',
               title: 'Select Decoration',
@@ -823,7 +911,15 @@ export default class SetBuilderScreen extends PureComponent {
       if (this.state.equipment.weapon.slot3 > 0) {
         return (
           <ListItem
-            style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18 }}
+            style={{
+              marginLeft: 0,
+              paddingLeft: 36,
+              marginRight: 0,
+              paddingRight: 18,
+              backgroundColor: this.props.theme.listItem,
+              borderColor: this.props.theme.border,
+              borderBottomWidth: StyleSheet.hairlineWidth,
+            }}
             onPress={() => this.props.navigator.showModal({
               screen: 'SetBuilderSelect',
               title: 'Select Decoration',
@@ -852,7 +948,7 @@ export default class SetBuilderScreen extends PureComponent {
       );
     }
     return (
-      <Text>{`Kinsect`}</Text>
+      <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`Kinsect`}</Text>
     );
   }
 
@@ -861,7 +957,15 @@ export default class SetBuilderScreen extends PureComponent {
     if (this.state.equipment.weapon.type === 'insect_glaive') {
       return (
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 36, marginRight: 0, paddingRight: 18 }}
+          style={{
+            marginLeft: 0,
+            paddingLeft: 36,
+            marginRight: 0,
+            paddingRight: 18,
+            backgroundColor: this.props.theme.listItem,
+            borderColor: this.props.theme.border,
+            borderBottomWidth: StyleSheet.hairlineWidth,
+          }}
           onPress={() => this.props.navigator.showModal({
             screen: 'SetBuilderSelect',
             title: 'Select Kinsect',
@@ -893,7 +997,7 @@ export default class SetBuilderScreen extends PureComponent {
     return (
       <View style={{ flex: 1 }}>
         <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItemHeader }]}
           onPress={() => this.props.navigator.showModal({
             screen: 'SetBuilderSelect',
             title: 'Select Weapon',
@@ -931,7 +1035,7 @@ export default class SetBuilderScreen extends PureComponent {
     return (
       <View style={{ flex: 1 }}>
         <ListItem
-          style={{ marginLeft: 0, marginRight: 0, paddingRight: 18, paddingLeft: 18 }}
+          style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItemHeader }]}
           onPress={() => this.props.navigator.showModal({
             screen: 'SetBuilderSelect',
             title: 'Select Charm',
@@ -967,7 +1071,7 @@ export default class SetBuilderScreen extends PureComponent {
       );
     }
     return (
-      <Text>{`Decoration Slot Level ${level}`}</Text>
+      <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`Decoration Slot Level ${level}`}</Text>
     );
   }
 
@@ -994,14 +1098,14 @@ export default class SetBuilderScreen extends PureComponent {
       );
     }
     return (
-      <Text>{defaultName}</Text>
+      <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{defaultName}</Text>
     );
   }
 
   renderDefense() {
     return (
       <View>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+        <ListItem style={[styles.listHeader, { backgroundColor: this.props.theme.listItemHeader }]}>
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
             <Image
               resizeMode="contain"
@@ -1045,13 +1149,13 @@ export default class SetBuilderScreen extends PureComponent {
             />
           </View>
         </ListItem>
-        <ListItem style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, borderBottomWidth: 0 }}>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{this.state.defense}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{this.state.fire}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{this.state.water}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{this.state.thunder}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{this.state.ice}</Text>
-          <Text style={{ flex: 1, fontSize: 15.5, color: colors.main, textAlign: 'center' }}>{this.state.dragon}</Text>
+        <ListItem style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}>
+          <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>{this.state.defense}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>{this.state.fire}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>{this.state.water}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>{this.state.thunder}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>{this.state.ice}</Text>
+          <Text style={{ flex: 1, fontSize: 15.5, color: this.props.theme.main, textAlign: 'center' }}>{this.state.dragon}</Text>
         </ListItem>
       </View>
     );
@@ -1371,17 +1475,16 @@ export default class SetBuilderScreen extends PureComponent {
     const array = Object.keys(skills);
     return (
       <View>
-        <ListItem
-          style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }} itemDivider>
+        <ListItem style={[styles.listHeader, { backgroundColor: this.props.theme.listItemHeader }]}>
           <Left>
-            <Text style={{ fontSize: 15.5, color: colors.main }}>Skills</Text>
+            <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>Skills</Text>
           </Left>
         </ListItem>
         {array.map((key) => {
           return (
             <ListItem
               key={key}
-              style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+              style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
               onPress={() => this.props.navigator.push({
               screen: 'TabInfoScreen',
               passProps: {
@@ -1392,10 +1495,10 @@ export default class SetBuilderScreen extends PureComponent {
               title: skills[key].name,
             })}>
             <Left>
-              <Text style={{ fontSize: 15.5, color: colors.main }}>{skills[key].name}</Text>
+              <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{skills[key].name}</Text>
             </Left>
             <Right>
-              <Text style={{ fontSize: 15.5, color: colors.main }}>{`+${skills[key].level}`}</Text>
+              <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`+${skills[key].level}`}</Text>
             </Right>
             </ListItem>
           );
@@ -1415,10 +1518,9 @@ export default class SetBuilderScreen extends PureComponent {
     if (array.length > 0) {
       return (
         <View>
-          <ListItem
-            style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, borderBottomWidth: 0.333 }} itemDivider>
+          <ListItem style={[styles.listHeader, { backgroundColor: this.props.theme.listItemHeader }]}>
             <Left>
-              <Text style={{ fontSize: 15.5, color: colors.main }}>Set Bonus</Text>
+              <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>Set Bonus</Text>
             </Left>
           </ListItem>
           {array.map((key) => {
@@ -1426,7 +1528,7 @@ export default class SetBuilderScreen extends PureComponent {
             if (setBonus[key].set_bonus_skill2 !== null) {
               setBonus2 =
                 <ListItem
-                  style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+                  style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
                   onPress={() => this.props.navigator.push({
                   screen: 'TabInfoScreen',
                   passProps: {
@@ -1438,27 +1540,27 @@ export default class SetBuilderScreen extends PureComponent {
                 })}
                 >
                 <Left>
-                  <Text style={{ fontSize: 15.5, color: colors.main }}>{`(${setBonus[key].set_pieces2}) ${setBonus[key].set_bonus_skill2}`}</Text>
+                  <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`(${setBonus[key].set_pieces2}) ${setBonus[key].set_bonus_skill2}`}</Text>
                 </Left>
                 <Right>
-                  <Text style={{ fontSize: 15.5, color: colors.main }}>{`+${setBonus[key].set_bonus_skill2_level}`}</Text>
+                  <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`+${setBonus[key].set_bonus_skill2_level}`}</Text>
                 </Right>
               </ListItem>;
             }
             return (
               <View key={key}>
                 <ListItem
-                  style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18, backgroundColor: '#F8F8F8' }}
+                  style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
                 >
                 <Left>
-                  <Text style={{ fontSize: 15.5, color: colors.main }}>{setBonus[key].name}</Text>
+                  <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{setBonus[key].name}</Text>
                 </Left>
                 <Right>
-                  <Text style={{ fontSize: 11, color: colors.main }}>{`${setBonus[key].pieces} Equipped`}</Text>
+                  <Text style={{ fontSize: 11, color: this.props.theme.main }}>{`${setBonus[key].pieces} Equipped`}</Text>
                 </Right>
                 </ListItem>
                 <ListItem
-                  style={{ marginLeft: 0, paddingLeft: 18, marginRight: 0, paddingRight: 18 }}
+                  style={[styles.listItem, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItem }]}
                   onPress={() => this.props.navigator.push({
                   screen: 'TabInfoScreen',
                   passProps: {
@@ -1470,10 +1572,10 @@ export default class SetBuilderScreen extends PureComponent {
                 })}
                 >
                   <Left>
-                    <Text style={{ fontSize: 15.5, color: colors.main }}>{`(${setBonus[key].set_pieces}) ${setBonus[key].set_bonus_skill1}`}</Text>
+                    <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`(${setBonus[key].set_pieces}) ${setBonus[key].set_bonus_skill1}`}</Text>
                   </Left>
                   <Right>
-                    <Text style={{ fontSize: 15.5, color: colors.main }}>{`+${setBonus[key].set_bonus_skill1_level}`}</Text>
+                    <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>{`+${setBonus[key].set_bonus_skill1_level}`}</Text>
                   </Right>
                 </ListItem>
                 {setBonus2}
@@ -1538,8 +1640,8 @@ export default class SetBuilderScreen extends PureComponent {
     this.saveSet();
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: colors.background }}>
-          <ActivityIndicator size="large" color={colors.main}/>
+        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'stretch', backgroundColor: this.props.theme.background }}>
+          <ActivityIndicator size="large" color={this.props.theme.main}/>
         </View>
       );
     }
@@ -1549,18 +1651,18 @@ export default class SetBuilderScreen extends PureComponent {
         <Tabs
           prerenderingSiblingsNumber={3}
           scrollWithoutAnimation={false}
-          tabBarUnderlineStyle={{ backgroundColor: colors.accent, height: 3 }}
+          tabBarUnderlineStyle={{ backgroundColor: this.props.theme.accent, height: 3 }}
           initialPage={0}
           onChangeTab={(ref) => { if (ref.i === 1) this.calculateStats(); }}
           >
           <Tab
-            activeTabStyle={{ backgroundColor: colors.background }}
-            tabStyle={{ backgroundColor: colors.background }}
-            activeTextStyle={{ color: colors.main }}
-            textStyle={{ color: colors.secondary }}
+            activeTabStyle={{ backgroundColor: this.props.theme.background }}
+            tabStyle={{ backgroundColor: this.props.theme.background }}
+            activeTextStyle={{ color: this.props.theme.main }}
+            textStyle={{ color: this.props.theme.secondary }}
             heading="Equipment"
             >
-            <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
+            <ScrollView style={{ flex: 1, backgroundColor: this.props.theme.background }}>
               {this.renderWeapon()}
               {this.renderCharm()}
               {this.renderHelm()}
@@ -1571,13 +1673,13 @@ export default class SetBuilderScreen extends PureComponent {
             </ScrollView>
           </Tab>
           <Tab
-            activeTabStyle={{ backgroundColor: colors.background }}
-            tabStyle={{ backgroundColor: colors.background }}
-            activeTextStyle={{ color: colors.main }}
-            textStyle={{ color: colors.secondary }}
+            activeTabStyle={{ backgroundColor: this.props.theme.background }}
+            tabStyle={{ backgroundColor: this.props.theme.background }}
+            activeTextStyle={{ color: this.props.theme.main }}
+            textStyle={{ color: this.props.theme.secondary }}
             heading="Stats"
             >
-            <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
+            <ScrollView style={{ flex: 1, backgroundColor: this.props.theme.background }}>
               {this.renderStats()}
             </ScrollView>
           </Tab>
@@ -1587,3 +1689,28 @@ export default class SetBuilderScreen extends PureComponent {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  listHeader: {
+    // height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: 0,
+  },
+  listItem: {
+    // height: 50,
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 18,
+    paddingRight: 18,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(SetBuilderScreen);
