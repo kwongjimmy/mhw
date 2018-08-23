@@ -136,17 +136,17 @@ export default function startApp() {
         navBarTextFontSize: 18, // change the font size of the title
         navBarBackgroundColor: background,
       },
-      // tabsStyle: { // optional, **iOS Only** add this if you want to style the tab bar beyond the defaults
-      //   tabBarHidden: false, // make the tab bar hidden
-      //   tabBarButtonColor: colors.secondary, // change the color of the tab icons and text (also unselected)
-      //   tabBarSelectedButtonColor: colors.accent, // change the color of the selected tab icon and text (only selected)
-      //   tabBarLabelColor: colors.secondary, // iOS only. change the color of tab text
-      //   tabBarSelectedLabelColor: colors.accent, // iOS only. change the color of the selected tab text
-      //   tabBarBackgroundColor: colors.background, // change the background color of the tab bar
-      //   tabBarTranslucent: false, // change the translucent of the tab bar to false
-      //   tabBarHideShadow: false, // iOS only. Remove default tab bar top shadow (hairline)
-      //   navBarBackgroundColor: colors.background,
-      // },
+      tabsStyle: { // optional, **iOS Only** add this if you want to style the tab bar beyond the defaults
+        tabBarHidden: false, // make the tab bar hidden
+        tabBarTranslucent: false, // change the translucent of the tab bar to false
+        tabBarHideShadow: false, // iOS only. Remove default tab bar top shadow (hairline)
+        navBarBackgroundColor: background,
+        tabBarButtonColor: secondary, // change the color of the tab icons and text (also unselected)
+        tabBarSelectedButtonColor: accent, // change the color of the selected tab icon and text (only selected)
+        tabBarLabelColor: secondary, // iOS only. change the color of tab text
+        tabBarSelectedLabelColor: accent, // iOS only. change the color of the selected tab text
+        tabBarBackgroundColor: background, // change the background color of the tab bar
+      },
     });
   });
 }
