@@ -924,7 +924,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
   },
   listItem: {
-    height: 60,
+    // height: 60,
     marginLeft: 0,
     marginRight: 0,
     paddingLeft: 18,

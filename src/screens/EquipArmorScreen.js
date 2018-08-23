@@ -177,13 +177,13 @@ class EquipArmorScreen extends PureComponent {
     if (screen === 'low') {
       return (
         <View style={{ flex: 1, backgroundColor: colors.background }}>
-          <EquipArmorList theme={this.props.theme} navigator={this.props.navigator} armor={this.state.lowRank}/>
+          <EquipArmorList navigator={this.props.navigator} armor={this.state.lowRank}/>
        </View>
       );
     }
     return (
       <View style={{ flex: 1, backgroundColor: colors.background }}>
-        <EquipArmorList theme={this.props.theme} navigator={this.props.navigator} armor={this.state.highRank}/>
+        <EquipArmorList navigator={this.props.navigator} armor={this.state.highRank}/>
        </View>
     );
   }

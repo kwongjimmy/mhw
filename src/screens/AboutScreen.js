@@ -55,7 +55,7 @@ class AboutScreen extends PureComponent {
             <Text style={{ fontSize: 15.5, color: this.props.theme.main }}>chingoosat242@gmail.com</Text>
           </Left>
         </ListItem>
-        <ListItem style={[styles.listHeader, { backgroundColor: this.props.listItemHeader }]}>
+        <ListItem style={[styles.listHeader, { backgroundColor: this.props.theme.listItemHeader }]}>
           <Text style = {{ fontSize: 15.5, color: this.props.theme.main }}>Sources</Text>
         </ListItem>
         <ListItem

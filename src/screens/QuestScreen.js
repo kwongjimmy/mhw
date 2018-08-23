@@ -96,7 +96,7 @@ class QuestScreen extends PureComponent {
   renderListItems = ({ item }) => {
     return (
       <ListItem
-        style={[styles.listHeader, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.listItemHeader }]}
+        style={[styles.listHeader, { borderColor: this.props.theme.border, backgroundColor: this.props.theme.background === 'black' ? this.props.theme.listItemHeader : this.props.theme.listItem }]}
         onPress={() => this.props.navigator.push({
         screen: 'TablessInfoScreen',
 				passProps: {

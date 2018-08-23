@@ -1,12 +1,13 @@
 import React, { PureComponent } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 import { ListItem, Left, Right, Body, Text } from 'native-base';
 import EquipArmorContainer from './EquipArmorContainer';
 
 // Styles
 import colors from '../styles/colors';
 
-export default class EquipArmorList extends PureComponent {
+class EquipArmorList extends PureComponent {
   renderArmorSet = ({ item }) => {
     return (
       // <EquipArmorContainer navigator={this.props.navigator} armor={item}/>
@@ -64,3 +65,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
 });
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(EquipArmorList);

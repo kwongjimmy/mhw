@@ -1,6 +1,6 @@
 import { Navigation } from 'react-native-navigation';
 import React from 'react';
-import { StatusBar, View } from 'react-native';
+import { StatusBar, View, Platform } from 'react-native';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist'
 import { PersistGate } from 'redux-persist/lib/integration/react';
@@ -42,10 +42,19 @@ const store = configureStore();
 
 const Provider1 = ({ store, children }) => {
   console.log(store.getState().settings.theme.iosStatusBar);
+  if (Platform.OS === 'ios') {
+    return (
+      <Provider store={store}>
+        <View style={{ flex: 1 }}>
+          <StatusBar barStyle = {store.getState().settings.theme.iosStatusBar} />
+          {children}
+        </View>
+      </Provider>
+    );
+  }
   return (
     <Provider store={store}>
       <View style={{ flex: 1 }}>
-        <StatusBar barStyle = {store.getState().settings.theme.iosStatusBar} />
         {children}
       </View>
     </Provider>
