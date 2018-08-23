@@ -1,4 +1,6 @@
 import { Navigation } from 'react-native-navigation';
+import React from 'react';
+import { StatusBar, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist'
 import { PersistGate } from 'redux-persist/lib/integration/react';
@@ -38,34 +40,46 @@ import TablessInfoScreen from './screens/TablessInfoScreen';
 
 const store = configureStore();
 
+const Provider1 = ({ store, children }) => {
+  console.log(store.getState().settings.theme.iosStatusBar);
+  return (
+    <Provider store={store}>
+      <View style={{ flex: 1 }}>
+        <StatusBar barStyle = {store.getState().settings.theme.iosStatusBar} />
+        {children}
+      </View>
+    </Provider>
+  );
+};
+
 export default function startApp() {
-  Navigation.registerComponent('MonsterScreen', () => MonsterScreen, store, Provider);
-  Navigation.registerComponent('EquipArmorScreen', () => EquipArmorScreen, store, Provider);
-  Navigation.registerComponent('QuestScreen', () => QuestScreen, store, Provider);
-  Navigation.registerComponent('WeaponSelectScreen', () => WeaponSelectScreen, store, Provider);
-  Navigation.registerComponent('MiscScreen', () => MiscScreen, store, Provider);
-  Navigation.registerComponent('ItemScreen', () => ItemScreen, store, Provider);
-  Navigation.registerComponent('FavoritesScreen', () => FavoritesScreen, store, Provider);
-  Navigation.registerComponent('SearchScreen', () => SearchScreen, store, Provider);
-  Navigation.registerComponent('CharmScreen', () => CharmScreen, store, Provider);
-  Navigation.registerComponent('SkillScreen', () => SkillScreen, store, Provider);
-  Navigation.registerComponent('MapScreen', () => MapScreen, store, Provider);
-  Navigation.registerComponent('DecorationScreen', () => DecorationScreen, store, Provider);
-  Navigation.registerComponent('AboutScreen', () => AboutScreen, store, Provider);
-  Navigation.registerComponent('CombinationScreen', () => CombinationScreen, store, Provider);
-  Navigation.registerComponent('ToolScreen', () => ToolScreen, store, Provider);
-  Navigation.registerComponent('EndemicScreen', () => EndemicScreen, store, Provider);
-  Navigation.registerComponent('SetBuilderScreen', () => SetBuilderScreen, store, Provider);
-  Navigation.registerComponent('SetBuilderSelect', () => SetBuilderSelect, store, Provider);
-  Navigation.registerComponent('SetSelectScreen', () => SetSelectScreen, store, Provider);
-  Navigation.registerComponent('SetSelectScreen', () => SetSelectScreen, store, Provider);
-  Navigation.registerComponent('WeaponSelectedScreen', () => WeaponSelectedScreen, store, Provider);
-  Navigation.registerComponent('MonsterInfoScreen', () => MonsterInfoScreen, store, Provider);
-  Navigation.registerComponent('TabInfoScreen', () => TabInfoScreen, store, Provider);
-  Navigation.registerComponent('TablessInfoScreen', () => TablessInfoScreen, store, Provider);
-  Navigation.registerComponent('EquipInfoScreen', () => EquipInfoScreen, store, Provider);
-  Navigation.registerComponent('WeaponInfoScreen', () => WeaponInfoScreen, store, Provider);
-  Navigation.registerComponent('EquipArmorSetScreen', () => EquipArmorSetScreen, store, Provider);
+  Navigation.registerComponent('MonsterScreen', () => MonsterScreen, store, Provider1);
+  Navigation.registerComponent('EquipArmorScreen', () => EquipArmorScreen, store, Provider1);
+  Navigation.registerComponent('QuestScreen', () => QuestScreen, store, Provider1);
+  Navigation.registerComponent('WeaponSelectScreen', () => WeaponSelectScreen, store, Provider1);
+  Navigation.registerComponent('MiscScreen', () => MiscScreen, store, Provider1);
+  Navigation.registerComponent('ItemScreen', () => ItemScreen, store, Provider1);
+  Navigation.registerComponent('FavoritesScreen', () => FavoritesScreen, store, Provider1);
+  Navigation.registerComponent('SearchScreen', () => SearchScreen, store, Provider1);
+  Navigation.registerComponent('CharmScreen', () => CharmScreen, store, Provider1);
+  Navigation.registerComponent('SkillScreen', () => SkillScreen, store, Provider1);
+  Navigation.registerComponent('MapScreen', () => MapScreen, store, Provider1);
+  Navigation.registerComponent('DecorationScreen', () => DecorationScreen, store, Provider1);
+  Navigation.registerComponent('AboutScreen', () => AboutScreen, store, Provider1);
+  Navigation.registerComponent('CombinationScreen', () => CombinationScreen, store, Provider1);
+  Navigation.registerComponent('ToolScreen', () => ToolScreen, store, Provider1);
+  Navigation.registerComponent('EndemicScreen', () => EndemicScreen, store, Provider1);
+  Navigation.registerComponent('SetBuilderScreen', () => SetBuilderScreen, store, Provider1);
+  Navigation.registerComponent('SetBuilderSelect', () => SetBuilderSelect, store, Provider1);
+  Navigation.registerComponent('SetSelectScreen', () => SetSelectScreen, store, Provider1);
+  Navigation.registerComponent('SetSelectScreen', () => SetSelectScreen, store, Provider1);
+  Navigation.registerComponent('WeaponSelectedScreen', () => WeaponSelectedScreen, store, Provider1);
+  Navigation.registerComponent('MonsterInfoScreen', () => MonsterInfoScreen, store, Provider1);
+  Navigation.registerComponent('TabInfoScreen', () => TabInfoScreen, store, Provider1);
+  Navigation.registerComponent('TablessInfoScreen', () => TablessInfoScreen, store, Provider1);
+  Navigation.registerComponent('EquipInfoScreen', () => EquipInfoScreen, store, Provider1);
+  Navigation.registerComponent('WeaponInfoScreen', () => WeaponInfoScreen, store, Provider1);
+  Navigation.registerComponent('EquipArmorSetScreen', () => EquipArmorSetScreen, store, Provider1);
 
 
   // DELETE to prevent vector icon error ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json
