@@ -315,6 +315,7 @@ class EquipArmorSetScreen extends PureComponent {
       statusBarTextColorScheme: this.props.theme.statusbar,
       statusBarColor: this.props.theme.background,
       tabBarBackgroundColor: this.props.theme.background,
+      screenBackgroundColor: this.props.theme.background,
     });
   }
 

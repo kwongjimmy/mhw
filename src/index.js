@@ -158,6 +158,7 @@ export default function startApp() {
         navBarTextColor: mainText, // change the text color of the title (remembered across pushes)
         navBarTextFontSize: 18, // change the font size of the title
         navBarBackgroundColor: background,
+        screenBackgroundColor: background,
       },
       tabsStyle: { // optional, **iOS Only** add this if you want to style the tab bar beyond the defaults
         tabBarHidden: false, // make the tab bar hidden
