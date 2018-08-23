@@ -897,15 +897,16 @@ class SearchScreen extends Component {
         <Header
           style={style}
           androidStatusBarColor={this.props.theme.background}
+          iosStatusbar='dark'
           noShadow={noShadow}
           searchBar rounded>
           <Item>
             <Icon active name="search" />
             <Input placeholder="Search" onChangeText={text => this.searchMatchingWords(text)}/>
           </Item>
-          <Button transparent>
+          {/* <Button transparent>
             <Text>Search</Text>
-          </Button>
+          </Button> */}
         </Header>
         {this.renderTabs()}
        <AdBanner/>
