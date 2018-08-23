@@ -315,7 +315,19 @@ class MonsterInfoScreen extends PureComponent {
     return null;
   }
 
+  setNavSettings() {
+    this.props.navigator.setStyle({
+      navBarButtonColor: this.props.theme.main,
+      navBarTextColor: this.props.theme.main,
+      navBarBackgroundColor: this.props.theme.background,
+      statusBarTextColorScheme: this.props.theme.statusbar,
+      statusBarColor: this.props.theme.background,
+      tabBarBackgroundColor: this.props.theme.background,
+    });
+  }
+
   render() {
+    this.setNavSettings();
     if (this.state.loading) {
       return this.renderContent();
     }

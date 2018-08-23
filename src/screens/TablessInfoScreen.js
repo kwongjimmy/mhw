@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import { Platform } from 'react-native';
 import CharmInfo from '../components/CharmInfo';
 import EquipArmorInfo from '../components/EquipArmorInfo';
@@ -15,7 +16,7 @@ import EndemicInfo from '../components/EndemicInfo';
 // Styles
 import colors from '../styles/colors';
 
-export default class TablessInfoScreen extends PureComponent {
+class TablessInfoScreen extends PureComponent {
   static navigatorStyle = {
     topBarElevationShadowEnabled: Platform.OS !== 'ios',
     topBarBorderColor: colors.accent,
@@ -36,7 +37,19 @@ export default class TablessInfoScreen extends PureComponent {
     }
   }
 
+  setNavSettings() {
+    this.props.navigator.setStyle({
+      navBarButtonColor: this.props.theme.main,
+      navBarTextColor: this.props.theme.main,
+      navBarBackgroundColor: this.props.theme.background,
+      statusBarTextColorScheme: this.props.theme.statusbar,
+      statusBarColor: this.props.theme.background,
+      tabBarBackgroundColor: this.props.theme.background,
+    });
+  }
+
   render() {
+    this.setNavSettings();
     if (this.props.type === 'monsterLoot') {
       return (
         <MonsterLoot navigator={this.props.navigator} categoryName={this.props.categoryName} lowRank={this.props.lowRank} monster_id={this.props.monster_id}/>
@@ -89,3 +102,9 @@ export default class TablessInfoScreen extends PureComponent {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(TablessInfoScreen);

@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import SkillInfo from '../components/SkillInfo';
 import MapInfo from '../components/MapInfo';
 import WeaponInfo from '../components/WeaponInfo';
@@ -6,7 +7,7 @@ import WeaponInfo from '../components/WeaponInfo';
 // Styles
 import colors from '../styles/colors';
 
-export default class TabInfoScreen extends PureComponent {
+class TabInfoScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -21,7 +22,19 @@ export default class TabInfoScreen extends PureComponent {
     }
   }
 
+  setNavSettings() {
+    this.props.navigator.setStyle({
+      navBarButtonColor: this.props.theme.main,
+      navBarTextColor: this.props.theme.main,
+      navBarBackgroundColor: this.props.theme.background,
+      statusBarTextColorScheme: this.props.theme.statusbar,
+      statusBarColor: this.props.theme.background,
+      tabBarBackgroundColor: this.props.theme.background,
+    });
+  }
+
   render() {
+    this.setNavSettings();
     if (this.props.type === 'maps') {
       return (
         <MapInfo navigator={this.props.navigator} map_id={this.props.item_id}/>
@@ -40,3 +53,9 @@ export default class TabInfoScreen extends PureComponent {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return state.settings;
+};
+
+export default connect(mapStateToProps, {})(TabInfoScreen);

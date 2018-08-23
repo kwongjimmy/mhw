@@ -436,7 +436,7 @@ class SearchScreen extends Component {
 
   renderListWeapons = ({ item }) => {
     return (
-      <WeaponListItem navigator={this.props.navigator} item={item} />
+      <WeaponListItem listItem navigator={this.props.navigator} item={item} />
     );
   }
 
@@ -869,7 +869,6 @@ class SearchScreen extends Component {
 
   render() {
     this.setNavSettings();
-    console.log(this.state);
     let noShadow = true;
     let style = {
       borderBottomWidth: (Platform.OS !== 'ios') ? 0 : 0,
