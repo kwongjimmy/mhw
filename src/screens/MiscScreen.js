@@ -109,6 +109,10 @@ class MiscScreen extends PureComponent {
           route: 'Theme',
           title: 'Theme',
         },
+        {
+          route: 'PrivacyPolicyScreen',
+          title: 'Privacy Policy',
+        },
       ],
       loading: false,
     };

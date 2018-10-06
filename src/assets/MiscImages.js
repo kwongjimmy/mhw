@@ -7,6 +7,7 @@ const MiscImages = {
   'Skills': require('./images/misc/ItemIcon026.png'),
   'Maps': require('./images/misc/ItemIcon027.png'),
   'About': require('./images/misc/ItemIcon058f.png'),
+  'Privacy Policy': require('./images/misc/ItemIcon058f.png'),
   'Remove Ads': require('./images/misc/ItemIcon060e.png'),
   'Theme': require('./images/misc/ItemIcon060e.png'),
   'Combination List': require('./images/misc/ItemIcon026c.png'),

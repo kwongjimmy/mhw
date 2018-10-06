@@ -28,7 +28,8 @@ import EndemicScreen from './screens/EndemicScreen';
 import SetBuilderScreen from './screens/SetBuilderScreen';
 import SetBuilderSelect from './screens/SetBuilderSelect';
 import SetSelectScreen from './screens/SetSelectScreen';
-
+import PrivacyPolicyScreen from './screens/PrivacyPolicyScreen';
+import WebViewScreen from './screens/WebViewScreen';
 
 import MonsterInfoScreen from './screens/MonsterInfoScreen';
 import EquipInfoScreen from './screens/EquipInfoScreen';
@@ -89,6 +90,8 @@ export default function startApp() {
   Navigation.registerComponent('EquipInfoScreen', () => EquipInfoScreen, store, Provider1);
   Navigation.registerComponent('WeaponInfoScreen', () => WeaponInfoScreen, store, Provider1);
   Navigation.registerComponent('EquipArmorSetScreen', () => EquipArmorSetScreen, store, Provider1);
+  Navigation.registerComponent('PrivacyPolicyScreen', () => PrivacyPolicyScreen, store, Provider1);
+  Navigation.registerComponent('WebViewScreen', () => WebViewScreen, store, Provider1);
 
 
   // DELETE to prevent vector icon error ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json
